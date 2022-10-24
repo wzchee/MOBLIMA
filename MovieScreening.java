@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class MovieScreening {
-    //private Movie movieObj;
+    private Movie movieObj;
     //private Cinema movieScreeningLocation;
     private Date time;
     private ArrayList<MovieTicket> ticketsSold;
