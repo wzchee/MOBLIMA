@@ -1,3 +1,3 @@
-public enum movieTypes{
-    ThreeD,Blockbuster, NonBlockbuster
-  }
+// public enum movieTypes{
+//     ThreeD,Blockbuster, NonBlockbuster
+//   }

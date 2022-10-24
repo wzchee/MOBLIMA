@@ -1,4 +1,7 @@
 import java.util.*;
+enum movieTypes{
+    ThreeD,Blockbuster, NonBlockbuster
+  }
 public class Movie {
   private String movieTitle;
   private String movieStatus;
