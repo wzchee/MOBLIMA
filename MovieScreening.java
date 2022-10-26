@@ -21,5 +21,5 @@ public class MovieScreening {
 //    public Cinema getCinema(){
 //        return movieScreeningLocation;
 //    }
-
+//
 }
