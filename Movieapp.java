@@ -3,6 +3,7 @@ public class Movieapp{
   Movie m1 = new Movie();
   m1.setMovieType(movieTypes.Blockbuster);
   System.out.println(m1.getMovieType());
+  System.out.println("Test");
 }
 
 }
