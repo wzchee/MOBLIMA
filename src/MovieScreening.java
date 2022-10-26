@@ -9,6 +9,7 @@ public class MovieScreening {
 
     public MovieScreening(){
         System.out.println("TO TEST GIT");
+        System.out.println("TO TEST GIT PART II");
     }
 
     public MovieTicket createMovieTicket(){
