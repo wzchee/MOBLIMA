@@ -1,4 +1,3 @@
-package com.mycompany.moblima;
 import java.util.Scanner;
 
 public class MOBLIMA {
