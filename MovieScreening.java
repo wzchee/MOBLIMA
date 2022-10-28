@@ -2,24 +2,35 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class MovieScreening {
-    private Movie movieObj;
+    //private Movie movieObj;
     //private Cinema movieScreeningLocation;
     private Date time;
-    private ArrayList<MovieTicket> ticketsSold;
-
+    //    private ArrayList<MovieTicket> ticketsSold; NOT SURE IF WANT THIS?
+    private boolean isPublicHoliday;
     public MovieScreening(){
+        //this.movie = movie;
+        //this.movieScreeningLocation = movieScreeningLocation;
+        // this.isPublicHoliday is initialised by using the time attribute above
 
     }
 
-    public MovieTicket createMovieTicket(){
-        MovieTicket movTix = new MovieTicket();
-        ticketsSold.add(movTix);
-        return movTix;
-    }
+
 
 
 //    public Cinema getCinema(){
 //        return movieScreeningLocation;
 //    }
-//
+
 }
+
+//===============================================================================
+//    private ArrayList<MovieTicket> ticketsSold; NOT SURE IF WANT THIS?
+//===============================================================================
+
+//    public MovieTicket createMovieTicket(){
+//        MovieTicket movTix = new MovieTicket();
+//        ticketsSold.add(movTix);
+//        return movTix;
+//    }
+
+//===============================================================================

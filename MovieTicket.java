@@ -4,7 +4,7 @@ public class MovieTicket {
     //private User userid;
 
 
-//    public Cinema getLocation(){
+    //    public Cinema getLocation(){
 //        return aMovieScreening.getCinema();
 //    }
     public MovieTicket(){
@@ -19,4 +19,22 @@ public class MovieTicket {
 //    }
 
 
+    public int calcPrice(//User userBuying){
+    //if this.aMovieScreening.getCinema.getCinemaClass{
+
+    //if this.aMovieScreening.movieObj.movietype{
+
+    //if userBuying.getAge ....
+
+    //if this.aMovieScreening.isPublicHoliday...
+
 }
+
+}
+
+//===============================================================================
+// Movie screening should have movie object and then in our movie ticket we can has - a movie screening only then can
+// we reference the cinema type, public holiday or not. Then in our movie
+
+//===============================================================================
+// ///
