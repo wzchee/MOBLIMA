@@ -18,6 +18,7 @@ public class MOBLIMA {
         int choice = input.nextInt();
         
         String email, password;
+        CharBuffer inputbuf = CharBuffer.allocate(1000); //User input converted into CharBuffer
         switch(choice){
             case 1:
                 System.out.println("\nWelcome STAFF!");
@@ -28,10 +29,21 @@ public class MOBLIMA {
 
                 // the following code will use the CharBuffer object, which simplifies comparison between String objects
                 InputStreamReader staffin = new FileReader("staff.txt"); //allows reading from the file staff.txt
-                CharBuffer stafftxt = CharBuffer.allocate(1000); //CharBuffer for reading from staff.txt
-                CharBuffer inputbuf = CharBuffer.allocate(1000); //User input converted into CharBuffer
+                CharBuffer rawstafftxt = CharBuffer.allocate(100000); //CharBuffer for reading from staff.txt
+                CharBuffer stafftxtcomp = CharBuffer.allocate(1000); //substring of rawstafftxt used for comparison
                 ArrayList<String> stafflist = new ArrayList<String>(); //to store staff data
-                staffin.read(stafftxt);
+                staffin.read(stafftxt); // read the file into the CharBuffer
+
+                // based on the formatting of staff.txt, email is the first entry followed by password, separated by commas
+                // each new line in staff.txt indicates a different user
+                // hence, will continuously fetch whole lines of code from '\n'+1 to the second ','-1
+                // and store into stafftxtcomp
+                // and use it to compare against inputbuf
+                // until a user match is found (send charAt into interface) OR
+                // until end of document is reached
+
+                while()
+
                 if(email.equals("admin") && password.equals("admin")){
                     Staff.main(["admin"]);
                 }
