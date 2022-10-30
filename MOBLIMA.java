@@ -52,36 +52,6 @@ public class MOBLIMA {
                      * 7. Repeat above steps until reached end of file
                      */
 
-                    /*
-                    CharBuffer rawtxtcomp = CharBuffer.allocate(1000); //substring of rawtxt used for comparison 
-
-                    rawtxtcomp.clear(); //clear the comparison buffer from previous iteration
-
-                    // at the end of do-while loop, rawtxtcomp should contain email of current user entry
-                    char c = rawtxt.get();
-                    do{
-                        rawtxtcomp.append(c); //append individual characters into comparison buffer
-                        c = rawtxt.get();
-                    }while(c != ','); //until reached the end of the email element
-                    
-                    // CharBuffer.clear() does not actually erase the data in the buffer
-                    // It only resets the position of the buffer to zero to allow overriding
-                    // Therefore there is a need to insert null character into the buffer
-                    // Until null character is reached
-                    // To delete the entirety of the previous record
-                    while(rawtxtcomp.charAt(0) != '\0') //basically get() without the increment
-                        rawtxtcomp.put('\0');
-
-                    // convert user inputted email into CharBuffer
-                    inputbuf.clear();
-                    inputbuf.put(email);
-
-                    // apparently compareTo() only compares the buffer from the CURRENT position
-                    // so there is a need to reset the position to zero before comparing
-                    rawtxtcomp.clear(); //reset position to zero without clearing content
-                    inputbuf.clear(); //reset position to zero without clearing content
-*/
-                    //// IGNORE LINE ABOVE FOR NOW
                     // convert user inputted email into CharBuffer
                     inputbuf.clear();
                     inputbuf.put(email);
