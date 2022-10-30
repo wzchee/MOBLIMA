@@ -84,8 +84,8 @@ public class MOBLIMA {
                                 // the passwords matched
                                 // send charAt into the interface
                                 // NOT DONE YET
-                                if(choice == 1) User.main(null);
-                                else if(choice == 2) Staff.main(null);
+                                if(choice == 1) User.loggedin(email);
+                                else if(choice == 2) Staff.loggedin(email);
                             } else {
                                 // the passwords do not match
                                 System.out.println("Wrong password!");
@@ -118,6 +118,7 @@ public class MOBLIMA {
                     InputStreamReader userin = new FileReader(System.getProperty("user.dir") + "\\src\\main\\java\\com\\mycompany\\moblima\\user.txt"); //allows reading from the file staff.txt
                     buffersize = userin.read(rawtxt); // read the file into the CharBuffer, return size of buffer
                     rawtxt.rewind(); // return cursor to start of buffer
+                    
                     // recursively check and match emails
                     while(rawtxt.position() < buffersize){
                         // convert user inputted email into CharBuffer
@@ -150,6 +151,7 @@ public class MOBLIMA {
                     System.out.println("Thank you for using MOBLIMA!");
                     break;
                 default:
+                System.out.println("Wrong input. Try again");
                     break;
             }
 
@@ -157,7 +159,7 @@ public class MOBLIMA {
         }
     }
 
-    private static BufferMatchReturn charBufferMatch(CharBuffer txtbuffer, CharBuffer inputbuf){
+    public static BufferMatchReturn charBufferMatch(CharBuffer txtbuffer, CharBuffer inputbuf){
         /*
          * Methodology:
          * 1. Compare buffer from .txt file against user input
