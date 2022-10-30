@@ -2,6 +2,7 @@ public class Staff {
     
     public static void main(String[] args){
         // User interface after logged into MOBLIMA as staff
+        System.out.println("Logged in");
 
     }
 
