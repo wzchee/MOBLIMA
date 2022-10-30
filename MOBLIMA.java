@@ -17,6 +17,8 @@ public class MOBLIMA {
         
         String email, password;
         CharBuffer inputbuf = CharBuffer.allocate(1000); //User input converted into CharBuffer
+        CharBuffer rawtxt = CharBuffer.allocate(100000); //CharBuffer for reading from .txt file
+        int buffersize; //size of CharBuffer that was read into
         switch(choice){
             case 1:
                 System.out.println("\nWelcome STAFF!");
@@ -27,36 +29,39 @@ public class MOBLIMA {
 
                 // the following code will use the CharBuffer object, which simplifies comparison between String objects
                 InputStreamReader staffin = new FileReader(System.getProperty("user.dir") + "\\src\\main\\java\\com\\mycompany\\moblima\\staff.txt"); //allows reading from the file staff.txt
-                CharBuffer rawstafftxt = CharBuffer.allocate(100000); //CharBuffer for reading from staff.txt
-                CharBuffer stafftxtcomp = CharBuffer.allocate(1000); //substring of rawstafftxt used for comparison
-                int buffersize = staffin.read(rawstafftxt); // read the file into the CharBuffer, return size of buffer
-                rawstafftxt.rewind(); // return cursor to start of buffer
+                buffersize = staffin.read(rawtxt); // read the file into the CharBuffer, return size of buffer
+                rawtxt.rewind(); // return cursor to start of buffer
                 
                 // based on the formatting of staff.txt, email is the first entry followed by password, separated by commas
                 // each new line in staff.txt indicates a different user
                 // hence, will continuously fetch whole lines of code from '\n'+1 to the second ','-1
-                // and store into stafftxtcomp
+                // and store into rawtxtcomp
                 // and use it to compare against inputbuf
                 // until a user match is found (send charAt into interface) OR
                 // until end of document is reached
 
-                while(rawstafftxt.position() < buffersize){ //while haven't reached end of buffer
-                    stafftxtcomp.clear(); //clear the comparison buffer from previous iteration
-
+                while(rawtxt.position() < buffersize){ //while haven't reached end of buffer
                     /*
                      * Methodology:
                      * 1. Read the email of the current entry
                      * 2. Compare against email inputted by user
-                     * 3. If passed, move on the password comparison
-                     * 4. If failed, move to next user entry
-                     * 5. Repeat above steps until reached end of file
+                     * 3. If email matching passed, move on the password comparison
+                     * 4. If email matching failed, move to next user entry
+                     * 5. If password matching passed, record the email and send user into the logged in UI
+                     * 6. If password matching failed, terminate as there is no more possible email matches
+                     * 7. Repeat above steps until reached end of file
                      */
 
-                    // at the end of do-while loop, stafftxtcomp should contain email of current user entry
-                    char c = rawstafftxt.get();
+                    /*
+                    CharBuffer rawtxtcomp = CharBuffer.allocate(1000); //substring of rawtxt used for comparison 
+
+                    rawtxtcomp.clear(); //clear the comparison buffer from previous iteration
+
+                    // at the end of do-while loop, rawtxtcomp should contain email of current user entry
+                    char c = rawtxt.get();
                     do{
-                        stafftxtcomp.append(c); //append individual characters into comparison buffer
-                        c = rawstafftxt.get();
+                        rawtxtcomp.append(c); //append individual characters into comparison buffer
+                        c = rawtxt.get();
                     }while(c != ','); //until reached the end of the email element
                     
                     // CharBuffer.clear() does not actually erase the data in the buffer
@@ -64,8 +69,8 @@ public class MOBLIMA {
                     // Therefore there is a need to insert null character into the buffer
                     // Until null character is reached
                     // To delete the entirety of the previous record
-                    while(stafftxtcomp.charAt(0) != '\0') //basically get() without the increment
-                        stafftxtcomp.put('\0');
+                    while(rawtxtcomp.charAt(0) != '\0') //basically get() without the increment
+                        rawtxtcomp.put('\0');
 
                     // convert user inputted email into CharBuffer
                     inputbuf.clear();
@@ -73,20 +78,34 @@ public class MOBLIMA {
 
                     // apparently compareTo() only compares the buffer from the CURRENT position
                     // so there is a need to reset the position to zero before comparing
-                    stafftxtcomp.clear(); //reset position to zero without clearing content
+                    rawtxtcomp.clear(); //reset position to zero without clearing content
                     inputbuf.clear(); //reset position to zero without clearing content
-                    if(stafftxtcomp.compareTo(inputbuf) == 0){
+*/
+                    //// IGNORE LINE ABOVE FOR NOW
+                    // convert user inputted email into CharBuffer
+                    inputbuf.clear();
+                    inputbuf.put(email);
+
+                    // compare the emails and obtain the match results
+                    BufferMatchReturn result = charBufferMatch(rawtxt, inputbuf);
+                    rawtxt = result.getBuffer();
+                    if(result.getMatch()){
                         // there is an email match
                         // move on the password screening section
 
                         // convert user inputted password into CharBuffer
                         inputbuf.clear();
                         inputbuf.put(password);
-                        if(passwordMatch(rawstafftxt, inputbuf)){
+
+                        // compare the passwords and obtain the result of the comparison
+                        BufferMatchReturn result2 = charBufferMatch(rawtxt, inputbuf);
+                        if(result2.getMatch()){
+                            // the passwords matched
                             // send charAt into the interface
                             // NOT DONE YET
                             Staff.main(null);
                         } else {
+                            // the passwords do not match
                             System.out.println("Wrong password!");
                         }
 
@@ -95,14 +114,15 @@ public class MOBLIMA {
                         break;
                     } else {
                         // move cursor until start of next user entry
+                        char c;
                         do{
-                            c = rawstafftxt.get();
+                            c = rawtxt.get();
                         }while(c != '\n');
                     }
 
                 }
 
-                if(rawstafftxt.position() == buffersize)
+                if(rawtxt.position() == buffersize)
                     System.out.println("No existing email record!");
                 break;
             case 2:
@@ -120,23 +140,39 @@ public class MOBLIMA {
         
     }
 
-    private static boolean passwordMatch(CharBuffer txtbuffer, CharBuffer inputbuf){
+    private static BufferMatchReturn charBufferMatch(CharBuffer txtbuffer, CharBuffer inputbuf){
         /*
          * Methodology:
          * 1. Read the password of the current entry
          * 2. Compare against password inputted by user
-         * 3. If passed, return true, which will send user into interface
-         * 4. If failed, return false, which will display wrong password
+         * 3. If passed, return match = true
+         * 4. If failed, return match = false
+         * 5. In both cases, also return txtbuffer to record the current position of the buffer
+         * 6. BufferMatchReturn object will be used to contain the multiple return values
+         * 
+         * Apparently compareTo() only compares the buffer from the CURRENT position
+         * So there is a need to reset the position to zero before comparing
+         * By using clear() on inputbuf
+         * But we need to retain the position of txtbuffer, so that one cannot clear()
          */
 
-        CharBuffer stafftxtcomp = CharBuffer.allocate(1000); //substring of rawstafftxt used for comparison
+        CharBuffer rawtxtcomp = CharBuffer.allocate(1000); //substring of rawtxt used for comparison
 
-        // at the end of do-while loop, stafftxtcomp should contain password of current user entry
+        // at the end of do-while loop, rawtxtcomp should contain the comparison substring we need
         char c = txtbuffer.get();
         do{
-            stafftxtcomp.append(c); //append individual characters into comparison buffer
+            rawtxtcomp.append(c); //append individual characters into comparison buffer
             c = txtbuffer.get();
         }while(c != ','); //until reached the end of the password element
-        return stafftxtcomp.compareTo(inputbuf) == 0;
+        
+        inputbuf.clear(); //reset position to zero for comparison, if not already done
+        rawtxtcomp.clear(); //reset position to zero for comparison
+        if(rawtxtcomp.compareTo(inputbuf) == 0){
+            BufferMatchReturn ret = new BufferMatchReturn(true, txtbuffer);
+            return ret;
+        } else {
+            BufferMatchReturn ret = new BufferMatchReturn(false, txtbuffer);
+            return ret;
+        }
     }
 }
