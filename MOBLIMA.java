@@ -83,13 +83,17 @@ public class MOBLIMA {
                         // at the end, break out of the current loop
                         // as there won't be anymore duplicate email
                         break;
+                    } else {
+                        // move cursor until start of next user entry
+                        do{
+                            c = rawstafftxt.get();
+                        }while(c != ',');
                     }
 
                 }
 
-                if(email.equals("admin") && password.equals("admin")){
-                    Staff.main(["admin"]);
-                }
+                if(rawstafftxt.position() == buffersize)
+                    System.out.println("No existing email record!");
                 break;
             case 2:
                 System.out.println("\nWelcome USER!");
@@ -130,11 +134,13 @@ public class MOBLIMA {
     }*/
 
     private static boolean passwordMatch(CharBuffer txtbuffer, CharBuffer inputbuf){
-        // read the password of the current entry
-        // compare against password stated
-        // if passed, enter user interface
-        // if failed, tell user to reenter password
-        // in both scenarios need to break out of while loop
+        /*
+         * Methodology:
+         * 1. Read the password of the current entry
+         * 2. Compare against password inputted by user
+         * 3. If passed, return true, which will send user into interface
+         * 4. If failed, return false, which will display wrong password
+         */
 
         CharBuffer stafftxtcomp = CharBuffer.allocate(1000); //substring of rawstafftxt used for comparison
 
