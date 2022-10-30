@@ -7,7 +7,7 @@ import java.nio.CharBuffer;
 
 public class MOBLIMA {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException, IOException {
         System.out.println("Welcome to MOBLIMA! Please login to use our services.");
         System.out.println("Are you logging in as USER or STAFF?");
         System.out.println("1. User");
@@ -29,12 +29,13 @@ public class MOBLIMA {
                 password = input.next();
 
                 // the following code will use the CharBuffer object, which simplifies comparison between String objects
-                InputStreamReader staffin = new FileReader("staff.txt"); //allows reading from the file staff.txt
+                InputStreamReader staffin = new FileReader(System.getProperty("user.dir") + "\\src\\main\\java\\com\\mycompany\\moblima\\staff.txt"); //allows reading from the file staff.txt
                 CharBuffer rawstafftxt = CharBuffer.allocate(100000); //CharBuffer for reading from staff.txt
                 CharBuffer stafftxtcomp = CharBuffer.allocate(1000); //substring of rawstafftxt used for comparison
                 ArrayList<String> stafflist = new ArrayList<String>(); //to store staff data
                 int buffersize = staffin.read(rawstafftxt); // read the file into the CharBuffer, return size of buffer
-
+                rawstafftxt.rewind(); // return cursor to start of buffer
+                
                 // based on the formatting of staff.txt, email is the first entry followed by password, separated by commas
                 // each new line in staff.txt indicates a different user
                 // hence, will continuously fetch whole lines of code from '\n'+1 to the second ','-1
@@ -61,10 +62,23 @@ public class MOBLIMA {
                         stafftxtcomp.append(c); //append individual characters into comparison buffer
                         c = rawstafftxt.get();
                     }while(c != ','); //until reached the end of the email element
+                    
+                    // CharBuffer.clear() does not actually erase the data in the buffer
+                    // It only resets the position of the buffer to zero to allow overriding
+                    // Therefore there is a need to insert null character into the buffer
+                    // Until null character is reached
+                    // To delete the entirety of the previous record
+                    while(stafftxtcomp.charAt(0) != '\0') //basically get() without the increment
+                        stafftxtcomp.put('\0');
 
                     // convert user inputted email into CharBuffer
+                    inputbuf.clear();
                     inputbuf.put(email);
 
+                    // apparently compareTo() only compares the buffer from the CURRENT position
+                    // so there is a need to reset the position to zero before comparing
+                    stafftxtcomp.clear(); //reset position to zero without clearing content
+                    inputbuf.clear(); //reset position to zero without clearing content
                     if(stafftxtcomp.compareTo(inputbuf) == 0){
                         // there is an email match
                         // move on the password screening section
@@ -75,7 +89,7 @@ public class MOBLIMA {
                         if(passwordMatch(rawstafftxt, inputbuf)){
                             // send charAt into the interface
                             // NOT DONE YET
-                            Staff.main();
+                            Staff.main(null);
                         } else {
                             System.out.println("Wrong password!");
                         }
@@ -87,7 +101,7 @@ public class MOBLIMA {
                         // move cursor until start of next user entry
                         do{
                             c = rawstafftxt.get();
-                        }while(c != ',');
+                        }while(c != '\n');
                     }
 
                 }
@@ -101,9 +115,6 @@ public class MOBLIMA {
                 email = input.next();
                 System.out.print("Enter your password: ");
                 password = input.next();
-                
-                InputStreamReader userin = new FileReader("user.txt");
-                ArrayList<String> userlist = new ArrayList<String>(); //to store user data
                 break;
             case 3:
                 
@@ -150,9 +161,6 @@ public class MOBLIMA {
             stafftxtcomp.append(c); //append individual characters into comparison buffer
             c = txtbuffer.get();
         }while(c != ','); //until reached the end of the password element
-
-        if(stafftxtcomp.compareTo(inputbuf) == 0){
-            return true;
-        } else return false;
+        return stafftxtcomp.compareTo(inputbuf) == 0;
     }
 }
