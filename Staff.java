@@ -35,7 +35,7 @@ public class Staff {
             System.out.println("6. Remove a cinema showtime for one movie");
             System.out.println("7. Configure system settings");
             System.out.println("8. List Top 5 movies by ticket sales");
-            System.out.println("9. List Top 5 movies by overall reviewer's rating")
+            System.out.println("9. List Top 5 movies by overall reviewer's rating");
             System.out.println("10. Logout");
             System.out.print("Please enter your choice here: ");
 
@@ -61,7 +61,7 @@ public class Staff {
                     break;
                 case 9:
                     break;
-                case 10;
+                case 10:
                     System.out.println("Logging out as staff...");
                     System.out.println("Returning to main page...");
                     break;
@@ -87,13 +87,13 @@ public class Staff {
 
     private String name;
     public String getName(){return name;}
-    public void setName()(String name){this.name = name;}
+    public void setName(String name){this.name = name;}
 
     private Cineplex workplace;
     public Cineplex getWorkplace(){return workplace;}
     public void setWorkplace(Cineplex workplace){this.workplace = workplace;}
 
-    private static Staff fetchDetails(String useremail){
+    private static Staff fetchDetails(String useremail) throws FileNotFoundException, IOException{
         // read from staff.txt
         InputStreamReader staffin = new FileReader(System.getProperty("user.dir") + "\\src\\main\\java\\com\\mycompany\\moblima\\staff.txt");
         CharBuffer rawtxt = CharBuffer.allocate(10000);

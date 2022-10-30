@@ -25,7 +25,7 @@ public class User {
         // User main menu
         int choice = 0;
         while(choice != 6){
-            System.out.println("Welcome USER " + this.name + " !");
+            System.out.println("Welcome USER " + name + " !");
             System.out.println("What would you like to do today?");
             System.out.println("1. Search for movie and view movie details");
             System.out.println("2. Check seat availability");
@@ -57,6 +57,7 @@ public class User {
                     System.out.println("Wrong choice. Try again!");
                     break;
             }
+        }
     }
 
     public User(String email, String password, int age, String name, String mobileNumber){
@@ -80,13 +81,13 @@ public class User {
 
     private String name;
     public String getName(){return name;}
-    public void setName(int name){this.name = name;}
+    public void setName(String name){this.name = name;}
 
     private String mobileNumber;
     public String getMobileNumber(){return mobileNumber;}
     public void setMobileNumber(String mobileNumber){this.mobileNumber = mobileNumber;}
 
-    private static User fetchDetails(String useremail){
+    private static User fetchDetails(String useremail) throws FileNotFoundException, IOException{
         // read from user.txt
         InputStreamReader userin = new FileReader(System.getProperty("user.dir") + "\\src\\main\\java\\com\\mycompany\\moblima\\user.txt");
         CharBuffer rawtxt = CharBuffer.allocate(10000);
@@ -124,7 +125,7 @@ public class User {
                 c = rawtxt.get(); //move to the next attribute
 
                 // reading age
-                char c = rawtxt.get();
+                c = rawtxt.get();
                 do{
                     txtage.append(c); //append individual characters into comparison buffer
                     c = rawtxt.get();
