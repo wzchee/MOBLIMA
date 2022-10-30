@@ -1,18 +1,27 @@
 public class Cineplex {
+    private String cineplexName;
     private Cinema[] cinemas = new Cinema[3];
 
-    public Cineplex() {
+    public Cineplex(String cineplexName) {
+        this.cineplexName = cineplexName;
     }
 
-    public void addCinema(int index, String cinemaName){
-        this.cinemas[index].cinemaName =  cinemaName;
+    public Cineplex() {}
+
+    public String getCineplexName() {
+        return this.cineplexName;
+    }
+
+    public void setCineplexName(String cineplexName) {
+        this.cineplexName = cineplexName;
+    }
+
+    public void addCinema(int index, String cinemaName, boolean platinumSuites){
+        this.cinemas[index].setCinemaName(cinemaName);
+        this.cinemas[index].setPlatinumSuite(platinumSuites);
     }
 
     public Cinema getCinema(int index){
         return cinemas[index];
-    }
-
-    public void replaceCinema(int index, String cinemaName){
-        this.cinemas[index].cinemaName = cinemaName;
     }
 }
