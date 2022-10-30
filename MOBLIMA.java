@@ -1,8 +1,5 @@
 import java.util.Scanner;
-import java.util.StringTokenizer;
-import java.util.ArrayList;
 import java.io.*;
-import java.nio.BufferUnderflowException;
 import java.nio.CharBuffer;
 
 public class MOBLIMA {
@@ -32,7 +29,6 @@ public class MOBLIMA {
                 InputStreamReader staffin = new FileReader(System.getProperty("user.dir") + "\\src\\main\\java\\com\\mycompany\\moblima\\staff.txt"); //allows reading from the file staff.txt
                 CharBuffer rawstafftxt = CharBuffer.allocate(100000); //CharBuffer for reading from staff.txt
                 CharBuffer stafftxtcomp = CharBuffer.allocate(1000); //substring of rawstafftxt used for comparison
-                ArrayList<String> stafflist = new ArrayList<String>(); //to store staff data
                 int buffersize = staffin.read(rawstafftxt); // read the file into the CharBuffer, return size of buffer
                 rawstafftxt.rewind(); // return cursor to start of buffer
                 
