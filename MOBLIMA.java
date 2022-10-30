@@ -120,26 +120,6 @@ public class MOBLIMA {
         
     }
 
-    /*
-    private boolean bufferLimitReached(CharBuffer buffer){
-        /*
-         * Check if CharBuffer reached the end
-         * Return true if yes, false otherwise
-         * 
-         * Method: CharBuffer.get() will reach the current character
-         * Then increment the position of the buffer
-         * If, on reading the character, get() detects that the position of the buffer is beyond the limit
-        
-        try{
-            char c = buffer.get();
-        }catch(BufferUnderflowException e){
-            // buffer went beyond the limit
-            return true;
-        }
-        // buffer is still within limit
-        return false;
-    }*/
-
     private static boolean passwordMatch(CharBuffer txtbuffer, CharBuffer inputbuf){
         /*
          * Methodology:
