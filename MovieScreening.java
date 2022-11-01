@@ -11,6 +11,7 @@ public class MovieScreening {
     private ArrayList<MovieTicket> ticketsSold;
     //NOT SURE IF WANT THIS?
     private boolean isPublicHoliday;
+    public int numOfOccupiedSeats;
 
 
     public MovieScreening(Movie movieObj,Cinema movieScreeningLocation,boolean isPublicHoliday){
@@ -20,7 +21,12 @@ public class MovieScreening {
         for(int i=0;i<100;i++){
             seatArr[i] = new Seat(i,false);
         }
+        this.numOfOccupiedSeats = 0;
     }   
+
+    public void incrementOccupiedSeat(){
+        this.numOfOccupiedSeats++;
+    }
 
     public void displayLayout(){
         for(int i=0;i<10;i++){
@@ -31,7 +37,7 @@ public class MovieScreening {
                     System.out.print("[" + this.seatArr[i*10 + j].getId() + "] ");
                 }
                 
-            })
+            }
             System.out.println();
 
         }
