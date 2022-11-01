@@ -1,17 +1,20 @@
 import java.util.ArrayList;
 import java.util.Date;
 
-public class MovieScreening {
-    //private Movie movieObj;
-    //private Cinema movieScreeningLocation;
-    private Date time;
 
-    //    private ArrayList<MovieTicket> ticketsSold; NOT SURE IF WANT THIS?
+
+public class MovieScreening {
+    private Movie movieObj;
+    private Cinema movieScreeningLocation;
+//    private Date time;
+    private Seat[] mySeatArr;
+    private ArrayList<MovieTicket> ticketsSold;
+    //NOT SURE IF WANT THIS?
     private boolean isPublicHoliday;
-    public MovieScreening(){
-        //this.movie = movie;
-        //this.movieScreeningLocation = movieScreeningLocation;
-        // this.isPublicHoliday is initialised by using the time attribute above
+    public MovieScreening(Movie movieObj,Cinema movieScreeningLocation,boolean isPublicHoliday){
+        this.movieObj = movieObj;
+        this.movieScreeningLocation = movieScreeningLocation;
+        this.isPublicHoliday = isPublicHoliday;
 
     }
 

@@ -9,13 +9,14 @@ public class Cinema {
     private String[] movieScreening = new String[24];
 
 
-    public Cinema(String cinemaName, boolean platinumSuites){
+    public Cinema(String cinemaName, boolean platinumSuites) {
         this.cinemaName = cinemaName;
         this.platinumSuites = platinumSuites;
 
     }
 
-    public Cinema() {}
+    public Cinema() {
+    }
 
     public String getCinemaName() {
         return this.cinemaName;
@@ -29,7 +30,7 @@ public class Cinema {
         return this.platinumSuites;
     }
 
-    public void setPlatinumSuite(boolean isPlatinumSuites){
+    public void setPlatinumSuite(boolean isPlatinumSuites) {
         this.platinumSuites = isPlatinumSuites;
     }
 
@@ -41,13 +42,11 @@ public class Cinema {
         this.movieList[index] = movieName;
     }
 
-    public String getMovieTime(int index){
+    public String getMovieTime(int index) {
         return this.movieScreening[index];
     }
 
-    public void setMovieTime(int index, String movie){
+    public void setMovieTime(int index, String movie) {
         this.movieScreening[index] = movie;
     }
-
-
 }
