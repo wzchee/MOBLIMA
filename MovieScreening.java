@@ -50,9 +50,14 @@ public class MovieScreening {
    public Cinema getCinema(){
        return movieScreeningLocation;
    }
-
-    public void createBooking(int seatid){
-        seatArr[seatid].setIsOccupied(true);
+                            //identify user
+    public void createBooking(string useremail){
+        //user will pass in the movie title, cinema hall name,date time in the UI and we will concatenate to
+        //fetchDetail for movieScreening (ALL THESE IN THE UI, not in this class)
+        
+        
+        
+        //create an entry on the txt with attributes (concatenated)aMovieScreening and useremail 
     }
 
 }
