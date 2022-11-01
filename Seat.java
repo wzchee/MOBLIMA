@@ -2,11 +2,11 @@ public class Seat{
   private int id;
   private boolean isOccupied;
 
-  Public Seat(int id, boolean isOccupied){
+  public Seat(int id, boolean isOccupied){
     this.id = id;
     this.isOccupied = isOccupied;
   }
-  Public Seat(){
+  public Seat(){
     
   }
   public int getId(){
