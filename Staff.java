@@ -16,7 +16,7 @@ public class Staff {
      * 5. The second element of the entry must be password
      */
 
-    public static void loggedin(String useremail){
+    public static void loggedin(String useremail) throws FileNotFoundException, IOException{
         // User interface after a STAFF has logged in
 
         // Firstly, fetch details from staff.txt for use in later functions
@@ -25,7 +25,7 @@ public class Staff {
         // Staff main menu
         int choice = 0;
         while(choice != 10){
-            System.out.println("Welcome STAFF " + this.name + " !");
+            System.out.println("Welcome STAFF " + sessionUser.name + " !");
             System.out.println("What would you like to do today?");
             System.out.println("1. Create a movie listing");
             System.out.println("2. Update a movie listing");
