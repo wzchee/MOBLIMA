@@ -196,3 +196,7 @@ public class MOBLIMA {
         }
     }
 }
+
+// //fetchdetail is to create an object that has entry inside the txt alrd, should be a class method and return a new object
+
+// case 3: to write in (but it is not creating java object because we do not have any use for the java object now so dont need create the object yet found in UI in moblima.java)

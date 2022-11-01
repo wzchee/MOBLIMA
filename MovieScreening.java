@@ -8,7 +8,6 @@ public class MovieScreening {
     private Cinema movieScreeningLocation;
     private LocalDate mydate;
     private Seat[] seatArr;
-    private ArrayList<MovieTicket> ticketsSold;
     //NOT SURE IF WANT THIS?
     private boolean isPublicHoliday;
     public int numOfOccupiedSeats;
@@ -23,6 +22,7 @@ public class MovieScreening {
             seatArr[i] = new Seat(i,false);
         }
         this.numOfOccupiedSeats = 0;
+
     }   
 
     public void incrementOccupiedSeat(){
@@ -47,9 +47,13 @@ public class MovieScreening {
     }
 
 
-//    public Cinema getCinema(){
-//        return movieScreeningLocation;
-//    }
+   public Cinema getCinema(){
+       return movieScreeningLocation;
+   }
+
+    public void createBooking(int seatid){
+        seatArr[seatid].setIsOccupied(true);
+    }
 
 }
 
