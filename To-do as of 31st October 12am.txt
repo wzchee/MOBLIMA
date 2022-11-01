@@ -55,7 +55,7 @@ MovieScreening.java
 - set??() to also change the values on the file
 - Add in keyID attribute that autogenerates when writing a new screening. keyID = concatenate(Cinema.getName(), Date.toString(), Time.toString(), Movie.getName())
 - Add in method to remove screening. This method simply changes status to "End of Showing". This method should also change values from a file
--
+- (not discussed yet) each cineplex should only have one cinema with the same date, time and movie that is being screened. Implement something that fixes this integrity
 
 MovieTicket.java
 - Implement file reading and writing to store list of tickets (keyID = TID)
