@@ -16,7 +16,7 @@ public class User {
      * 5. The second element of the entry must be password
      */
     
-    public static void loggedin(String useremail){
+    public static void loggedin(String useremail) throws FileNotFoundException, IOException{
         // User interface after a USER has logged in
 
         // Firstly, fetch details from user.txt for use in later functions
@@ -25,7 +25,7 @@ public class User {
         // User main menu
         int choice = 0;
         while(choice != 6){
-            System.out.println("Welcome USER " + name + " !");
+            System.out.println("Welcome USER " + sessionUser.name + " !");
             System.out.println("What would you like to do today?");
             System.out.println("1. Search for movie and view movie details");
             System.out.println("2. Check seat availability");
