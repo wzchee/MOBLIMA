@@ -7,7 +7,7 @@ public class MovieTicket {
     //    public Cinema getLocation(){
 //        return aMovieScreening.getCinema();
 //    }
-    public MovieTicket(){
+    public MovieTicket() {
 
     }
 //    public Seat getSeat(){
@@ -19,18 +19,19 @@ public class MovieTicket {
 //    }
 
 
-    public int calcPrice(//User userBuying){
-    //if this.aMovieScreening.getCinema.getCinemaClass{
+    public int calcPrice(User userbuying) {
+        //if this.aMovieScreening.getCinema.getCinemaClass{
 
-    //if this.aMovieScreening.movieObj.movietype{
+        //if this.aMovieScreening.movieObj.movietype{
 
-    //if userBuying.getAge ....
+        //if userBuying.getAge ....
 
-    //if this.aMovieScreening.isPublicHoliday...
-
+        //if this.aMovieScreening.isPublicHoliday...
+        return 1;
+    }
 }
 
-}
+
 
 //===============================================================================
 // Movie screening should have movie object and then in our movie ticket we can has - a movie screening only then can
