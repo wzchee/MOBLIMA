@@ -26,22 +26,24 @@ User.java
 - Add in UI to review a movie
 
 Cinema.java
-- Implement file reading and writing to store list of cinemas
+- Implement file reading and writing to store list of cinemas (keyID = name)
 - (Optional) set??() to also change the values on the file
 - Add in UI method to show the cinema layout when user enquires. Method will also be used when making a booking. Layout will contain aisle and main stairway...
 
 Cineplex.java
-- Implement file reading and writing to store list of cineplexes
+- Implement file reading and writing to store list of cineplexes (keyID = name)
 - (Optional) set??() to also change the values on the file
 - (not discussed yet) add in attribute boolean publicHoliday. Configurable by staff. Used to adjust the pricing of ticket
 - (not discussed yet) no need array of movies? just store them to a text file. that way, every cineplex and every cinema can refer to it
 
 Movie.java
-- Implement file reading and writing to store list of movies
+- Implement file reading and writing to store list of movies (keyID = name)
 - set??() to also change the values on the file
 - Add in method to remove movie. This method should also remove values from the file
 - Add in UI method for when users search for movie details. UI to display all movies / movie searched by name (?) and necessary attributes. Can check Assignment question document pg2 for details
-- Implement file reading and writing to store list of reviews
+- Implement file reading and writing to store list of reviews (keyID = manual indexing)
+- (Optional) set??() to also change the values on the file
+- Add in keyID attribute that autogenerates when writing a new review. keyID = concatenate(User.getName() + Movie.getName())
 - Add in method to make a review
 - Add in method to show reviews for a movie
 - Add in method to return top 5 movies after taking review average and implementing a sorting algorithm
@@ -49,12 +51,15 @@ Movie.java
 - (not discussed yet) add in an overall rating attribute that updates each time a new review for the movie comes in. Otherwise, average rating can also be calculated on request
 
 MovieScreening.java
-- Implement file reading and writing to store list of movies
+- Implement file reading and writing to store list of movies (keyID = manual indexing)
 - set??() to also change the values on the file
+- Add in keyID attribute that autogenerates when writing a new screening. keyID = concatenate(Cinema.getName(), Date.toString(), Time.toString(), Movie.getName())
 - Add in method to remove screening. This method simply changes status to "End of Showing". This method should also change values from a file
 -
 
 MovieTicket.java
+- Implement file reading and writing to store list of tickets (keyID = TID)
+- (optional) set??() to also change the values on the file
 - Add in UI method for making a booking. This method may contain
 --- Method from Movie.java to search for a movie
 --- Method from Cinema.java to show cinema layout and pick a seat
