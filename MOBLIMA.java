@@ -34,11 +34,13 @@ public class MOBLIMA {
                     password = input.next();
                     // the following code will use the CharBuffer object, which simplifies comparison between String objects
                     if(choice == 1){
-                        InputStreamReader userin = new FileReader(System.getProperty("user.dir") + "\\src\\main\\java\\com\\mycompany\\moblima\\user.txt"); //allows reading from the file staff.txt
+                        InputStreamReader userin = new FileReader(System.getProperty("user.dir") + "\\src\\main\\user.txt"); //allows reading from the file staff.txt
+                        // "\\src\\main\\java\\com\\mycompany\\moblima\\user.txt"
                         buffersize = userin.read(rawtxt); // read the file into the CharBuffer, return size of buffer
                         userin.close();
                     } else if(choice == 2){
-                        InputStreamReader staffin = new FileReader(System.getProperty("user.dir") + "\\src\\main\\java\\com\\mycompany\\moblima\\staff.txt"); //allows reading from the file staff.txt
+                        InputStreamReader staffin = new FileReader(System.getProperty("user.dir") + "\\src\\main\\staff.txt"); //allows reading from the file staff.txt
+                        // "\\src\\main\\java\\com\\mycompany\\moblima\\staff.txt"
                         buffersize = staffin.read(rawtxt); // read the file into the CharBuffer, return size of buffer
                         staffin.close();
                     }   
