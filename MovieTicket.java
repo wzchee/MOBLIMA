@@ -1,22 +1,23 @@
 public class MovieTicket {
     private MovieScreening aMovieScreening;
-    //private Seat mySeat;
-    //private User userid;
+    private Seat mySeat;
+    private User userObj;
 
 
     //    public Cinema getLocation(){
 //        return aMovieScreening.getCinema();
 //    }
-    public MovieTicket() {
-
+    public MovieTicket(Seat mySeat,User userObj) {
+        this.mySeat = mySeat;
+        this.userObj = userObj;
     }
-//    public Seat getSeat(){
-//        return this.mySeat;
-//    }
-//
-//    public User getUser(){
-//        return this.userid;
-//    }
+   public Seat getSeat(){
+       return this.mySeat;
+   }
+
+   public User getUser(){
+       return this.userid;
+   }
 
 
     public int calcPrice(User userbuying) {
