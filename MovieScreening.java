@@ -5,6 +5,7 @@ public class MovieScreening {
     //private Movie movieObj;
     //private Cinema movieScreeningLocation;
     private Date time;
+    // sout
     //    private ArrayList<MovieTicket> ticketsSold; NOT SURE IF WANT THIS?
     private boolean isPublicHoliday;
     public MovieScreening(){
