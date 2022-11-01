@@ -18,7 +18,7 @@ public class MovieScreening {
         this.movieObj = movieObj;
         this.movieScreeningLocation = movieScreeningLocation;
         this.isPublicHoliday = isPublicHoliday;
-        for(int i=0;i<100;i++){
+        for(int i=0;i<movieScreeningLocation.getNumOfSeats();i++){
             seatArr[i] = new Seat(i,false);
         }
         this.numOfOccupiedSeats = 0;
@@ -29,7 +29,7 @@ public class MovieScreening {
     }
 
     public void displayLayout(){
-        for(int i=0;i<10;i++){
+        for(int i=0;i<movieScreeningLocation.getNumOfSeats()/10;i++){
             for(int j=0;j<10;j++){
                 if(this.seatArr[i*10 + j].getIsOccupied()){
                     System.out.print("[" + "x" + "] ");
