@@ -7,17 +7,12 @@ public class Cinema {
     private boolean platinumSuites;
     private String[] movieList = new String[100];
     private String[] movieScreening = new String[24];
-    private Seat[][] cinemaSeats;
+
 
     public Cinema(String cinemaName, boolean platinumSuites){
         this.cinemaName = cinemaName;
         this.platinumSuites = platinumSuites;
-        for (int i = 0; i<10; i++){
-            for (int j = 0; j<10; j++){
-                cinemaSeats[i][j].setId(-1);
-                cinemaSeats[i][j].setIsOccupied(false);
-            }
-        }
+
     }
 
     public Cinema() {}
@@ -52,15 +47,6 @@ public class Cinema {
 
     public void setMovieTime(int index, String movie){
         this.movieScreening[index] = movie;
-    }
-
-    public Seat getSeat(int row, int col) {
-        return this.cinemaSeats[row][col];
-    }
-
-    public void reserveSeat(int row, int col, int id) {
-        this.cinemaSeats[row][col].setId(id);
-        this.cinemaSeats[row][col].setIsOccupied(false);
     }
 
 
