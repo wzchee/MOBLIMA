@@ -196,6 +196,9 @@ public class MOBLIMA {
             return ret;
         }
     }
+
+    
+
 }
 
 // //fetchdetail is to create an object that has entry inside the txt alrd, should be a class method and return a new object
