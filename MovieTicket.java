@@ -2,11 +2,11 @@ public class MovieTicket {
     private MovieScreening aMovieScreening;
     private int seatNumber;
     private User userObj;
-    private int price;
+    private Double price;
 
 
 
-    public MovieTicket(int seatNumber,User userObj,int price) {
+    public MovieTicket(MovieScreening aMovieScreening, int seatNumber,User userObj,Double price) {
         this.seatNumber = seatNumber;
         this.userObj = userObj;
         this.aMovieScreening = aMovieScreening;
@@ -25,7 +25,7 @@ public class MovieTicket {
        return this.userObj;
    }
 
-   public Cinema getPrice(){
+   public Double getPrice(){
     return this.getPrice();
     }
     
