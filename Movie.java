@@ -91,14 +91,6 @@ public void  setMovieRating(int rating){
 public void setPastReviews(String[] pastReviews){
   this.pastReviews = pastReviews;
 }
-public void editMovie(){
-
-}
-
-public static Movie fetchDetails(String movieTitle){
-  
-}
-
 
 
 }
