@@ -44,6 +44,9 @@ public String getMovieTitle(){
 public String getMovieStatus(){
   return this.movieStatus.toString();
 }
+public String getMovieDims(){
+  return this.dims.toString();
+}
 public boolean getBlockbuster(){
   return this.blockbuster;
 }
@@ -65,8 +68,15 @@ public String[] getPastReviews(){
 public int getSaleVolume(){
   return this.saleVolume;
 }
+public void setSaleVolume(int saleVolume){
+  this.saleVolume = saleVolume;
+}
 public void setBlockbuster(boolean blockbuster){
   this.blockbuster = blockbuster;
+}
+
+public void setMovieDims(dimension dims){
+  this.dims = dims;
 }
 
 public void setMovieTitle(String movieTitle){

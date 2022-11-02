@@ -22,6 +22,7 @@ public class MOBLIMA {
             CharBuffer inputbuf = CharBuffer.allocate(1000); //User input converted into CharBuffer
             CharBuffer rawtxt = CharBuffer.allocate(100000); //CharBuffer for reading from .txt file
             int buffersize = 0; //size of CharBuffer that was read into
+            
             switch (choice) {
                 case 1:
                 case 2:
