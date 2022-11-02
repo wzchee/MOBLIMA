@@ -22,7 +22,7 @@ public class updatedstaff {
         // User interface after a STAFF has logged in
 
         // Firstly, fetch details from staff.txt for use in later functions
-        Staff sessionUser = fetchDetails(useremail);
+        updatedstaff sessionUser = fetchDetails(useremail);
 
         // Staff main menu
         int choice = 0;
