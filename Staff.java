@@ -1,6 +1,7 @@
 import java.util.Scanner;
 import java.io.*;
 import java.nio.CharBuffer;
+import java.time.LocalDateTime;
 
 public class Staff {
     /*
@@ -41,6 +42,10 @@ public class Staff {
 
             Scanner input = new Scanner(System.in);
             choice = input.nextInt();
+            CharBuffer inputbuf = CharBuffer.allocate(1000); //User input converted into CharBuffer
+            CharBuffer rawtxt = CharBuffer.allocate(100000); //CharBuffer for reading from .txt file
+            int buffersize = 0; //size of CharBuffer that was read into
+
 
             switch(choice){
                 case 1:
@@ -51,7 +56,92 @@ public class Staff {
                 case 3:
                     break;
                 case 4:
+                    System.out.print("Please enter your Movie Title: ");
+                    String movieTitleToFetch = input.next();
+                    Movie toFetchMovie = Movie.fetchDetails(movieTitleToFetch);
+                    String movieTitleToConcat = toFetchMovie.getMovieTitle();
+
+
+
+                    System.out.print("Please enter your Cinema Name: ");
+                    String cinemaNameToFetch = input.next();
+                    Cinema toFetchCinema = Cinema.fetchDetails(cinemaNameToFetch);
+                    String cinemaNameToConcat = toFetchCinema.getCinemaName();
+
+
+                    System.out.println("Please Enter Date and Time  [YYYY,MM,DD,HH,MM]");
+                    String date = input.next();
+                    String[] arrOfString = date.split(",");
+                    int year = Integer.parseInt(arrOfString[0]);
+                    int month = Integer.parseInt(arrOfString[1]);
+                    int day = Integer.parseInt(arrOfString[2]);
+                    int hour = Integer.parseInt(arrOfString[3]);
+                    int minute = Integer.parseInt(arrOfString[4]);
+                    LocalDateTime myDate = LocalDateTime.of(year, month, day, hour, minute, 0);
+                    String dateTimeToConcat = myDate.toString();
+
+                    
+                    String keyIdOfMovieScreening = movieTitleToConcat.concat(cinemaNameToConcat).concat(dateTimeToConcat);
+
+
+                    
+                    // check if existing email already exists
+                    // read from user.txt
+                    InputStreamReader userin = new FileReader(System.getProperty("user.dir") + "\\src\\main\\java\\com\\mycompany\\moblima\\movieScreening.txt");
+                    buffersize = userin.read(rawtxt); // read the file into the CharBuffer, return size of buffer
+                    rawtxt.rewind(); // return cursor to start of buffer
+                    
+                    // recursively check and match emails
+                    while(rawtxt.position() < buffersize){
+                        // convert user inputted email into CharBuffer
+                        inputbuf.clear();
+                        inputbuf.put(keyIdOfMovieScreening);
+                        
+                        // compare the emails and obtain the match results
+                        BufferMatchReturn result = charBufferMatch(rawtxt, inputbuf);
+                        rawtxt = result.getBuffer();
+                        if(result.getMatch()){
+                            System.out.println("MovieScreening already exists!");
+                            return;
+                        } else {
+                            // move cursor until start of next user entry
+                            char c;
+                            do{
+                                c = rawtxt.get();
+                            }while(c != '\n');
+                        }
+                    }   // if reached this point, that means no existing email exists
+                    
+                    // write to user.txt
+                    // second argument to start writing from end instead of beginning
+
+                    String seatArr="";
+                    for(int i= 0 ;i<100;i++){
+                        if(i==0){
+                            seatArr += "[";
+                            seatArr += "0";
+                        }else{
+                            seatArr += ",";
+                            seatArr += "0";
+                        }
+                    }
+                    seatArr += "]";
+
+                    OutputStreamWriter userout = new FileWriter(System.getProperty("user.dir") + "\\src\\main\\java\\com\\mycompany\\moblima\\movieScreening.txt", true);
+                    System.out.print("Is it a public holiday: [y/n]");
+                    String isPublicHoliday = input.next();
+
+                    if(isPublicHoliday=="n"){
+                        userout.write(keyIdOfMovieScreening + "," + movieTitleToConcat + "," + cinemaNameToConcat+ "," + dateTimeToConcat+ "," + seatArr + ","+ "false" + "," + 0 + ",\n");
+
+                    }else{
+                        userout.write(keyIdOfMovieScreening + "," + movieTitleToConcat + "," + cinemaNameToConcat+ "," + dateTimeToConcat+ "," + seatArr + ","+ "true" + "," + 0 + ",\n");
+                    }
+                    
+                    userout.close();
+                    System.out.println("Movie Screening successfully created!");
                     break;
+
                 case 5:
                     break;
                 case 6:
@@ -72,6 +162,42 @@ public class Staff {
             }
         }
     }
+
+    public static BufferMatchReturn charBufferMatch(CharBuffer txtbuffer, CharBuffer inputbuf){
+        /*
+         * Methodology:
+         * 1. Compare buffer from .txt file against user input
+         * 2. If passed, return match = true
+         * 3. If failed, return match = false
+         * 4. In both cases, also return txtbuffer to record the current position of the buffer
+         * 5. BufferMatchReturn object will be used to contain the multiple return values
+         * 
+         * Apparently compareTo() only compares the buffer from the CURRENT position
+         * So there is a need to reset the position to zero before comparing
+         * By using clear() on inputbuf
+         * But we need to retain the position of txtbuffer, so that one cannot clear()
+         */
+
+        CharBuffer rawtxtcomp = CharBuffer.allocate(1000); //substring of rawtxt used for comparison
+
+        // at the end of do-while loop, rawtxtcomp should contain the comparison substring we need
+        char c = txtbuffer.get();
+        do{
+            rawtxtcomp.append(c); //append individual characters into comparison buffer
+            c = txtbuffer.get();
+        }while(c != ','); //until reached the end of the password element
+        
+        inputbuf.clear(); //reset position to zero for comparison, if not already done
+        rawtxtcomp.clear(); //reset position to zero for comparison
+        if(rawtxtcomp.compareTo(inputbuf) == 0){
+            BufferMatchReturn ret = new BufferMatchReturn(true, txtbuffer);
+            return ret;
+        } else {
+            BufferMatchReturn ret = new BufferMatchReturn(false, txtbuffer);
+            return ret;
+        }
+    }
+
 
     public Staff(String email, String password, String name, Cineplex workplace){
         this.email = email;

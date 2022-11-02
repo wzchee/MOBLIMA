@@ -1,12 +1,12 @@
 public class MovieTicket {
     private MovieScreening aMovieScreening;
-    private Seat mySeat;
+    private int seatNumber;
     private User userObj;
 
 
 
-    public MovieTicket(Seat mySeat,User userObj) {
-        this.mySeat = mySeat;
+    public MovieTicket(int seatNumber,User userObj) {
+        this.seatNumber = seatNumber;
         this.userObj = userObj;
         this.aMovieScreening = aMovieScreening;
     }
@@ -15,8 +15,8 @@ public class MovieTicket {
         return aMovieScreening.getCinema();
     }
 
-    public Seat getSeat(){
-        return this.mySeat;
+    public int getseatNumber(){
+        return this.seatNumber;
     }
 
    public User getUser(){
@@ -24,16 +24,7 @@ public class MovieTicket {
    }
 
 
-    public int calcPrice() {
-        //if this.aMovieScreening.getCinema.getCinemaClass{
-
-        //if this.aMovieScreening.movieObj.movietype{
-
-        //if userBuying.getAge ....
-
-        //if this.aMovieScreening.isPublicHoliday...
-        return 1;
-    }
+    
 }
 
 

@@ -95,6 +95,9 @@ public void editMovie(){
 
 }
 
+public static Movie fetchDetails(String movieTitle){
+  
+}
 
 
 

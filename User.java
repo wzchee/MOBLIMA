@@ -1,6 +1,7 @@
 import java.util.Scanner;
 import java.io.*;
 import java.nio.CharBuffer;
+import java.time.LocalDateTime;
 
 public class User {
     /*
@@ -44,6 +45,48 @@ public class User {
                 case 2:
                     break;
                 case 3:
+                    System.out.print("Please enter your Movie Title: ");
+                    String movieTitleToFetch = input.next();
+                    Movie toFetchMovie = Movie.fetchDetails(movieTitleToFetch);
+                    String movieTitleToConcat = toFetchMovie.getMovieTitle();
+                    
+                    System.out.print("Please enter your Cinema Name: ");
+                    String cinemaNameToFetch = input.next();
+                    Cinema toFetchCinema = Cinema.fetchDetails(cinemaNameToFetch);
+                    String cinemaNameToConcat = toFetchCinema.getCinemaName();
+
+
+                    // should be we list out the available timeslots by going through MovieScreening.txt and then they get 
+                    // to choose and we fetchDetails for the movieInstance
+          //======================================================================
+                                           // *TEMPORARY
+                    System.out.println("Please Enter Date and Time  [YYYY,MM,DD,HH,MM]");
+                    String date = input.next();
+                    String[] arrOfString = date.split(",");
+                    int year = Integer.parseInt(arrOfString[0]);
+                    int month = Integer.parseInt(arrOfString[1]);
+                    int day = Integer.parseInt(arrOfString[2]);
+                    int hour = Integer.parseInt(arrOfString[3]);
+                    int minute = Integer.parseInt(arrOfString[4]);
+                    LocalDateTime myDate = LocalDateTime.of(year, month, day, hour, minute, 0);
+                    String dateTimeToConcat = myDate.toString();
+  
+                    String keyIdOfMovieScreening = movieTitleToConcat.concat(cinemaNameToConcat).concat(dateTimeToConcat);
+                   
+            //======================================================================
+
+                    MovieScreening chosenMovieScreening = MovieScreening.fetchDetails(keyIdOfMovieScreening);
+                    chosenMovieScreening.displayLayout();
+                    System.out.println("Please choose the seat number from the list of available seats");
+                    String userSeatChoice = input.next();
+                    while(!chosenMovieScreening.getAvailabilityOfSeats(Integer.parseInt(userSeatChoice))){
+                        System.out.println("Please choose the seat number from the list of available seats");
+                        String userSeatChoice = input.next();
+                    }
+                    chosenMovieScreening.createBooking(sessionUser,Integer.parseInt(userSeatChoice));
+
+
+
                     break;
                 case 4:
                     break;
