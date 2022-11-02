@@ -81,7 +81,7 @@ public class User {
                     String userSeatChoice = input.next();
                     while(!chosenMovieScreening.getAvailabilityOfSeats(Integer.parseInt(userSeatChoice))){
                         System.out.println("Please choose the seat number from the list of available seats");
-                        String userSeatChoice = input.next();
+                        userSeatChoice = input.next();
                     }
                     chosenMovieScreening.createBooking(sessionUser,Integer.parseInt(userSeatChoice));
 
