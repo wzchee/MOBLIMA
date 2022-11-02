@@ -61,108 +61,7 @@ public class MovieScreening {
    public Cinema getCinema(){
        return movieScreeningLocation;
    }
-                            //identify user
-    public void createBooking(User sessionUser,int seatID)throws FileNotFoundException, IOException{
-        //user will pass in the movie title, cinema hall name,date time in the UI and we will concatenate to
-        //fetchDetail for movieScreening (ALL THESE IN THE UI, not in this class)
-        User userCreatingBooking = sessionUser;
-        Scanner input = new Scanner(System.in);
-        CharBuffer inputbuf = CharBuffer.allocate(1000); //User input converted into CharBuffer
-        CharBuffer rawtxt = CharBuffer.allocate(100000); //CharBuffer for reading from .txt file
-        int buffersize = 0; //size of CharBuffer that was read into
-        //create Movie Ticket entry
-        
-        //========================================================================================================
-        System.out.print("Please enter your Movie Title: ");
-        String movieTitleToFetch = input.next();
-        Movie toFetchMovie = Movie.fetchDetails(movieTitleToFetch);
-        String movieTitleToConcat = toFetchMovie.getMovieTitle();
-
-
-
-        System.out.print("Please enter your Cinema Name: ");
-        String cinemaNameToFetch = input.next();
-        Cinema toFetchCinema = Cinema.fetchDetails(cinemaNameToFetch);
-        String cinemaNameToConcat = toFetchCinema.getCinemaName();
-
-
-        System.out.println("Please Enter Date and Time  [YYYY,MM,DD,HH,MM]");
-        String date = input.next();
-        String[] arrOfString = date.split(",");
-        int year = Integer.parseInt(arrOfString[0]);
-        int month = Integer.parseInt(arrOfString[1]);
-        int day = Integer.parseInt(arrOfString[2]);
-        int hour = Integer.parseInt(arrOfString[3]);
-        int minute = Integer.parseInt(arrOfString[4]);
-        LocalDateTime myDate = LocalDateTime.of(year, month, day, hour, minute, 0);
-        String dateTimeToConcat = myDate.toString();
-
-        
-        String keyIdOfMovieScreening = movieTitleToConcat.concat(cinemaNameToConcat).concat(dateTimeToConcat);
-
-
-        
-        // check if existing email already exists
-        // read from user.txt
-        InputStreamReader userin = new FileReader(System.getProperty("user.dir") + "\\src\\main\\java\\com\\mycompany\\moblima\\movieTicket.txt");
-        buffersize = userin.read(rawtxt); // read the file into the CharBuffer, return size of buffer
-        rawtxt.rewind(); // return cursor to start of buffer
-        
-        // recursively check and match emails
-        while(rawtxt.position() < buffersize){
-            // convert user inputted email into CharBuffer
-            inputbuf.clear();
-            inputbuf.put(keyIdOfMovieScreening);
-            
-            // compare the emails and obtain the match results
-            BufferMatchReturn result = MOBLIMA.charBufferMatch(rawtxt, inputbuf);
-            rawtxt = result.getBuffer();
-            if(result.getMatch()){
-                System.out.println("MovieScreening already exists!");
-                return;
-            } else {
-                // move cursor until start of next user entry
-                char c;
-                do{
-                    c = rawtxt.get();
-                }while(c != '\n');
-            }
-        }   // if reached this point, that means no existing email exists
-        
-        // write to user.txt
-        // second argument to start writing from end instead of beginning
-
-        String seatArr="";
-        for(int i= 0 ;i<100;i++){
-            if(i==0){
-                seatArr += "[";
-                seatArr += "0";
-            }else{
-                seatArr += ",";
-                seatArr += "0";
-            }
-        }
-        seatArr += "]";
-
-        OutputStreamWriter userout = new FileWriter(System.getProperty("user.dir") + "\\src\\main\\java\\com\\mycompany\\moblima\\movieTicket.txt", true);
-        System.out.print("Is it a public holiday: [y/n]");
-        String isPublicHoliday = input.next();
-
-        if(isPublicHoliday=="n"){
-            userout.write(keyIdOfMovieScreening + "," + movieTitleToConcat + "," + cinemaNameToConcat+ "," + dateTimeToConcat+ "," + seatArr + ","+ "false" + "," + 0 + ",\n");
-
-        }else{
-            userout.write(keyIdOfMovieScreening + "," + movieTitleToConcat + "," + cinemaNameToConcat+ "," + dateTimeToConcat+ "," + seatArr + ","+ "true" + "," + 0 + ",\n");
-        }
-        
-        userout.close();
-        System.out.println("Movie Screening successfully created!");
-
-        //========================================================================================================
-
-        System.out.println("The total will be" + Double.toString(this.calcPrice(sessionUser)) + ", booking has been made!");
-        //create an entry on the txt with attributes (concatenated)aMovieScreening and useremail for MovieTicket
-    }
+    
 
     public double calcPrice(User user) {
         double price = 7;
@@ -194,6 +93,8 @@ public class MovieScreening {
             return false;
         }
     }
+
+    public MovieTicket createBooking()
 
     public static MovieScreening fetchDetails(String keyID) throws FileNotFoundException, IOException{
         // read from staff.txt
