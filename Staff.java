@@ -56,19 +56,22 @@ public class Staff {
                 case 3:
                     break;
                 case 4:
+                    // We will take in movie title and use it as a keyID to fetchDetail that spits out Movie Object
                     System.out.print("Please enter your Movie Title: ");
                     String movieTitleToFetch = input.next();
                     Movie toFetchMovie = Movie.fetchDetails(movieTitleToFetch);
                     String movieTitleToConcat = toFetchMovie.getMovieTitle();
 
 
+                    // We will take in cinema name and use it as a keyID to fetchDetail that spits out Movie Object
 
                     System.out.print("Please enter your Cinema Name: ");
                     String cinemaNameToFetch = input.next();
                     Cinema toFetchCinema = Cinema.fetchDetails(cinemaNameToFetch);
                     String cinemaNameToConcat = toFetchCinema.getCinemaName();
 
-
+                    // We will ask for date time in this format and call toString to get string representation 
+                    // and next time with the string we can call ParseDateTime to reverse the string back to an actual LocalDateTime object
                     System.out.println("Please Enter Date and Time  [YYYY,MM,DD,HH,MM]");
                     String date = input.next();
                     String[] arrOfString = date.split(",");
@@ -80,7 +83,7 @@ public class Staff {
                     LocalDateTime myDate = LocalDateTime.of(year, month, day, hour, minute, 0);
                     String dateTimeToConcat = myDate.toString();
 
-                    
+                    // We will concat all these 3 information because these 3 combined will give a unique movie screening
                     String keyIdOfMovieScreening = movieTitleToConcat.concat(cinemaNameToConcat).concat(dateTimeToConcat);
 
 
@@ -91,13 +94,13 @@ public class Staff {
                     buffersize = userin.read(rawtxt); // read the file into the CharBuffer, return size of buffer
                     rawtxt.rewind(); // return cursor to start of buffer
                     
-                    // recursively check and match emails
+                    // recursively check and match keyID of moviescreening
                     while(rawtxt.position() < buffersize){
                         // convert user inputted email into CharBuffer
                         inputbuf.clear();
                         inputbuf.put(keyIdOfMovieScreening);
                         
-                        // compare the emails and obtain the match results
+                        // compare the KeyID for moviescreening and obtain the match results
                         BufferMatchReturn result = MOBLIMA.charBufferMatch(rawtxt, inputbuf);
                         rawtxt = result.getBuffer();
                         if(result.getMatch()){
@@ -110,10 +113,12 @@ public class Staff {
                                 c = rawtxt.get();
                             }while(c != '\n');
                         }
-                    }   // if reached this point, that means no existing email exists
+                    }   // if reached this point, that means no existing keyid exists
                     
                     // write to user.txt
                     // second argument to start writing from end instead of beginning
+
+                    //create the int[] for seatArr where 0 means vacant and 1 means occupied
 
                     String seatArr="";
                     for(int i= 0 ;i<100;i++){
@@ -130,7 +135,7 @@ public class Staff {
                     OutputStreamWriter userout = new FileWriter(System.getProperty("user.dir") + "\\src\\main\\java\\com\\mycompany\\moblima\\movieScreening.txt", true);
                     System.out.print("Is it a public holiday: [y/n]");
                     String isPublicHoliday = input.next();
-
+                    //ask staff if it is public holiday
                     if(isPublicHoliday=="n"){
                         userout.write(keyIdOfMovieScreening + "," + movieTitleToConcat + "," + cinemaNameToConcat+ "," + dateTimeToConcat+ "," + seatArr + ","+ "false" + "," + 0 + ",\n");
 

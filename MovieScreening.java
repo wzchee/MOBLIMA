@@ -160,12 +160,12 @@ public class MovieScreening {
 
         //========================================================================================================
 
-        System.out.println("The total will be" + this.calcPrice() + ", booking has been made!");
+        System.out.println("The total will be" + Double.toString(this.calcPrice(sessionUser)) + ", booking has been made!");
         //create an entry on the txt with attributes (concatenated)aMovieScreening and useremail for MovieTicket
     }
 
-    public int calcPrice() {
-        int price = 7;
+    public double calcPrice(User user) {
+        double price = 7;
         if(this.movieScreeningLocation.isPlatinumSuite()){
             price += 10;
         }
@@ -176,6 +176,10 @@ public class MovieScreening {
 
         if(this.getisPublicHoliday()){
             price+=2;
+        }
+
+        if(user.getAge()<12 || user.getAge()>55){
+            price = price * 0.75;
         }
 
 
@@ -199,8 +203,9 @@ public class MovieScreening {
         MovieScreening.close();
         rawtxt.rewind();
 
-        // search for the matching email record
+        // search for the matching Key id
         CharBuffer inputbuf = CharBuffer.allocate(1000);
+        //Strings to store after we cast buffer into Strings
         String movieTitleStr = null; //initialize attribute variables other than email
         String cinemaNameStr = null;
         String dateTimeStr = null;
@@ -210,6 +215,7 @@ public class MovieScreening {
 
 
 
+        //buffer to take in the characters
 
         CharBuffer movieTitleToFetch = CharBuffer.allocate(1000); //initialize corresponding CharBuffer attribute
         CharBuffer cinemaNameToFetch = CharBuffer.allocate(1000);
@@ -220,7 +226,7 @@ public class MovieScreening {
 
 
         while(rawtxt.position() < buffersize){
-            // convert user inputted email into CharBuffer for comparison
+            // convert inputted KeyID into CharBuffer for comparison
             inputbuf.clear();
             inputbuf.put(keyID);
 
@@ -287,15 +293,22 @@ public class MovieScreening {
                 }while(c != '\n');
             }
         }
+        //convert movieTitle buffer to string and fetchDetail to get the movie object
         movieTitleStr = movieTitleToFetch.toString();
         Movie movieObj = Movie.fetchDetails(movieTitleStr);
+        
+        //convert Cinema name buffer to string and fetchDetail to get the cinema object
 
         cinemaNameStr = cinemaNameToFetch.toString();
         Cinema cinemaObj = Cinema.fetchDetails(cinemaNameStr);
 
+        //convert dateTime buffer to string and call parse to get the Datetime object
+
         dateTimeStr = dateTimeToFetch.toString();
         LocalDateTime myDateTime = LocalDateTime.parse(dateTimeStr);
 
+
+        // convert the string to a string array and convert string array to int array
         seatArrStr = seatArrToFetch.toString();
         seatArrStr = seatArrStr.substring(1, seatArrStr.length() - 1);
         String[] strSeatArr = seatArrStr.split(",");
@@ -304,6 +317,8 @@ public class MovieScreening {
         for (int i = 0; i < strSeatArr.length; i++) {
             mySeatArr[i] = Integer.valueOf(strSeatArr[i]);
         }
+
+
 
         isPublicHolidayStr = isPublicHolidayToFetch.toString();
         boolean myisPublicHoliday = (isPublicHolidayStr=="true") ? true:false;
