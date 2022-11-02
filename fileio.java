@@ -3,7 +3,10 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class fileio {
-    public static String getMovieScreeningDir(){                        //Change Function Name
+
+    //filename naming convention [className][Data].txt e.g movieScreeningData.txt
+
+    private static String getDir(String filename){                        //Change Function Name
         String currentDirectory;
         currentDirectory = System.getProperty("user.dir");
         String[] myArr = currentDirectory.split("\\\\");
@@ -11,12 +14,12 @@ public class fileio {
         for(int i =0;i<myArr.length;i++){
             toReturn+= (myArr[i] + "\\\\");
         }
-        toReturn+="movieScreeningText.txt";                            //Change to right txt file
+        toReturn+=filename;                            //Change to right txt file
         return toReturn;
     }
 
     public static ArrayList<MovieScreening> readMovieScreeningData() throws Exception{                      //change function name and return type generics
-        String txtdir = fileio.getMovieScreeningDir();                                                      //call the right Dir() method
+        String txtdir = fileio.getDir("movieScreeningData.txt");                                                      //call the right Dir() method
         ArrayList<MovieScreening> mylist = new ArrayList<MovieScreening>();
     
         try
@@ -36,14 +39,71 @@ public class fileio {
         return mylist;
     }
 
-    public static void writeMovieScreeningData(ArrayList<MovieScreening> mylist){              //Change function name and parameter generics
-       FileOutputStream fileOut = new FileOutputStream("movieScreeningText.txt");         // Change txt file name
+    public static void writeMovieScreeningData(ArrayList<MovieScreening> mylist) throws Exception{              //Change function name and parameter generics
+       FileOutputStream fileOut = new FileOutputStream("movieScreeningData.txt");         // Change txt file name
        ObjectOutputStream out = new ObjectOutputStream(fileOut);
        out.writeObject(mylist);
        out.close();
        fileOut.close();
     }
     
+    public static ArrayList<Movie> readMovieData() throws Exception{                      //change function name and return type generics
+        String txtdir = fileio.getDir("movieData.txt");                                                      //call the right Dir() method
+        ArrayList<Movie> mylist = new ArrayList<Movie>();
+    
+        try
+        {
+            FileInputStream fileIn = new FileInputStream(txtdir);// Read serial file.
+            ObjectInputStream in = new ObjectInputStream(fileIn);// input the read file.
+            mylist = (ArrayList)in.readObject();// allocate it to the object file already instanciated.
+            in.close();//closes the input stream.
+            fileIn.close();//closes the file data stream.
+        }
+        catch(IOException i)//exception stuff
+        {
+            i.printStackTrace();
+            return null;
+        }
+
+        return mylist;
+    }
+
+    public static void writeMovieData(ArrayList<Movie> mylist) throws Exception{              //Change function name and parameter generics
+       FileOutputStream fileOut = new FileOutputStream("movieData.txt");         // Change txt file name
+       ObjectOutputStream out = new ObjectOutputStream(fileOut);
+       out.writeObject(mylist);
+       out.close();
+       fileOut.close();
+    }
+
+    public static ArrayList<Cinema> readCinemaData() throws Exception{                      //change function name and return type generics
+        String txtdir = fileio.getDir("cinemaData.txt");                                                      //call the right Dir() method
+        ArrayList<Cinema> mylist = new ArrayList<Cinema>();
+    
+        try
+        {
+            FileInputStream fileIn = new FileInputStream(txtdir);// Read serial file.
+            ObjectInputStream in = new ObjectInputStream(fileIn);// input the read file.
+            mylist = (ArrayList)in.readObject();// allocate it to the object file already instanciated.
+            in.close();//closes the input stream.
+            fileIn.close();//closes the file data stream.
+        }
+        catch(IOException i)//exception stuff
+        {
+            i.printStackTrace();
+            return null;
+        }
+
+        return mylist;
+    }
+
+    public static void writeCinemaData(ArrayList<Cinema> mylist) throws Exception{              //Change function name and parameter generics
+       FileOutputStream fileOut = new FileOutputStream("cinemaData.txt");         // Change txt file name
+       ObjectOutputStream out = new ObjectOutputStream(fileOut);
+       out.writeObject(mylist);
+       out.close();
+       fileOut.close();
+    }
         
 
 

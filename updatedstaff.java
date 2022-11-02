@@ -57,23 +57,42 @@ public class updatedstaff {
                 case 3:
                     break;
                 case 4:
+                    ArrayList<MovieScreening> myMovieScreeningList = null;
+                    myMovieScreeningList = fileio.readMovieScreeningData();
+                    MovieScreening movieScreeningToAdd = null;
+
+
                     // We will take in movie title and use it as a keyID to fetchDetail that spits out Movie Object
                     System.out.print("Please enter your Movie Title: ");
                     String movieTitleToFetch = input.next();
-                    Movie toFetchMovie = Movie.fetchDetails(movieTitleToFetch);
-                    String movieTitleToConcat = toFetchMovie.getMovieTitle();
+                    Movie movieToFetch = null;
+                    ArrayList<Movie> myMovieList = fileio.readMovieData();
+                    for(int i=0;i<myMovieList.size();i++){
+                        if(myMovieList.get(i).getMovieTitle()==movieTitleToFetch){
+                            movieToFetch = myMovieList.get(i);
+                            break;
+                        }
+                    }
 
-
-                    // We will take in cinema name and use it as a keyID to fetchDetail that spits out Movie Object
 
                     System.out.print("Please enter your Cinema Name: ");
                     String cinemaNameToFetch = input.next();
-                    Cinema toFetchCinema = Cinema.fetchDetails(cinemaNameToFetch);
-                    String cinemaNameToConcat = toFetchCinema.getCinemaName();
+                    Cinema cinemaToFetch = null;
+                    ArrayList<Cinema> myCinemaList = fileio.readCinemaData();
+                    for(int i=0;i<myCinemaList.size();i++){
+                        if(myCinemaList.get(i).getCinemaName()==cinemaNameToFetch){
+                            cinemaToFetch = myCinemaList.get(i);
+                            break;
+                        }
+                    }
+                    
+
+
+
 
                     // We will ask for date time in this format and call toString to get string representation 
                     // and next time with the string we can call ParseDateTime to reverse the string back to an actual LocalDateTime object
-                    System.out.println("Please Enter Date and Time  [YYYY,MM,DD,HH,MM]");
+                    System.out.println("Please Enter Date and Time  [YYYY,MM,DD,HH,MIN]");
                     String date = input.next();
                     String[] arrOfString = date.split(",");
                     int year = Integer.parseInt(arrOfString[0]);
@@ -82,71 +101,29 @@ public class updatedstaff {
                     int hour = Integer.parseInt(arrOfString[3]);
                     int minute = Integer.parseInt(arrOfString[4]);
                     LocalDateTime myDate = LocalDateTime.of(year, month, day, hour, minute, 0);
-                    String dateTimeToConcat = myDate.toString();
-
-                    // We will concat all these 3 information because these 3 combined will give a unique movie screening
-                    String keyIdOfMovieScreening = movieTitleToConcat.concat(cinemaNameToConcat).concat(dateTimeToConcat);
-
+                    
 
                     
-                    // check if existing email already exists
-                    // read from user.txt
-                    InputStreamReader userin = new FileReader(System.getProperty("user.dir") + "\\src\\main\\java\\com\\mycompany\\moblima\\movieScreening.txt");
-                    buffersize = userin.read(rawtxt); // read the file into the CharBuffer, return size of buffer
-                    rawtxt.rewind(); // return cursor to start of buffer
                     
-                    // recursively check and match keyID of moviescreening
-                    while(rawtxt.position() < buffersize){
-                        // convert user inputted email into CharBuffer
-                        inputbuf.clear();
-                        inputbuf.put(keyIdOfMovieScreening);
-                        
-                        // compare the KeyID for moviescreening and obtain the match results
-                        BufferMatchReturn result = MOBLIMA.charBufferMatch(rawtxt, inputbuf);
-                        rawtxt = result.getBuffer();
-                        if(result.getMatch()){
-                            System.out.println("MovieScreening already exists!");
-                            return;
-                        } else {
-                            // move cursor until start of next user entry
-                            char c;
-                            do{
-                                c = rawtxt.get();
-                            }while(c != '\n');
-                        }
-                    }   // if reached this point, that means no existing keyid exists
-                    
-                    // write to user.txt
-                    // second argument to start writing from end instead of beginning
-
-                    //create the int[] for seatArr where 0 means vacant and 1 means occupied
-
-                    String seatArr="";
-                    for(int i= 0 ;i<100;i++){
-                        if(i==0){
-                            seatArr += "[";
-                            seatArr += "0";
-                        }else{
-                            seatArr += ",";
-                            seatArr += "0";
-                        }
+                    int[] myArr = new int[100];
+                    for(int j=0;j<100;j++){
+                        myArr[j] = 0;
                     }
-                    seatArr += "]";
 
-                    OutputStreamWriter userout = new FileWriter(System.getProperty("user.dir") + "\\src\\main\\java\\com\\mycompany\\moblima\\movieScreening.txt", true);
                     System.out.print("Is it a public holiday: [y/n]");
-                    String isPublicHoliday = input.next();
+                    String isPublicHolidayInput = input.next();
+                    boolean isPublicHoliday = true;
                     //ask staff if it is public holiday
-                    if(isPublicHoliday=="n"){
-                        userout.write(keyIdOfMovieScreening + "," + movieTitleToConcat + "," + cinemaNameToConcat+ "," + dateTimeToConcat+ "," + seatArr + ","+ "false" + "," + 0 + ",\n");
-
-                    }else{
-                        userout.write(keyIdOfMovieScreening + "," + movieTitleToConcat + "," + cinemaNameToConcat+ "," + dateTimeToConcat+ "," + seatArr + ","+ "true" + "," + 0 + ",\n");
+                    if(isPublicHolidayInput=="n"){
+                        isPublicHoliday = false;
                     }
-                    
-                    userout.close();
-                    System.out.println("Movie Screening successfully created!");
+
+                    movieScreeningToAdd = new MovieScreening(movieToFetch, cinemaToFetch, myDate, myArr, isPublicHoliday,0);
+                    myMovieScreeningList.add(movieScreeningToAdd);
+                    fileio.writeMovieScreeningData(myMovieScreeningList);
+            
                     break;
+
 
                 case 5:
                     break;
