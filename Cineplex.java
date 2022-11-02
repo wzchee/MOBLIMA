@@ -1,4 +1,6 @@
-public class Cineplex {
+import java.io.Serializable;
+
+public class Cineplex implements Serializable{
     private String cineplexName;
     private Cinema[] cinemas = new Cinema[3];
 

@@ -1,8 +1,10 @@
+import java.io.Serializable;
+
 /*enum cinemaStandard {
     Platinum_Suites, Standard;
 }*/
 
-public class Cinema {
+public class Cinema implements Serializable{
     private String cinemaName;
     private boolean platinumSuites;
     private String[] movieList = new String[100];

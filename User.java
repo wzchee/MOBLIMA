@@ -2,8 +2,10 @@ import java.util.Scanner;
 import java.io.*;
 import java.nio.CharBuffer;
 import java.time.LocalDateTime;
+import java.io.Serializable;
 
-public class User {
+
+public class User implements Serializable{
     /*
      * Associated storage document: user.txt in the same directory
      * Formatting using string concatenation notation:

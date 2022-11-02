@@ -1,4 +1,7 @@
-public class MovieTicket {
+import java.io.Serializable;
+
+
+public class MovieTicket implements Serializable{
     private MovieScreening aMovieScreening;
     private int seatNumber;
     private User userObj;

@@ -9,11 +9,19 @@ public class fileio {
     private static String getDir(String filename){                        //Change Function Name
         String currentDirectory;
         currentDirectory = System.getProperty("user.dir");
-        String[] myArr = currentDirectory.split("\\\\");
         String toReturn = "";
-        for(int i =0;i<myArr.length;i++){
-            toReturn+= (myArr[i] + "\\\\");
-        }
+
+        String myOs = System.getProperty("os.name").toLowerCase();
+        if (myOs.indexOf("win") >= 0) {
+            String[] myArr = currentDirectory.split("\\\\");
+            for(int i =0;i<myArr.length;i++){
+                toReturn+= (myArr[i] + "\\\\");
+            }
+        } else if (myOs.indexOf("mac") >= 0) {
+            toReturn = currentDirectory + "/";
+        } 
+
+        
         toReturn+=filename;                            //Change to right txt file
         return toReturn;
     }

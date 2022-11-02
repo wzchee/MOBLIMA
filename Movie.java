@@ -1,4 +1,6 @@
 import java.util.*;
+import java.io.Serializable;
+
 //hello
 // hihi
 enum status{
@@ -7,7 +9,7 @@ enum status{
 enum dimension{
   TwoD,ThreeD
 }
-public class Movie {
+public class Movie implements Serializable{
   private String movieTitle;
   private String movieSypnosis;
   private String director;
