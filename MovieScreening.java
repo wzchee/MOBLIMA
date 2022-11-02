@@ -62,10 +62,14 @@ public class MovieScreening {
        return movieScreeningLocation;
    }
                             //identify user
-    public void createBooking(User sessionUser,int seatID){
+    public void createBooking(User sessionUser,int seatID)throws FileNotFoundException, IOException{
         //user will pass in the movie title, cinema hall name,date time in the UI and we will concatenate to
         //fetchDetail for movieScreening (ALL THESE IN THE UI, not in this class)
         User userCreatingBooking = sessionUser;
+        Scanner input = new Scanner(System.in);
+        CharBuffer inputbuf = CharBuffer.allocate(1000); //User input converted into CharBuffer
+        CharBuffer rawtxt = CharBuffer.allocate(100000); //CharBuffer for reading from .txt file
+        int buffersize = 0; //size of CharBuffer that was read into
         //create Movie Ticket entry
         
         //========================================================================================================
@@ -100,7 +104,7 @@ public class MovieScreening {
         
         // check if existing email already exists
         // read from user.txt
-        InputStreamReader userin = new FileReader(System.getProperty("user.dir") + "\\src\\main\\java\\com\\mycompany\\moblima\\movieScreening.txt");
+        InputStreamReader userin = new FileReader(System.getProperty("user.dir") + "\\src\\main\\java\\com\\mycompany\\moblima\\movieTicket.txt");
         buffersize = userin.read(rawtxt); // read the file into the CharBuffer, return size of buffer
         rawtxt.rewind(); // return cursor to start of buffer
         
@@ -111,7 +115,7 @@ public class MovieScreening {
             inputbuf.put(keyIdOfMovieScreening);
             
             // compare the emails and obtain the match results
-            BufferMatchReturn result = charBufferMatch(rawtxt, inputbuf);
+            BufferMatchReturn result = MOBLIMA.charBufferMatch(rawtxt, inputbuf);
             rawtxt = result.getBuffer();
             if(result.getMatch()){
                 System.out.println("MovieScreening already exists!");
@@ -140,7 +144,7 @@ public class MovieScreening {
         }
         seatArr += "]";
 
-        OutputStreamWriter userout = new FileWriter(System.getProperty("user.dir") + "\\src\\main\\java\\com\\mycompany\\moblima\\movieScreening.txt", true);
+        OutputStreamWriter userout = new FileWriter(System.getProperty("user.dir") + "\\src\\main\\java\\com\\mycompany\\moblima\\movieTicket.txt", true);
         System.out.print("Is it a public holiday: [y/n]");
         String isPublicHoliday = input.next();
 
@@ -187,7 +191,7 @@ public class MovieScreening {
         }
     }
 
-    private static MovieScreening fetchDetails(String keyID) throws FileNotFoundException, IOException{
+    public static MovieScreening fetchDetails(String keyID) throws FileNotFoundException, IOException{
         // read from staff.txt
         InputStreamReader MovieScreening = new FileReader(System.getProperty("user.dir") + "\\src\\main\\java\\com\\mycompany\\moblima\\staff.txt");
         CharBuffer rawtxt = CharBuffer.allocate(10000);
