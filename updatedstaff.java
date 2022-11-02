@@ -53,8 +53,13 @@ public class updatedstaff {
                     sessionUser.createMovie();
                     break;
                 case 2:
+                    String status = sessionUser.updateMovie();
+                    if (status == "End_Of_Showing"){
+                        sessionUser.removeMovie();
+                    }
                     break;
                 case 3:
+                    sessionUser.removeMovie();
                     break;
                 case 4:
                     ArrayList<MovieScreening> myMovieScreeningList = null;
@@ -294,12 +299,61 @@ public class updatedstaff {
 
     }
 
-    public void updateMovie(){
-
+    public String updateMovie() throws Exception{
+        ArrayList<Movie> movieList = null;
+        movieList = fileio.readMovieData();
+        Movie movieToUpdate = null;
+        Scanner in = new Scanner(System.in);
+        System.out.println("Enter title of movie to be updated: ");
+        String movieName = in.next();
+        int found = 0;
+        for (int i = 0; i < movieList.size(); i++) {
+            if(movieList.get(i).getMovieTitle() == movieName){
+                movieToUpdate = movieList.get(i);
+                found = 1;
+                break;
+            }
+        }
+        if (found == 0){
+            System.out.println("No such movie exists");
+        }
+        else{
+            System.out.println("Current movie status: "+ movieToUpdate.getMovieStatus());
+            String currentMovieStatus = movieToUpdate.getMovieStatus();
+            switch (currentMovieStatus){
+                case "Coming_Soon":
+                movieToUpdate.setMovieStatus(status.Preview);
+                break;
+                case "Preview":
+                movieToUpdate.setMovieStatus((status.Now_Showing));
+                break;
+                case "Now_Showing":
+                movieToUpdate.setMovieStatus(status.End_Of_Showing);
+            }
+        }
+        fileio.writeMovieData(movieList);
+        return movieToUpdate.getMovieStatus();
     }
 
-    public void removeMovie(){
-
+    public void removeMovie() throws Exception{
+        ArrayList<Movie> movieList = null;
+        movieList = fileio.readMovieData();
+        Scanner in = new Scanner(System.in);
+        System.out.println("Enter title of movie to be deleted: ");
+        String movieName = in.next();
+        int found = 0;
+        for (int i = 0; i < movieList.size(); i++) {
+            if(movieList.get(i).getMovieTitle() == movieName){
+                movieList.remove(i);
+                found = 1;
+                break;
+            }
+        }
+        if (found == 0){
+            System.out.println("No such movie exists");
+        }
+        fileio.writeMovieData(movieList);
     }
+
 
 }

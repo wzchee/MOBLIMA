@@ -1,62 +1,34 @@
-    public void createMovie(){
-        Movie newMovie = new Movie();
-        Scanner in = new Scanner(System.in);
-        System.out.println("Movie title: ");
-        newMovie.setMovieTitle(in.next());
-        System.out.println("Movie Status");
-        System.out.println("1. Coming Soon");
-        System.out.println("2. Preview");
-        System.out.println("3. Now Showing");
-        System.out.println("4. End of Showing");
-        int statusChoice = in.nextInt();
-        switch (statusChoice){
-            case 1:
-            newMovie.setMovieStatus(status.valueOf("Coming_Soon"));
-            break;
-            case 2:
-            newMovie.setMovieStatus(status.valueOf("Preview"));
-            break;
-            case 3:
-            newMovie.setMovieStatus(status.valueOf("Now_Showing"));
-            break;
-            case 4:
-            newMovie.setMovieStatus(status.valueOf("End_Of_Showing"));
-            break;
-            
-        }
-        System.out.println("BlockBuster?");
-        System.out.println("1. True");
-        System.out.println("2. False");
-        int blockbusterChoice = in.nextInt();
-        if (blockbusterChoice == 1){
-            newMovie.setBlockbuster(true);
-        }else{
-            newMovie.setBlockbuster(false);
-        }
-        System.out.println("MovieDimension: ");
-        System.out.println("1. 2D");
-        System.out.println("2. 3D");
-        int dimChoice = in.nextInt();
+public static BufferMatchReturn charBufferMatch(CharBuffer txtbuffer, CharBuffer inputbuf){
+    //     /*
+    //      * Methodology:
+    //      * 1. Compare buffer from .txt file against user input
+    //      * 2. If passed, return match = true
+    //      * 3. If failed, return match = false
+    //      * 4. In both cases, also return txtbuffer to record the current position of the buffer
+    //      * 5. BufferMatchReturn object will be used to contain the multiple return values
+    //      * 
+    //      * Apparently compareTo() only compares the buffer from the CURRENT position
+    //      * So there is a need to reset the position to zero before comparing
+    //      * By using clear() on inputbuf
+    //      * But we need to retain the position of txtbuffer, so that one cannot clear()
+    //      */
 
-        if (dimChoice == 1){
-            newMovie.setMovieDims(dimension.valueOf("TwoD"));
-        }else{
-            newMovie.setMovieDims(dimension.valueOf("ThreeD"));
-        }
-        System.out.println("Movie Sypnosis: ");
-        newMovie.setMovieSypnosis(in.next());
-        System.out.println("Director: ");
-        newMovie.setMovieDirector(in.next());
-        System.out.println("Sale Volume: ");
-        newMovie.setSaleVolume(in.nextInt());
+    //     CharBuffer rawtxtcomp = CharBuffer.allocate(1000); //substring of rawtxt used for comparison
 
-
-    }
-
-    public void updateMovie(){
-
-    }
-
-    public void removeMovie(){
-
-    }
+    //     // at the end of do-while loop, rawtxtcomp should contain the comparison substring we need
+    //     char c = txtbuffer.get();
+    //     do{
+    //         rawtxtcomp.append(c); //append individual characters into comparison buffer
+    //         c = txtbuffer.get();
+    //     }while(c != ','); //until reached the end of the password element
+        
+    //     inputbuf.clear(); //reset position to zero for comparison, if not already done
+    //     rawtxtcomp.clear(); //reset position to zero for comparison
+    //     if(rawtxtcomp.compareTo(inputbuf) == 0){
+    //         BufferMatchReturn ret = new BufferMatchReturn(true, txtbuffer);
+    //         return ret;
+    //     } else {
+    //         BufferMatchReturn ret = new BufferMatchReturn(false, txtbuffer);
+    //         return ret;
+    //     }
+    // }
