@@ -260,6 +260,8 @@ public class updatedstaff {
     //createmovie method
     public void createMovie(){
         Movie newMovie = new Movie();
+        Scanner in = new Scanner(System.in);
+        System.out.println("email");
 
     }
 
