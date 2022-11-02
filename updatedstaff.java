@@ -18,7 +18,7 @@ public class updatedstaff {
      * 5. The second element of the entry must be password
      */
 
-    public static void loggedin(String useremail) throws FileNotFoundException, IOException{
+    public static void loggedin(String useremail) throws FileNotFoundException, IOException, Exception{
         // User interface after a STAFF has logged in
 
         // Firstly, fetch details from staff.txt for use in later functions
@@ -50,7 +50,7 @@ public class updatedstaff {
 
             switch(choice){
                 case 1:
-
+                    sessionUser.createMovie();
                     break;
                 case 2:
                     break;
@@ -170,7 +170,7 @@ public class updatedstaff {
     public Cineplex getWorkplace(){return workplace;}
     public void setWorkplace(Cineplex workplace){this.workplace = workplace;}
 
-    private static Staff fetchDetails(String useremail) throws FileNotFoundException, IOException{
+    private static updatedstaff fetchDetails(String useremail) throws FileNotFoundException, IOException{
         // read from staff.txt
         InputStreamReader staffin = new FileReader(System.getProperty("user.dir") + "\\src\\main\\java\\com\\mycompany\\moblima\\staff.txt");
         CharBuffer rawtxt = CharBuffer.allocate(10000);
@@ -230,12 +230,12 @@ public class updatedstaff {
         strpassword = txtpassword.toString();
         strname = txtname.toString();
 
-        return new Staff(useremail, strpassword, strname, null);
+        return new updatedstaff(useremail, strpassword, strname, null);
     }
 
 
     //createmovie method
-    public void createMovie(){
+    public void createMovie()throws Exception{
         Movie newMovie = new Movie();
         Scanner in = new Scanner(System.in);
         System.out.println("Movie title: ");
@@ -286,7 +286,11 @@ public class updatedstaff {
         newMovie.setMovieDirector(in.next());
         System.out.println("Sale Volume: ");
         newMovie.setSaleVolume(in.nextInt());
-
+        
+        ArrayList<Movie> movieList = null;
+        movieList = fileio.readMovieData();
+        movieList.add(newMovie);
+        fileio.writeMovieData(movieList);
 
     }
 
