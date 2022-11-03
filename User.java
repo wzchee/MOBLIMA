@@ -36,15 +36,51 @@ public class User implements Serializable{
                 case 2:
                     break;
                 case 3:
-                    ArrayList<MovieTicket> movieTicketArrList = null;
-                    movieTicketArrList = fileio.readMovieTicketData();
-                    MovieTicket movieTicketToAdd = null;
+                    //ArrayList<MovieTicket> movieTicketArrList = null;
+                    //movieTicketArrList = fileio.readMovieTicketData();
+                    //MovieTicket movieTicketToAdd = null;
     //=========================================================================================================
 
-                    // System.out.print("Please enter your Movie Title: ");
-                    // String movieTitleToFetch = input.next();
-                    // Movie toFetchMovie = Movie.fetchDetails(movieTitleToFetch);
-                    // String movieTitleToConcat = toFetchMovie.getMovieTitle();
+                    System.out.println("Here are the list of movies to choose from: ");
+                    // Display list of movies
+                    System.out.print("Which movie would you like to watch? ");
+                    String movie = input.next(); 
+
+                    Movie currentMovie = null;
+                    ArrayList<Movie> movieList = fileio.readMovieData();
+                    for(int i=0; i<movieList.size(); i++)
+                        if(movie == movieList.get(i).getMovieTitle())
+                            currentMovie = movieList.get(i);
+
+                    System.out.println("Here are the list of showtimes for the movie");
+                    // Display list of showtimes, pass in movie title
+                    System.out.print("Choose a date and time: ");
+                    String date = input.next();
+
+                    // Check screening
+
+                    System.out.println("Here is the cinema layout for the showtime you selected");
+                    // Display layout
+                    System.out.print("Please pick a vacant seat: ");
+                    String seatID = input.next();
+
+                    // Seat screening
+                    // Multiple tickets?
+
+                    System.out.println("Your seat is secured!");
+                    System.out.println("Ticket price = $9999999");
+                    System.out.print("Proceed (Y/N) ?");
+                    String option = input.next();
+
+                    if(option == "Y"){
+                        System.out.println("Ticket purchase successful!");
+                        System.out.println("Here is your ticket ID (TID)");
+                    }
+
+                    //System.out.print("Please enter your Movie Title: ");
+                    //String movieTitleToFetch = input.next();
+                    //Movie toFetchMovie = Movie.fetchDetails(movieTitleToFetch);
+                    //String movieTitleToConcat = toFetchMovie.getMovieTitle();
                     
                     // System.out.print("Please enter your Cinema Name: ");
                     // String cinemaNameToFetch = input.next();
