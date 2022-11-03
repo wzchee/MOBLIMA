@@ -50,16 +50,16 @@ public class updatedstaff {
 
             switch(choice){
                 case 1:
-                    sessionUser.createMovie();
+                    createMovie();
                     break;
                 case 2:
-                    String status = sessionUser.updateMovie();
+                    String status = updateMovie();
                     if (status == "End_Of_Showing"){
-                        sessionUser.removeMovie();
+                        removeMovie();
                     }
                     break;
                 case 3:
-                    sessionUser.removeMovie();
+                    removeMovie();
                     break;
                 case 4:
                     ArrayList<MovieScreening> myMovieScreeningList = null;
