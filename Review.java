@@ -67,7 +67,8 @@ public class Review{
     public void setMovie(Movie movie){this.movie = movie;}
 
     public String getReview(){return review;}
-    public void setReview(String review){this.review = review;0
-    
-    }
+    public void setReview(String review){this.review = review;}
+
+    public User getUser(){return user;}
+    public void setUser(User user){this.user = user;}
 }
