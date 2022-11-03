@@ -173,7 +173,7 @@ public class fileio {
 
     public static ArrayList<User> readUserData() throws Exception{                      //change function name and return type generics
         String txtdir = fileio.getDir("userData.txt");                                                      //call the right Dir() method
-        ArrayList<Cineplex> mylist = new ArrayList<Cineplex>();
+        ArrayList<User> mylist = new ArrayList<Cineplex>();
     
         try
         {
@@ -202,7 +202,7 @@ public class fileio {
 
     public static ArrayList<Staff> readStaffData() throws Exception{                      //change function name and return type generics
         String txtdir = fileio.getDir("staffData.txt");                                                      //call the right Dir() method
-        ArrayList<Cineplex> mylist = new ArrayList<Cineplex>();
+        ArrayList<Staff> mylist = new ArrayList<Cineplex>();
     
         try
         {
@@ -227,5 +227,6 @@ public class fileio {
        out.writeObject(mylist);
        out.close();
        fileOut.close();
+    }
 
 }
