@@ -104,5 +104,124 @@ public void setPastReviews(String[] pastReviews){
   this.pastReviews = pastReviews;
 }
 
+public static void createMovie()throws Exception{
+        Movie newMovie = new Movie();
+        Scanner in = new Scanner(System.in);
+        System.out.println("Movie title: ");
+        newMovie.setMovieTitle(in.next());
+        System.out.println("Movie Status");
+        System.out.println("1. Coming Soon");
+        System.out.println("2. Preview");
+        System.out.println("3. Now Showing");
+        System.out.println("4. End of Showing");
+        int statusChoice = in.nextInt();
+        switch (statusChoice){
+            case 1:
+            newMovie.setMovieStatus(status.valueOf("Coming_Soon"));
+            break;
+            case 2:
+            newMovie.setMovieStatus(status.valueOf("Preview"));
+            break;
+            case 3:
+            newMovie.setMovieStatus(status.valueOf("Now_Showing"));
+            break;
+            case 4:
+            newMovie.setMovieStatus(status.valueOf("End_Of_Showing"));
+            break;
+            
+        }
+        System.out.println("BlockBuster?");
+        System.out.println("1. True");
+        System.out.println("2. False");
+        int blockbusterChoice = in.nextInt();
+        if (blockbusterChoice == 1){
+            newMovie.setBlockbuster(true);
+        }else{
+            newMovie.setBlockbuster(false);
+        }
+        System.out.println("MovieDimension: ");
+        System.out.println("1. 2D");
+        System.out.println("2. 3D");
+        int dimChoice = in.nextInt();
 
+        if (dimChoice == 1){
+            newMovie.setMovieDims(dimension.valueOf("TwoD"));
+        }else{
+            newMovie.setMovieDims(dimension.valueOf("ThreeD"));
+        }
+        System.out.println("Movie Sypnosis: ");
+        newMovie.setMovieSypnosis(in.next());
+        System.out.println("Director: ");
+        newMovie.setMovieDirector(in.next());
+        System.out.println("Sale Volume: ");
+        newMovie.setSaleVolume(in.nextInt());
+        
+        ArrayList<Movie> movieList = null;
+        movieList = fileio.readMovieData();
+        movieList.add(newMovie);
+        fileio.writeMovieData(movieList);
+
+    }
+
+    public static String updateMovie() throws Exception{
+        ArrayList<Movie> movieList = null;
+        movieList = fileio.readMovieData();
+        Movie movieToUpdate = null;
+        Scanner in = new Scanner(System.in);
+        System.out.println("Enter title of movie to be updated: ");
+        String movieName = in.next();
+        int found = 0;
+        for (int i = 0; i < movieList.size(); i++) {
+            if(movieList.get(i).getMovieTitle().equals(movieName)){
+                movieToUpdate = movieList.get(i);
+                found = 1;
+                break;
+            }
+        }
+        if (found == 0){
+            System.out.println("No such movie exists");
+        }
+        else{
+            System.out.println("Current movie status: "+ movieToUpdate.getMovieStatus());
+            String currentMovieStatus = movieToUpdate.getMovieStatus();
+            switch (currentMovieStatus){
+                case "Coming_Soon":
+                movieToUpdate.setMovieStatus(status.Preview);
+                break;
+                case "Preview":
+                movieToUpdate.setMovieStatus((status.Now_Showing));
+                break;
+                case "Now_Showing":
+                movieToUpdate.setMovieStatus(status.End_Of_Showing);
+            }
+        }
+        fileio.writeMovieData(movieList);
+        MovieScreening.updateMovieScreeningWithMovie(movieToUpdate);
+
+
+        return movieToUpdate.getMovieStatus();
+    }
+
+    public static void removeMovie() throws Exception{
+        ArrayList<Movie> movieList = null;
+        movieList = fileio.readMovieData();
+        Scanner in = new Scanner(System.in);
+        System.out.println("Enter title of movie to be deleted: ");
+        String movieName = in.next();
+        int found = 0;
+        for (int i = 0; i < movieList.size(); i++) {
+            if(movieList.get(i).getMovieTitle().equals(movieName)){
+                removeMovieScreeningWithMovie(movieName);
+                movieList.remove(i);
+                found = 1;
+                break;
+            }
+        }
+        if (found == 0){
+            System.out.println("No such movie exists");
+        }
+
+
+        fileio.writeMovieData(movieList);
+    }
 }
