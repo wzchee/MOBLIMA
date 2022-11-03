@@ -217,8 +217,9 @@ public static void createMovie()throws Exception{
         for (int i = 0; i < movieList.size(); i++) {
             if(movieList.get(i).getMovieTitle().equals(movieName)){
                 MovieScreening.removeMovieScreeningWithMovie(movieName);
-                movieList.remove(i);
+                movieList.get(i).setMovieStatus(status.End_Of_Showing);
                 found = 1;
+                System.out.println(movieList.get(i).getMovieTitle()+" successfully deleted!");
                 break;
             }
         }
@@ -234,9 +235,11 @@ public static void createMovie()throws Exception{
       ArrayList<Movie> movieList = null;
       movieList = fileio.readMovieData();
       for (int index = 0; index < movieList.size(); index++) {
-        System.out.println(index+1 +". "+ movieList.get(index).getMovieTitle());
-        System.out.println("Status: "+movieList.get(index).getMovieStatus());
-      }
+        if(!movieList.get(index).getMovieStatus().equalsIgnoreCase("End_Of_Showing")){
+          System.out.println(index+1 +". "+ movieList.get(index).getMovieTitle());
+          System.out.println("Status: "+movieList.get(index).getMovieStatus());
+        }
+           }
       fileio.writeMovieData(movieList);
     }
 }
