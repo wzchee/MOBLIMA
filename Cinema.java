@@ -6,16 +6,16 @@ import java.io.Serializable;
 
 public class Cinema implements Serializable{
     private String cinemaName;
-    private String cineplexName;
+    private Cineplex cineplex;
     private boolean platinumSuites;
     private String[] movieList = new String[100];
     private String[] movieScreening = new String[24];
     private int numOfSeats;
 
 
-    public Cinema(String cinemaName, String cineplexName, boolean platinumSuites, int numOfSeats) {
+    public Cinema(String cinemaName, Cineplex cineplex, boolean platinumSuites, int numOfSeats) {
         this.cinemaName = cinemaName;
-        this.cineplexName = cineplexName;
+        this.cineplex.setCineplexName(cineplex.getCineplexName());
         this.platinumSuites = platinumSuites;
         this.numOfSeats = numOfSeats;
 
@@ -33,11 +33,11 @@ public class Cinema implements Serializable{
     }
 
     public String getCineplexName() {
-        return this.cineplexName;
+        return this.cineplex.getCineplexName();
     }
 
     public void setCineplexName(String cineplexName) {
-        this.cineplexName = cineplexName;
+        this.cineplex.setCineplexName(cineplexName);
     }
 
     public boolean isPlatinumSuite() {
