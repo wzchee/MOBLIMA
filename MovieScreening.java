@@ -160,7 +160,8 @@ public class MovieScreening implements Serializable{
         listOfMovieScreening = fileio.readMovieScreeningData();
         for(int i=0;i<listOfMovieScreening.size();i++){
             if(listOfMovieScreening.get(i).getMovieObj().getMovieTitle().equals(movieTitleToRemove)){
-                listOfMovieScreening.remove(i);
+                // listOfMovieScreening.remove(i);
+                listOfMovieScreening.get(i).setHasCompleted(true);
             }
         }
         fileio.writeMovieScreeningData(listOfMovieScreening);
