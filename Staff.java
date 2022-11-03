@@ -55,7 +55,7 @@ public class Staff implements Serializable{
                     MovieScreening.updateMovieScreening();
                     break;
                 case 6:
-                    MovieScreening.removeMovieScreening();();
+                    MovieScreening.removeMovieScreening();
                     break;
                 case 7:
                     break;
