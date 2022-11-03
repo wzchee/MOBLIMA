@@ -70,10 +70,10 @@ public class Cinema implements Serializable{
     public void setMovieTime(int index, String movie) {
         this.movieScreening[index] = movie;
     }
-
+/*
     public static Cinema fetchDetails(String cinemaName){
         
     }
-
+*/
 
 }
