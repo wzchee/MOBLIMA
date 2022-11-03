@@ -136,6 +136,20 @@ public class MovieScreening implements Serializable{
 
     
 
+}
+
+//===============================================================================
+//    private ArrayList<MovieTicket> ticketsSold; NOT SURE IF WANT THIS?
+//===============================================================================
+
+//    public MovieTicket createMovieTicket(){
+//        MovieTicket movTix = new MovieTicket();
+//        ticketsSold.add(movTix);
+//        return movTix;
+//    }
+
+//===============================================================================
+
     // public static MovieScreening fetchDetails(String keyID) throws FileNotFoundException, IOException{
     //     // read from staff.txt
     //     InputStreamReader MovieScreening = new FileReader(System.getProperty("user.dir") + "\\src\\main\\java\\com\\mycompany\\moblima\\staff.txt");
@@ -275,17 +289,3 @@ public class MovieScreening implements Serializable{
 
     //     return new MovieScreening(movieObj,cinemaObj,myDateTime,mySeatArr,myisPublicHoliday, numOfOccupiedSeatsInte);
     // }
-
-}
-
-//===============================================================================
-//    private ArrayList<MovieTicket> ticketsSold; NOT SURE IF WANT THIS?
-//===============================================================================
-
-//    public MovieTicket createMovieTicket(){
-//        MovieTicket movTix = new MovieTicket();
-//        ticketsSold.add(movTix);
-//        return movTix;
-//    }
-
-//===============================================================================
