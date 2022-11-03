@@ -6,7 +6,7 @@ public class fileio {
 
     //filename naming convention [className][Data].txt e.g movieScreeningData.txt
 
-    private static String getDir(String filename){                        //Change Function Name
+    private static String getDir (String filename){                        //Change Function Name
         String currentDirectory;
         currentDirectory = System.getProperty("user.dir");
         String toReturn = "";
