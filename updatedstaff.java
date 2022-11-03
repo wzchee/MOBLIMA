@@ -240,7 +240,7 @@ public class updatedstaff {
 
 
     //createmovie method
-    public void createMovie()throws Exception{
+    public static void createMovie()throws Exception{
         Movie newMovie = new Movie();
         Scanner in = new Scanner(System.in);
         System.out.println("Movie title: ");
@@ -299,7 +299,7 @@ public class updatedstaff {
 
     }
 
-    public String updateMovie() throws Exception{
+    public static String updateMovie() throws Exception{
         ArrayList<Movie> movieList = null;
         movieList = fileio.readMovieData();
         Movie movieToUpdate = null;
@@ -335,7 +335,7 @@ public class updatedstaff {
         return movieToUpdate.getMovieStatus();
     }
 
-    public void removeMovie() throws Exception{
+    public static void removeMovie() throws Exception{
         ArrayList<Movie> movieList = null;
         movieList = fileio.readMovieData();
         Scanner in = new Scanner(System.in);
@@ -352,7 +352,13 @@ public class updatedstaff {
         if (found == 0){
             System.out.println("No such movie exists");
         }
+
+
         fileio.writeMovieData(movieList);
+    }
+
+    public static void updateMovieScreeningWithMovie(Movie movieToBeChanged){
+        
     }
 
 

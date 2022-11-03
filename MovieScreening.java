@@ -28,13 +28,56 @@ public class MovieScreening implements Serializable{
 
     }   
 
-    public Movie getMovieObj(){
-        return this.movieObj;
+    public Movie getMovieObj() {
+        return movieObj;
     }
 
-    public boolean getisPublicHoliday(){
+    public void setMovieObj(Movie movieObj) {
+        this.movieObj = movieObj;
+    }
+
+    public Cinema getMovieScreeningLocation() {
+        return movieScreeningLocation;
+    }
+
+    public void setMovieScreeningLocation(Cinema movieScreeningLocation) {
+        this.movieScreeningLocation = movieScreeningLocation;
+    }
+
+    public LocalDateTime getMydate() {
+        return mydate;
+    }
+
+    public void setMydate(LocalDateTime mydate) {
+        this.mydate = mydate;
+    }
+
+    public int[] getSeatArr() {
+        return seatArr;
+    }
+
+    public void setSeatArr(int[] seatArr) {
+        this.seatArr = seatArr;
+    }
+
+    public boolean isPublicHoliday() {
         return isPublicHoliday;
     }
+
+    public void setPublicHoliday(boolean publicHoliday) {
+        isPublicHoliday = publicHoliday;
+    }
+
+    public int getNumOfOccupiedSeats() {
+        return numOfOccupiedSeats;
+    }
+
+    public void setNumOfOccupiedSeats(int numOfOccupiedSeats) {
+        this.numOfOccupiedSeats = numOfOccupiedSeats;
+    }
+
+
+
 
     public void setSeatOccupied(int seatId){
         seatArr[seatId] = 1;
@@ -58,10 +101,6 @@ public class MovieScreening implements Serializable{
 
     }
 
-
-   public Cinema getCinema(){
-       return movieScreeningLocation;
-   }
     
 
     public double calcPrice(User user) {
@@ -74,7 +113,7 @@ public class MovieScreening implements Serializable{
             price+=2;
         }
 
-        if(this.getisPublicHoliday()){
+        if(this.isPublicHoliday()){
             price+=2;
         }
 
@@ -95,147 +134,147 @@ public class MovieScreening implements Serializable{
         }
     }
 
-    public MovieTicket createBooking()
+    
 
-    public static MovieScreening fetchDetails(String keyID) throws FileNotFoundException, IOException{
-        // read from staff.txt
-        InputStreamReader MovieScreening = new FileReader(System.getProperty("user.dir") + "\\src\\main\\java\\com\\mycompany\\moblima\\staff.txt");
-        CharBuffer rawtxt = CharBuffer.allocate(10000);
-        int buffersize = MovieScreening.read(rawtxt); // read the file into the CharBuffer, return size of buffer
-        MovieScreening.close();
-        rawtxt.rewind();
+    // public static MovieScreening fetchDetails(String keyID) throws FileNotFoundException, IOException{
+    //     // read from staff.txt
+    //     InputStreamReader MovieScreening = new FileReader(System.getProperty("user.dir") + "\\src\\main\\java\\com\\mycompany\\moblima\\staff.txt");
+    //     CharBuffer rawtxt = CharBuffer.allocate(10000);
+    //     int buffersize = MovieScreening.read(rawtxt); // read the file into the CharBuffer, return size of buffer
+    //     MovieScreening.close();
+    //     rawtxt.rewind();
 
-        // search for the matching Key id
-        CharBuffer inputbuf = CharBuffer.allocate(1000);
-        //Strings to store after we cast buffer into Strings
-        String movieTitleStr = null; //initialize attribute variables other than email
-        String cinemaNameStr = null;
-        String dateTimeStr = null;
-        String seatArrStr = null;
-        String isPublicHolidayStr = null;
-        String numOfOccupiedSeatstr = null;
-
-
-
-        //buffer to take in the characters
-
-        CharBuffer movieTitleToFetch = CharBuffer.allocate(1000); //initialize corresponding CharBuffer attribute
-        CharBuffer cinemaNameToFetch = CharBuffer.allocate(1000);
-        CharBuffer dateTimeToFetch = CharBuffer.allocate(1000);
-        CharBuffer seatArrToFetch = CharBuffer.allocate(1000);
-        CharBuffer isPublicHolidayToFetch = CharBuffer.allocate(1000);
-        CharBuffer numOfOccupiedSeatsToFetch = CharBuffer.allocate(1000);
+    //     // search for the matching Key id
+    //     CharBuffer inputbuf = CharBuffer.allocate(1000);
+    //     //Strings to store after we cast buffer into Strings
+    //     String movieTitleStr = null; //initialize attribute variables other than email
+    //     String cinemaNameStr = null;
+    //     String dateTimeStr = null;
+    //     String seatArrStr = null;
+    //     String isPublicHolidayStr = null;
+    //     String numOfOccupiedSeatstr = null;
 
 
-        while(rawtxt.position() < buffersize){
-            // convert inputted KeyID into CharBuffer for comparison
-            inputbuf.clear();
-            inputbuf.put(keyID);
 
-            // compare the emails and obtain the match results
-            BufferMatchReturn result = MOBLIMA.charBufferMatch(rawtxt, inputbuf);
-            rawtxt = result.getBuffer();
-            if(result.getMatch()){
-                // MovieScreening Keyid matched. read ALL corresponding records
+    //     //buffer to take in the characters
 
-                // reading Movie Title
-                char c = rawtxt.get();
-                do{
-                    movieTitleToFetch.append(c); //append individual characters into comparison buffer
-                    c = rawtxt.get();
-                }while(c != ','); //until reached the end of the password element
-                c = rawtxt.get(); //move to the next attribute
-
-                // reading Cinema Name
-                c = rawtxt.get();
-                do{
-                    cinemaNameToFetch.append(c); //append individual characters into comparison buffer
-                    c = rawtxt.get();
-                }while(c != ','); //until reached the end of the name element
-                c = rawtxt.get(); //move to the next attribute
-
-                // reading date
-                c = rawtxt.get();
-                do{
-                    dateTimeToFetch.append(c); //append individual characters into comparison buffer
-                    c = rawtxt.get();
-                }while(c != ','); //until reached the end of the name element
-                c = rawtxt.get(); //move to the next attribute
-
-                // reading seat array
-                c = rawtxt.get();
-                do{
-                    seatArrToFetch.append(c); //append individual characters into comparison buffer
-                    c = rawtxt.get();
-                }while(c != ','); //until reached the end of the name element
-                c = rawtxt.get(); //move to the next attribute
-
-                // reading publicHoliday
-                c = rawtxt.get();
-                do{
-                    isPublicHolidayToFetch.append(c); //append individual characters into comparison buffer
-                    c = rawtxt.get();
-                }while(c != ','); //until reached the end of the name element
-                c = rawtxt.get(); //move to the next attribute
+    //     CharBuffer movieTitleToFetch = CharBuffer.allocate(1000); //initialize corresponding CharBuffer attribute
+    //     CharBuffer cinemaNameToFetch = CharBuffer.allocate(1000);
+    //     CharBuffer dateTimeToFetch = CharBuffer.allocate(1000);
+    //     CharBuffer seatArrToFetch = CharBuffer.allocate(1000);
+    //     CharBuffer isPublicHolidayToFetch = CharBuffer.allocate(1000);
+    //     CharBuffer numOfOccupiedSeatsToFetch = CharBuffer.allocate(1000);
 
 
-                // reading numOfOccupiedSeats
-                c = rawtxt.get();
-                do{
-                    numOfOccupiedSeatsToFetch.append(c); //append individual characters into comparison buffer
-                    c = rawtxt.get();
-                }while(c != ','); //until reached the end of the name element
-                c = rawtxt.get(); //move to the next attribute
+    //     while(rawtxt.position() < buffersize){
+    //         // convert inputted KeyID into CharBuffer for comparison
+    //         inputbuf.clear();
+    //         inputbuf.put(keyID);
 
-            } else {
-                // move cursor until start of next user entry
-                char c;
-                do{
-                    c = rawtxt.get();
-                }while(c != '\n');
-            }
-        }
-        //convert movieTitle buffer to string and fetchDetail to get the movie object
-        movieTitleStr = movieTitleToFetch.toString();
-        Movie movieObj = Movie.fetchDetails(movieTitleStr);
+    //         // compare the emails and obtain the match results
+    //         BufferMatchReturn result = MOBLIMA.charBufferMatch(rawtxt, inputbuf);
+    //         rawtxt = result.getBuffer();
+    //         if(result.getMatch()){
+    //             // MovieScreening Keyid matched. read ALL corresponding records
+
+    //             // reading Movie Title
+    //             char c = rawtxt.get();
+    //             do{
+    //                 movieTitleToFetch.append(c); //append individual characters into comparison buffer
+    //                 c = rawtxt.get();
+    //             }while(c != ','); //until reached the end of the password element
+    //             c = rawtxt.get(); //move to the next attribute
+
+    //             // reading Cinema Name
+    //             c = rawtxt.get();
+    //             do{
+    //                 cinemaNameToFetch.append(c); //append individual characters into comparison buffer
+    //                 c = rawtxt.get();
+    //             }while(c != ','); //until reached the end of the name element
+    //             c = rawtxt.get(); //move to the next attribute
+
+    //             // reading date
+    //             c = rawtxt.get();
+    //             do{
+    //                 dateTimeToFetch.append(c); //append individual characters into comparison buffer
+    //                 c = rawtxt.get();
+    //             }while(c != ','); //until reached the end of the name element
+    //             c = rawtxt.get(); //move to the next attribute
+
+    //             // reading seat array
+    //             c = rawtxt.get();
+    //             do{
+    //                 seatArrToFetch.append(c); //append individual characters into comparison buffer
+    //                 c = rawtxt.get();
+    //             }while(c != ','); //until reached the end of the name element
+    //             c = rawtxt.get(); //move to the next attribute
+
+    //             // reading publicHoliday
+    //             c = rawtxt.get();
+    //             do{
+    //                 isPublicHolidayToFetch.append(c); //append individual characters into comparison buffer
+    //                 c = rawtxt.get();
+    //             }while(c != ','); //until reached the end of the name element
+    //             c = rawtxt.get(); //move to the next attribute
+
+
+    //             // reading numOfOccupiedSeats
+    //             c = rawtxt.get();
+    //             do{
+    //                 numOfOccupiedSeatsToFetch.append(c); //append individual characters into comparison buffer
+    //                 c = rawtxt.get();
+    //             }while(c != ','); //until reached the end of the name element
+    //             c = rawtxt.get(); //move to the next attribute
+
+    //         } else {
+    //             // move cursor until start of next user entry
+    //             char c;
+    //             do{
+    //                 c = rawtxt.get();
+    //             }while(c != '\n');
+    //         }
+    //     }
+    //     //convert movieTitle buffer to string and fetchDetail to get the movie object
+    //     movieTitleStr = movieTitleToFetch.toString();
+    //     Movie movieObj = Movie.fetchDetails(movieTitleStr);
         
-        //convert Cinema name buffer to string and fetchDetail to get the cinema object
+    //     //convert Cinema name buffer to string and fetchDetail to get the cinema object
 
-        cinemaNameStr = cinemaNameToFetch.toString();
-        Cinema cinemaObj = Cinema.fetchDetails(cinemaNameStr);
+    //     cinemaNameStr = cinemaNameToFetch.toString();
+    //     Cinema cinemaObj = Cinema.fetchDetails(cinemaNameStr);
 
-        //convert dateTime buffer to string and call parse to get the Datetime object
+    //     //convert dateTime buffer to string and call parse to get the Datetime object
 
-        dateTimeStr = dateTimeToFetch.toString();
-        LocalDateTime myDateTime = LocalDateTime.parse(dateTimeStr);
-
-
-        // convert the string to a string array and convert string array to int array
-        seatArrStr = seatArrToFetch.toString();
-        seatArrStr = seatArrStr.substring(1, seatArrStr.length() - 1);
-        String[] strSeatArr = seatArrStr.split(",");
-        int[] mySeatArr = new int[strSeatArr.length];
-
-        for (int i = 0; i < strSeatArr.length; i++) {
-            mySeatArr[i] = Integer.valueOf(strSeatArr[i]);
-        }
+    //     dateTimeStr = dateTimeToFetch.toString();
+    //     LocalDateTime myDateTime = LocalDateTime.parse(dateTimeStr);
 
 
+    //     // convert the string to a string array and convert string array to int array
+    //     seatArrStr = seatArrToFetch.toString();
+    //     seatArrStr = seatArrStr.substring(1, seatArrStr.length() - 1);
+    //     String[] strSeatArr = seatArrStr.split(",");
+    //     int[] mySeatArr = new int[strSeatArr.length];
 
-        isPublicHolidayStr = isPublicHolidayToFetch.toString();
-        boolean myisPublicHoliday = (isPublicHolidayStr=="true") ? true:false;
-
-        numOfOccupiedSeatstr = numOfOccupiedSeatsToFetch.toString();
-        int numOfOccupiedSeatsInte = Integer.parseInt(numOfOccupiedSeatstr);
+    //     for (int i = 0; i < strSeatArr.length; i++) {
+    //         mySeatArr[i] = Integer.valueOf(strSeatArr[i]);
+    //     }
 
 
 
-        
+    //     isPublicHolidayStr = isPublicHolidayToFetch.toString();
+    //     boolean myisPublicHoliday = (isPublicHolidayStr=="true") ? true:false;
+
+    //     numOfOccupiedSeatstr = numOfOccupiedSeatsToFetch.toString();
+    //     int numOfOccupiedSeatsInte = Integer.parseInt(numOfOccupiedSeatstr);
+
+
 
         
 
-        return new MovieScreening(movieObj,cinemaObj,myDateTime,mySeatArr,myisPublicHoliday, numOfOccupiedSeatsInte);
-    }
+        
+
+    //     return new MovieScreening(movieObj,cinemaObj,myDateTime,mySeatArr,myisPublicHoliday, numOfOccupiedSeatsInte);
+    // }
 
 }
 
