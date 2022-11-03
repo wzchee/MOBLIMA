@@ -9,7 +9,7 @@ import java.lang.module.FindException;
 
 public class Staff implements Serializable{
 
-    public static void loggedin(String useremail) throws FileNotFoundException, IOException{
+    public static void loggedin(String useremail) throws Exception{
         // User interface after a STAFF has logged in
 
         // Firstly, fetch details from staff.txt for use in later functions
