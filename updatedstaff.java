@@ -321,6 +321,7 @@ public class updatedstaff {
     } 
 
     public static void createMovieScreening() throws Exception{
+        Scanner input = new Scanner(System.in);
         ArrayList<MovieScreening> myMovieScreeningList = null;
         myMovieScreeningList = fileio.readMovieScreeningData();
         MovieScreening movieScreeningToAdd = null;
@@ -430,16 +431,14 @@ public class updatedstaff {
         myMovieScreeningList = fileio.readMovieScreeningData();
         MovieScreening toBeRemove = movieScreeningToChange(myMovieScreeningList);
         toBeRemove.setHasCompleted(true);
+        fileio.writeMovieScreeningData(myMovieScreeningList);
         
     }
     
     public static void updateMovieScreening() throws Exception{
+        Scanner input = new Scanner(System.in);
         ArrayList<MovieScreening> listOfMovieScreenings = fileio.readMovieScreeningData();
         MovieScreening toBeChanged = movieScreeningToChange(listOfMovieScreenings);
-        
-        
-        
-
         System.out.println("Please Enter Date and Time  [YYYY,MM,DD,HH,MIN]");
         String date = input.next();
         String[] arrOfString = date.split(",");
