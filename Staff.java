@@ -1,13 +1,15 @@
 import java.util.Scanner;
 import java.io.*;
 import java.nio.CharBuffer;
+import java.util.ArrayList;
 import java.time.LocalDateTime;
 import java.io.Serializable;
+import java.lang.module.FindException;
 
 
 public class Staff implements Serializable{
 
-    public static void loggedin(String useremail) throws FileNotFoundException, IOException{
+    public static void loggedin(String useremail) throws Exception{
         // User interface after a STAFF has logged in
 
         // Firstly, fetch details from staff.txt for use in later functions
@@ -185,7 +187,14 @@ public class Staff implements Serializable{
     public void setWorkplace(Cineplex workplace){this.workplace = workplace;}
 
     private static Staff fetchDetails(String useremail) throws Exception{
+        ArrayList<Staff> staffList = fileio.readStaffData();
+        for(int i=0; i<staffList.size(); i++)
+            if(useremail == staffList.get(i).getEmail())
+                return staffList.get(i);
 
+        // shouldn't happen, but just for compilation
+        System.out.println("In Staff.java, no Staff found");
+        return null;
     }
 
 }

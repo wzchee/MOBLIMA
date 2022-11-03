@@ -1,6 +1,7 @@
 import java.util.Scanner;
 import java.io.*;
 import java.nio.CharBuffer;
+import java.util.ArrayList;
 import java.time.LocalDateTime;
 import java.io.Serializable;
 import java.lang.module.FindException;
@@ -36,47 +37,33 @@ public class User implements Serializable{
                 case 2:
                     break;
                 case 3:
-                    System.out.print("Please enter your Movie Title: ");
-                    String movieTitleToFetch = input.next();
-                    Movie toFetchMovie = Movie.fetchDetails(movieTitleToFetch);
-                    String movieTitleToConcat = toFetchMovie.getMovieTitle();
+                    ArrayList<MovieTicket> movieTicketArrList = null;
+                    movieTicketArrList = fileio.readMovieTicketData();
+                    MovieTicket movieTicketToAdd = null;
+    //=========================================================================================================
+
+                    // System.out.print("Please enter your Movie Title: ");
+                    // String movieTitleToFetch = input.next();
+                    // Movie toFetchMovie = Movie.fetchDetails(movieTitleToFetch);
+                    // String movieTitleToConcat = toFetchMovie.getMovieTitle();
                     
-                    System.out.print("Please enter your Cinema Name: ");
-                    String cinemaNameToFetch = input.next();
-                    Cinema toFetchCinema = Cinema.fetchDetails(cinemaNameToFetch);
-                    String cinemaNameToConcat = toFetchCinema.getCinemaName();
+                    // System.out.print("Please enter your Cinema Name: ");
+                    // String cinemaNameToFetch = input.next();
+                    // Cinema toFetchCinema = Cinema.fetchDetails(cinemaNameToFetch);
+                    // String cinemaNameToConcat = toFetchCinema.getCinemaName();
 
+    //=========================================================================================================
 
-                    // should be we list out the available timeslots by going through MovieScreening.txt and then they get 
-                    // to choose and we fetchDetails for the movieInstance
-          //======================================================================
-                                           // *TEMPORARY
-                    System.out.println("Please Enter Date and Time  [YYYY,MM,DD,HH,MM]");
-                    String date = input.next();
-                    String[] arrOfString = date.split(",");
-                    int year = Integer.parseInt(arrOfString[0]);
-                    int month = Integer.parseInt(arrOfString[1]);
-                    int day = Integer.parseInt(arrOfString[2]);
-                    int hour = Integer.parseInt(arrOfString[3]);
-                    int minute = Integer.parseInt(arrOfString[4]);
-                    LocalDateTime myDate = LocalDateTime.of(year, month, day, hour, minute, 0);
-                    String dateTimeToConcat = myDate.toString();
-  
-                    String keyIdOfMovieScreening = movieTitleToConcat.concat(cinemaNameToConcat).concat(dateTimeToConcat);
-                   
-            //======================================================================
+                    //PSA: TAKE IN INPUT TO ASSIGN VARIABLES TO THESE SO I CAN CREATE MOVIESCREENING
+                    MovieScreening movieScreeningOfChoice = null;
+                    int seatId = -1;
+                    Double price = movieScreeningOfChoice.calcPrice(sessionUser);
 
-                    MovieScreening chosenMovieScreening = MovieScreening.fetchDetails(keyIdOfMovieScreening);
-                    chosenMovieScreening.displayLayout();
-                    System.out.println("Please choose the seat number from the list of available seats");
-                    String userSeatChoice = input.next();
-                    while(!chosenMovieScreening.getAvailabilityOfSeats(Integer.parseInt(userSeatChoice))){
-                        System.out.println("Please choose the seat number from the list of available seats");
-                        userSeatChoice = input.next();
-                    }
-                    chosenMovieScreening.createBooking(sessionUser,Integer.parseInt(userSeatChoice));
+    //=========================================================================================================
 
-
+                    movieTicketToAdd = createBooking(movieScreeningOfChoice, seatId, sessionUser, price);
+                    movieTicketArrList.add(movieTicketToAdd);
+                    fileio.writeMovieTicketData(movieTicketArrList);
 
                     break;
                 case 4:
@@ -124,6 +111,13 @@ public class User implements Serializable{
     public void setMobileNumber(String mobileNumber){this.mobileNumber = mobileNumber;}
 
     private static User fetchDetails(String useremail) throws Exception{
-        
+        ArrayList<User> userList = fileio.readUserData();
+        for(int i=0; i<userList.size(); i++)
+            if(useremail == userList.get(i).getEmail())
+                return userList.get(i);
+
+        // shouldn't happen, but just for compilation
+        System.out.println("In User.java, no user found");
+        return null;
     }
 }
