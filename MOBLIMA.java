@@ -1,8 +1,4 @@
 import java.util.Scanner;
-
-import javax.swing.plaf.synth.SynthFormattedTextFieldUI;
-
-import java.io.*;
 import java.util.ArrayList;
 
 public class MOBLIMA {
