@@ -111,6 +111,7 @@ public class User implements Serializable{
                 case 4:
                     break;
                 case 5:
+                    Review.writeReview(sessionUser);
                     break;
                 case 6:
                     System.out.println("Logging out as staff...");
