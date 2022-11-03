@@ -104,6 +104,10 @@ public void setPastReviews(String[] pastReviews){
   this.pastReviews = pastReviews;
 }
 
+public void incrementSaleVolume(){
+  this.saleVolume += 1;
+}
+
 public static void createMovie()throws Exception{
         Movie newMovie = new Movie();
         Scanner in = new Scanner(System.in);
