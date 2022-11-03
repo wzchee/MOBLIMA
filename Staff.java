@@ -111,26 +111,6 @@ public class Staff implements Serializable{
     }
 
 
-    
-
-
-        Scanner input = new Scanner(System.in);
-        ArrayList<MovieScreening> listOfMovieScreenings = fileio.readMovieScreeningData();
-        MovieScreening toBeChanged = movieScreeningToChange(listOfMovieScreenings);
-        System.out.println("Please Enter Date and Time  [YYYY,MM,DD,HH,MIN]");
-        String date = input.next();
-        String[] arrOfString = date.split(",");
-        int year = Integer.parseInt(arrOfString[0]);
-        int month = Integer.parseInt(arrOfString[1]);
-        int day = Integer.parseInt(arrOfString[2]);
-        int hour = Integer.parseInt(arrOfString[3]);
-        int minute = Integer.parseInt(arrOfString[4]);
-        LocalDateTime myDate = LocalDateTime.of(year, month, day, hour, minute, 0);
-
-        toBeChanged.setMydate(myDate);
-        fileio.writeMovieScreeningData(listOfMovieScreenings);
-        
-    }
 
 
 }

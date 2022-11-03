@@ -119,4 +119,11 @@ public class User implements Serializable{
         System.out.println("In User.java, no user found");
         return null;
     }
+
+    public static MovieTicket createBooking(MovieScreening movieScreeningOfChoice,int seatId,User userBooking,Double price){
+        
+        MovieTicket createdMovieTicket = new MovieTicket(movieScreeningOfChoice, seatId, userBooking, price);
+        movieScreeningOfChoice.setSeatOccupied(seatId);
+        return createdMovieTicket;
+    }
 }

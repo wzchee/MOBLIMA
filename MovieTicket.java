@@ -4,12 +4,12 @@ import java.io.Serializable;
 public class MovieTicket implements Serializable{
     private MovieScreening aMovieScreening;
     private int seatNumber;
-    private updatedUser userObj;
+    private User userObj;
     private Double price;
 
 
 
-    public MovieTicket(MovieScreening aMovieScreening, int seatNumber,updatedUser userObj,Double price) {
+    public MovieTicket(MovieScreening aMovieScreening, int seatNumber,User userObj,Double price) {
         this.seatNumber = seatNumber;
         this.userObj = userObj;
         this.aMovieScreening = aMovieScreening;
@@ -24,12 +24,12 @@ public class MovieTicket implements Serializable{
         return this.seatNumber;
     }
 
-   public updatedUser getUser(){
+   public User getUser(){
        return this.userObj;
    }
 
    public Double getPrice(){
-    return this.getPrice();
+        return this.price;
     }
     
 }
