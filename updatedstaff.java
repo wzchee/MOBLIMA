@@ -50,7 +50,7 @@ public class updatedstaff {
 
             switch(choice){
                 case 1:
-                    sessionUser.createMovie();
+                    createMovie();
                     break;
                 case 2:
                     String status = sessionUser.updateMovie();
@@ -332,6 +332,9 @@ public class updatedstaff {
             }
         }
         fileio.writeMovieData(movieList);
+        updateMovieScreeningWithMovie(movieToUpdate);
+
+
         return movieToUpdate.getMovieStatus();
     }
 
@@ -344,6 +347,7 @@ public class updatedstaff {
         int found = 0;
         for (int i = 0; i < movieList.size(); i++) {
             if(movieList.get(i).getMovieTitle().equals(movieName)){
+                removeMovieScreeningWithMovie(movieName);
                 movieList.remove(i);
                 found = 1;
                 break;
@@ -357,9 +361,27 @@ public class updatedstaff {
         fileio.writeMovieData(movieList);
     }
 
-    public static void updateMovieScreeningWithMovie(Movie movieToBeChanged){
-        
-    }
+    public static void updateMovieScreeningWithMovie(Movie movieToBeChanged) throws Exception{
+        ArrayList<MovieScreening> listOfMovieScreening = null;
+        listOfMovieScreening = fileio.readMovieScreeningData();
+        for(int i=0;i<listOfMovieScreening.size();i++){
+            if(listOfMovieScreening.get(i).getMovieObj().getMovieTitle().equals(movieToBeChanged.getMovieTitle())){
+                listOfMovieScreening.get(i).setMovieObj(movieToBeChanged);
+            }
+        }
+        fileio.writeMovieScreeningData(listOfMovieScreening);
+    } 
+
+    public static void removeMovieScreeningWithMovie(String movieTitleToRemove) throws Exception{
+        ArrayList<MovieScreening> listOfMovieScreening = null;
+        listOfMovieScreening = fileio.readMovieScreeningData();
+        for(int i=0;i<listOfMovieScreening.size();i++){
+            if(listOfMovieScreening.get(i).getMovieObj().getMovieTitle().equals(movieTitleToRemove)){
+                listOfMovieScreening.remove(i);
+            }
+        }
+        fileio.writeMovieScreeningData(listOfMovieScreening);
+    } 
 
 
 }
