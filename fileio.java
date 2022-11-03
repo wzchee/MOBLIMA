@@ -171,6 +171,61 @@ public class fileio {
        fileOut.close();
     }
 
+    public static ArrayList<Cineplex> readUserData() throws Exception{                      //change function name and return type generics
+        String txtdir = fileio.getDir("user.txt");                                                      //call the right Dir() method
+        ArrayList<Cineplex> mylist = new ArrayList<Cineplex>();
+    
+        try
+        {
+            FileInputStream fileIn = new FileInputStream(txtdir);// Read serial file.
+            ObjectInputStream in = new ObjectInputStream(fileIn);// input the read file.
+            mylist = (ArrayList) in.readObject();// allocate it to the object file already instanciated.
+            in.close();//closes the input stream.
+            fileIn.close();//closes the file data stream.
+        }
+        catch(IOException i)//exception stuff
+        {
+            i.printStackTrace();
+            return null;
+        }
 
+        return mylist;
+    }
+
+    public static void writeUserData(ArrayList<Cineplex> mylist) throws Exception{              //Change function name and parameter generics
+       FileOutputStream fileOut = new FileOutputStream("user.txt");         // Change txt file name
+       ObjectOutputStream out = new ObjectOutputStream(fileOut);
+       out.writeObject(mylist);
+       out.close();
+       fileOut.close();
+    }
+
+    public static ArrayList<Cineplex> readStaffData() throws Exception{                      //change function name and return type generics
+        String txtdir = fileio.getDir("staff.txt");                                                      //call the right Dir() method
+        ArrayList<Cineplex> mylist = new ArrayList<Cineplex>();
+    
+        try
+        {
+            FileInputStream fileIn = new FileInputStream(txtdir);// Read serial file.
+            ObjectInputStream in = new ObjectInputStream(fileIn);// input the read file.
+            mylist = (ArrayList) in.readObject();// allocate it to the object file already instanciated.
+            in.close();//closes the input stream.
+            fileIn.close();//closes the file data stream.
+        }
+        catch(IOException i)//exception stuff
+        {
+            i.printStackTrace();
+            return null;
+        }
+
+        return mylist;
+    }
+
+    public static void writeStaffData(ArrayList<Cineplex> mylist) throws Exception{              //Change function name and parameter generics
+       FileOutputStream fileOut = new FileOutputStream("user.txt");         // Change txt file name
+       ObjectOutputStream out = new ObjectOutputStream(fileOut);
+       out.writeObject(mylist);
+       out.close();
+       fileOut.close();
 
 }
