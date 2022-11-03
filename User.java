@@ -46,22 +46,25 @@ public class User implements Serializable{
                     System.out.print("Which movie would you like to watch? ");
                     String movie = input.next(); 
 
-                    ArrayList<LocalDateTime> screeninglist = MovieScreening.giveScreenTimes(movie);
+                    ArrayList<LocalDateTime> screeningtimelist = MovieScreening.giveScreenTimes(movie);
                     System.out.println("Here are the list of showtimes for the movie");
                     // Display list of showtimes, pass in movie title
                     System.out.println("Movie = " + movie);
-                    for(int i=0; i<screeninglist.size(); i++){
+                    for(int i=0; i<screeningtimelist.size(); i++){
                         System.out.print(i+1);
                         System.out.print(".\t");
-                        System.out.print(screeninglist.get(i).getDayOfMonth());
+                        System.out.print(screeningtimelist.get(i).getDayOfMonth());
                         System.out.print(" ");
-                        System.out.print(screeninglist.get(i).getMonth().toString());
+                        System.out.print(screeningtimelist.get(i).getMonth().toString());
                         System.out.print(" ");
-                        System.out.print(screeninglist.get(i).getDayOfWeek().toString());
+                        System.out.print(screeningtimelist.get(i).getDayOfWeek().toString());
                         System.out.print("\n");
                     }
                     System.out.print("Pick a showtime. Enter the number here: ");
                     int showtimenum = input.nextInt();
+
+                    ArrayList<MovieScreening> screeninglist = fileio.readMovieScreeningData();
+                    //
 
                     System.out.println("Here is the cinema layout for the showtime you selected");
                     // Display layout of cinema
