@@ -17,7 +17,7 @@ public class MovieTicket implements Serializable{
     }
 
     public Cinema getLocation(){
-        return aMovieScreening.getCinema();
+        return aMovieScreening.getMovieScreeningLocation();
     }
 
     public int getseatNumber(){
