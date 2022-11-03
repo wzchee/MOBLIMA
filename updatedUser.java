@@ -198,7 +198,7 @@ public class updatedUser {
         return new updatedUser(useremail, strpassword, intage, strname, strmobilenumber);
     }
 
-    public static MovieTicket createBooking(MovieScreening movieScreeningOfChoice,int seatId,User userBooking,Double price){
+    public static MovieTicket createBooking(MovieScreening movieScreeningOfChoice,int seatId,updatedUser userBooking,Double price){
         
         MovieTicket createdMovieTicket = new MovieTicket(movieScreeningOfChoice, seatId, userBooking, price);
         movieScreeningOfChoice.setSeatOccupied(seatId);

@@ -388,6 +388,46 @@ public class updatedstaff {
     }
 
     
+    public static MovieScreening movieScreeningToChange(ArrayList<MovieScreening> listOfMovieScreenings){
+        System.out.println("Enter Movie Title");
+        String movieTitle = input.next();
+        System.out.println("Enter Cinema Name"));
+        String cinemaTitle = input.next();
+        System.out.println("Enter Movie Screening Time ");
+
+
+        System.out.println("Please Enter Date and Time  [YYYY,MM,DD,HH,MIN]");
+        String date = input.next();
+        String[] arrOfString = date.split(",");
+        int year = Integer.parseInt(arrOfString[0]);
+        int month = Integer.parseInt(arrOfString[1]);
+        int day = Integer.parseInt(arrOfString[2]);
+        int hour = Integer.parseInt(arrOfString[3]);
+        int minute = Integer.parseInt(arrOfString[4]);
+        LocalDateTime myDate = LocalDateTime.of(year, month, day, hour, minute, 0);
+
+        MovieScreening toChange = null;
+        MovieScreening traverser = null;
+        
+        for(int i=0;i<listOfMovieScreenings.size();i++){
+            traverser = listOfMovieScreenings.get(i);
+            if(traverser.getMovieObj().getMovieTitle().equals(movieTitle) && traverser.getMydate().equals(myDate) && traverser.getMovieScreeningLocation().getCinemaName().equals(cinemaTitle)){
+                toChange = traverser;
+                break;
+            }
+        }
+
+        return toChange;
+
+
+
+    }
+    
+    public static void updateMovieScreening(){
+        System.out.println("Enter Movie Ti");
+    }
+
+    
 
 
 }
