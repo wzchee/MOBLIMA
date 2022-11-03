@@ -36,19 +36,19 @@ public class Staff implements Serializable{
 
             switch(choice){
                 case 1:
-                    createMovie();
+                    Movie.createMovie();
                     break;
                 case 2:
-                    String status = updateMovie();
+                    String status = Movie.updateMovie();
                     if (status == "End_Of_Showing"){
-                        removeMovie();
+                        Movie.removeMovie();
                     }
                     break;
                 case 3:
-                    removeMovie();
+                    Movie.removeMovie();
                     break;
                 case 4:
-                    createMovieScreening();
+                    MovieScreening.createMovieScreening();
             
                     break;
 
