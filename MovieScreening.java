@@ -15,18 +15,28 @@ public class MovieScreening implements Serializable{
     //seatArr will contain array of 0,1 depending on occupancy
     //NOT SURE IF WANT THIS?
     private boolean isPublicHoliday;
-    public int numOfOccupiedSeats;
+    private int numOfOccupiedSeats;
+    private boolean hasCompleted;
 
 
-    public MovieScreening(Movie movieObj,Cinema movieScreeningLocation, LocalDateTime mydate,int[] seatArr,boolean isPublicHoliday,int numOfOccupiedSeats){
+    public MovieScreening(Movie movieObj,Cinema movieScreeningLocation, LocalDateTime mydate,int[] seatArr,boolean isPublicHoliday,int numOfOccupiedSeats, boolean hasCompleted){
         this.movieObj = movieObj;
         this.mydate = mydate;
         this.movieScreeningLocation = movieScreeningLocation;
         this.isPublicHoliday = isPublicHoliday;
         this.seatArr = seatArr;
         this.numOfOccupiedSeats = numOfOccupiedSeats;
+        this.hasCompleted = hasCompleted;
 
     }   
+
+    public boolean hasCompleted(){
+        return this.hasCompleted;
+    }
+
+    public void setHasCompleted(boolean hasCompleted){
+        this.hasCompleted = hasCompleted;
+    }
 
     public Movie getMovieObj() {
         return movieObj;
