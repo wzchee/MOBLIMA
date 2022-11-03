@@ -50,82 +50,19 @@ public class updatedstaff {
 
             switch(choice){
                 case 1:
-                    sessionUser.createMovie();
+                    createMovie();
                     break;
                 case 2:
-                    String status = sessionUser.updateMovie();
+                    String status = updateMovie();
                     if (status == "End_Of_Showing"){
-                        sessionUser.removeMovie();
+                        removeMovie();
                     }
                     break;
                 case 3:
-                    sessionUser.removeMovie();
+                    removeMovie();
                     break;
                 case 4:
-                    ArrayList<MovieScreening> myMovieScreeningList = null;
-                    myMovieScreeningList = fileio.readMovieScreeningData();
-                    MovieScreening movieScreeningToAdd = null;
-
-
-                    // We will take in movie title and use it as a keyID to fetchDetail that spits out Movie Object
-                    System.out.print("Please enter your Movie Title: ");
-                    String movieTitleToFetch = input.next();
-                    Movie movieToFetch = null;
-                    ArrayList<Movie> myMovieList = fileio.readMovieData();
-                    for(int i=0;i<myMovieList.size();i++){
-                        if(myMovieList.get(i).getMovieTitle().equals(movieTitleToFetch)){
-                            movieToFetch = myMovieList.get(i);
-                            break;
-                        }
-                    }
-
-
-                    System.out.print("Please enter your Cinema Name: ");
-                    String cinemaNameToFetch = input.next();
-                    Cinema cinemaToFetch = null;
-                    ArrayList<Cinema> myCinemaList = fileio.readCinemaData();
-                    for(int i=0;i<myCinemaList.size();i++){
-                        if(myCinemaList.get(i).getCinemaName().equals(cinemaNameToFetch)){
-                            cinemaToFetch = myCinemaList.get(i);
-                            break;
-                        }
-                    }
-                    
-
-
-
-
-                    // We will ask for date time in this format and call toString to get string representation 
-                    // and next time with the string we can call ParseDateTime to reverse the string back to an actual LocalDateTime object
-                    System.out.println("Please Enter Date and Time  [YYYY,MM,DD,HH,MIN]");
-                    String date = input.next();
-                    String[] arrOfString = date.split(",");
-                    int year = Integer.parseInt(arrOfString[0]);
-                    int month = Integer.parseInt(arrOfString[1]);
-                    int day = Integer.parseInt(arrOfString[2]);
-                    int hour = Integer.parseInt(arrOfString[3]);
-                    int minute = Integer.parseInt(arrOfString[4]);
-                    LocalDateTime myDate = LocalDateTime.of(year, month, day, hour, minute, 0);
-                    
-
-                    
-                    
-                    int[] myArr = new int[100];
-                    for(int j=0;j<100;j++){
-                        myArr[j] = 0;
-                    }
-
-                    System.out.print("Is it a public holiday: [y/n]");
-                    String isPublicHolidayInput = input.next();
-                    boolean isPublicHoliday = true;
-                    //ask staff if it is public holiday
-                    if(isPublicHolidayInput=="n"){
-                        isPublicHoliday = false;
-                    }
-
-                    movieScreeningToAdd = new MovieScreening(movieToFetch, cinemaToFetch, myDate, myArr, isPublicHoliday,0);
-                    myMovieScreeningList.add(movieScreeningToAdd);
-                    fileio.writeMovieScreeningData(myMovieScreeningList);
+                    createMovieScreening();
             
                     break;
 
@@ -240,7 +177,7 @@ public class updatedstaff {
 
 
     //createmovie method
-    public void createMovie()throws Exception{
+    public static void createMovie()throws Exception{
         Movie newMovie = new Movie();
         Scanner in = new Scanner(System.in);
         System.out.println("Movie title: ");
@@ -299,7 +236,7 @@ public class updatedstaff {
 
     }
 
-    public String updateMovie() throws Exception{
+    public static String updateMovie() throws Exception{
         ArrayList<Movie> movieList = null;
         movieList = fileio.readMovieData();
         Movie movieToUpdate = null;
@@ -332,10 +269,13 @@ public class updatedstaff {
             }
         }
         fileio.writeMovieData(movieList);
+        updateMovieScreeningWithMovie(movieToUpdate);
+
+
         return movieToUpdate.getMovieStatus();
     }
 
-    public void removeMovie() throws Exception{
+    public static void removeMovie() throws Exception{
         ArrayList<Movie> movieList = null;
         movieList = fileio.readMovieData();
         Scanner in = new Scanner(System.in);
@@ -344,6 +284,7 @@ public class updatedstaff {
         int found = 0;
         for (int i = 0; i < movieList.size(); i++) {
             if(movieList.get(i).getMovieTitle().equals(movieName)){
+                removeMovieScreeningWithMovie(movieName);
                 movieList.remove(i);
                 found = 1;
                 break;
@@ -352,8 +293,101 @@ public class updatedstaff {
         if (found == 0){
             System.out.println("No such movie exists");
         }
+
+
         fileio.writeMovieData(movieList);
     }
+
+    public static void updateMovieScreeningWithMovie(Movie movieToBeChanged) throws Exception{
+        ArrayList<MovieScreening> listOfMovieScreening = null;
+        listOfMovieScreening = fileio.readMovieScreeningData();
+        for(int i=0;i<listOfMovieScreening.size();i++){
+            if(listOfMovieScreening.get(i).getMovieObj().getMovieTitle().equals(movieToBeChanged.getMovieTitle())){
+                listOfMovieScreening.get(i).setMovieObj(movieToBeChanged);
+            }
+        }
+        fileio.writeMovieScreeningData(listOfMovieScreening);
+    } 
+
+    public static void removeMovieScreeningWithMovie(String movieTitleToRemove) throws Exception{
+        ArrayList<MovieScreening> listOfMovieScreening = null;
+        listOfMovieScreening = fileio.readMovieScreeningData();
+        for(int i=0;i<listOfMovieScreening.size();i++){
+            if(listOfMovieScreening.get(i).getMovieObj().getMovieTitle().equals(movieTitleToRemove)){
+                listOfMovieScreening.remove(i);
+            }
+        }
+        fileio.writeMovieScreeningData(listOfMovieScreening);
+    } 
+
+    public static void createMovieScreening(){
+        ArrayList<MovieScreening> myMovieScreeningList = null;
+        myMovieScreeningList = fileio.readMovieScreeningData();
+        MovieScreening movieScreeningToAdd = null;
+
+
+        // We will take in movie title and use it as a keyID to fetchDetail that spits out Movie Object
+        System.out.print("Please enter your Movie Title: ");
+        String movieTitleToFetch = input.next();
+        Movie movieToFetch = null;
+        ArrayList<Movie> myMovieList = fileio.readMovieData();
+        for(int i=0;i<myMovieList.size();i++){
+            if(myMovieList.get(i).getMovieTitle().equals(movieTitleToFetch)){
+                movieToFetch = myMovieList.get(i);
+                break;
+            }
+        }
+
+
+        System.out.print("Please enter your Cinema Name: ");
+        String cinemaNameToFetch = input.next();
+        Cinema cinemaToFetch = null;
+        ArrayList<Cinema> myCinemaList = fileio.readCinemaData();
+        for(int i=0;i<myCinemaList.size();i++){
+            if(myCinemaList.get(i).getCinemaName().equals(cinemaNameToFetch)){
+                cinemaToFetch = myCinemaList.get(i);
+                break;
+            }
+        }
+        
+
+
+
+
+        // We will ask for date time in this format and call toString to get string representation 
+        // and next time with the string we can call ParseDateTime to reverse the string back to an actual LocalDateTime object
+        System.out.println("Please Enter Date and Time  [YYYY,MM,DD,HH,MIN]");
+        String date = input.next();
+        String[] arrOfString = date.split(",");
+        int year = Integer.parseInt(arrOfString[0]);
+        int month = Integer.parseInt(arrOfString[1]);
+        int day = Integer.parseInt(arrOfString[2]);
+        int hour = Integer.parseInt(arrOfString[3]);
+        int minute = Integer.parseInt(arrOfString[4]);
+        LocalDateTime myDate = LocalDateTime.of(year, month, day, hour, minute, 0);
+        
+
+        
+        
+        int[] myArr = new int[100];
+        for(int j=0;j<100;j++){
+            myArr[j] = 0;
+        }
+
+        System.out.print("Is it a public holiday: [y/n]");
+        String isPublicHolidayInput = input.next();
+        boolean isPublicHoliday = true;
+        //ask staff if it is public holiday
+        if(isPublicHolidayInput=="n"){
+            isPublicHoliday = false;
+        }
+
+        movieScreeningToAdd = new MovieScreening(movieToFetch, cinemaToFetch, myDate, myArr, isPublicHoliday,0,false);
+        myMovieScreeningList.add(movieScreeningToAdd);
+        fileio.writeMovieScreeningData(myMovieScreeningList);
+    }
+
+    
 
 
 }
