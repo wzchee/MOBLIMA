@@ -22,7 +22,7 @@ public class updatedUser {
         // User interface after a USER has logged in
 
         // Firstly, fetch details from user.txt for use in later functions
-        User sessionUser = fetchDetails(useremail);
+        updatedUser sessionUser = fetchDetails(useremail);
 
         // User main menu
         int choice = 0;
@@ -119,7 +119,7 @@ public class updatedUser {
     public String getMobileNumber(){return mobileNumber;}
     public void setMobileNumber(String mobileNumber){this.mobileNumber = mobileNumber;}
 
-    private static User fetchDetails(String useremail) throws FileNotFoundException, IOException{
+    private static updatedUser fetchDetails(String useremail) throws FileNotFoundException, IOException{
         // read from user.txt
         InputStreamReader userin = new FileReader(System.getProperty("user.dir") + "\\src\\main\\java\\com\\mycompany\\moblima\\user.txt");
         CharBuffer rawtxt = CharBuffer.allocate(10000);
@@ -195,12 +195,12 @@ public class updatedUser {
         strname = txtname.toString();
         strmobilenumber = txtmobilenumber.toString();
 
-        return new User(useremail, strpassword, intage, strname, strmobilenumber);
+        return new updatedUser(useremail, strpassword, intage, strname, strmobilenumber);
     }
 
     public static MovieTicket createBooking(MovieScreening movieScreeningOfChoice,int seatId,User userBooking,Double price){
         
-        MovieTicket createdMovieTicket = new MovieTicket(movieScreeningOfChoice, seatId, sessionUser, price);
+        MovieTicket createdMovieTicket = new MovieTicket(movieScreeningOfChoice, seatId, userBooking, price);
         movieScreeningOfChoice.setSeatOccupied(seatId);
         return createdMovieTicket;
     }
