@@ -1,4 +1,7 @@
-public class MovieTicket {
+import java.io.Serializable;
+
+
+public class MovieTicket implements Serializable{
     private MovieScreening aMovieScreening;
     private int seatNumber;
     private User userObj;
@@ -14,7 +17,7 @@ public class MovieTicket {
     }
 
     public Cinema getLocation(){
-        return aMovieScreening.getCinema();
+        return aMovieScreening.getMovieScreeningLocation();
     }
 
     public int getseatNumber(){
@@ -26,7 +29,7 @@ public class MovieTicket {
    }
 
    public Double getPrice(){
-    return this.getPrice();
+        return this.price;
     }
     
 }

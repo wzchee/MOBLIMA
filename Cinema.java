@@ -1,17 +1,19 @@
+import java.io.Serializable;
+
 /*enum cinemaStandard {
     Platinum_Suites, Standard;
 }*/
 
-public class Cinema {
-    private String cineplexName;
+public class Cinema implements Serializable{
     private String cinemaName;
+    private String cineplexName;
     private boolean platinumSuites;
     private String[] movieList = new String[100];
     private String[] movieScreening = new String[24];
     private int numOfSeats;
 
 
-    public Cinema(String cinemaName, String cineplexName,boolean platinumSuites, int numOfSeats) {
+    public Cinema(String cinemaName, String cineplexName, boolean platinumSuites, int numOfSeats) {
         this.cinemaName = cinemaName;
         this.cineplexName = cineplexName;
         this.platinumSuites = platinumSuites;
@@ -31,7 +33,11 @@ public class Cinema {
     }
 
     public String getCineplexName() {
-        return this.cinemaName;
+        return this.cineplexName;
+    }
+
+    public void setCineplexName(String cineplexName) {
+        this.cineplexName = cineplexName;
     }
 
     public boolean isPlatinumSuite() {

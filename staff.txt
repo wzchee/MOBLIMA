@@ -1,3 +1,0 @@
-admin,admin,admin,
-j,j,j,
-staff,staff,staff,

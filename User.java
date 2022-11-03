@@ -1,23 +1,14 @@
 import java.util.Scanner;
 import java.io.*;
-import java.nio.CharBuffer;
+import java.util.ArrayList;
 import java.time.LocalDateTime;
+import java.io.Serializable;
+import java.lang.module.FindException;
 
-public class User {
-    /*
-     * Associated storage document: user.txt in the same directory
-     * Formatting using string concatenation notation:
-     * email + "," + password + "," + age + "," + name + "," + mobilenumber + "\n"
-     * 
-     * NOTE! the code will only work if
-     * 1. user.txt exists in the same directory
-     * 2. There is at least one entry in user.txt
-     * 3. The document MUST end with a '\n'
-     * 4. The first element of the entry must be email
-     * 5. The second element of the entry must be password
-     */
-    
-    public static void loggedin(String useremail) throws FileNotFoundException, IOException{
+
+public class User implements Serializable{
+   
+    public static void loggedin(String useremail) throws Exception{
         // User interface after a USER has logged in
 
         // Firstly, fetch details from user.txt for use in later functions
@@ -45,47 +36,76 @@ public class User {
                 case 2:
                     break;
                 case 3:
-                    System.out.print("Please enter your Movie Title: ");
-                    String movieTitleToFetch = input.next();
-                    Movie toFetchMovie = Movie.fetchDetails(movieTitleToFetch);
-                    String movieTitleToConcat = toFetchMovie.getMovieTitle();
-                    
-                    System.out.print("Please enter your Cinema Name: ");
-                    String cinemaNameToFetch = input.next();
-                    Cinema toFetchCinema = Cinema.fetchDetails(cinemaNameToFetch);
-                    String cinemaNameToConcat = toFetchCinema.getCinemaName();
+                    //ArrayList<MovieTicket> movieTicketArrList = null;
+                    //movieTicketArrList = fileio.readMovieTicketData();
+                    //MovieTicket movieTicketToAdd = null;
+    //=========================================================================================================
 
+                    System.out.println("Here are the list of movies to choose from: ");
+                    // Display list of movies
+                    System.out.print("Which movie would you like to watch? ");
+                    String movie = input.next(); 
 
-                    // should be we list out the available timeslots by going through MovieScreening.txt and then they get 
-                    // to choose and we fetchDetails for the movieInstance
-          //======================================================================
-                                           // *TEMPORARY
-                    System.out.println("Please Enter Date and Time  [YYYY,MM,DD,HH,MM]");
-                    String date = input.next();
-                    String[] arrOfString = date.split(",");
-                    int year = Integer.parseInt(arrOfString[0]);
-                    int month = Integer.parseInt(arrOfString[1]);
-                    int day = Integer.parseInt(arrOfString[2]);
-                    int hour = Integer.parseInt(arrOfString[3]);
-                    int minute = Integer.parseInt(arrOfString[4]);
-                    LocalDateTime myDate = LocalDateTime.of(year, month, day, hour, minute, 0);
-                    String dateTimeToConcat = myDate.toString();
-  
-                    String keyIdOfMovieScreening = movieTitleToConcat.concat(cinemaNameToConcat).concat(dateTimeToConcat);
-                   
-            //======================================================================
-
-                    MovieScreening chosenMovieScreening = MovieScreening.fetchDetails(keyIdOfMovieScreening);
-                    chosenMovieScreening.displayLayout();
-                    System.out.println("Please choose the seat number from the list of available seats");
-                    String userSeatChoice = input.next();
-                    while(!chosenMovieScreening.getAvailabilityOfSeats(Integer.parseInt(userSeatChoice))){
-                        System.out.println("Please choose the seat number from the list of available seats");
-                        userSeatChoice = input.next();
+                    ArrayList<LocalDateTime> screeningtimelist = MovieScreening.giveScreenTimes(movie);
+                    System.out.println("Here are the list of showtimes for the movie");
+                    // Display list of showtimes, pass in movie title
+                    System.out.println("Movie = " + movie);
+                    for(int i=0; i<screeningtimelist.size(); i++){
+                        System.out.print(i+1);
+                        System.out.print(".\t");
+                        System.out.print(screeningtimelist.get(i).getDayOfMonth());
+                        System.out.print(" ");
+                        System.out.print(screeningtimelist.get(i).getMonth().toString());
+                        System.out.print(" ");
+                        System.out.print(screeningtimelist.get(i).getDayOfWeek().toString());
+                        System.out.print("\n");
                     }
-                    chosenMovieScreening.createBooking(sessionUser,Integer.parseInt(userSeatChoice));
+                    System.out.print("Pick a showtime. Enter the number here: ");
+                    int showtimenum = input.nextInt();
 
+                    ArrayList<MovieScreening> screeninglist = fileio.readMovieScreeningData();
+                    //
 
+                    System.out.println("Here is the cinema layout for the showtime you selected");
+                    // Display layout of cinema
+                    System.out.print("Please pick a vacant seat: ");
+                    String seatID = input.next();
+
+                    // Seat screening
+                    // Multiple tickets?
+
+                    System.out.println("Your seat is secured!");
+                    System.out.println("Ticket price = $9999999");
+                    System.out.print("Proceed (Y/N) ?");
+                    String option = input.next();
+
+                    if(option == "Y"){
+                        System.out.println("Ticket purchase successful!");
+                        System.out.println("Here is your ticket ID (TID)");
+                    }
+
+                    //System.out.print("Please enter your Movie Title: ");
+                    //String movieTitleToFetch = input.next();
+                    //Movie toFetchMovie = Movie.fetchDetails(movieTitleToFetch);
+                    //String movieTitleToConcat = toFetchMovie.getMovieTitle();
+                    
+                    // System.out.print("Please enter your Cinema Name: ");
+                    // String cinemaNameToFetch = input.next();
+                    // Cinema toFetchCinema = Cinema.fetchDetails(cinemaNameToFetch);
+                    // String cinemaNameToConcat = toFetchCinema.getCinemaName();
+
+    //=========================================================================================================
+
+                    //PSA: TAKE IN INPUT TO ASSIGN VARIABLES TO THESE SO I CAN CREATE MOVIESCREENING
+                    MovieScreening movieScreeningOfChoice = null;
+                    int seatId = -1;
+                    Double price = movieScreeningOfChoice.calcPrice(sessionUser);
+
+    //=========================================================================================================
+
+                    movieTicketToAdd = createBooking(movieScreeningOfChoice, seatId, sessionUser, price);
+                    movieTicketArrList.add(movieTicketToAdd);
+                    fileio.writeMovieTicketData(movieTicketArrList);
 
                     break;
                 case 4:
@@ -116,7 +136,9 @@ public class User {
     public String getEmail(){return email;}
     public void setEmail(String email){this.email = email;}
 
-    private String password; //don't think a get and set applies here
+    private String password;
+    public String getPassword(){return password;}
+    public void setPassword(String password){this.password = password;}
 
     private int age;
     public int getAge(){return age;}
@@ -130,82 +152,23 @@ public class User {
     public String getMobileNumber(){return mobileNumber;}
     public void setMobileNumber(String mobileNumber){this.mobileNumber = mobileNumber;}
 
-    private static User fetchDetails(String useremail) throws FileNotFoundException, IOException{
-        // read from user.txt
-        InputStreamReader userin = new FileReader(System.getProperty("user.dir") + "\\src\\main\\java\\com\\mycompany\\moblima\\user.txt");
-        CharBuffer rawtxt = CharBuffer.allocate(10000);
-        int buffersize = userin.read(rawtxt); // read the file into the CharBuffer, return size of buffer
-        userin.close();
-        rawtxt.rewind();
+    private static User fetchDetails(String useremail) throws Exception{
+        ArrayList<User> userList = fileio.readUserData();
+        for(int i=0; i<userList.size(); i++)
+            if(useremail == userList.get(i).getEmail())
+                return userList.get(i);
 
-        // search for the matching email record
-        CharBuffer inputbuf = CharBuffer.allocate(1000);
-        String strpassword = null; //initialize attribute variables other than email
-        int intage = 0;
-        String strname = null;
-        String strmobilenumber = null;
-        CharBuffer txtpassword = CharBuffer.allocate(1000); //initialize corresponding CharBuffer attribute
-        CharBuffer txtage = CharBuffer.allocate(3);
-        CharBuffer txtname = CharBuffer.allocate(1000);
-        CharBuffer txtmobilenumber = CharBuffer.allocate(20);
-        while(rawtxt.position() < buffersize){
-            // convert user inputted email into CharBuffer for comparison
-            inputbuf.clear();
-            inputbuf.put(useremail);
-
-            // compare the emails and obtain the match results
-            BufferMatchReturn result = MOBLIMA.charBufferMatch(rawtxt, inputbuf);
-            rawtxt = result.getBuffer();
-            if(result.getMatch()){
-                // email matched. read ALL corresponding records
-
-                // reading password
-                char c = rawtxt.get();
-                do{
-                    txtpassword.append(c); //append individual characters into comparison buffer
-                    c = rawtxt.get();
-                }while(c != ','); //until reached the end of the password element
-                c = rawtxt.get(); //move to the next attribute
-
-                // reading age
-                c = rawtxt.get();
-                do{
-                    txtage.append(c); //append individual characters into comparison buffer
-                    c = rawtxt.get();
-                }while(c != ','); //until reached the end of the age element
-                c = rawtxt.get(); //move to the next attribute
-
-                // reading name
-                c = rawtxt.get();
-                do{
-                    txtname.append(c); //append individual characters into comparison buffer
-                    c = rawtxt.get();
-                }while(c != ','); //until reached the end of the name element
-                c = rawtxt.get(); //move to the next attribute
-
-                // reading mobilenumber
-                c = rawtxt.get();
-                do{
-                    txtmobilenumber.append(c); //append individual characters into comparison buffer
-                    c = rawtxt.get();
-                }while(c != ','); //until reached the end of the mobilenumber element
-                c = rawtxt.get(); //move to the next attribute
-
-                break;
-            } else {
-                // move cursor until start of next user entry
-                char c;
-                do{
-                    c = rawtxt.get();
-                }while(c != '\n');
-            }
-        }
-        strpassword = txtpassword.toString();
-        String strage = txtage.toString();
-        intage = Integer.valueOf(strage);
-        strname = txtname.toString();
-        strmobilenumber = txtmobilenumber.toString();
-
-        return new User(useremail, strpassword, intage, strname, strmobilenumber);
+        // shouldn't happen, but just for compilation
+        System.out.println("In User.java, no user found");
+        return null;
     }
+
+    public static MovieTicket createBooking(MovieScreening movieScreeningOfChoice,int seatId,User userBooking,Double price){
+        movieScreeningOfChoice.getMovieObj().incrementSaleVolume();
+        MovieTicket createdMovieTicket = new MovieTicket(movieScreeningOfChoice, seatId, userBooking, price);
+        movieScreeningOfChoice.setSeatOccupied(seatId);
+        return createdMovieTicket;
+    }
+
+
 }
