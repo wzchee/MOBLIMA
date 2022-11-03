@@ -3,6 +3,7 @@
 }*/
 
 public class Cinema {
+    private String cineplexName;
     private String cinemaName;
     private boolean platinumSuites;
     private String[] movieList = new String[100];
@@ -10,8 +11,9 @@ public class Cinema {
     private int numOfSeats;
 
 
-    public Cinema(String cinemaName, boolean platinumSuites, int numOfSeats) {
+    public Cinema(String cinemaName, String cineplexName,boolean platinumSuites, int numOfSeats) {
         this.cinemaName = cinemaName;
+        this.cineplexName = cineplexName;
         this.platinumSuites = platinumSuites;
         this.numOfSeats = numOfSeats;
 
@@ -26,6 +28,10 @@ public class Cinema {
 
     public void setCinemaName(String cinemaName) {
         this.cinemaName = cinemaName;
+    }
+
+    public String getCineplexName() {
+        return this.cinemaName;
     }
 
     public boolean isPlatinumSuite() {
@@ -58,10 +64,5 @@ public class Cinema {
     public void setMovieTime(int index, String movie) {
         this.movieScreening[index] = movie;
     }
-
-    public static Cinema fetchDetails(String cinemaName){
-        
-    }
-
 
 }
