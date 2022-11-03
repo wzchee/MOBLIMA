@@ -157,9 +157,11 @@ public class User implements Serializable{
     }
 
     public static MovieTicket createBooking(MovieScreening movieScreeningOfChoice,int seatId,User userBooking,Double price){
-        
+        movieScreeningOfChoice.getMovieObj();
         MovieTicket createdMovieTicket = new MovieTicket(movieScreeningOfChoice, seatId, userBooking, price);
         movieScreeningOfChoice.setSeatOccupied(seatId);
         return createdMovieTicket;
     }
+
+
 }

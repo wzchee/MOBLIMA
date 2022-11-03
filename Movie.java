@@ -104,6 +104,10 @@ public void setPastReviews(String[] pastReviews){
   this.pastReviews = pastReviews;
 }
 
+public void incrementSaleVolume(){
+  this.saleVolume += 1;
+}
+
 public static void createMovie()throws Exception{
         Movie newMovie = new Movie();
         Scanner in = new Scanner(System.in);
@@ -224,5 +228,15 @@ public static void createMovie()throws Exception{
 
 
         fileio.writeMovieData(movieList);
+    }
+
+    public static void showMovieList() throws Exception{
+      ArrayList<Movie> movieList = null;
+      movieList = fileio.readMovieData();
+      for (int index = 0; index < movieList.size(); index++) {
+        System.out.println(index+1 +". "+ movieList.get(index).getMovieTitle());
+        System.out.println("Status: "+movieList.get(index).getMovieStatus());
+      }
+      fileio.writeMovieData(movieList);
     }
 }

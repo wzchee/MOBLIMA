@@ -300,7 +300,17 @@ public class MovieScreening implements Serializable{
         
     }
 
-    
+    public static ArrayList<LocalDateTime> giveScreenTimes(String movieTitle) throws Exception{
+        ArrayList<LocalDateTime> toRetur = new ArrayList<LocalDateTime>();
+        ArrayList<MovieScreening> mylis = fileio.readMovieScreeningData();
+        for(int i=0;i<mylis.size();i++){
+            if(mylis.get(i).getMovieObj().getMovieTitle().equals(movieTitle) && !mylis.get(i).hasCompleted()){
+                toRetur.add(mylis.get(i).getMydate());
+            }
+        }
+
+        return toRetur;
+    }
 
     
 
