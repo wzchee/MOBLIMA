@@ -211,7 +211,7 @@ public static void createMovie()throws Exception{
         int found = 0;
         for (int i = 0; i < movieList.size(); i++) {
             if(movieList.get(i).getMovieTitle().equals(movieName)){
-                removeMovieScreeningWithMovie(movieName);
+                MovieScreening.removeMovieScreeningWithMovie(movieName);
                 movieList.remove(i);
                 found = 1;
                 break;
