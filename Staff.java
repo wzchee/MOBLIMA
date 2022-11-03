@@ -6,18 +6,6 @@ import java.io.Serializable;
 
 
 public class Staff implements Serializable{
-    /*
-     * Associated storage document: staff.txt in the same directory
-     * Formatting using string concatenation notation:
-     * email + "," + password + "," + name + "," + workplace_string + "\n"
-     * 
-     * NOTE! the code will only work if
-     * 1. staff.txt exists in the same directory
-     * 2. There is at least one entry in staff.txt
-     * 3. The document MUST end with a '\n'
-     * 4. The first element of the entry must be email
-     * 5. The second element of the entry must be password
-     */
 
     public static void loggedin(String useremail) throws FileNotFoundException, IOException{
         // User interface after a STAFF has logged in
@@ -184,7 +172,9 @@ public class Staff implements Serializable{
     public String getEmail(){return email;}
     public void setEmail(String email){this.email = email;}
 
-    private String password; //don't think a get and set applies here
+    private String password;
+    public String getPassword(){return password;}
+    public void setPassword(String password){this.password = password;}
 
     private String name;
     public String getName(){return name;}
@@ -194,67 +184,8 @@ public class Staff implements Serializable{
     public Cineplex getWorkplace(){return workplace;}
     public void setWorkplace(Cineplex workplace){this.workplace = workplace;}
 
-    private static Staff fetchDetails(String useremail) throws FileNotFoundException, IOException{
-        // read from staff.txt
-        InputStreamReader staffin = new FileReader(System.getProperty("user.dir") + "\\src\\main\\java\\com\\mycompany\\moblima\\staff.txt");
-        CharBuffer rawtxt = CharBuffer.allocate(10000);
-        int buffersize = staffin.read(rawtxt); // read the file into the CharBuffer, return size of buffer
-        staffin.close();
-        rawtxt.rewind();
+    private static Staff fetchDetails(String useremail) throws Exception{
 
-        // search for the matching email record
-        CharBuffer inputbuf = CharBuffer.allocate(1000);
-        String strpassword = null; //initialize attribute variables other than email
-        String strname = null;
-        CharBuffer txtpassword = CharBuffer.allocate(1000); //initialize corresponding CharBuffer attribute
-        CharBuffer txtname = CharBuffer.allocate(1000);
-        while(rawtxt.position() < buffersize){
-            // convert user inputted email into CharBuffer for comparison
-            inputbuf.clear();
-            inputbuf.put(useremail);
-
-            // compare the emails and obtain the match results
-            BufferMatchReturn result = MOBLIMA.charBufferMatch(rawtxt, inputbuf);
-            rawtxt = result.getBuffer();
-            if(result.getMatch()){
-                // email matched. read ALL corresponding records
-
-                // reading password
-                char c = rawtxt.get();
-                do{
-                    txtpassword.append(c); //append individual characters into comparison buffer
-                    c = rawtxt.get();
-                }while(c != ','); //until reached the end of the password element
-                c = rawtxt.get(); //move to the next attribute
-
-                // reading name
-                c = rawtxt.get();
-                do{
-                    txtname.append(c); //append individual characters into comparison buffer
-                    c = rawtxt.get();
-                }while(c != ','); //until reached the end of the name element
-                c = rawtxt.get(); //move to the next attribute
-
-                // reading workplace
-                CharBuffer txtworkplace = CharBuffer.allocate(1000);
-                /*
-                 * do while
-                 * switch(txtworkplace)
-                 */
-
-                break;
-            } else {
-                // move cursor until start of next user entry
-                char c;
-                do{
-                    c = rawtxt.get();
-                }while(c != '\n');
-            }
-        }
-        strpassword = txtpassword.toString();
-        strname = txtname.toString();
-
-        return new Staff(useremail, strpassword, strname, null);
     }
 
 }

@@ -171,8 +171,8 @@ public class fileio {
        fileOut.close();
     }
 
-    public static ArrayList<Cineplex> readUserData() throws Exception{                      //change function name and return type generics
-        String txtdir = fileio.getDir("user.txt");                                                      //call the right Dir() method
+    public static ArrayList<User> readUserData() throws Exception{                      //change function name and return type generics
+        String txtdir = fileio.getDir("userData.txt");                                                      //call the right Dir() method
         ArrayList<Cineplex> mylist = new ArrayList<Cineplex>();
     
         try
@@ -192,16 +192,16 @@ public class fileio {
         return mylist;
     }
 
-    public static void writeUserData(ArrayList<Cineplex> mylist) throws Exception{              //Change function name and parameter generics
-       FileOutputStream fileOut = new FileOutputStream("user.txt");         // Change txt file name
+    public static void writeUserData(ArrayList<User> mylist) throws Exception{              //Change function name and parameter generics
+       FileOutputStream fileOut = new FileOutputStream("userData.txt");         // Change txt file name
        ObjectOutputStream out = new ObjectOutputStream(fileOut);
        out.writeObject(mylist);
        out.close();
        fileOut.close();
     }
 
-    public static ArrayList<Cineplex> readStaffData() throws Exception{                      //change function name and return type generics
-        String txtdir = fileio.getDir("staff.txt");                                                      //call the right Dir() method
+    public static ArrayList<Staff> readStaffData() throws Exception{                      //change function name and return type generics
+        String txtdir = fileio.getDir("staffData.txt");                                                      //call the right Dir() method
         ArrayList<Cineplex> mylist = new ArrayList<Cineplex>();
     
         try
@@ -221,8 +221,8 @@ public class fileio {
         return mylist;
     }
 
-    public static void writeStaffData(ArrayList<Cineplex> mylist) throws Exception{              //Change function name and parameter generics
-       FileOutputStream fileOut = new FileOutputStream("user.txt");         // Change txt file name
+    public static void writeStaffData(ArrayList<Staff> mylist) throws Exception{              //Change function name and parameter generics
+       FileOutputStream fileOut = new FileOutputStream("staffData.txt");         // Change txt file name
        ObjectOutputStream out = new ObjectOutputStream(fileOut);
        out.writeObject(mylist);
        out.close();
