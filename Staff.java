@@ -49,10 +49,10 @@ public class Staff implements Serializable{
                     break;
                 case 4:
                     MovieScreening.createMovieScreening();
-            
                     break;
 
                 case 5:
+                
                     break;
                 case 6:
                     break;

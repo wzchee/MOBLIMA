@@ -195,6 +195,8 @@ public static void createMovie()throws Exception{
                 movieToUpdate.setMovieStatus(status.End_Of_Showing);
             }
         }
+        System.out.println("Movie status: "+movieToUpdate.getMovieStatus());
+
         fileio.writeMovieData(movieList);
         MovieScreening.updateMovieScreeningWithMovie(movieToUpdate);
 
