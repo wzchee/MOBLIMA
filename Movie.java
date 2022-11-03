@@ -157,8 +157,7 @@ public static void createMovie()throws Exception{
         newMovie.setMovieSypnosis(in.next());
         System.out.println("Director: ");
         newMovie.setMovieDirector(in.next());
-        System.out.println("Sale Volume: ");
-        newMovie.setSaleVolume(in.nextInt());
+        newMovie.setSaleVolume(0);
         
         ArrayList<Movie> movieList = null;
         movieList = fileio.readMovieData();
