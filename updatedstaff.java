@@ -73,7 +73,7 @@ public class updatedstaff {
                     Movie movieToFetch = null;
                     ArrayList<Movie> myMovieList = fileio.readMovieData();
                     for(int i=0;i<myMovieList.size();i++){
-                        if(myMovieList.get(i).getMovieTitle()==movieTitleToFetch){
+                        if(myMovieList.get(i).getMovieTitle().equals(movieTitleToFetch)){
                             movieToFetch = myMovieList.get(i);
                             break;
                         }
@@ -85,7 +85,7 @@ public class updatedstaff {
                     Cinema cinemaToFetch = null;
                     ArrayList<Cinema> myCinemaList = fileio.readCinemaData();
                     for(int i=0;i<myCinemaList.size();i++){
-                        if(myCinemaList.get(i).getCinemaName()==cinemaNameToFetch){
+                        if(myCinemaList.get(i).getCinemaName().equals(cinemaNameToFetch)){
                             cinemaToFetch = myCinemaList.get(i);
                             break;
                         }
@@ -308,7 +308,7 @@ public class updatedstaff {
         String movieName = in.next();
         int found = 0;
         for (int i = 0; i < movieList.size(); i++) {
-            if(movieList.get(i).getMovieTitle() == movieName){
+            if(movieList.get(i).getMovieTitle().equals(movieName)){
                 movieToUpdate = movieList.get(i);
                 found = 1;
                 break;
@@ -343,7 +343,7 @@ public class updatedstaff {
         String movieName = in.next();
         int found = 0;
         for (int i = 0; i < movieList.size(); i++) {
-            if(movieList.get(i).getMovieTitle() == movieName){
+            if(movieList.get(i).getMovieTitle().equals(movieName)){
                 movieList.remove(i);
                 found = 1;
                 break;
