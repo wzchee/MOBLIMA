@@ -235,6 +235,7 @@ public static void createMovie()throws Exception{
       }
   } while (!success);
   newMovie.setMovieTitle(title);
+  
   int runtime = 0;
   success = false;
   do {
