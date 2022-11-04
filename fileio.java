@@ -204,23 +204,20 @@ public class fileio {
         {
             FileInputStream fileIn = new FileInputStream(txtdir);// Read serial file.
             ObjectInputStream in = new ObjectInputStream(fileIn);// input the read file.
-            mylist = (ArrayList) in.readObject();// allocate it to the object file already instantiated.
+            mylist = (ArrayList)in.readObject();// allocate it to the object file already instantiated.
             in.close();//closes the input stream.
             fileIn.close();//closes the file data stream.
         }
         catch(IOException i)//exception stuff
         {
             File newFile = new File(txtdir);
-            try{
-                newFile.createNewFile();
-            } catch(IOException e){
-                System.out.println(txtdir);
-                e.printStackTrace();
-            }
-            
+            newFile.createNewFile();
             FileInputStream fileIn = new FileInputStream(txtdir);// Read serial file.
+
+            writeCineplexData(new ArrayList<Cineplex>());
+
             ObjectInputStream in = new ObjectInputStream(fileIn);// input the read file.
-            mylist = (ArrayList)in.readObject();// allocate it to the object file already instantiated.
+            mylist = (ArrayList<Cineplex>)in.readObject();// allocate it to the object file already instantiated.
             in.close();//closes the input stream.
             fileIn.close();//closes the file data stream.
         }
