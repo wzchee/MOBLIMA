@@ -185,7 +185,7 @@ public class MovieScreening implements Serializable{
         Movie movieToFetch = null;
         ArrayList<Movie> myMovieList = fileio.readMovieData();
         for(int i=0;i<myMovieList.size();i++){
-            if(myMovieList.get(i).getMovieTitle().equals(movieTitleToFetch)){
+            if(myMovieList.get(i).getMovieTitle().equals(movieTitleToFetch) && !myMovieList.get(i).getMovieStatus().equals("End_of_Showing")){
                 movieToFetch = myMovieList.get(i);
                 break;
             }
