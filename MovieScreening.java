@@ -328,6 +328,25 @@ public class MovieScreening implements Serializable{
     }
 
     
+    public static MovieScreening retrieveMovieScreening(String movieTitleOfMovieScreening,LocalDateTime mydateOfMovieScreening,String myCineplexOfMovieScreening) throws Exception{
+       
+
+        ArrayList<MovieScreening> listOfMovieScreening = fileio.readMovieScreeningData();
+        String movieTitle = null;
+        LocalDateTime mydate = null;
+        String myCineplex = null;
+        MovieScreening toRetur = null;
+        for(int i =0;i<listOfMovieScreening.size();i++){
+            movieTitle = listOfMovieScreening.get(i).getMovieObj().getMovieTitle();
+            mydate = listOfMovieScreening.get(i).getMydate();
+            myCineplex = listOfMovieScreening.get(i).getMovieScreeningLocation().getCineplexName();
+            if(movieTitle.equals(movieTitleOfMovieScreening) && mydate.equals(mydateOfMovieScreening) && myCineplex.equals(myCineplexOfMovieScreening)){
+                toRetur = listOfMovieScreening.get(i);
+            }
+        }
+
+        return toRetur;
+    }
 
 }
 
