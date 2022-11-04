@@ -115,3 +115,7 @@ public class Staff implements Serializable{
 
 
 }
+// WZ's to-do
+// wrong input, retry
+// configure system settings
+// cinema static baseprice implement file reading

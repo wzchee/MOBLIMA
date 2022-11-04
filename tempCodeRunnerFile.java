@@ -1,4 +1,4 @@
-public static BufferMatchReturn charBufferMatch(CharBuffer txtbuffer, CharBuffer inputbuf){
+//public static BufferMatchReturn charBufferMatch(CharBuffer txtbuffer, CharBuffer inputbuf){
     //     /*
     //      * Methodology:
     //      * 1. Compare buffer from .txt file against user input
@@ -32,3 +32,5 @@ public static BufferMatchReturn charBufferMatch(CharBuffer txtbuffer, CharBuffer
     //         return ret;
     //     }
     // }
+    //return null;
+//}

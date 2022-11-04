@@ -62,7 +62,7 @@ public class updatedstaff {
                     removeMovie();
                     break;
                 case 4:
-                    createMovieScreening();
+                    //createMovieScreening();
             
                     break;
 
@@ -132,7 +132,7 @@ public class updatedstaff {
             inputbuf.put(useremail);
 
             // compare the emails and obtain the match results
-            BufferMatchReturn result = MOBLIMA.charBufferMatch(rawtxt, inputbuf);
+            BufferMatchReturn result = updatedMOBLIMA.charBufferMatch(rawtxt, inputbuf);
             rawtxt = result.getBuffer();
             if(result.getMatch()){
                 // email matched. read ALL corresponding records
@@ -269,7 +269,7 @@ public class updatedstaff {
             }
         }
         fileio.writeMovieData(movieList);
-        updateMovieScreeningWithMovie(movieToUpdate);
+        //updateMovieScreeningWithMovie(movieToUpdate);
 
 
         return movieToUpdate.getMovieStatus();
@@ -284,7 +284,7 @@ public class updatedstaff {
         int found = 0;
         for (int i = 0; i < movieList.size(); i++) {
             if(movieList.get(i).getMovieTitle().equals(movieName)){
-                removeMovieScreeningWithMovie(movieName);
+                //removeMovieScreeningWithMovie(movieName);
                 movieList.remove(i);
                 found = 1;
                 break;

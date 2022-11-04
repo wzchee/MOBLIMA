@@ -72,3 +72,7 @@ public class Review{
     public User getUser(){return user;}
     public void setUser(User user){this.user = user;}
 }
+
+// WZ's to-do
+// add time attribute
+// add validatebooking method
