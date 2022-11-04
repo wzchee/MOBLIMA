@@ -173,8 +173,8 @@ public class User implements Serializable{
                     Review.writeReview(sessionUser);
                     break;
                 case 6:
-                    System.out.println("Logging out as staff...");
-                    System.out.println("Returning to main page...");
+                    System.out.println("Logging out as user...");
+                    System.out.println("Returning to main menu...");
                     break;
                 default:
                     System.out.println("Wrong choice. Try again!");
@@ -226,7 +226,4 @@ public class User implements Serializable{
 
 
 
-} 
-// WZ's to-do
-// wrong input, retry
-// static implementation for public holiday and base price
+}

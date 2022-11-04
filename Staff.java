@@ -66,7 +66,7 @@ public class Staff implements Serializable{
                     break;
                 case 10:
                     System.out.println("Logging out as staff...");
-                    System.out.println("Returning to main page...");
+                    System.out.println("Returning to main menu...");
                     break;
                 default:
                     System.out.println("Wrong choice. Try again!");
@@ -116,7 +116,3 @@ public class Staff implements Serializable{
 
 
 }
-// WZ's to-do
-// wrong input, retry
-// configure system settings
-// cinema static baseprice implement file reading
