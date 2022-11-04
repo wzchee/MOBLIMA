@@ -7,35 +7,24 @@ public class MOBLIMA {
         // iniitialize everything
         ArrayList<Cineplex> myCineplexList = fileio.readCineplexData();
         if (myCineplexList.isEmpty()) {
-            myCineplexList.add(new Cineplex("Golden Village"));
-            myCineplexList.add(new Cineplex("Shaw Theatres"));
-            myCineplexList.add(new Cineplex("Cathay Cineplexes"));
+            myCineplexList.add(new Cineplex("Cathay Cineplex AMK HUB"));
+            myCineplexList.add(new Cineplex("Cathay Cineplex JEM"));
+            myCineplexList.add(new Cineplex("Cathay Cineplex Cineleisure"));
             fileio.writeCineplexData(myCineplexList);
         }
 
         ArrayList<Cinema> myCinemaList = fileio.readCinemaData();
         if (myCinemaList.isEmpty()) {
-            myCinemaList.add(new Cinema("GV Bishan", "Golden Village", false, 100));
-            myCinemaList.add(new Cinema("Gold Class Grand, Great World City", "Golden Village", true, 100));
-            myCinemaList.add(new Cinema("GV Funan", "Golden Village", false, 100));
-            myCinemaList.add(new Cinema("Shaw Theatres Premiere", "Shaw Theatres", true, 100));
-            myCinemaList.add(new Cinema("Shaw Theatres Jcube", "Shaw Theatres", false, 100));
-            myCinemaList.add(new Cinema("Shaw Theatres Seletar", "Shaw Theatres", false, 100));
-            myCinemaList.add(new Cinema("Platinum Movie Suites JEM" ,"Cathay Cineplexes", true, 100));
-            myCinemaList.add(new Cinema("Cathay Cineplex JEM" ,"Cathay Cineplexes", false, 100));
-            myCinemaList.add(new Cinema("Cathay Cineplex Cineleisure" ,"Cathay Cineplexes", false, 100));
+            myCinemaList.add(new Cinema("Standard 1", myCineplexList.get(0), false, 100));
+            myCinemaList.add(new Cinema("Standard 2", myCineplexList.get(0), false, 100));
+            myCinemaList.add(new Cinema("Standard 3", myCineplexList.get(0), false, 100));
+            myCinemaList.add(new Cinema("Platinum Movie Suites", myCineplexList.get(1), true, 100));
+            myCinemaList.add(new Cinema("Standard 1", myCineplexList.get(1), false, 100));
+            myCinemaList.add(new Cinema("Standard 2", myCineplexList.get(1), false, 100));
+            myCinemaList.add(new Cinema("Standard 1" ,myCineplexList.get(2), false, 100));
+            myCinemaList.add(new Cinema("Standard 2" ,myCineplexList.get(2), false, 100));
+            myCinemaList.add(new Cinema("Standard 3" ,myCineplexList.get(2), false, 100));
             fileio.writeCinemaData(myCinemaList);
-            String cinemaName;
-            boolean platinumSuites;
-            for (int i = 0; i < 3; i++){
-                int start = i*3;
-                for (int j = start; j < start+3; j++){
-                    cinemaName = myCinemaList.get(j).getCinemaName();
-                    platinumSuites = myCinemaList.get(j).isPlatinumSuite();
-                    myCineplexList.get(i).addCinema(i, cinemaName, platinumSuites);
-                }
-            }
-            fileio.writeCineplexData(myCineplexList);
         }
 
         ArrayList<User> userList = fileio.readUserData();
