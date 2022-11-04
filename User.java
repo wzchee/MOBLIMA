@@ -36,9 +36,9 @@ public class User implements Serializable{
                 case 2:
                     break;
                 case 3:
-                    ArrayList<MovieTicket> movieTicketArrList = null;
-                    movieTicketArrList = fileio.readMovieTicketData();
-                    MovieTicket movieTicketToAdd = null;
+                    // ArrayList<MovieTicket> movieTicketArrList = null;
+                    // movieTicketArrList = fileio.readMovieTicketData();
+                    // MovieTicket movieTicketToAdd = null;
     //=========================================================================================================
 
                     ArrayList<Cineplex> cineplexlist = fileio.readCineplexData();
@@ -59,7 +59,8 @@ public class User implements Serializable{
                     }
                     System.out.print("Enter the number corresponding to the movie you would like to watch: ");
                     int movienum = input.nextInt(); 
-                    String movie = movielist.get(movienum-1).getMovieTitle();
+                    Movie movieObjChosen = movielist.get(movienum-1);
+                    String movie = movieObjChosen.getMovieTitle();
 
                     ArrayList<LocalDateTime> screeningtimelist = MovieScreening.giveScreenTimes(movie);
                     System.out.println("Here are the list of showtimes for the movie");
@@ -79,30 +80,36 @@ public class User implements Serializable{
                     int showtimenum = input.nextInt();
                     LocalDateTime showtimechosen = screeningtimelist.get(showtimenum-1);
 
-                    MovieScreening screeningchosen = MovieScreening.retrieveMovieScreening(movie, showtimechosen, cineplexchosen.getCineplexName());
-                    ArrayList<MovieScreening> screeninglist = fileio.readMovieScreeningData();
-                    for(int i=0; i<screeninglist.size(); i++){
-                        Boolean bool1 = screeninglist.get(i).getMovieObj().getMovieTitle() == movie;
-                        Boolean bool2 = screeninglist.get(i).getMydate() == showtimechosen;
-                        //screen cineplex
+                    // MovieScreening screeningchosen = MovieScreening.retrieveMovieScreening(movie, showtimechosen, cineplexchosen.getCineplexName());
+                    MovieScreening screeningchosen = null;
+                    screeningchosen = MovieScreening.retrieveMovieScreening(movie, showtimechosen, cineplexchosen.getCineplexName());
 
-                        if(bool1 && bool2){
-                            screeningchosen = screeninglist.get(i);
-                            break;
-                        }
-                    }
+                    
+                    // for(int i=0; i<screeninglist.size(); i++){
+                    //     Boolean bool1 = screeninglist.get(i).getMovieObj().getMovieTitle().equals(movie);
+                    //     Boolean bool2 = screeninglist.get(i).getMydate().equals(showtimechosen);
+                    //     Boolean bool3 = screeninglist.get(i).getMovieScreeningLocation().getCineplexName().equals(cineplexchosen.getCineplexName());
+                    //     //screen cineplex
+
+                    //     if(bool1 && bool2 && bool3){
+                    //         screeningchosen = screeninglist.get(i);
+                    //         break;
+                    //     }
+                    // }
 
                     System.out.println("Here is the cinema layout for the showtime you selected");
                     // Display layout of cinema
                     screeningchosen.displayLayout();
                     System.out.print("Please pick a vacant seat: ");
-                    String seatID = input.next();
+                    String seatIDStr = input.next();
+                    
 
+                    Double computedPrice = screeningchosen.calcPrice(sessionUser);
                     // Seat screening
                     // Multiple tickets?
 
                     System.out.println("Your seat is secured!");
-                    System.out.println("Ticket price = $" + screeningchosen.calcPrice(sessionUser));
+                    System.out.println("Ticket price = $" + computedPrice);
                     System.out.print("Proceed (Y/N) ?");
                     String option = input.next();
 
@@ -124,15 +131,38 @@ public class User implements Serializable{
     //=========================================================================================================
 
                     //PSA: TAKE IN INPUT TO ASSIGN VARIABLES TO THESE SO I CAN CREATE MOVIESCREENING
-                    MovieScreening movieScreeningOfChoice = screeningchosen;
-                    int seatId = -1;
-                    Double price = movieScreeningOfChoice.calcPrice(sessionUser);
+                    int seatId = Integer.parseInt(seatIDStr);
+                    
 
     //=========================================================================================================
+                    movieObjChosen.incrementSaleVolume();
+                    //after movie object incremented we will bubble up to change the
+                    MovieScreening.updateMovieScreeningWithMovie(movieObjChosen);
+                    ArrayList<MovieScreening> screeninglist = fileio.readMovieScreeningData();
+                    
+                    String movieTitleOfScreeningToChange = null;
+                    LocalDateTime dateTimeOfScreeningToChange = null;
+                    String cineplexNameScreeningToChange = null;
+                    MovieScreening traverser = null;
+                    
+                    for(int i = 0 ;i<screeninglist.size();i++){
+                        traverser =screeninglist.get(i);
+                        movieTitleOfScreeningToChange = traverser.getMovieObj().getMovieTitle();
+                        dateTimeOfScreeningToChange = traverser.getMydate();
+                        cineplexNameScreeningToChange = traverser.getMovieScreeningLocation().getCineplexName();
 
-                    movieTicketToAdd = createBooking(movieScreeningOfChoice, seatId, sessionUser, price);
-                    movieTicketArrList.add(movieTicketToAdd);
-                    fileio.writeMovieTicketData(movieTicketArrList);
+                        if(movieTitleOfScreeningToChange.equals(movie) && dateTimeOfScreeningToChange.equals(showtimechosen) && cineplexNameScreeningToChange.equals(cineplexchosen.getCineplexName())){
+                            screeningchosen = traverser;
+                            break;
+                        }
+                    }
+                    screeningchosen.setSeatOccupied(seatId);
+                    
+                    fileio.writeMovieData(movielist);
+                    fileio.writeMovieScreeningData(screeninglist);
+
+                    MovieTicket.createBooking(screeningchosen, seatId, sessionUser, computedPrice);
+                    
 
                     break;
                 case 4:
@@ -193,12 +223,7 @@ public class User implements Serializable{
         return null;
     }
 
-    public static MovieTicket createBooking(MovieScreening movieScreeningOfChoice,int seatId,User userBooking,Double price){
-        movieScreeningOfChoice.getMovieObj().incrementSaleVolume();
-        MovieTicket createdMovieTicket = new MovieTicket(movieScreeningOfChoice, seatId, userBooking, price);
-        movieScreeningOfChoice.setSeatOccupied(seatId);
-        return createdMovieTicket;
-    }
+
 
 
 }
