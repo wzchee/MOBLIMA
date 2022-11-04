@@ -13,7 +13,7 @@ public class Movie implements Serializable{
   private String movieSypnosis;
   private String director;
   private String[] cast;
-  private int[] rating = new int[6];
+  private static int[] rating = new int[6];
   private String[] pastReviews;
   private dimension dims;
   private status movieStatus;
@@ -309,6 +309,7 @@ public static void createMovie()throws Exception{
         if(movieList.get(i).getMovieTitle().equalsIgnoreCase(movieTitle)){
           System.out.println("Input rating(1 - 5[best]) : ");
           movieList.get(i).setMovieRating(input.nextInt());
+          MovieScreening.updateMovieScreeningWithMovie(movieList.get(i));
           break;
         }
       }
