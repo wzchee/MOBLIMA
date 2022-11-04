@@ -20,8 +20,9 @@ public class Movie implements Serializable{
   private status movieStatus;
   private boolean blockbuster;
   private int saleVolume;
+  private String movieRating;
   private double averageRating;
-  public Movie(String movieTitle, int movieRuntime, int saleVolume,dimension dims, status movieStatus,boolean blockbuster, String movieSypnosis,String director,String[] cast,int[] rating,String[] pastReviews)
+  public Movie(String movieTitle, int movieRuntime, int saleVolume,dimension dims, status movieStatus,boolean blockbuster, String movieSypnosis,String director,String[] cast,int[] rating,String[] pastReviews, String movieRating)
 {
   this.movieTitle = movieTitle;
   this.movieRuntime = movieRuntime;
@@ -35,6 +36,7 @@ public class Movie implements Serializable{
   this.movieStatus = movieStatus;
   this.blockbuster = blockbuster;
   this.saleVolume = saleVolume;
+  this.movieRating = movieRating;
 }
 public Movie(String movieTitle){
   this.movieTitle = movieTitle;
@@ -68,6 +70,9 @@ public String[] getMovieCast(){
 }
 public int[] getMovieRating(){
   return this.rating;
+}
+public String getRating(){
+  return this.movieRating;
 }
 public double getMovieAverageRating(int[] rating){
   double sum = 0;
@@ -124,6 +129,10 @@ public void  setMovieRating(int rating){
 }
 public void setPastReviews(String[] pastReviews){
   this.pastReviews = pastReviews;
+}
+
+public void setRating(String movieRating){
+  this.movieRating = movieRating;
 }
 
 public void incrementSaleVolume(){
@@ -193,12 +202,13 @@ public static void createMovie()throws Exception{
         }else{
             newMovie.setMovieDims(dimension.valueOf("ThreeD"));
         }
+        System.out.println("Movie Rating: ");
+        newMovie.setRating(in.next());
         System.out.println("Movie Sypnosis: ");
         newMovie.setMovieSypnosis(in.next());
         System.out.println("Director: ");
         newMovie.setMovieDirector(in.next());
         newMovie.setSaleVolume(0);
-        
         ArrayList<Movie> movieList = null;
         movieList = fileio.readMovieData();
         if(movieList == null){
@@ -214,50 +224,59 @@ public static void createMovie()throws Exception{
         movieList = fileio.readMovieData();
         Movie movieToUpdate = null;
         Scanner in = new Scanner(System.in);
-        System.out.println("Enter title of movie to be updated: ");
-        String movieName = in.next();
-        int found = 0;
-        for (int i = 0; i < movieList.size(); i++) {
-            if(movieList.get(i).getMovieTitle().equals(movieName)){
-                movieToUpdate = movieList.get(i);
-                found = 1;
-                break;
-            }
-        }
-        if (found == 0){
-            System.out.println("No such movie exists");
+        if(movieList == null){
+          System.out.println("There is no movie available.");
+          fileio.writeMovieData(movieList);
+          return null;
         }
         else{
-            System.out.println("Current movie status: "+ movieToUpdate.getMovieStatus());
-            String currentMovieStatus = movieToUpdate.getMovieStatus();
-            switch (currentMovieStatus){
-                case "Coming_Soon":
-                movieToUpdate.setMovieStatus(status.Preview);
-                break;
-                case "Preview":
-                movieToUpdate.setMovieStatus((status.Now_Showing));
-                break;
-                case "Now_Showing":
-                movieToUpdate.setMovieStatus(status.End_Of_Showing);
-            }
-        }
-        System.out.println("Movie status: "+movieToUpdate.getMovieStatus());
-
-        fileio.writeMovieData(movieList);
-        if(movieToUpdate.getMovieStatus().equals("End_Of_Showing")){
-          MovieScreening.removeMovieScreeningWithMovie(movieToUpdate);
-        }else{
-          MovieScreening.updateMovieScreeningWithMovie(movieToUpdate);
-        }
-
-
-        return movieToUpdate.getMovieStatus();
+          System.out.println("Enter title of movie to be updated: ");
+          String movieName = in.next();
+          int found = 0;
+          for (int i = 0; i < movieList.size(); i++) {
+              if(movieList.get(i).getMovieTitle().equals(movieName)){
+                  movieToUpdate = movieList.get(i);
+                  found = 1;
+                  break;
+              }
+          }
+          if (found == 0){
+              System.out.println("No such movie exists!");
+              fileio.writeMovieData(movieList);
+              return null;
+          }
+          else{
+              System.out.println("Current movie status: "+ movieToUpdate.getMovieStatus());
+              String currentMovieStatus = movieToUpdate.getMovieStatus();
+              switch (currentMovieStatus){
+                  case "Coming_Soon":
+                  movieToUpdate.setMovieStatus(status.Preview);
+                  break;
+                  case "Preview":
+                  movieToUpdate.setMovieStatus((status.Now_Showing));
+                  break;
+                  case "Now_Showing":
+                  movieToUpdate.setMovieStatus(status.End_Of_Showing);
+              }
+              System.out.println("Movie status changed to "+movieToUpdate.getMovieStatus());
+          }
+          fileio.writeMovieData(movieList);
+          if(movieToUpdate.getMovieStatus().equals("End_Of_Showing")){
+            MovieScreening.removeMovieScreeningWithMovie(movieToUpdate);
+          }else{
+            MovieScreening.updateMovieScreeningWithMovie(movieToUpdate);
+          }
+          return movieToUpdate.getMovieStatus();     
+          }
     }
 
     public static void removeMovie() throws Exception{
         ArrayList<Movie> movieList = null;
         movieList = fileio.readMovieData();
         Scanner in = new Scanner(System.in);
+        if (movieList == null || movieList.size()<1){
+          System.out.println("There is no movie available.");
+        }
         System.out.println("Enter title of movie to be deleted: ");
         String movieName = in.next();
         int found = 0;
@@ -272,7 +291,7 @@ public static void createMovie()throws Exception{
             }
         }
         if (found == 0){
-            System.out.println("No such movie exists");
+            System.out.println("No such movie exists!");
         }
 
 
