@@ -312,65 +312,83 @@ public class MovieScreening implements Serializable{
         
     }
     
-    public static void updateMovieScreening() throws Exception{
-        ArrayList<Cineplex> cineplexlist = fileio.readCineplexData();
-        System.out.println("Which cineplex is the movie Screening in?");
-        int cineplexcount = 0;
-        for(int i=0; i<cineplexlist.size(); i++){
-            System.out.println(++cineplexcount + ". " + cineplexlist.get(i).getCineplexName());
-        }
-        System.out.print("Enter the number corresponding to the cineplex: ");
-        int cineplexnum = input.nextInt();
-        Cineplex cineplexchosen = cineplexlist.get(cineplexnum-1);
+    // public static void updateMovieScreening() throws Exception{
+    //     ArrayList<Cineplex> cineplexlist = fileio.readCineplexData();
+    //     System.out.println("Which cineplex is the movie Screening in?");
+    //     int cineplexcount = 0;
+    //     for(int i=0; i<cineplexlist.size(); i++){
+    //         System.out.println(++cineplexcount + ". " + cineplexlist.get(i).getCineplexName());
+    //     }
 
-        ArrayList<Movie> movielist = fileio.readMovieData();
-        System.out.println("Here are the list of movies to choose from: ");
-        int moviecount = 0;
-        for(int i=0; i<movielist.size(); i++){
-            System.out.println(++moviecount + ". " + movielist.get(i).getMovieTitle());
-        }
-        System.out.print("Enter the number corresponding to the movie you would like to change: ");
-        int movienum = input.nextInt(); 
-        Movie movieObjChosen = movielist.get(movienum-1);
-        String movie = movieObjChosen.getMovieTitle();
-
-        ArrayList<LocalDateTime> screeningtimelist = MovieScreening.giveScreenTimes(movie);
-        System.out.println("Here are the list of showtimes for the movie");
-        // Display list of showtimes, pass in movie title
-        System.out.println("Movie = " + movie);
-        for(int i=0; i<screeningtimelist.size(); i++){
-            System.out.print(i+1);
-            System.out.print(".\t");
-            System.out.print(screeningtimelist.get(i).getDayOfMonth());
-            System.out.print(" ");
-            System.out.print(screeningtimelist.get(i).getMonth().toString());
-            System.out.print(" ");
-            System.out.print(screeningtimelist.get(i).getDayOfWeek().toString());
-            System.out.print("\n");
-        }
-        System.out.print("Pick a showtime. Enter the number here: ");
-        int showtimenum = input.nextInt();
-        LocalDateTime showtimechosen = screeningtimelist.get(showtimenum-1);
-
-
-
-
-        // ArrayList<MovieScreening> listOfMovieScreenings = fileio.readMovieScreeningData();
-        // MovieScreening toBeChanged = movieScreeningToChange(listOfMovieScreenings);
-        // System.out.println("Please Enter Date and Time  [YYYY,MM,DD,HH,MIN]");
-        // String date = input.next();
-        // String[] arrOfString = date.split(",");
-        // int year = Integer.parseInt(arrOfString[0]);
-        // int month = Integer.parseInt(arrOfString[1]);
-        // int day = Integer.parseInt(arrOfString[2]);
-        // int hour = Integer.parseInt(arrOfString[3]);
-        // int minute = Integer.parseInt(arrOfString[4]);
-        // LocalDateTime myDate = LocalDateTime.of(year, month, day, hour, minute, 0);
-
-        // toBeChanged.setMydate(myDate);
-        // fileio.writeMovieScreeningData(listOfMovieScreenings);
+    //     System.out.print("Enter the number corresponding to the cineplex: ");
+    //     int cineplexnum = input.nextInt();
         
-    }
+        
+    //     String cineplexchosen = cineplexlist.get(cineplexnum-1).getCineplexName();
+
+    //     ArrayList<Movie> movielist = fileio.readMovieData();
+    //     System.out.println("Here are the list of movies to choose from: ");
+    //     int moviecount = 0;
+    //     for(int i=0; i<movielist.size(); i++){
+    //         System.out.println(++moviecount + ". " + movielist.get(i).getMovieTitle());
+    //     }
+    //     System.out.print("Enter the number corresponding to the movie you would like to change: ");
+    //     int movienum = input.nextInt(); 
+    //     Movie movieObjChosen = movielist.get(movienum-1);
+        
+        
+    //     String movie = movieObjChosen.getMovieTitle();
+
+    //     ArrayList<LocalDateTime> screeningtimelist = MovieScreening.giveScreenTimes(movie);
+    //     System.out.println("Here are the list of showtimes for the movie");
+    //     // Display list of showtimes, pass in movie title
+    //     System.out.println("Movie = " + movie);
+    //     for(int i=0; i<screeningtimelist.size(); i++){
+    //         System.out.print(i+1);
+    //         System.out.print(".\t");
+    //         System.out.print(screeningtimelist.get(i).getDayOfMonth());
+    //         System.out.print(" ");
+    //         System.out.print(screeningtimelist.get(i).getMonth().toString());
+    //         System.out.print(" ");
+    //         System.out.print(screeningtimelist.get(i).getDayOfWeek().toString());
+    //         System.out.print("\n");
+    //     }
+    //     System.out.print("Pick a showtime. Enter the number here: ");
+    //     int showtimenum = input.nextInt();
+
+
+    //     LocalDateTime showtimechosen = screeningtimelist.get(showtimenum-1);
+
+
+
+    //     ArrayList<MovieScreening> screenings = fileio.readMovieScreeningData();
+    //     String screeningMovieTitle = null;
+    //     LocalDateTime screeningDateTime = null;
+    //     String screeningCineplex = null;
+    //     for(int i=0;i<screenings.size();i++){
+    //         screeningMovieTitle = screenings.get(i).getMovieObj().getMovieTitle();
+    //         screeningDateTime = screenings.get(i).getMydate();
+    //         screeningMovieTitle = screenings.get(i).getMovieScreeningLocation().getCineplexName();
+    //         if()
+    //     }
+
+
+    //     // ArrayList<MovieScreening> listOfMovieScreenings = fileio.readMovieScreeningData();
+    //     // MovieScreening toBeChanged = movieScreeningToChange(listOfMovieScreenings);
+    //     // System.out.println("Please Enter Date and Time  [YYYY,MM,DD,HH,MIN]");
+    //     // String date = input.next();
+    //     // String[] arrOfString = date.split(",");
+    //     // int year = Integer.parseInt(arrOfString[0]);
+    //     // int month = Integer.parseInt(arrOfString[1]);
+    //     // int day = Integer.parseInt(arrOfString[2]);
+    //     // int hour = Integer.parseInt(arrOfString[3]);
+    //     // int minute = Integer.parseInt(arrOfString[4]);
+    //     // LocalDateTime myDate = LocalDateTime.of(year, month, day, hour, minute, 0);
+
+    //     // toBeChanged.setMydate(myDate);
+    //     // fileio.writeMovieScreeningData(listOfMovieScreenings);
+        
+    // }
 
     public static ArrayList<MovieScreening> giveScreenTimes(String movieTitle) throws Exception{
         ArrayList<MovieScreening> toRetur = new ArrayList<MovieScreening>();
