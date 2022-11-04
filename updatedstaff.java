@@ -182,6 +182,8 @@ public class updatedstaff {
         Scanner in = new Scanner(System.in);
         System.out.println("Movie title: ");
         newMovie.setMovieTitle(in.next());
+        System.out.println("Movie Runtime: ");
+        newMovie.setMovieRuntime(in.nextInt());
         System.out.println("Movie Status");
         System.out.println("1. Coming Soon");
         System.out.println("2. Preview");
