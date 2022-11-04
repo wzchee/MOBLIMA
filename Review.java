@@ -86,7 +86,7 @@ public class Review{
             reviewList.get(movieNum-1).setReview(movieReview);
         } else {
             // submit new review
-            reviewList.add(new Review(movieRating, movieChosen, movieReview));
+            reviewList.add(new Review(movieRating, movieChosen, movieReview, sessionUser));
         }
         fileio.writeReviewData(reviewList);
 
@@ -112,10 +112,11 @@ public class Review{
         
     }
 
-    public Review(double rating, Movie movie, String review){
+    public Review(double rating, Movie movie, String review, User user){
         this.rating = rating;
         this.movie = movie;
         this.review = review;
+        this.user = user;
     }
 
     public double getRating(){return rating;}
