@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Review{
@@ -10,9 +11,31 @@ public class Review{
 
     public static void writeReview(User sessionUser) throws Exception{
         Scanner input = new Scanner(System.in);
+        
+        ArrayList<Review> reviewList = fileio.readReviewData();
+        ArrayList<Movie> userReviewedMovies  = null;
+        // screen through the list of reviews to get the movies that the user has reviewed before
+        for(int i=0; i<reviewList.size(); i++){
+            if(reviewList.get(i).getUser().equals(sessionUser))
+                userReviewedMovies.add(reviewList.get(i).getMovie());
+        }
 
-        // check if user has watched the movie or not??
-        System.out.println("Here is a list of movies.");
+        ArrayList<MovieTicket> movieTicketList = fileio.readMovieTicketData();
+        ArrayList<Movie> userPastMovies = null;
+        // screen through the list of tickets to get the movies that the user has watched before
+        for(int i=0; i<movieTicketList.get(i).size(); i++){
+            if(movieTicketList.get(i).getUser().equals(sessionUser) &&
+               movieTicketList.get(i).getMovieScreening().getMydate().isAfter(LocalDateTime.now()))
+                userPastMovies.add(movieTicketList.get(i).getMovieScreening().getMovieObj());
+        }
+
+        // display the list of movies and whether the user reviewed them or not
+        if(userPastMovies.isEmpty()){
+            System.out.println("Base on our records, you have not watched any reviewable movies");
+            System.out.println("Returning to main menu...\n");
+            break;
+        }
+        System.out.println("Here is a list of movies that you have watched.");
         ArrayList<Movie> movielist = fileio.readMovieData();
         for(int i=0; i<movielist.size(); i++){
             System.out.print(i+1);

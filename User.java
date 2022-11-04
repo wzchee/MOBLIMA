@@ -204,4 +204,3 @@ public class User implements Serializable{
 } 
 // WZ's to-do
 // wrong input, retry
-// static implementation for public holiday and base price
