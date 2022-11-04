@@ -57,7 +57,7 @@ public class Review{
         }
 
         if(movieNum == -1){
-            System.out.println("Return to main menu...\n");
+            System.out.println("Returning to main menu...\n");
             return;
         }
         Movie movieChosen = userPastMovies.get(movieNum-1);
