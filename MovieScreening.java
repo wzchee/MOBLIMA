@@ -150,6 +150,7 @@ public class MovieScreening implements Serializable{
         for(int i=0;i<listOfMovieScreening.size();i++){
             if(listOfMovieScreening.get(i).getMovieObj().getMovieTitle().equals(movieToBeChanged.getMovieTitle())){
                 listOfMovieScreening.get(i).setMovieObj(movieToBeChanged);
+                MovieTicket.updateMovieTicketWithMovieScreening(listOfMovieScreening.get(i));
             }
         }
         fileio.writeMovieScreeningData(listOfMovieScreening);
@@ -162,6 +163,9 @@ public class MovieScreening implements Serializable{
             if(listOfMovieScreening.get(i).getMovieObj().getMovieTitle().equals(movieTitleToRemove)){
                 // listOfMovieScreening.remove(i);
                 listOfMovieScreening.get(i).setHasCompleted(true);
+                MovieTicket.updateMovieTicketWithMovieScreening(listOfMovieScreening.get(i));
+
+
             }
         }
         fileio.writeMovieScreeningData(listOfMovieScreening);
@@ -186,13 +190,19 @@ public class MovieScreening implements Serializable{
             }
         }
 
+        System.out.print("Please enter your Cineplex Name: ");
+        String cineplexNameToFetch = input.next();
 
         System.out.print("Please enter your Cinema Name: ");
         String cinemaNameToFetch = input.next();
+
+        
         Cinema cinemaToFetch = null;
+        Cinema traverser = null;
         ArrayList<Cinema> myCinemaList = fileio.readCinemaData();
         for(int i=0;i<myCinemaList.size();i++){
-            if(myCinemaList.get(i).getCinemaName().equals(cinemaNameToFetch)){
+            traverser = myCinemaList.get(i);
+            if(traverser.getCinemaName().equals(cinemaNameToFetch) && traverser.getCineplexName().equals(cineplexNameToFetch)){
                 cinemaToFetch = myCinemaList.get(i);
                 break;
             }
@@ -242,9 +252,11 @@ public class MovieScreening implements Serializable{
         String movieTitle = input.next();
         System.out.println("Enter Cinema Name");
         String cinemaTitle = input.next();
+        System.out.println("Enter Cineplex Name");
+        String cineplexTitle = input.next();
+        
+        
         System.out.println("Enter Movie Screening Time ");
-
-
         System.out.println("Please Enter Date and Time  [YYYY,MM,DD,HH,MIN]");
         String date = input.next();
         String[] arrOfString = date.split(",");
@@ -260,7 +272,7 @@ public class MovieScreening implements Serializable{
         
         for(int i=0;i<listOfMovieScreenings.size();i++){
             traverser = listOfMovieScreenings.get(i);
-            if(traverser.getMovieObj().getMovieTitle().equals(movieTitle) && traverser.getMydate().equals(myDate) && traverser.getMovieScreeningLocation().getCinemaName().equals(cinemaTitle)){
+            if(traverser.getMovieObj().getMovieTitle().equals(movieTitle) && traverser.getMydate().equals(myDate) && traverser.getMovieScreeningLocation().getCinemaName().equals(cinemaTitle)&& traverser.getMovieScreeningLocation().getCineplexName().equals(cineplexTitle)){
                 toChange = traverser;
                 break;
             }
@@ -278,11 +290,12 @@ public class MovieScreening implements Serializable{
         myMovieScreeningList = fileio.readMovieScreeningData();
         MovieScreening toBeRemove = movieScreeningToChange(myMovieScreeningList);
         toBeRemove.setHasCompleted(true);
+        MovieTicket.updateMovieTicketWithMovieScreening(toBeRemove);
         fileio.writeMovieScreeningData(myMovieScreeningList);
         
     }
     
-    public static void updateMovieScreening() throws Exception{
+    // public static void updateMovieScreening() throws Exception{
         Scanner input = new Scanner(System.in);
         ArrayList<MovieScreening> listOfMovieScreenings = fileio.readMovieScreeningData();
         MovieScreening toBeChanged = movieScreeningToChange(listOfMovieScreenings);

@@ -5,22 +5,22 @@ import java.time.format.DateTimeFormatter;
 
 
 public class MovieTicket implements Serializable{
-    private MovieScreening aMovieScreening;
+    private MovieScreening movieScreening;
     private int seatNumber;
     private User userObj;
     private Double price;
 
 
 
-    public MovieTicket(MovieScreening aMovieScreening, int seatNumber,User userObj,Double price) {
+    public MovieTicket(MovieScreening movieScreening, int seatNumber,User userObj,Double price) {
         this.seatNumber = seatNumber;
         this.userObj = userObj;
-        this.aMovieScreening = aMovieScreening;
+        this.movieScreening = movieScreening;
         this.price = price;
     }
 
     public Cinema getLocation(){
-        return aMovieScreening.getMovieScreeningLocation();
+        return movieScreening.getMovieScreeningLocation();
     }
 
     public int getseatNumber(){
@@ -36,7 +36,11 @@ public class MovieTicket implements Serializable{
     }
 
     public MovieScreening getMovieScreening(){
-        return this.aMovieScreening;
+        return this.movieScreening;
+    }
+
+    public void setMovieScreening(MovieScreening movieScreeningToSet){
+        this.movieScreening = movieScreeningToSet;
     }
 
     public String toString(){
@@ -68,6 +72,27 @@ public class MovieTicket implements Serializable{
         }
         return movieTicketsHistory;
 
+    }
+
+    public static void updateMovieTicketWithMovieScreening(MovieScreening movieScreeningThatHasBeenChanged) throws Exception{
+        String movieTitleOfMovieScreeningChanged = movieScreeningThatHasBeenChanged.getMovieObj().getMovieTitle();
+        LocalDateTime mydateOfMovieScreeningChanged = movieScreeningThatHasBeenChanged.getMydate();
+        String myCineplexOfMovieScreeningChanged = movieScreeningThatHasBeenChanged.getMovieScreeningLocation().getCineplexName();
+
+        ArrayList<MovieTicket> listOfMovieTix = fileio.readMovieTicketData();
+        String movieTitle = null;
+        LocalDateTime mydate = null;
+        String myCineplex = null;
+        for(int i =0;i<listOfMovieTix.size();i++){
+            movieTitle = listOfMovieTix.get(i).getMovieScreening().getMovieObj().getMovieTitle();
+            mydate = listOfMovieTix.get(i).getMovieScreening().getMydate();
+            myCineplex = listOfMovieTix.get(i).getMovieScreening().getMovieScreeningLocation().getCineplexName();
+            if(movieTitle.equals(movieTitleOfMovieScreeningChanged) && mydate.equals(mydateOfMovieScreeningChanged) && myCineplex.equals(myCineplexOfMovieScreeningChanged)){
+                listOfMovieTix.get(i).setMovieScreening(movieScreeningThatHasBeenChanged);
+            }
+        }
+
+        fileio.writeMovieTicketData(listOfMovieTix);
     }
     
 }
