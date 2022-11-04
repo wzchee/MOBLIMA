@@ -156,68 +156,127 @@ public static Comparator<Movie> movieRatingComparator = new Comparator<Movie>(){
 
 
 public static void createMovie()throws Exception{
-        Movie newMovie = new Movie();
-        Scanner in = new Scanner(System.in);
-        System.out.println("Movie title: ");
-        newMovie.setMovieTitle(in.next());
-        System.out.println("Movie Runtime: ");
-        newMovie.setMovieRuntime(in.nextInt());
-        System.out.println("Movie Status");
-        System.out.println("1. Coming Soon");
-        System.out.println("2. Preview");
-        System.out.println("3. Now Showing");
-        System.out.println("4. End of Showing");
-        int statusChoice = in.nextInt();
-        switch (statusChoice){
-            case 1:
-            newMovie.setMovieStatus(status.valueOf("Coming_Soon"));
-            break;
-            case 2:
-            newMovie.setMovieStatus(status.valueOf("Preview"));
-            break;
-            case 3:
-            newMovie.setMovieStatus(status.valueOf("Now_Showing"));
-            break;
-            case 4:
-            newMovie.setMovieStatus(status.valueOf("End_Of_Showing"));
-            break;
-            
-        }
-        System.out.println("BlockBuster?");
-        System.out.println("1. True");
-        System.out.println("2. False");
-        int blockbusterChoice = in.nextInt();
-        if (blockbusterChoice == 1){
-            newMovie.setBlockbuster(true);
-        }else{
-            newMovie.setBlockbuster(false);
-        }
-        System.out.println("MovieDimension: ");
-        System.out.println("1. 2D");
-        System.out.println("2. 3D");
-        int dimChoice = in.nextInt();
+  Movie newMovie = new Movie();
+  Scanner in = new Scanner(System.in);
+  
+  String title = "";
+  boolean success = false;
+  do {
+      try{
+          System.out.println("Movie title: ");
+          title = in.next();
+          success = true;
+      } catch(InputMismatchException e){
+          System.out.println("Your input is not a valid string!");
+          System.out.println("Returning to main menu...\n");
+      }
+  } while (!success);
+  newMovie.setMovieTitle(title);
+  int runtime = 0;
+  success = false;
+  do {
+      try{
+          System.out.println("Movie Runtime: ");
+          runtime = in.nextInt();
+          success = true;
+      } catch(InputMismatchException e){
+          System.out.println("Your input is not a valid number!");
+          System.out.println("Choose a new runtime\n");
+          in.next();
+      }
+  } while (!success);
+  newMovie.setMovieRuntime(runtime);
 
-        if (dimChoice == 1){
-            newMovie.setMovieDims(dimension.valueOf("TwoD"));
-        }else{
-            newMovie.setMovieDims(dimension.valueOf("ThreeD"));
-        }
-        System.out.println("Movie Rating: ");
-        newMovie.setRating(in.next());
-        System.out.println("Movie Sypnosis: ");
-        newMovie.setMovieSypnosis(in.next());
-        System.out.println("Director: ");
-        newMovie.setMovieDirector(in.next());
-        newMovie.setSaleVolume(0);
-        ArrayList<Movie> movieList = null;
-        movieList = fileio.readMovieData();
-        if(movieList == null){
-          movieList = new ArrayList<Movie>();
-        }
-        movieList.add(newMovie);
-        fileio.writeMovieData(movieList);
+  int statusChoice = 0;
+  success = false;
+  do {
+      try{
+          System.out.println("Movie Status");
+          System.out.println("1. Coming Soon");
+          System.out.println("2. Preview");
+          System.out.println("3. Now Showing");
+          System.out.println("4. End of Showing");
+          statusChoice = in.nextInt();
+      } catch (InputMismatchException e){
+          System.out.println("Your input is not a valid number!");
+          System.out.println("Choose a new status choice\n");
+          in.next();
+      }
+  } while (!success);
 
-    }
+  switch (statusChoice){
+      case 1:
+      newMovie.setMovieStatus(status.valueOf("Coming_Soon"));
+      break;
+      case 2:
+      newMovie.setMovieStatus(status.valueOf("Preview"));
+      break;
+      case 3:
+      newMovie.setMovieStatus(status.valueOf("Now_Showing"));
+      break;
+      case 4:
+      newMovie.setMovieStatus(status.valueOf("End_Of_Showing"));
+      break;
+      
+  }
+
+  int blockbusterChoice = 0;
+  success = false;
+  do {
+      try{
+          System.out.println("BlockBuster?");
+          System.out.println("1. True");
+          System.out.println("2. False");
+          blockbusterChoice = in.nextInt();
+          success = true;
+      } catch(InputMismatchException e){
+          System.out.println("Your input is not a valid number!");
+          System.out.println("Choose a new option\n");
+          in.next();
+      }
+  } while (!success);
+  if (blockbusterChoice == 1){
+      newMovie.setBlockbuster(true);
+  }else{
+      newMovie.setBlockbuster(false);
+  }
+
+  int dimChoice = 0;
+  success = false;
+  do {
+      try{
+          System.out.println("MovieDimension: ");
+          System.out.println("1. 2D");
+          System.out.println("2. 3D");
+          dimChoice = in.nextInt();
+          success = true;
+      } catch(InputMismatchException e){
+          System.out.println("Your input is not a valid number!");
+          System.out.println("Choose a new dimension\n");
+          in.next();
+      }
+  } while (!success);
+  if (dimChoice == 1){
+      newMovie.setMovieDims(dimension.valueOf("TwoD"));
+  }else{
+      newMovie.setMovieDims(dimension.valueOf("ThreeD"));
+  }
+  System.out.println("Movie Rating: ");
+  newMovie.setRating(in.next());
+  System.out.println("Movie Sypnosis: ");
+  newMovie.setMovieSypnosis(in.next());
+  System.out.println("Director: ");
+  newMovie.setMovieDirector(in.next());
+  newMovie.setSaleVolume(0);
+  ArrayList<Movie> movieList = null;
+  movieList = fileio.readMovieData();
+  if(movieList == null){
+    movieList = new ArrayList<Movie>();
+  }
+  movieList.add(newMovie);
+  fileio.writeMovieData(movieList);
+
+}
 
     public static String updateMovie() throws Exception{
         ArrayList<Movie> movieList = null;
