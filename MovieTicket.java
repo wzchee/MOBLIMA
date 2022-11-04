@@ -51,7 +51,7 @@ public class MovieTicket implements Serializable{
         return this.getMovieScreening().getMovieObj().getMovieTitle() + " at " + formatDateTime;
     }
 
-
+//Use getArrListOfBookings to print out the toString
     public static void displayBookings(User sessionUser)throws Exception{
         ArrayList<MovieTicket> movieTicketsHistory = getArrListOfBookings(sessionUser);
         for(int i=0;i<movieTicketsHistory.size();i++){
@@ -62,6 +62,8 @@ public class MovieTicket implements Serializable{
 
     }
 
+
+    //Based on user object, we will take return an arraylist of all the movieticket
     private static ArrayList<MovieTicket> getArrListOfBookings(User sessionUser) throws Exception{
         ArrayList<MovieTicket> listOfMovieTix = fileio.readMovieTicketData();
         ArrayList<MovieTicket> movieTicketsHistory = new ArrayList<MovieTicket>();
@@ -74,6 +76,9 @@ public class MovieTicket implements Serializable{
 
     }
 
+
+
+    //when a movieScreening has been changed, we will take all the affected movieTicket objects and update (VOID)
     public static void updateMovieTicketWithMovieScreening(MovieScreening movieScreeningThatHasBeenChanged) throws Exception{
         String movieTitleOfMovieScreeningChanged = movieScreeningThatHasBeenChanged.getMovieObj().getMovieTitle();
         LocalDateTime mydateOfMovieScreeningChanged = movieScreeningThatHasBeenChanged.getMydate();
