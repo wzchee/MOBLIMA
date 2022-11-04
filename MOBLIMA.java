@@ -6,7 +6,9 @@ public class MOBLIMA {
     public static void main(String[] args) throws Exception {
 
         // iniitialize everything
-        ArrayList<Cineplex> myCineplexList = fileio.readCineplexData();
+        FileInOut<Cineplex> cineplexin = new FileInOut<Cineplex>();
+        ArrayList<Cineplex> myCineplexList = cineplexin.readData(new Cineplex());
+        //ArrayList<Cineplex> myCineplexList = fileio.readCineplexData();
         if (myCineplexList.isEmpty()) {
             myCineplexList.add(new Cineplex("Cathay Cineplex AMK HUB"));
             myCineplexList.add(new Cineplex("Cathay Cineplex JEM"));

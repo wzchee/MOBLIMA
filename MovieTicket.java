@@ -13,7 +13,7 @@ public class MovieTicket implements Serializable{
 
 
 
-    public MovieTicket(MovieScreening movieScreening, int seatNumber,User userObj,Double price) {
+    public MovieTicket(MovieScreening movieScreening, int seatNumber,User userObj,Double price) throws Exception {
         this.seatNumber = seatNumber;
         this.userObj = userObj;
         this.movieScreening = movieScreening;
@@ -118,6 +118,16 @@ public class MovieTicket implements Serializable{
         fileio.writeMovieTicketData(listOfMovieTix);
     }
     
+
+    public static void createBooking(MovieScreening movieScreeningOfChoice,int seatId,User userBooking,Double price) throws Exception{
+        ArrayList<MovieTicket> movieTicketArrList = null;
+        movieTicketArrList = fileio.readMovieTicketData();
+        MovieTicket createdMovieTicket = new MovieTicket(movieScreeningOfChoice, seatId, userBooking,price);
+        movieTicketArrList.add(createdMovieTicket);
+        fileio.writeMovieTicketData(movieTicketArrList);
+    }
+
+
 }
 
 

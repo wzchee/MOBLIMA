@@ -40,8 +40,13 @@ public class fileio {
         }
         catch(IOException i)//exception stuff
         {
-            i.printStackTrace();
-            return null;
+            File newFile = new File("txtdir");
+            newFile.createNewFile();
+            FileInputStream fileIn = new FileInputStream(txtdir);// Read serial file.
+            ObjectInputStream in = new ObjectInputStream(fileIn);// input the read file.
+            mylist = (ArrayList)in.readObject();// allocate it to the object file already instantiated.
+            in.close();//closes the input stream.
+            fileIn.close();//closes the file data stream.
         }
 
         return mylist;
@@ -69,8 +74,13 @@ public class fileio {
         }
         catch(IOException i)//exception stuff
         {
-            i.printStackTrace();
-            return null;
+            File newFile = new File("txtdir");
+            newFile.createNewFile();
+            FileInputStream fileIn = new FileInputStream(txtdir);// Read serial file.
+            ObjectInputStream in = new ObjectInputStream(fileIn);// input the read file.
+            mylist = (ArrayList)in.readObject();// allocate it to the object file already instantiated.
+            in.close();//closes the input stream.
+            fileIn.close();//closes the file data stream.
         }
 
         return mylist;
@@ -98,8 +108,13 @@ public class fileio {
         }
         catch(IOException i)//exception stuff
         {
-            i.printStackTrace();
-            return null;
+            File newFile = new File("txtdir");
+            newFile.createNewFile();
+            FileInputStream fileIn = new FileInputStream(txtdir);// Read serial file.
+            ObjectInputStream in = new ObjectInputStream(fileIn);// input the read file.
+            mylist = (ArrayList)in.readObject();// allocate it to the object file already instantiated.
+            in.close();//closes the input stream.
+            fileIn.close();//closes the file data stream.
         }
 
         return mylist;
@@ -127,8 +142,13 @@ public class fileio {
         }
         catch(IOException i)//exception stuff
         {
-            i.printStackTrace();
-            return null;
+            File newFile = new File("txtdir");
+            newFile.createNewFile();
+            FileInputStream fileIn = new FileInputStream(txtdir);// Read serial file.
+            ObjectInputStream in = new ObjectInputStream(fileIn);// input the read file.
+            mylist = (ArrayList)in.readObject();// allocate it to the object file already instantiated.
+            in.close();//closes the input stream.
+            fileIn.close();//closes the file data stream.
         }
 
         return mylist;
@@ -156,8 +176,13 @@ public class fileio {
         }
         catch(IOException i)//exception stuff
         {
-            i.printStackTrace();
-            return null;
+            File newFile = new File("txtdir");
+            newFile.createNewFile();
+            FileInputStream fileIn = new FileInputStream(txtdir);// Read serial file.
+            ObjectInputStream in = new ObjectInputStream(fileIn);// input the read file.
+            mylist = (ArrayList)in.readObject();// allocate it to the object file already instantiated.
+            in.close();//closes the input stream.
+            fileIn.close();//closes the file data stream.
         }
 
         return mylist;
@@ -179,14 +204,22 @@ public class fileio {
         {
             FileInputStream fileIn = new FileInputStream(txtdir);// Read serial file.
             ObjectInputStream in = new ObjectInputStream(fileIn);// input the read file.
-            mylist = (ArrayList) in.readObject();// allocate it to the object file already instantiated.
+            mylist = (ArrayList)in.readObject();// allocate it to the object file already instantiated.
             in.close();//closes the input stream.
             fileIn.close();//closes the file data stream.
         }
         catch(IOException i)//exception stuff
         {
-            i.printStackTrace();
-            return null;
+            File newFile = new File(txtdir);
+            newFile.createNewFile();
+            FileInputStream fileIn = new FileInputStream(txtdir);// Read serial file.
+
+            writeCineplexData(new ArrayList<Cineplex>());
+
+            ObjectInputStream in = new ObjectInputStream(fileIn);// input the read file.
+            mylist = (ArrayList<Cineplex>)in.readObject();// allocate it to the object file already instantiated.
+            in.close();//closes the input stream.
+            fileIn.close();//closes the file data stream.
         }
 
         return mylist;
@@ -214,8 +247,13 @@ public class fileio {
         }
         catch(IOException i)//exception stuff
         {
-            i.printStackTrace();
-            return null;
+            File newFile = new File("txtdir");
+            newFile.createNewFile();
+            FileInputStream fileIn = new FileInputStream(txtdir);// Read serial file.
+            ObjectInputStream in = new ObjectInputStream(fileIn);// input the read file.
+            mylist = (ArrayList)in.readObject();// allocate it to the object file already instantiated.
+            in.close();//closes the input stream.
+            fileIn.close();//closes the file data stream.
         }
 
         return mylist;
@@ -243,8 +281,13 @@ public class fileio {
         }
         catch(IOException i)//exception stuff
         {
-            i.printStackTrace();
-            return null;
+            File newFile = new File("txtdir");
+            newFile.createNewFile();
+            FileInputStream fileIn = new FileInputStream(txtdir);// Read serial file.
+            ObjectInputStream in = new ObjectInputStream(fileIn);// input the read file.
+            mylist = (ArrayList)in.readObject();// allocate it to the object file already instantiated.
+            in.close();//closes the input stream.
+            fileIn.close();//closes the file data stream.
         }
 
         return mylist;
@@ -260,20 +303,25 @@ public class fileio {
 
     public static Configurables readConfigurablesData() throws Exception{                      //change function name and return type generics
         String txtdir = fileio.getDir("configurablesData.txt");                                                      //call the right Dir() method
-        Configurables mylist = new Configurables();
+        Configurables mylist;
     
         try
         {
             FileInputStream fileIn = new FileInputStream(txtdir);// Read serial file.
             ObjectInputStream in = new ObjectInputStream(fileIn);// input the read file.
-            mylist = (ArrayList) in.readObject();// allocate it to the object file already instantiated.
+            mylist = (Configurables) in.readObject();// allocate it to the object file already instantiated.
             in.close();//closes the input stream.
             fileIn.close();//closes the file data stream.
         }
         catch(IOException i)//exception stuff
         {
-            i.printStackTrace();
-            return null;
+            File newFile = new File("txtdir");
+            newFile.createNewFile();
+            FileInputStream fileIn = new FileInputStream(txtdir);// Read serial file.
+            ObjectInputStream in = new ObjectInputStream(fileIn);// input the read file.
+            mylist = (Configurables)in.readObject();// allocate it to the object file already instantiated.
+            in.close();//closes the input stream.
+            fileIn.close();//closes the file data stream.
         }
 
         return mylist;

@@ -5,7 +5,7 @@ import java.util.InputMismatchException;
 
 public class Review{
 
-    private double rating;
+    private int rating;
     private Movie movie;
     private String review;
     private User user;
@@ -33,7 +33,7 @@ public class Review{
         // display the list of movies and whether the user reviewed them or not
         if(userPastMovies.isEmpty()){
             System.out.println("Based on our records, you have not watched any reviewable movies");
-            System.out.println("Returning to main menu...\n");
+            System.out.println("Returning to user menu...\n");
             return;
         }
         
@@ -45,19 +45,19 @@ public class Review{
             else
                 System.out.print("\n");
         }
-        System.out.println("-1: Return to Main Menu");
+        System.out.println("-1: Return to User Menu");
         System.out.print("Enter the number corresponding to the movie you would like to review: ");
         int movieNum;
         try{
             movieNum = input.nextInt();
         } catch(InputMismatchException e){
             System.out.println("Wrong input. Please try again.");
-            System.out.println("Returning to main menu...\n");
+            System.out.println("Returning to user menu...\n");
             return;
         }
 
         if(movieNum == -1){
-            System.out.println("Returning to main menu...\n");
+            System.out.println("Returning to user menu...\n");
             return;
         }
         Movie movieChosen = userPastMovies.get(movieNum-1);
@@ -70,7 +70,7 @@ public class Review{
 
             if(!yesno.equals("Y")){
                 System.out.println("Review cancelled.");
-                System.out.println("Returning to main menu...\n");
+                System.out.println("Returning to user menu...\n");
             }
         }
 
@@ -86,7 +86,7 @@ public class Review{
             reviewList.get(movieNum-1).setReview(movieReview);
         } else {
             // submit new review
-            reviewList.add(new Review(movieRating, movieChosen, movieReview));
+            reviewList.add(new Review(movieRating, movieChosen, movieReview, sessionUser));
         }
         fileio.writeReviewData(reviewList);
 
@@ -94,7 +94,7 @@ public class Review{
         System.out.println("Returning to user menu...\n");
     }
     
-    public static void viewReview(User sessionUser, Movie moviechosen) throws Exception{
+    public static void viewReview(Movie moviechosen) throws Exception{
         ArrayList<Review> reviewlist = fileio.readReviewData();
         
         System.out.println("Here are the reviews for this movie:-");
@@ -102,9 +102,9 @@ public class Review{
         // display the review for that movie
         int reviewcount = 0;
         for(int i=0; i<reviewlist.size(); i++){
-            if(reviewlist.get(i).getMovie() == moviechosen){
+            if(reviewlist.get(i).getMovie().equals(moviechosen)){
                 reviewcount++;
-                System.out.println(reviewcount + ". Reviewed by user " + sessionUser.getName());
+                System.out.println(reviewcount + ". Reviewed by user " + reviewlist.get(i).getUser().getName());
                 System.out.println("Rating given: " + reviewlist.get(i).getRating());
                 System.out.println(reviewlist.get(i).getReview() + "\n");
             }
@@ -112,14 +112,15 @@ public class Review{
         
     }
 
-    public Review(double rating, Movie movie, String review){
+    public Review(int rating, Movie movie, String review, User user){
         this.rating = rating;
         this.movie = movie;
         this.review = review;
+        this.user = user;
     }
 
-    public double getRating(){return rating;}
-    public void setRating(double rating){this.rating = rating;}
+    public int getRating(){return rating;}
+    public void setRating(int rating){this.rating = rating;}
 
     public Movie getMovie(){return movie;}
     public void setMovie(Movie movie){this.movie = movie;}
