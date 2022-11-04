@@ -5,7 +5,7 @@ import java.util.InputMismatchException;
 
 public class Review{
 
-    private double rating;
+    private int rating;
     private Movie movie;
     private String review;
     private User user;
@@ -112,15 +112,15 @@ public class Review{
         
     }
 
-    public Review(double rating, Movie movie, String review, User user){
+    public Review(int rating, Movie movie, String review, User user){
         this.rating = rating;
         this.movie = movie;
         this.review = review;
         this.user = user;
     }
 
-    public double getRating(){return rating;}
-    public void setRating(double rating){this.rating = rating;}
+    public int getRating(){return rating;}
+    public void setRating(int rating){this.rating = rating;}
 
     public Movie getMovie(){return movie;}
     public void setMovie(Movie movie){this.movie = movie;}

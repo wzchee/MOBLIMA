@@ -171,7 +171,37 @@ public void updateReviews() throws Exception{
       MovieScreening.updateMovieScreeningWithMovie(movieList.get(index));
     }
   }
+  fileio.writeMovieData(movieList);
+  fileio.writeReviewData(reviewList);
 }
+public void updateRating() throws Exception{
+  
+  ArrayList<Review> reviewList = null;
+  ArrayList<Movie> movieList = fileio.readMovieData();
+  if(movieList == null){
+    System.out.println("There is no movie available.");
+    return;
+  }
+  reviewList = fileio.readReviewData();
+  if(reviewList == null){
+    System.out.println("No ratings yet.");
+    return;
+  }
+  else{
+    for (int index = 0; index < movieList.size(); index++) {
+      String movieTitleToBeCompared = movieList.get(index).getMovieTitle();
+      for ( int i = 0; i<reviewList.size();i++) {
+        if(reviewList.get(i).getMovie().getMovieTitle() == movieTitleToBeCompared){
+          movieList.get(index).setMovieRating(reviewList.get(i).getRating());
+        }
+      }
+      MovieScreening.updateMovieScreeningWithMovie(movieList.get(index));
+    }
+  }
+  fileio.writeMovieData(movieList);
+  fileio.writeReviewData(reviewList);
+}
+
 // Comparator for sorting the list by Sale Volume
 public static Comparator<Movie> movieSalesComparator = new Comparator<Movie>(){
   public int compare(Movie m1, Movie m2){
@@ -342,7 +372,7 @@ public static void createMovie()throws Exception{
           System.out.println(index+1 +". "+ movieList.get(index).getMovieTitle());
           System.out.println("Status: "+movieList.get(index).getMovieStatus());
         }
-           }
+      }
       fileio.writeMovieData(movieList);
     }
 // sort the ArrayList of movies based on user input and print the top 5 movies based on 
