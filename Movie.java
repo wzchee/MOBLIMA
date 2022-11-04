@@ -133,12 +133,6 @@ public void setRating(String movieRating){
   this.movieRating = movieRating;
 }
 
-public String toString(){
-  return "Movie Title: " + this.getMovieTitle() + "is currently " + this.getMovieStatus() 
-  + ". \nSynopsis: " + this.getMovieSypnosis() + ". \nDirector: " + this.getMovieDirector() 
-  + "   Cast: " + this.getMovieCast()[0] + ", " + this.getMovieCast()[1] + ". \nRating: ";
-}
-
 public void incrementSaleVolume(){
   this.saleVolume += 1;
 }
@@ -361,8 +355,6 @@ public static void createMovie()throws Exception{
 
         fileio.writeMovieData(movieList);
     }
-
-
 
     public static void showMovieList() throws Exception{
       ArrayList<Movie> movieList = null;
