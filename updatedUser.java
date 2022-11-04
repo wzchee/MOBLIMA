@@ -18,7 +18,7 @@ public class updatedUser {
      * 5. The second element of the entry must be password
      */
     
-    public static void loggedin(String useremail) throws FileNotFoundException, IOException{
+    public static void loggedin(String useremail) throws FileNotFoundException, IOException, Exception{
         // User interface after a USER has logged in
 
         // Firstly, fetch details from user.txt for use in later functions
@@ -68,11 +68,11 @@ public class updatedUser {
                     //PSA: TAKE IN INPUT TO ASSIGN VARIABLES TO THESE SO I CAN CREATE MOVIESCREENING
                     MovieScreening movieScreeningOfChoice = null;
                     int seatId = -1;
-                    Double price = movieScreeningOfChoice.calcPrice(sessionUser);
+                    Double price = 0.0;//movieScreeningOfChoice.calcPrice(sessionUser);
 
 //=========================================================================================================
 
-                    movieTicketToAdd = createBooking(movieScreeningOfChoice, seatId, sessionUser, price);
+                    movieTicketToAdd = createBooking(movieScreeningOfChoice, seatId, null, price);
                     movieTicketArrList.add(movieTicketToAdd);
                     fileio.writeMovieTicketData(movieTicketArrList);
 
@@ -143,7 +143,7 @@ public class updatedUser {
             inputbuf.put(useremail);
 
             // compare the emails and obtain the match results
-            BufferMatchReturn result = MOBLIMA.charBufferMatch(rawtxt, inputbuf);
+            BufferMatchReturn result = updatedMOBLIMA.charBufferMatch(rawtxt, inputbuf);
             rawtxt = result.getBuffer();
             if(result.getMatch()){
                 // email matched. read ALL corresponding records
@@ -198,7 +198,7 @@ public class updatedUser {
         return new updatedUser(useremail, strpassword, intage, strname, strmobilenumber);
     }
 
-    public static MovieTicket createBooking(MovieScreening movieScreeningOfChoice,int seatId,updatedUser userBooking,Double price){
+    public static MovieTicket createBooking(MovieScreening movieScreeningOfChoice,int seatId,User userBooking,Double price){
         
         MovieTicket createdMovieTicket = new MovieTicket(movieScreeningOfChoice, seatId, userBooking, price);
         movieScreeningOfChoice.setSeatOccupied(seatId);
