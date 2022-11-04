@@ -62,27 +62,29 @@ public class User implements Serializable{
                     Movie movieObjChosen = movielist.get(movienum-1);
                     String movie = movieObjChosen.getMovieTitle();
 
-                    ArrayList<LocalDateTime> screeningtimelist = MovieScreening.giveScreenTimes(movie);
+                    ArrayList<MovieScreening> screeningList = MovieScreening.giveScreenTimes(movie);
                     System.out.println("Here are the list of showtimes for the movie");
                     // Display list of showtimes, pass in movie title
                     System.out.println("Movie = " + movie);
-                    for(int i=0; i<screeningtimelist.size(); i++){
+                    for(int i=0; i<screeningList.size(); i++){
                         System.out.print(i+1);
                         System.out.print(".\t");
-                        System.out.print(screeningtimelist.get(i).getDayOfMonth());
+                        System.out.print(screeningList.get(i).getMydate().getDayOfMonth());
                         System.out.print(" ");
-                        System.out.print(screeningtimelist.get(i).getMonth().toString());
+                        System.out.print(screeningList.get(i).getMydate().getMonth().toString());
                         System.out.print(" ");
-                        System.out.print(screeningtimelist.get(i).getDayOfWeek().toString());
+                        System.out.print(screeningList.get(i).getMydate().getDayOfWeek().toString());
                         System.out.print("\n");
+                        System.out.print("Location: " + screeningList.get(i).getMovieScreeningLocation().getCineplexName());
+                        System.out.print("\n\n");
                     }
                     System.out.print("Pick a showtime. Enter the number here: ");
-                    int showtimenum = input.nextInt();
-                    LocalDateTime showtimechosen = screeningtimelist.get(showtimenum-1);
+                    int screeningnum = input.nextInt();
+                    MovieScreening screeningchosen = screeningList.get(screeningnum-1);
 
                     // MovieScreening screeningchosen = MovieScreening.retrieveMovieScreening(movie, showtimechosen, cineplexchosen.getCineplexName());
-                    MovieScreening screeningchosen = null;
-                    screeningchosen = MovieScreening.retrieveMovieScreening(movie, showtimechosen, cineplexchosen.getCineplexName());
+                    //MovieScreening screeningchosen = null;
+                    //screeningchosen = MovieScreening.retrieveMovieScreening(movie, showtimechosen, cineplexchosen.getCineplexName());
 
                     
                     // for(int i=0; i<screeninglist.size(); i++){
