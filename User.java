@@ -51,10 +51,15 @@ public class User implements Serializable{
                     int cineplexnum = input.nextInt();
                     Cineplex cineplexchosen = cineplexlist.get(cineplexnum-1);
     
+                    ArrayList<Movie> movielist = fileio.readMovieData();
                     System.out.println("Here are the list of movies to choose from: ");
-                    // Display list of movies
-                    System.out.print("Which movie would you like to watch? ");
-                    String movie = input.next(); 
+                    int moviecount = 0;
+                    for(int i=0; i<movielist.size(); i++){
+                        System.out.println(++moviecount + ". " + movielist.get(i).getMovieTitle());
+                    }
+                    System.out.print("Enter the number corresponding to the movie you would like to watch: ");
+                    int movienum = input.nextInt(); 
+                    String movie = movielist.get(movienum-1).getMovieTitle();
 
                     ArrayList<LocalDateTime> screeningtimelist = MovieScreening.giveScreenTimes(movie);
                     System.out.println("Here are the list of showtimes for the movie");
@@ -74,7 +79,7 @@ public class User implements Serializable{
                     int showtimenum = input.nextInt();
                     LocalDateTime showtimechosen = screeningtimelist.get(showtimenum-1);
 
-                    MovieScreening screeningchosen = null;
+                    MovieScreening screeningchosen = MovieScreening.retrieveMovieScreening(movie, showtimechosen, cineplexchosen.getCineplexName());
                     ArrayList<MovieScreening> screeninglist = fileio.readMovieScreeningData();
                     for(int i=0; i<screeninglist.size(); i++){
                         Boolean bool1 = screeninglist.get(i).getMovieObj().getMovieTitle() == movie;
