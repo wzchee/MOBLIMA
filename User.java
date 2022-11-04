@@ -36,9 +36,9 @@ public class User implements Serializable{
                 case 2:
                     break;
                 case 3:
-                    //ArrayList<MovieTicket> movieTicketArrList = null;
-                    //movieTicketArrList = fileio.readMovieTicketData();
-                    //MovieTicket movieTicketToAdd = null;
+                    ArrayList<MovieTicket> movieTicketArrList = null;
+                    movieTicketArrList = fileio.readMovieTicketData();
+                    MovieTicket movieTicketToAdd = null;
     //=========================================================================================================
 
                     ArrayList<Cineplex> cineplexlist = fileio.readCineplexData();
@@ -124,7 +124,7 @@ public class User implements Serializable{
     //=========================================================================================================
 
                     //PSA: TAKE IN INPUT TO ASSIGN VARIABLES TO THESE SO I CAN CREATE MOVIESCREENING
-                    MovieScreening movieScreeningOfChoice = null;
+                    MovieScreening movieScreeningOfChoice = screeningchosen;
                     int seatId = -1;
                     Double price = movieScreeningOfChoice.calcPrice(sessionUser);
 
@@ -204,3 +204,4 @@ public class User implements Serializable{
 } 
 // WZ's to-do
 // wrong input, retry
+// static implementation for public holiday and base price
