@@ -95,20 +95,32 @@ public class MovieScreening implements Serializable{
     }
 
     public void displayLayout(){
+        for (int i = 0; i < 11; i++) {
+            if (i == 5) System.out.print("       <ENT>");
+            else System.out.print("     ");
+        }
+        System.out.println();
+        for (int i = 0; i < 10; i++) {
+            if (i == 0) System.out.print("     ");
+            System.out.print("<_" + i + "> ");
+            if (i == 1 || i == 7) System.out.print("    ");
+        }
+        System.out.println();
         for(int i=0;i<10;i++){
             for(int j=0;j<10;j++){
+                if (j == 0) System.out.print("<" + i + "_> ");
                 if(this.seatArr[i*10 + j]==1){
-                    System.out.print("[" + "x" + "] ");
+                    System.out.print("[" + " x" + "] ");
                 }else{
-                    System.out.print("[" + (i*10 + j) + "] ");
+                    if (i == 0) System.out.print("[0"+ (i*10 + j) + "] ");
+                    else System.out.print("[" + (i*10 + j) + "] ");
                 }
-                
+                if (j == 1 || j == 7) System.out.print("    ");
             }
             System.out.println();
-
+    
         }
-        
-
+        System.out.println("<EXIT>                         SCREEN");
     }
 
     
