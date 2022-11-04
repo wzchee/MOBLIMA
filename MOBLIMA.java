@@ -5,10 +5,8 @@ import java.util.InputMismatchException;
 public class MOBLIMA {
     public static void main(String[] args) throws Exception {
 
-        // initialize everything
-        FileInOut<Cineplex> cineplexIn = new FileInOut<Cineplex>();
-        ArrayList<Cineplex> myCineplexList = cineplexIn.readData(new Cineplex());
-        //ArrayList<Cineplex> myCineplexList = fileio.readCineplexData();
+        // iniitialize everything
+        ArrayList<Cineplex> myCineplexList = fileio.readCineplexData();
         if (myCineplexList.isEmpty()) {
             myCineplexList.add(new Cineplex("Cathay Cineplex AMK HUB"));
             myCineplexList.add(new Cineplex("Cathay Cineplex JEM"));
