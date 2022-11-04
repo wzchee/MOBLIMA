@@ -128,9 +128,6 @@ public void setMovieCast(String[] cast){
 public void  setMovieRating(int rating){
   this.rating[rating] += 1;
 }
-public void setPastReviews(ArrayList<String> pastReviews){
-  this.pastReviews = pastReviews;
-}
 
 public void setRating(String movieRating){
   this.movieRating = movieRating;
@@ -138,6 +135,36 @@ public void setRating(String movieRating){
 
 public void incrementSaleVolume(){
   this.saleVolume += 1;
+}
+
+public void setPastReviews(ArrayList<String> pastReviews){
+  this.pastReviews = pastReviews;
+}
+public void updateReviews() throws Exception{
+  ArrayList<Review> reviewList = null;
+  ArrayList<Movie> movieList = fileio.readMovieData();
+  if(movieList == null){
+    System.out.println("There is no movie available.");
+    return;
+  }
+  reviewList = fileio.readReviewData();
+  if(reviewList == null){
+    System.out.println("No reviews yet.");
+    return;
+  }
+  else{
+    for (int index = 0; index < movieList.size(); index++) {
+      ArrayList<String> reviewsToBeAdded = new ArrayList<String>();
+      String movieTitleToBeCompared = movieList.get(index).getMovieTitle();
+      for ( int i = 0; i<reviewList.size();i++) {
+        if(reviewList.get(i).getMovie().getMovieTitle() == movieTitleToBeCompared){
+          reviewsToBeAdded.add(reviewList.get(i).getReview());
+        }
+      }
+      movieList.get(index).setPastReviews(reviewsToBeAdded);
+      MovieScreening.updateMovieScreeningWithMovie(movieList.get(index));
+    }
+  }
 }
 // Comparator for sorting the list by Sale Volume
 public static Comparator<Movie> movieSalesComparator = new Comparator<Movie>(){
@@ -351,4 +378,5 @@ public static void createMovie()throws Exception{
       }
       fileio.writeMovieData(movieList);
     }
+  
 }
