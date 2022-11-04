@@ -33,7 +33,7 @@ public class Review{
         // display the list of movies and whether the user reviewed them or not
         if(userPastMovies.isEmpty()){
             System.out.println("Based on our records, you have not watched any reviewable movies");
-            System.out.println("Returning to main menu...\n");
+            System.out.println("Returning to user menu...\n");
             return;
         }
         
@@ -45,19 +45,19 @@ public class Review{
             else
                 System.out.print("\n");
         }
-        System.out.println("-1: Return to Main Menu");
+        System.out.println("-1: Return to User Menu");
         System.out.print("Enter the number corresponding to the movie you would like to review: ");
         int movieNum;
         try{
             movieNum = input.nextInt();
         } catch(InputMismatchException e){
             System.out.println("Wrong input. Please try again.");
-            System.out.println("Returning to main menu...\n");
+            System.out.println("Returning to user menu...\n");
             return;
         }
 
         if(movieNum == -1){
-            System.out.println("Returning to main menu...\n");
+            System.out.println("Returning to user menu...\n");
             return;
         }
         Movie movieChosen = userPastMovies.get(movieNum-1);
@@ -70,7 +70,7 @@ public class Review{
 
             if(!yesno.equals("Y")){
                 System.out.println("Review cancelled.");
-                System.out.println("Returning to main menu...\n");
+                System.out.println("Returning to user menu...\n");
             }
         }
 
