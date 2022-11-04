@@ -153,7 +153,7 @@ public class User implements Serializable{
                         dateTimeOfScreeningToChange = traverser.getMydate();
                         cineplexNameScreeningToChange = traverser.getMovieScreeningLocation().getCineplexName();
 
-                        if(movieTitleOfScreeningToChange.equals(movie) && dateTimeOfScreeningToChange.equals(showtimechosen) && cineplexNameScreeningToChange.equals(cineplexchosen.getCineplexName())){
+                        if(movieTitleOfScreeningToChange.equals(movie) && dateTimeOfScreeningToChange.equals(screeningchosen.getMydate()) && cineplexNameScreeningToChange.equals(cineplexchosen.getCineplexName())){
                             screeningchosen = traverser;
                             break;
                         }
