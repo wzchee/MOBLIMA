@@ -94,7 +94,7 @@ public class Review{
         System.out.println("Returning to user menu...\n");
     }
     
-    public static void viewReview(User sessionUser, Movie moviechosen) throws Exception{
+    public static void viewReview(Movie moviechosen) throws Exception{
         ArrayList<Review> reviewlist = fileio.readReviewData();
         
         System.out.println("Here are the reviews for this movie:-");
@@ -104,7 +104,7 @@ public class Review{
         for(int i=0; i<reviewlist.size(); i++){
             if(reviewlist.get(i).getMovie() == moviechosen){
                 reviewcount++;
-                System.out.println(reviewcount + ". Reviewed by user " + sessionUser.getName());
+                System.out.println(reviewcount + ". Reviewed by user " + reviewlist.get(i).getUser().getName());
                 System.out.println("Rating given: " + reviewlist.get(i).getRating());
                 System.out.println(reviewlist.get(i).getReview() + "\n");
             }
