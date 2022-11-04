@@ -41,6 +41,16 @@ public class User implements Serializable{
                     //MovieTicket movieTicketToAdd = null;
     //=========================================================================================================
 
+                    ArrayList<Cineplex> cineplexlist = fileio.readCineplexData();
+                    System.out.println("Which cineplex would you like to go to?");
+                    int cineplexcount = 0;
+                    for(int i=0; i<cineplexlist.size(); i++){
+                        System.out.println(++cineplexcount + ". " + cineplexlist.get(i).getCineplexName());
+                    }
+                    System.out.print("Enter the number corresponding to the cineplex: ");
+                    int cineplexnum = input.nextInt();
+                    Cineplex cineplexchosen = cineplexlist.get(cineplexnum-1);
+    
                     System.out.println("Here are the list of movies to choose from: ");
                     // Display list of movies
                     System.out.print("Which movie would you like to watch? ");
@@ -62,12 +72,24 @@ public class User implements Serializable{
                     }
                     System.out.print("Pick a showtime. Enter the number here: ");
                     int showtimenum = input.nextInt();
+                    LocalDateTime showtimechosen = screeningtimelist.get(showtimenum-1);
 
+                    MovieScreening screeningchosen = null;
                     ArrayList<MovieScreening> screeninglist = fileio.readMovieScreeningData();
-                    //
+                    for(int i=0; i<screeninglist.size(); i++){
+                        Boolean bool1 = screeninglist.get(i).getMovieObj().getMovieTitle() == movie;
+                        Boolean bool2 = screeninglist.get(i).getMydate() == showtimechosen;
+                        //screen cineplex
+
+                        if(bool1 && bool2){
+                            screeningchosen = screeninglist.get(i);
+                            break;
+                        }
+                    }
 
                     System.out.println("Here is the cinema layout for the showtime you selected");
                     // Display layout of cinema
+                    screeningchosen.displayLayout();
                     System.out.print("Please pick a vacant seat: ");
                     String seatID = input.next();
 
@@ -75,7 +97,7 @@ public class User implements Serializable{
                     // Multiple tickets?
 
                     System.out.println("Your seat is secured!");
-                    System.out.println("Ticket price = $9999999");
+                    System.out.println("Ticket price = $" + screeningchosen.calcPrice(sessionUser));
                     System.out.print("Proceed (Y/N) ?");
                     String option = input.next();
 
