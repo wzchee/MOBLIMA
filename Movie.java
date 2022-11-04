@@ -83,14 +83,12 @@ public double getMovieAverageRating(int[] rating){
     sum+=(rating[i]*i);
     numberOfRatings+=rating[i];
   }
+  if(numberOfRatings<2){
+    return 0.0;
+  }
   average = sum/numberOfRatings;
   return average;
 
-}
-public String toString(){
-  return "Movie Title: " + this.getMovieTitle() + "is currently " + this.getMovieStatus() 
-  + ". \nSynopsis: " + this.getMovieSypnosis() + ". \nDirector: " + this.getMovieDirector() 
-  + "   Cast: " + this.getMovieCast()[0] + ", " + this.getMovieCast()[1] + ". \nRating: ";
 }
 
 public ArrayList<String> getPastReviews(){
@@ -140,6 +138,19 @@ public void setRating(String movieRating){
 
 public void incrementSaleVolume(){
   this.saleVolume += 1;
+}
+
+public String toString(){
+  if(this.getMovieAverageRating(this.getMovieRating())== 0.0){
+    return "Movie Title: " + this.getMovieTitle() + "is currently " + this.getMovieStatus() 
+  + ". \nSynopsis: " + this.getMovieSypnosis() + ". \nDirector: " + this.getMovieDirector() 
+  + "   Cast: " + this.getMovieCast()[0] + ", " + this.getMovieCast()[1] + ". \nRating: NA"+
+  "\nPast Reviews: NA";
+  }
+  return "Movie Title: " + this.getMovieTitle() + "is currently " + this.getMovieStatus() 
+  + ". \nSynopsis: " + this.getMovieSypnosis() + ". \nDirector: " + this.getMovieDirector() 
+  + "   Cast: " + this.getMovieCast()[0] + ", " + this.getMovieCast()[1] + ". \nRating: "+ this.getMovieAverageRating(this.getMovieRating())+
+  "\nPast Reviews: "+this.getPastReviews().toArray(new String[this.getPastReviews().size()]);//convert ArrayList to string for printing
 }
 
 public void setPastReviews(ArrayList<String> pastReviews){
@@ -271,6 +282,11 @@ public static void createMovie()throws Exception{
         newMovie.setMovieSypnosis(in.next());
         System.out.println("Director: ");
         newMovie.setMovieDirector(in.next());
+        String[] cast = new String[2];
+        System.out.println("Cast 1 name: ");
+        cast[0] = in.next();
+        System.out.println("Cast 2 name:");
+        cast[1] = in.next();
         newMovie.setSaleVolume(0);
         ArrayList<Movie> movieList = null;
         movieList = fileio.readMovieData();
@@ -279,7 +295,6 @@ public static void createMovie()throws Exception{
         }
         movieList.add(newMovie);
         fileio.writeMovieData(movieList);
-
     }
 
     public static String updateMovie() throws Exception{
@@ -360,7 +375,7 @@ public static void createMovie()throws Exception{
 
         fileio.writeMovieData(movieList);
     }
-
+    //displaying all the movies and the status
     public static void showMovieList() throws Exception{
       ArrayList<Movie> movieList = null;
       movieList = fileio.readMovieData();
@@ -372,6 +387,14 @@ public static void createMovie()throws Exception{
       }
       fileio.writeMovieData(movieList);
     }
+
+    // show detail of the movie selected
+    // doing this tmr on 5/11/2022
+    public static void showMovieDetail(String movieTitle){
+      fileio.
+    }
+
+
 // sort the ArrayList of movies based on user input and print the top 5 movies based on 
 //(1) by rating, (2) sales
     public static void sortMovie()throws Exception{
