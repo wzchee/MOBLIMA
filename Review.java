@@ -55,6 +55,11 @@ public class Review{
             System.out.println("Returning to main menu...\n");
             return;
         }
+
+        if(movieNum == -1){
+            System.out.println("Return to main menu...\n");
+            return;
+        }
         Movie movieChosen = userPastMovies.get(movieNum-1);
 
         // allow user to edit their reviews. If selected movie has been reviewed before, ask if overwrite review
