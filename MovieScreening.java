@@ -113,6 +113,16 @@ public class MovieScreening implements Serializable{
 
     
 
+
+
+    public boolean getAvailabilityOfSeats(int seatNumber){
+        if(this.seatArr[seatNumber]==0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     public double calcPrice(User user) throws Exception{
         Configurables configs = fileio.readConfigurablesData();
 
@@ -136,14 +146,6 @@ public class MovieScreening implements Serializable{
 
         
         return price;
-    }
-
-    public boolean getAvailabilityOfSeats(int seatNumber){
-        if(this.seatArr[seatNumber]==0){
-            return true;
-        }else{
-            return false;
-        }
     }
 
     public static void updateMovieScreeningWithMovie(Movie movieToBeChanged) throws Exception{
