@@ -1,6 +1,7 @@
 import java.util.*;
 import java.io.Serializable;
 import java.util.Comparator;
+import java.util.ArrayList;
 
 enum status{
    Coming_Soon,Preview,Now_Showing,End_Of_Showing
@@ -14,15 +15,15 @@ public class Movie implements Serializable{
   private String movieSypnosis;
   private String director;
   private String[] cast;
-  private static int[] rating = new int[6];
-  private String[] pastReviews;
+  private int[] rating = new int[6];
+  private ArrayList<String> pastReviews;
   private dimension dims;
   private status movieStatus;
   private boolean blockbuster;
   private int saleVolume;
   private String movieRating;
   private double averageRating;
-  public Movie(String movieTitle, int movieRuntime, int saleVolume,dimension dims, status movieStatus,boolean blockbuster, String movieSypnosis,String director,String[] cast,int[] rating,String[] pastReviews, String movieRating)
+  public Movie(String movieTitle, int movieRuntime, int saleVolume,dimension dims, status movieStatus,boolean blockbuster, String movieSypnosis,String director,String[] cast,int[] rating,ArrayList<String>pastReviews, String movieRating)
 {
   this.movieTitle = movieTitle;
   this.movieRuntime = movieRuntime;
@@ -87,7 +88,7 @@ public double getMovieAverageRating(int[] rating){
 
 }
 
-public String[] getPastReviews(){
+public ArrayList<String> getPastReviews(){
   return this.pastReviews;
 }
 public int getSaleVolume(){
@@ -127,7 +128,7 @@ public void setMovieCast(String[] cast){
 public void  setMovieRating(int rating){
   this.rating[rating] += 1;
 }
-public void setPastReviews(String[] pastReviews){
+public void setPastReviews(ArrayList<String> pastReviews){
   this.pastReviews = pastReviews;
 }
 
