@@ -40,8 +40,13 @@ public class fileio {
         }
         catch(IOException i)//exception stuff
         {
-            i.printStackTrace();
-            return null;
+            File newFile = new File("txtdir");
+            newFile.createNewFile();
+            FileInputStream fileIn = new FileInputStream(txtdir);// Read serial file.
+            ObjectInputStream in = new ObjectInputStream(fileIn);// input the read file.
+            mylist = (ArrayList)in.readObject();// allocate it to the object file already instantiated.
+            in.close();//closes the input stream.
+            fileIn.close();//closes the file data stream.
         }
 
         return mylist;
@@ -69,8 +74,13 @@ public class fileio {
         }
         catch(IOException i)//exception stuff
         {
-            i.printStackTrace();
-            return null;
+            File newFile = new File("txtdir");
+            newFile.createNewFile();
+            FileInputStream fileIn = new FileInputStream(txtdir);// Read serial file.
+            ObjectInputStream in = new ObjectInputStream(fileIn);// input the read file.
+            mylist = (ArrayList)in.readObject();// allocate it to the object file already instantiated.
+            in.close();//closes the input stream.
+            fileIn.close();//closes the file data stream.
         }
 
         return mylist;
@@ -98,8 +108,13 @@ public class fileio {
         }
         catch(IOException i)//exception stuff
         {
-            i.printStackTrace();
-            return null;
+            File newFile = new File("txtdir");
+            newFile.createNewFile();
+            FileInputStream fileIn = new FileInputStream(txtdir);// Read serial file.
+            ObjectInputStream in = new ObjectInputStream(fileIn);// input the read file.
+            mylist = (ArrayList)in.readObject();// allocate it to the object file already instantiated.
+            in.close();//closes the input stream.
+            fileIn.close();//closes the file data stream.
         }
 
         return mylist;
@@ -127,8 +142,13 @@ public class fileio {
         }
         catch(IOException i)//exception stuff
         {
-            i.printStackTrace();
-            return null;
+            File newFile = new File("txtdir");
+            newFile.createNewFile();
+            FileInputStream fileIn = new FileInputStream(txtdir);// Read serial file.
+            ObjectInputStream in = new ObjectInputStream(fileIn);// input the read file.
+            mylist = (ArrayList)in.readObject();// allocate it to the object file already instantiated.
+            in.close();//closes the input stream.
+            fileIn.close();//closes the file data stream.
         }
 
         return mylist;
@@ -156,8 +176,13 @@ public class fileio {
         }
         catch(IOException i)//exception stuff
         {
-            i.printStackTrace();
-            return null;
+            File newFile = new File("txtdir");
+            newFile.createNewFile();
+            FileInputStream fileIn = new FileInputStream(txtdir);// Read serial file.
+            ObjectInputStream in = new ObjectInputStream(fileIn);// input the read file.
+            mylist = (ArrayList)in.readObject();// allocate it to the object file already instantiated.
+            in.close();//closes the input stream.
+            fileIn.close();//closes the file data stream.
         }
 
         return mylist;
@@ -185,8 +210,13 @@ public class fileio {
         }
         catch(IOException i)//exception stuff
         {
-            i.printStackTrace();
-            return null;
+            File newFile = new File("txtdir");
+            newFile.createNewFile();
+            FileInputStream fileIn = new FileInputStream(txtdir);// Read serial file.
+            ObjectInputStream in = new ObjectInputStream(fileIn);// input the read file.
+            mylist = (ArrayList)in.readObject();// allocate it to the object file already instantiated.
+            in.close();//closes the input stream.
+            fileIn.close();//closes the file data stream.
         }
 
         return mylist;
@@ -214,8 +244,13 @@ public class fileio {
         }
         catch(IOException i)//exception stuff
         {
-            i.printStackTrace();
-            return null;
+            File newFile = new File("txtdir");
+            newFile.createNewFile();
+            FileInputStream fileIn = new FileInputStream(txtdir);// Read serial file.
+            ObjectInputStream in = new ObjectInputStream(fileIn);// input the read file.
+            mylist = (ArrayList)in.readObject();// allocate it to the object file already instantiated.
+            in.close();//closes the input stream.
+            fileIn.close();//closes the file data stream.
         }
 
         return mylist;
@@ -243,8 +278,13 @@ public class fileio {
         }
         catch(IOException i)//exception stuff
         {
-            i.printStackTrace();
-            return null;
+            File newFile = new File("txtdir");
+            newFile.createNewFile();
+            FileInputStream fileIn = new FileInputStream(txtdir);// Read serial file.
+            ObjectInputStream in = new ObjectInputStream(fileIn);// input the read file.
+            mylist = (ArrayList)in.readObject();// allocate it to the object file already instantiated.
+            in.close();//closes the input stream.
+            fileIn.close();//closes the file data stream.
         }
 
         return mylist;
@@ -272,8 +312,13 @@ public class fileio {
         }
         catch(IOException i)//exception stuff
         {
-            i.printStackTrace();
-            return null;
+            File newFile = new File("txtdir");
+            newFile.createNewFile();
+            FileInputStream fileIn = new FileInputStream(txtdir);// Read serial file.
+            ObjectInputStream in = new ObjectInputStream(fileIn);// input the read file.
+            mylist = (Configurables)in.readObject();// allocate it to the object file already instantiated.
+            in.close();//closes the input stream.
+            fileIn.close();//closes the file data stream.
         }
 
         return mylist;
