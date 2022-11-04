@@ -395,7 +395,7 @@ public class MovieScreening implements Serializable{
         ArrayList<MovieScreening> mylis = fileio.readMovieScreeningData();
         for(int i=0;i<mylis.size();i++){
             if(mylis.get(i).getMovieObj().getMovieTitle().equals(movieTitle) && !mylis.get(i).hasCompleted()){
-                toRetur.add(mylis.get(i).getMydate());
+                toRetur.add(mylis.get(i));
             }
         }
 
