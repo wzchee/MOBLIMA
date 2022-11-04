@@ -102,7 +102,7 @@ public class Review{
         // display the review for that movie
         int reviewcount = 0;
         for(int i=0; i<reviewlist.size(); i++){
-            if(reviewlist.get(i).getMovie() == moviechosen){
+            if(reviewlist.get(i).getMovie().equals(moviechosen)){
                 reviewcount++;
                 System.out.println(reviewcount + ". Reviewed by user " + reviewlist.get(i).getUser().getName());
                 System.out.println("Rating given: " + reviewlist.get(i).getRating());
