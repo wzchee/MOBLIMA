@@ -116,5 +116,3 @@ public class Staff implements Serializable{
 
 
 }
-// WZ's to-do
-// wrong input, retry
