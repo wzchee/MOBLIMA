@@ -233,7 +233,11 @@ public static void createMovie()throws Exception{
         System.out.println("Movie status: "+movieToUpdate.getMovieStatus());
 
         fileio.writeMovieData(movieList);
-        MovieScreening.updateMovieScreeningWithMovie(movieToUpdate);
+        if(movieToUpdate.getMovieStatus().equals("End_Of_Showing")){
+          MovieScreening.removeMovieScreeningWithMovie(movieToUpdate);
+        }else{
+          MovieScreening.updateMovieScreeningWithMovie(movieToUpdate);
+        }
 
 
         return movieToUpdate.getMovieStatus();
@@ -248,8 +252,9 @@ public static void createMovie()throws Exception{
         int found = 0;
         for (int i = 0; i < movieList.size(); i++) {
             if(movieList.get(i).getMovieTitle().equals(movieName)){
-                MovieScreening.removeMovieScreeningWithMovie(movieName);
+              
                 movieList.get(i).setMovieStatus(status.End_Of_Showing);
+                MovieScreening.removeMovieScreeningWithMovie(movieList.get(i));
                 found = 1;
                 System.out.println(movieList.get(i).getMovieTitle()+" successfully deleted!");
                 break;

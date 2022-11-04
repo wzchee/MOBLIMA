@@ -156,12 +156,13 @@ public class MovieScreening implements Serializable{
         fileio.writeMovieScreeningData(listOfMovieScreening);
     } 
 
-    public static void removeMovieScreeningWithMovie(String movieTitleToRemove) throws Exception{
+    public static void removeMovieScreeningWithMovie(Movie movieToRemove) throws Exception{
         ArrayList<MovieScreening> listOfMovieScreening = null;
         listOfMovieScreening = fileio.readMovieScreeningData();
         for(int i=0;i<listOfMovieScreening.size();i++){
-            if(listOfMovieScreening.get(i).getMovieObj().getMovieTitle().equals(movieTitleToRemove)){
+            if(listOfMovieScreening.get(i).getMovieObj().getMovieTitle().equals(movieToRemove.getMovieTitle())){
                 // listOfMovieScreening.remove(i);
+                listOfMovieScreening.get(i).setMovieObj(movieToRemove);
                 listOfMovieScreening.get(i).setHasCompleted(true);
                 MovieTicket.updateMovieTicketWithMovieScreening(listOfMovieScreening.get(i));
 
@@ -296,23 +297,23 @@ public class MovieScreening implements Serializable{
     }
     
     // public static void updateMovieScreening() throws Exception{
-        Scanner input = new Scanner(System.in);
-        ArrayList<MovieScreening> listOfMovieScreenings = fileio.readMovieScreeningData();
-        MovieScreening toBeChanged = movieScreeningToChange(listOfMovieScreenings);
-        System.out.println("Please Enter Date and Time  [YYYY,MM,DD,HH,MIN]");
-        String date = input.next();
-        String[] arrOfString = date.split(",");
-        int year = Integer.parseInt(arrOfString[0]);
-        int month = Integer.parseInt(arrOfString[1]);
-        int day = Integer.parseInt(arrOfString[2]);
-        int hour = Integer.parseInt(arrOfString[3]);
-        int minute = Integer.parseInt(arrOfString[4]);
-        LocalDateTime myDate = LocalDateTime.of(year, month, day, hour, minute, 0);
+    //     Scanner input = new Scanner(System.in);
+    //     ArrayList<MovieScreening> listOfMovieScreenings = fileio.readMovieScreeningData();
+    //     MovieScreening toBeChanged = movieScreeningToChange(listOfMovieScreenings);
+    //     System.out.println("Please Enter Date and Time  [YYYY,MM,DD,HH,MIN]");
+    //     String date = input.next();
+    //     String[] arrOfString = date.split(",");
+    //     int year = Integer.parseInt(arrOfString[0]);
+    //     int month = Integer.parseInt(arrOfString[1]);
+    //     int day = Integer.parseInt(arrOfString[2]);
+    //     int hour = Integer.parseInt(arrOfString[3]);
+    //     int minute = Integer.parseInt(arrOfString[4]);
+    //     LocalDateTime myDate = LocalDateTime.of(year, month, day, hour, minute, 0);
 
-        toBeChanged.setMydate(myDate);
-        fileio.writeMovieScreeningData(listOfMovieScreenings);
+    //     toBeChanged.setMydate(myDate);
+    //     fileio.writeMovieScreeningData(listOfMovieScreenings);
         
-    }
+    // }
 
     public static ArrayList<LocalDateTime> giveScreenTimes(String movieTitle) throws Exception{
         ArrayList<LocalDateTime> toRetur = new ArrayList<LocalDateTime>();
