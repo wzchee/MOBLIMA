@@ -10,6 +10,7 @@ enum dimension{
 }
 public class Movie implements Serializable{
   private String movieTitle;
+  private int movieRuntime;
   private String movieSypnosis;
   private String director;
   private String[] cast;
@@ -20,9 +21,10 @@ public class Movie implements Serializable{
   private boolean blockbuster;
   private int saleVolume;
   private double averageRating;
-  public Movie(String movieTitle, int saleVolume,dimension dims, status movieStatus,boolean blockbuster, String movieSypnosis,String director,String[] cast,int[] rating,String[] pastReviews)
+  public Movie(String movieTitle, int movieRuntime, int saleVolume,dimension dims, status movieStatus,boolean blockbuster, String movieSypnosis,String director,String[] cast,int[] rating,String[] pastReviews)
 {
   this.movieTitle = movieTitle;
+  this.movieRuntime = movieRuntime;
   this.movieStatus = movieStatus;
   this.movieSypnosis = movieSypnosis;
   this.director = director;
@@ -42,6 +44,9 @@ public Movie(){
 }
 public String getMovieTitle(){
   return this.movieTitle;
+}
+public int getMovieRuntime() {
+  return this.movieRuntime;
 }
 public String getMovieStatus(){
   return this.movieStatus.toString();
@@ -96,6 +101,10 @@ public void setMovieDims(dimension dims){
 
 public void setMovieTitle(String movieTitle){
   this.movieTitle = movieTitle ;
+}
+
+public void setMovieRuntime(int movieRuntime) {
+  this.movieRuntime = movieRuntime;
 }
 public void setMovieStatus(status movieStatus){
   this.movieStatus = movieStatus;
