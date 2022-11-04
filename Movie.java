@@ -1,8 +1,7 @@
 import java.util.*;
 import java.io.Serializable;
+import java.util.Comparator;
 
-//hello
-// hihi
 enum status{
    Coming_Soon,Preview,Now_Showing,End_Of_Showing
   }
@@ -14,13 +13,14 @@ public class Movie implements Serializable{
   private String movieSypnosis;
   private String director;
   private String[] cast;
-  private int rating;
+  private static int[] rating = new int[6];
   private String[] pastReviews;
   private dimension dims;
   private status movieStatus;
   private boolean blockbuster;
   private int saleVolume;
-  public Movie(String movieTitle, int saleVolume,dimension dims, status movieStatus,boolean blockbuster, String movieSypnosis,String director,String[] cast,int rating,String[] pastReviews)
+  private double averageRating;
+  public Movie(String movieTitle, int saleVolume,dimension dims, status movieStatus,boolean blockbuster, String movieSypnosis,String director,String[] cast,int[] rating,String[] pastReviews)
 {
   this.movieTitle = movieTitle;
   this.movieStatus = movieStatus;
@@ -61,9 +61,22 @@ public String getMovieDirector(){
 public String[] getMovieCast(){
   return this.cast;
 }
-public int getMovieRating(){
+public int[] getMovieRating(){
   return this.rating;
 }
+public double getMovieAverageRating(int[] rating){
+  double sum = 0;
+  double numberOfRatings = 0;
+  double average = 0;
+  for (int i = 1; i < rating.length; i++) {
+    sum+=(rating[i]*i);
+    numberOfRatings+=rating[i];
+  }
+  average = sum/numberOfRatings;
+  return average;
+
+}
+
 public String[] getPastReviews(){
   return this.pastReviews;
 }
@@ -98,7 +111,7 @@ public void setMovieCast(String[] cast){
   this.cast = cast;
 }
 public void  setMovieRating(int rating){
-  this.rating = rating;
+  this.rating[rating] += 1;
 }
 public void setPastReviews(String[] pastReviews){
   this.pastReviews = pastReviews;
@@ -107,6 +120,22 @@ public void setPastReviews(String[] pastReviews){
 public void incrementSaleVolume(){
   this.saleVolume += 1;
 }
+// Comparator for sorting the list by Sale Volume
+public static Comparator<Movie> movieSalesComparator = new Comparator<Movie>(){
+  public int compare(Movie m1, Movie m2){
+    int saleVolume1 = m1.getSaleVolume();
+    int saleVolume2 = m2.getSaleVolume();
+    //Sort in descending order
+    return saleVolume2 - saleVolume1;
+  }
+};
+// Comparator for sorting the list by Sale Volume
+public static Comparator<Movie> movieRatingComparator = new Comparator<Movie>(){
+  public int compare(Movie m1, Movie m2){
+    return Double.compare(m2.getMovieAverageRating(m2.getMovieRating()),m1.getMovieAverageRating(m1.getMovieRating()));
+  }
+};
+
 
 public static void createMovie()throws Exception{
         Movie newMovie = new Movie();
@@ -161,6 +190,9 @@ public static void createMovie()throws Exception{
         
         ArrayList<Movie> movieList = null;
         movieList = fileio.readMovieData();
+        if(movieList == null){
+          movieList = new ArrayList<Movie>();
+        }
         movieList.add(newMovie);
         fileio.writeMovieData(movieList);
 
@@ -201,7 +233,11 @@ public static void createMovie()throws Exception{
         System.out.println("Movie status: "+movieToUpdate.getMovieStatus());
 
         fileio.writeMovieData(movieList);
-        MovieScreening.updateMovieScreeningWithMovie(movieToUpdate);
+        if(movieToUpdate.getMovieStatus().equals("End_Of_Showing")){
+          MovieScreening.removeMovieScreeningWithMovie(movieToUpdate);
+        }else{
+          MovieScreening.updateMovieScreeningWithMovie(movieToUpdate);
+        }
 
 
         return movieToUpdate.getMovieStatus();
@@ -216,8 +252,9 @@ public static void createMovie()throws Exception{
         int found = 0;
         for (int i = 0; i < movieList.size(); i++) {
             if(movieList.get(i).getMovieTitle().equals(movieName)){
-                MovieScreening.removeMovieScreeningWithMovie(movieName);
+              
                 movieList.get(i).setMovieStatus(status.End_Of_Showing);
+                MovieScreening.removeMovieScreeningWithMovie(movieList.get(i));
                 found = 1;
                 System.out.println(movieList.get(i).getMovieTitle()+" successfully deleted!");
                 break;
@@ -240,6 +277,47 @@ public static void createMovie()throws Exception{
           System.out.println("Status: "+movieList.get(index).getMovieStatus());
         }
            }
+      fileio.writeMovieData(movieList);
+    }
+// sort the ArrayList of movies based on user input and print the top 5 movies based on 
+//(1) by rating, (2) sales
+    public static void sortMovie()throws Exception{
+      Scanner input = new Scanner(System.in);
+      int choice = 0;
+      ArrayList<Movie> movieList= fileio.readMovieData(); 
+      do{
+        System.out.println("View top 5 movies");
+        System.out.println("1. By Ratings");
+        System.out.println("2. By Sales Volume");
+        choice = input.nextInt();
+      }
+      while(choice<1 || choice >2);
+      if (choice == 1){
+        Collections.sort(movieList, Movie.movieRatingComparator);
+      }
+      else{
+        Collections.sort(movieList, Movie.movieSalesComparator);
+      }
+      for (int index = 0; index < 5; index++) {
+        if(!movieList.get(index).getMovieStatus().equalsIgnoreCase("End_Of_Showing")){
+          System.out.println(index+1 +". "+ movieList.get(index).getMovieTitle());
+          System.out.println("Status: "+movieList.get(index).getMovieStatus());
+        }
+      }
+      fileio.writeMovieData(movieList);
+    }
+    // Rate movie based on user input movie title
+    public static void userRate(String movieTitle) throws Exception{
+      Scanner input =new Scanner(System.in);
+      ArrayList<Movie> movieList= fileio.readMovieData(); 
+      for (int i = 0; i < movieList.size(); i++) {
+        if(movieList.get(i).getMovieTitle().equalsIgnoreCase(movieTitle)){
+          System.out.println("Input rating(1 - 5[best]) : ");
+          movieList.get(i).setMovieRating(input.nextInt());
+          MovieScreening.updateMovieScreeningWithMovie(movieList.get(i));
+          break;
+        }
+      }
       fileio.writeMovieData(movieList);
     }
 }
