@@ -58,6 +58,7 @@ public class Staff implements Serializable{
                     MovieScreening.removeMovieScreening();
                     break;
                 case 7:
+                    Configurables.configure();;
                     break;
                 case 8:
                     break;
@@ -107,7 +108,7 @@ public class Staff implements Serializable{
                 return staffList.get(i);
 
         // shouldn't happen, but just for compilation
-        System.out.println("In Staff.java, no Staff found");
+        System.out.println("No record found!");
         return null;
     }
 

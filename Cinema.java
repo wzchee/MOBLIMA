@@ -8,8 +8,9 @@ public class Cinema implements Serializable{
     private String cinemaName;
     private Cineplex cineplex;
     private boolean platinumSuites;
+    private double basePrice;
     private String[] movieList = new String[100];
-    private String[] movieScreening = new String[24];
+    //private String[] movieScreening = new String[24];
     private int numOfSeats;
 
 
@@ -63,12 +64,29 @@ public class Cinema implements Serializable{
         this.numOfSeats = numOfSeats;
     }
 
-    public String getMovieTime(int index) {
-        return this.movieScreening[index];
+    public double getBasePrice() {
+        return this.basePrice;
+    }
+
+    public void setBasePrice() {
+        if (platinumSuites == true) this.basePrice = 25;
+        else this.basePrice = 13;
+    }
+
+    public void setBasePrice (int ticketPrice) {
+        this.basePrice = ticketPrice;
+    }
+
+    /*public int getMovieTime(String movieName) {
+        int i;
+        for (i = 0; i < 24; i++) {
+            if (this.movieScreening[i] == movieName) break;
+        }
+        return i;
     }
 
     public void setMovieTime(int index, String movie) {
         this.movieScreening[index] = movie;
-    }
+    }*/
 
 }

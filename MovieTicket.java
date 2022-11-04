@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 
 public class MovieTicket implements Serializable{
+    // Include an array of public holiday dates to check against that of the movie screening and if its pub hol, then change price
     private MovieScreening movieScreening;
     private int seatNumber;
     private User userObj;
@@ -72,11 +73,28 @@ public class MovieTicket implements Serializable{
                 movieTicketsHistory.add(listOfMovieTix.get(i));
             }
         }
-        return movieTicketsHistory;
+        return sortArrListOfBookings(movieTicketsHistory);
 
     }
 
 
+
+    // Sorting for Booking History
+    private static ArrayList<MovieTicket> sortArrListOfBookings(ArrayList<MovieTicket> movieTicketsHistory) {
+        int j, totalTickets = 0;
+        LocalDateTime keyDate;
+        for (MovieTicket tix : movieTicketsHistory) totalTickets++;
+        for (int i = 1; i < totalTickets; i++) {
+            keyDate = movieTicketsHistory.get(i).getMovieScreening().getMydate();
+            j = i-1;
+
+            while (j >= 0 && keyDate.isBefore(movieTicketsHistory.get(j).getMovieScreening().getMydate())) {
+                Collections.swap(movieTicketsHistory, j, j+1);
+                j--;
+            }
+        }
+        return movieTicketsHistory;
+    }
 
     //when a movieScreening has been changed, we will take all the affected movieTicket objects and update (VOID)
     public static void updateMovieTicketWithMovieScreening(MovieScreening movieScreeningThatHasBeenChanged) throws Exception{

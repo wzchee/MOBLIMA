@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 
 public class MOBLIMA {
     public static void main(String[] args) throws Exception {
@@ -79,12 +80,14 @@ public class MOBLIMA {
                                 }else{
                                     // password screening failed
                                     System.out.println("Wrong password!");
+                                    System.out.println("Returning to main menu...\n");
                                     break;
                                 }
                         }
 
                         // if reached this stage, then email screening failed
                         System.out.println("No email record exists.");
+                        System.out.println("Returning to main menu...\n");
                         break;
                     }
                     if(choice == 2){
@@ -99,12 +102,14 @@ public class MOBLIMA {
                                 }else{
                                     // password screening failed
                                     System.out.println("Wrong password!");
+                                    System.out.println("Returning to main menu...\n");
                                     break;
                                 }
                         }
 
                         // if reached this stage, then email screening failed
                         System.out.println("No email record exists.");
+                        System.out.println("Returning to main menu...\n");
                         break;
                     }
                 case 3:
@@ -117,19 +122,45 @@ public class MOBLIMA {
                     for(int i=0; i<userList.size(); i++){
                         if(email == userList.get(i).getEmail()){
                             System.out.println("Email already existed");
+                            System.out.println("Returning to main menu...\n");
                             break;
                         }
                     }
 
                     // no existing email exists, input remaining fields
+                    // password has no wrong format, no validation needed
                     System.out.print("Please enter your password: ");
                     password = input.next();
+
+                    // name has no wrong format, no validation needed
                     System.out.print("What is your name? ");
                     String name = input.next();
+
+                    // catch if user inputs something other than an Integer
+                    int age = 0;
                     System.out.print("What is your age? ");
-                    int age = input.nextInt();
+                    try{
+                        age = input.nextInt();
+                    } catch(InputMismatchException e){
+                        System.out.println("Your input is not a valid number!");
+                        System.out.println("Account creation failed");
+                        System.out.println("Returning to main menu...\n");
+                        break;
+                    }
+                    
+                    // catch if user inputs something other than an Integer
+                    String mobileNumber = null;
                     System.out.println("What is your mobile number?");
-                    String mobileNumber = input.next();
+                    try{
+                        mobileNumber = input.next();
+                        int numericcheck = java.lang.Integer.parseInt(mobileNumber);
+                    } catch(NumberFormatException e){
+                        System.out.println("Your input is not a valid mobile number!");
+                        System.out.println("Account creation failed");
+                        System.out.println("Returning to main menu...\n");
+                        break;
+                    }
+                    
 
                     // create new User object
                     User newUser = new User(email, password, age, name, mobileNumber);

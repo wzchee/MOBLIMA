@@ -34,7 +34,7 @@ public class fileio {
         {
             FileInputStream fileIn = new FileInputStream(txtdir);// Read serial file.
             ObjectInputStream in = new ObjectInputStream(fileIn);// input the read file.
-            mylist = (ArrayList)in.readObject();// allocate it to the object file already instanciated.
+            mylist = (ArrayList)in.readObject();// allocate it to the object file already instantiated.
             in.close();//closes the input stream.
             fileIn.close();//closes the file data stream.
         }
@@ -63,7 +63,7 @@ public class fileio {
         {
             FileInputStream fileIn = new FileInputStream(txtdir);// Read serial file.
             ObjectInputStream in = new ObjectInputStream(fileIn);// input the read file.
-            mylist = (ArrayList)in.readObject();// allocate it to the object file already instanciated.
+            mylist = (ArrayList)in.readObject();// allocate it to the object file already instantiated.
             in.close();//closes the input stream.
             fileIn.close();//closes the file data stream.
         }
@@ -92,7 +92,7 @@ public class fileio {
         {
             FileInputStream fileIn = new FileInputStream(txtdir);// Read serial file.
             ObjectInputStream in = new ObjectInputStream(fileIn);// input the read file.
-            mylist = (ArrayList)in.readObject();// allocate it to the object file already instanciated.
+            mylist = (ArrayList)in.readObject();// allocate it to the object file already instantiated.
             in.close();//closes the input stream.
             fileIn.close();//closes the file data stream.
         }
@@ -121,7 +121,7 @@ public class fileio {
         {
             FileInputStream fileIn = new FileInputStream(txtdir);// Read serial file.
             ObjectInputStream in = new ObjectInputStream(fileIn);// input the read file.
-            mylist = (ArrayList)in.readObject();// allocate it to the object file already instanciated.
+            mylist = (ArrayList)in.readObject();// allocate it to the object file already instantiated.
             in.close();//closes the input stream.
             fileIn.close();//closes the file data stream.
         }
@@ -150,7 +150,7 @@ public class fileio {
         {
             FileInputStream fileIn = new FileInputStream(txtdir);// Read serial file.
             ObjectInputStream in = new ObjectInputStream(fileIn);// input the read file.
-            mylist = (ArrayList)in.readObject();// allocate it to the object file already instanciated.
+            mylist = (ArrayList)in.readObject();// allocate it to the object file already instantiated.
             in.close();//closes the input stream.
             fileIn.close();//closes the file data stream.
         }
@@ -179,7 +179,7 @@ public class fileio {
         {
             FileInputStream fileIn = new FileInputStream(txtdir);// Read serial file.
             ObjectInputStream in = new ObjectInputStream(fileIn);// input the read file.
-            mylist = (ArrayList) in.readObject();// allocate it to the object file already instanciated.
+            mylist = (ArrayList) in.readObject();// allocate it to the object file already instantiated.
             in.close();//closes the input stream.
             fileIn.close();//closes the file data stream.
         }
@@ -208,7 +208,7 @@ public class fileio {
         {
             FileInputStream fileIn = new FileInputStream(txtdir);// Read serial file.
             ObjectInputStream in = new ObjectInputStream(fileIn);// input the read file.
-            mylist = (ArrayList) in.readObject();// allocate it to the object file already instanciated.
+            mylist = (ArrayList) in.readObject();// allocate it to the object file already instantiated.
             in.close();//closes the input stream.
             fileIn.close();//closes the file data stream.
         }
@@ -237,7 +237,7 @@ public class fileio {
         {
             FileInputStream fileIn = new FileInputStream(txtdir);// Read serial file.
             ObjectInputStream in = new ObjectInputStream(fileIn);// input the read file.
-            mylist = (ArrayList) in.readObject();// allocate it to the object file already instanciated.
+            mylist = (ArrayList) in.readObject();// allocate it to the object file already instantiated.
             in.close();//closes the input stream.
             fileIn.close();//closes the file data stream.
         }
@@ -252,6 +252,35 @@ public class fileio {
 
     public static void writeStaffData(ArrayList<Staff> mylist) throws Exception{              //Change function name and parameter generics
        FileOutputStream fileOut = new FileOutputStream("staffData.txt");         // Change txt file name
+       ObjectOutputStream out = new ObjectOutputStream(fileOut);
+       out.writeObject(mylist);
+       out.close();
+       fileOut.close();
+    }
+
+    public static Configurables readConfigurablesData() throws Exception{                      //change function name and return type generics
+        String txtdir = fileio.getDir("configurablesData.txt");                                                      //call the right Dir() method
+        Configurables mylist = new Configurables();
+    
+        try
+        {
+            FileInputStream fileIn = new FileInputStream(txtdir);// Read serial file.
+            ObjectInputStream in = new ObjectInputStream(fileIn);// input the read file.
+            mylist = (ArrayList) in.readObject();// allocate it to the object file already instantiated.
+            in.close();//closes the input stream.
+            fileIn.close();//closes the file data stream.
+        }
+        catch(IOException i)//exception stuff
+        {
+            i.printStackTrace();
+            return null;
+        }
+
+        return mylist;
+    }
+
+    public static void writeConfigurablesData(Configurables mylist) throws Exception{              //Change function name and parameter generics
+       FileOutputStream fileOut = new FileOutputStream("configurablesData.txt");         // Change txt file name
        ObjectOutputStream out = new ObjectOutputStream(fileOut);
        out.writeObject(mylist);
        out.close();

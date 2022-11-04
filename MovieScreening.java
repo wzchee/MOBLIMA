@@ -113,8 +113,10 @@ public class MovieScreening implements Serializable{
 
     
 
-    public double calcPrice(User user) {
-        double price = 7;
+    public double calcPrice(User user) throws Exception{
+        Configurables configs = fileio.readConfigurablesData();
+
+        double price = configs.getBasePrice();
         if(this.movieScreeningLocation.isPlatinumSuite()){
             price += 10;
         }
@@ -123,7 +125,7 @@ public class MovieScreening implements Serializable{
             price+=2;
         }
 
-        if(this.isPublicHoliday()){
+        if(configs.holidayMatch(mydate)){
             price+=2;
         }
 
