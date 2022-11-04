@@ -316,7 +316,7 @@ public class fileio {
             newFile.createNewFile();
             FileInputStream fileIn = new FileInputStream(txtdir);// Read serial file.
             ObjectInputStream in = new ObjectInputStream(fileIn);// input the read file.
-            mylist = (ArrayList)in.readObject();// allocate it to the object file already instantiated.
+            mylist = (Configurables)in.readObject();// allocate it to the object file already instantiated.
             in.close();//closes the input stream.
             fileIn.close();//closes the file data stream.
         }
