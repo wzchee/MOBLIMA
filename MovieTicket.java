@@ -1,4 +1,7 @@
 import java.io.Serializable;
+import java.util.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;  
 
 
 public class MovieTicket implements Serializable{
@@ -30,6 +33,41 @@ public class MovieTicket implements Serializable{
 
    public Double getPrice(){
         return this.price;
+    }
+
+    public MovieScreening getMovieScreening(){
+        return this.aMovieScreening;
+    }
+
+    public String toString(){
+        LocalDateTime myDateTime = this.getMovieScreening().getMydate();
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");  
+        String formatDateTime = myDateTime.format(format);  
+
+        return this.getMovieScreening().getMovieObj().getMovieTitle() + " at " + formatDateTime;
+    }
+
+
+    public static void displayBookings(User sessionUser)throws Exception{
+        ArrayList<MovieTicket> movieTicketsHistory = getArrListOfBookings(sessionUser);
+        for(int i=0;i<movieTicketsHistory.size();i++){
+            System.out.println(movieTicketsHistory.get(i).toString());
+            
+        }
+
+
+    }
+
+    private static ArrayList<MovieTicket> getArrListOfBookings(User sessionUser) throws Exception{
+        ArrayList<MovieTicket> listOfMovieTix = fileio.readMovieTicketData();
+        ArrayList<MovieTicket> movieTicketsHistory = new ArrayList<MovieTicket>();
+        for(int i =0;i<listOfMovieTix.size();i++){
+            if(listOfMovieTix.get(i).getUser().getEmail().equals(sessionUser.getEmail())){
+                movieTicketsHistory.add(listOfMovieTix.get(i));
+            }
+        }
+        return movieTicketsHistory;
+
     }
     
 }

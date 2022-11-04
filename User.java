@@ -109,7 +109,9 @@ public class User implements Serializable{
 
                     break;
                 case 4:
+                    MovieTicket.displayBookings(sessionUser);
                     break;
+                    
                 case 5:
                     break;
                 case 6:
