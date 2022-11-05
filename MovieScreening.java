@@ -173,10 +173,7 @@ public class MovieScreening implements Serializable{
         FileInOut<MovieScreening> screeninginout = new FileInOut<MovieScreening>();
         listOfMovieScreening = screeninginout.readData(new MovieScreening());
 
-<<<<<<< HEAD
-=======
         //listOfMovieScreening = fileio.readMovieScreeningData();
->>>>>>> e427e8ae4def1cfd6121f45a8f6cba2abaaff9ae
         for(int i=0;i<listOfMovieScreening.size();i++){
             if(listOfMovieScreening.get(i).getMovieObj().getMovieTitle().equals(movieToBeChanged.getMovieTitle())){
                 listOfMovieScreening.get(i).setMovieObj(movieToBeChanged);

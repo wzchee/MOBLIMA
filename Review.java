@@ -24,7 +24,7 @@ public class Review{
         }
 
         FileInOut<MovieTicket> movieticketio = new FileInOut<MovieTicket>();
-        ArrayList<MovieTicket> movieTicketList = reviewio.readData(new MovieTicket());
+        ArrayList<MovieTicket> movieTicketList = movieticketio.readData(new MovieTicket());
         //ArrayList<MovieTicket> movieTicketList = fileio.readMovieTicketData();
         ArrayList<Movie> userPastMovies = new ArrayList<Movie>();
         // screen through the list of tickets to get the movies that the user has watched before
@@ -113,7 +113,7 @@ public class Review{
         for(int i=0; i<reviewList.size(); i++){
             if(reviewList.get(i).getMovie().equals(moviechosen)){
                 reviewcount++;
-                System.out.println(reviewcount + ". Reviewed by user " + reviewlist.get(i).getUser().getName());
+                System.out.println(reviewcount + ". Reviewed by user " + reviewList.get(i).getUser().getName());
                 System.out.println("Rating given: " + reviewList.get(i).getRating());
                 System.out.println(reviewList.get(i).getReview() + "\n");
             }

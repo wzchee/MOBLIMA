@@ -20,13 +20,9 @@ public class MovieTicket implements Serializable{
         this.price = price;
     }
 
-<<<<<<< HEAD
     public MovieTicket(){
 
     }
-=======
-    public MovieTicket() {}
->>>>>>> 3a446008e4b4fb1a6886838483db841d3851593a
 
     public Cinema getLocation(){
         return movieScreening.getMovieScreeningLocation();
@@ -74,7 +70,6 @@ public class MovieTicket implements Serializable{
 
     //Based on user object, we will take return an arraylist of all the movieticket
     private static ArrayList<MovieTicket> getArrListOfBookings(User sessionUser) throws Exception{
-<<<<<<< HEAD
         
         FileInOut<MovieTicket> movieTixinout = new FileInOut<MovieTicket>();
         ArrayList<MovieTicket> listOfMovieTix = movieTixinout.readData(new MovieTicket());
@@ -84,13 +79,6 @@ public class MovieTicket implements Serializable{
         for(int i =0;i<listOfMovieTix.size();i++){
             if(listOfMovieTix.get(i).getUser().getEmail().equals(sessionUser.getEmail())){
                 movieTicketsHistory.add(listOfMovieTix.get(i));
-=======
-        FileInOut<MovieTicket> listOfMovieTix = new FileInOut<MovieTicket>();
-        ArrayList<MovieTicket> movieTicketsHistory = listOfMovieTix.readData(new MovieTicket());
-        for(int i =0;i<movieTicketsHistory.size();i++){
-            if(movieTicketsHistory.get(i).getUser().getEmail().equals(sessionUser.getEmail())){
-                movieTicketsHistory.add(movieTicketsHistory.get(i));
->>>>>>> 3a446008e4b4fb1a6886838483db841d3851593a
             }
         }
         return sortArrListOfBookings(movieTicketsHistory);
@@ -122,16 +110,11 @@ public class MovieTicket implements Serializable{
         LocalDateTime mydateOfMovieScreeningChanged = movieScreeningThatHasBeenChanged.getMydate();
         String myCineplexOfMovieScreeningChanged = movieScreeningThatHasBeenChanged.getMovieScreeningLocation().getCineplexName();
 
-<<<<<<< HEAD
         
         FileInOut<MovieTicket> movieTixinout = new FileInOut<MovieTicket>();
         ArrayList<MovieTicket> listOfMovieTix = movieTixinout.readData(new MovieTicket());
 
         
-=======
-        FileInOut<MovieTicket> movieTicketinout = new FileInOut<MovieTicket>();
-        ArrayList<MovieTicket> listOfMovieTix = movieTicketinout.readData(new MovieTicket());
->>>>>>> 3a446008e4b4fb1a6886838483db841d3851593a
         String movieTitle = null;
         LocalDateTime mydate = null;
         String myCineplex = null;
@@ -144,17 +127,12 @@ public class MovieTicket implements Serializable{
             }
         }
 
-<<<<<<< HEAD
         movieTixinout.writeData(listOfMovieTix, new MovieTicket());
 
-=======
-        movieTicketinout.writeData(listOfMovieTix, new MovieTicket());
->>>>>>> 3a446008e4b4fb1a6886838483db841d3851593a
     }
     
 
     public static void createBooking(MovieScreening movieScreeningOfChoice,int seatId,User userBooking,Double price) throws Exception{
-<<<<<<< HEAD
         
 
 
@@ -165,14 +143,6 @@ public class MovieTicket implements Serializable{
         MovieTicket createdMovieTicket = new MovieTicket(movieScreeningOfChoice, seatId, userBooking,price);
         movieTicketArrList.add(createdMovieTicket);
         movieTixinout.writeData(movieTicketArrList, new MovieTicket());
-=======
-        ArrayList<MovieTicket> movieTicketArrList = null;
-        FileInOut<MovieTicket> movieTicketinout = new FileInOut<MovieTicket>();
-        movieTicketArrList = movieTicketinout.readData(new MovieTicket());
-        MovieTicket createdMovieTicket = new MovieTicket(movieScreeningOfChoice, seatId, userBooking,price);
-        movieTicketArrList.add(createdMovieTicket);
-        movieTicketinout.writeData(movieTicketArrList, new MovieTicket());
->>>>>>> 3a446008e4b4fb1a6886838483db841d3851593a
     }
 
 
