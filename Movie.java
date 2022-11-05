@@ -153,6 +153,11 @@ public String toString(){
   "\nPast Reviews: "+this.getPastReviews().toArray(new String[this.getPastReviews().size()]);//convert ArrayList to string for printing
 }
 
+public void addReview(Review reviewToBeAdded){
+  this.pastReviews.add(reviewToBeAdded);
+}
+
+
 public void setPastReviews(ArrayList<String> pastReviews){
   this.pastReviews = pastReviews;
 }
@@ -535,5 +540,7 @@ public static void createMovie()throws Exception{
       }
       fileio.writeMovieData(movieList);
     }
+
+    
   
 }

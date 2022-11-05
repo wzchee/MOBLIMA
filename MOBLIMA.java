@@ -18,6 +18,7 @@ public class MOBLIMA {
             //fileio.writeCineplexData(myCineplexList);
         }
 
+
         FileInOut<Cinema> cinemainout = new FileInOut<Cinema>();
         ArrayList<Cinema> myCinemaList = cinemainout.readData(new Cinema());
         //ArrayList<Cinema> myCinemaList = fileio.readCinemaData();
@@ -58,6 +59,8 @@ public class MOBLIMA {
             staffinout.writeData(staffList, new Staff());
             //fileio.writeUserData(userList);
         }
+        
+
 
         Scanner input = new Scanner(System.in);
         int choice = 0; // choice of the main menu
@@ -134,6 +137,7 @@ public class MOBLIMA {
                             }
                         }
                     }
+                    break;
                 case 3:
                     // a new account wants to be created by user
                     System.out.println("Welcome to MOBLIMA!");
@@ -190,7 +194,7 @@ public class MOBLIMA {
                     userinout.writeData(userList, new User());
                     //fileio.writeUserData(userList);
                     System.out.println("User account added successfully!");
-                    System.out.println("Please login again using your new account \n");
+                    System.out.println("Please login again using your new account. \n");
                     break;
                 case 4:
                     System.out.println("Thank you for using MOBLIMA!");

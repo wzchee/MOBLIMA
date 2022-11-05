@@ -30,6 +30,10 @@ public class MovieScreening implements Serializable{
 
     }   
 
+    public MovieScreening(){
+
+    }
+
     public boolean hasCompleted(){
         return this.hasCompleted;
     }
@@ -136,9 +140,12 @@ public class MovieScreening implements Serializable{
     }
 
     public double calcPrice(User user) throws Exception{
-        Configurables configs = fileio.readConfigurablesData();
 
-        double price = configs.getBasePrice();
+        FileInOut<Configurables> configinout = new FileInOut<Configurables>();
+        ArrayList<Configurables> configList = configinout.readData(new Configurables());
+        Configurables config = configList.get(0);
+        
+        double price = config.getBasePrice();
         if(this.movieScreeningLocation.isPlatinumSuite()){
             price += 10;
         }
@@ -147,7 +154,7 @@ public class MovieScreening implements Serializable{
             price+=2;
         }
 
-        if(configs.holidayMatch(mydate)){
+        if(config.holidayMatch(mydate)){
             price+=2;
         }
 
@@ -162,6 +169,10 @@ public class MovieScreening implements Serializable{
 
     public static void updateMovieScreeningWithMovie(Movie movieToBeChanged) throws Exception{
         ArrayList<MovieScreening> listOfMovieScreening = null;
+
+        FileInOut<MovieScreening> screeninginout = new FileInOut<MovieScreening>();
+        listOfMovieScreening = screeninginout.readData(new MovieScreening());
+
         listOfMovieScreening = fileio.readMovieScreeningData();
         for(int i=0;i<listOfMovieScreening.size();i++){
             if(listOfMovieScreening.get(i).getMovieObj().getMovieTitle().equals(movieToBeChanged.getMovieTitle())){
@@ -169,7 +180,7 @@ public class MovieScreening implements Serializable{
                 MovieTicket.updateMovieTicketWithMovieScreening(listOfMovieScreening.get(i));
             }
         }
-        fileio.writeMovieScreeningData(listOfMovieScreening);
+        screeninginout.writeData(listOfMovieScreening, new MovieScreening());
     } 
 
     public static void removeMovieScreeningWithMovie(Movie movieToRemove) throws Exception{
@@ -406,7 +417,8 @@ public class MovieScreening implements Serializable{
     public static MovieScreening retrieveMovieScreening(String movieTitleOfMovieScreening,LocalDateTime mydateOfMovieScreening,String myCineplexOfMovieScreening) throws Exception{
        
 
-        ArrayList<MovieScreening> listOfMovieScreening = fileio.readMovieScreeningData();
+        FileInOut<MovieScreening> screeningout = new FileInOut<MovieScreening>();
+        ArrayList<MovieScreening> listOfMovieScreening = screeningout.readData(new MovieScreening());
         String movieTitle = null;
         LocalDateTime mydate = null;
         String myCineplex = null;
