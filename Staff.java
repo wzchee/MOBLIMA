@@ -61,16 +61,13 @@ public class Staff implements Serializable{
                     break;
                 case 9:
                     System.out.println("Logging out as staff...");
-                    System.out.println("Returning to main menu...");
+                    System.out.println("Returning to main menu...\n");
                     break;
                 default:
                     System.out.println("Wrong choice. Try again!");
                     break;
             }
         }
-
-        // out of application class, close scanner
-        input.close();
     }
 
     public Staff(String email, String password, String name, Cineplex workplace){

@@ -49,16 +49,13 @@ public class User implements Serializable{
                     break;
                 case 6:
                     System.out.println("Logging out as user...");
-                    System.out.println("Returning to main menu...");
+                    System.out.println("Returning to main menu...\n");
                     break;
                 default:
                     System.out.println("Wrong choice. Try again!");
                     break;
             }
         }
-
-        // out of application class, closing scanner
-        input.close();
     }
 
     public User(String email, String password, int age, String name, String mobileNumber){

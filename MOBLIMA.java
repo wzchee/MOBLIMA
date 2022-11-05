@@ -78,8 +78,8 @@ public class MOBLIMA {
                 case 2:
                     // Either user or staff is logging in
                     // Similar code
-                    if(choice == 1) System.out.println("\nWelcome STAFF!");
-                    else System.out.println("\nWelcome USER!");
+                    if(choice == 1) System.out.println("\nWelcome USER!");
+                    else System.out.println("\nWelcome STAFF!");
 
                     System.out.print("Enter your email address: ");
                     email = input.next();
@@ -134,6 +134,7 @@ public class MOBLIMA {
                             }
                         }
                     }
+                    break;
                 case 3:
                     // a new account wants to be created by user
                     System.out.println("Welcome to MOBLIMA!");
@@ -190,7 +191,7 @@ public class MOBLIMA {
                     userinout.writeData(userList, new User());
                     //fileio.writeUserData(userList);
                     System.out.println("User account added successfully!");
-                    System.out.println("Please login again using your new account \n");
+                    System.out.println("Please login again using your new account. \n");
                     break;
                 case 4:
                     System.out.println("Thank you for using MOBLIMA!");
