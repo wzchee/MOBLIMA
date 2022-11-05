@@ -181,7 +181,8 @@ public class MOBLIMA {
                     // create new User object
                     User newUser = new User(email, password, age, name, mobileNumber);
                     userList.add(newUser);
-                    fileio.writeUserData(userList);
+                    userinout.writeData(userList, new User());
+                    //fileio.writeUserData(userList);
                 case 4:
                     System.out.println("Thank you for using MOBLIMA!");
                     break;
