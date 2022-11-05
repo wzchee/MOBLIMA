@@ -115,14 +115,14 @@ public class User implements Serializable{
         ArrayList<Cineplex> cineplexList = cineplexio.readData(new Cineplex());
         //ArrayList<Cineplex> cineplexList = fileio.readCineplexData();
         System.out.println("To display available seats, we would like to know which movie showtime are you looking at.");
-        System.out.println("Which cineplex are you interested in?");
-        int cineplexcount = 0;
-        for(int i=0; i<cineplexList.size(); i++){
-            System.out.println(++cineplexcount + ". " + cineplexList.get(i).getCineplexName());
-        }
-        System.out.print("Enter the number corresponding to the cineplex: ");
-        int cineplexnum = input.nextInt();
-        Cineplex cineplexchosen = cineplexList.get(cineplexnum-1);
+        // System.out.println("Which cineplex are you interested in?");
+        // int cineplexcount = 0;
+        // for(int i=0; i<cineplexList.size(); i++){
+        //     System.out.println(++cineplexcount + ". " + cineplexList.get(i).getCineplexName());
+        // }
+        // System.out.print("Enter the number corresponding to the cineplex: ");
+        // int cineplexnum = input.nextInt();
+        // Cineplex cineplexchosen = cineplexList.get(cineplexnum-1);
 
         FileInOut<Movie> movieio = new FileInOut<Movie>();
         ArrayList<Movie> allMovieList = movieio.readData(new Movie());

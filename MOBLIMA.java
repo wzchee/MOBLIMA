@@ -7,11 +7,11 @@ public class MOBLIMA {
 
         // FileInOut<MovieScreening> moviescreeninginout = new FileInOut<MovieScreening>();
         // ArrayList<MovieScreening> moviescreeninglist = moviescreeninginout.readData(new MovieScreening());
-        // // // moviescreeninglist.clear();
-        // // // moviescreeninginout.writeData(moviescreeninglist, new MovieTicket());
-        // // // moviescreeninglist.clear();
+        // // // // // moviescreeninglist.clear();
+        // // // // // moviescreeninginout.writeData(moviescreeninglist, new MovieTicket());
+        // // // // // moviescreeninglist.clear();
         // for(int i=0;i<moviescreeninglist.size();i++){
-        //     System.out.println(moviescreeninglist.get(i).getMovieScreeningLocation().getCinemaName());
+        //     System.out.println(moviescreeninglist.get(i).getMovieScreeningLocation().getCinemaName() + moviescreeninglist.get(i).getMovieScreeningLocation().getCineplexName());
         // }
 
 
@@ -48,10 +48,10 @@ public class MOBLIMA {
             cinemainout.writeData(myCinemaList, new Cinema());
             //fileio.writeCinemaData(myCinemaList);
         }
-        // for (int index = 0; index < myCinemaList.size(); index++) {
-        //     System.out.println(myCinemaList.get(index).getCinemaName());
+        for (int index = 0; index < myCinemaList.size(); index++) {
+            System.out.println(myCinemaList.get(index).getCinemaName());
             
-        // }
+        }
 
         FileInOut<User> userinout = new FileInOut<User>();
         ArrayList<User> userList = userinout.readData(new User());
