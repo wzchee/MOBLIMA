@@ -94,6 +94,8 @@ public class Review{
         }
         reviewio.writeData(reviewList, new Review());
         //fileio.writeReviewData(reviewList);
+        movieChosen.updateRating();
+        movieChosen.updateReviews();
 
         System.out.println("Your review has been recorded. Thank you for reviewing.");
         System.out.println("Returning to user menu...\n");

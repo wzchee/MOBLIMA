@@ -30,6 +30,10 @@ public class MovieScreening implements Serializable{
 
     }   
 
+    public MovieScreening(){
+
+    }
+
     public boolean hasCompleted(){
         return this.hasCompleted;
     }
@@ -136,9 +140,12 @@ public class MovieScreening implements Serializable{
     }
 
     public double calcPrice(User user) throws Exception{
-        Configurables configs = fileio.readConfigurablesData();
 
-        double price = configs.getBasePrice();
+        FileInOut<Configurables> configinout = new FileInOut<Configurables>();
+        ArrayList<Configurables> configList = configinout.readData(new Configurables());
+        Configurables config = configList.get(0);
+        
+        double price = config.getBasePrice();
         if(this.movieScreeningLocation.isPlatinumSuite()){
             price += 10;
         }
@@ -147,7 +154,7 @@ public class MovieScreening implements Serializable{
             price+=2;
         }
 
-        if(configs.holidayMatch(mydate)){
+        if(config.holidayMatch(mydate)){
             price+=2;
         }
 
@@ -162,19 +169,27 @@ public class MovieScreening implements Serializable{
 
     public static void updateMovieScreeningWithMovie(Movie movieToBeChanged) throws Exception{
         ArrayList<MovieScreening> listOfMovieScreening = null;
-        listOfMovieScreening = fileio.readMovieScreeningData();
+
+        FileInOut<MovieScreening> screeninginout = new FileInOut<MovieScreening>();
+        listOfMovieScreening = screeninginout.readData(new MovieScreening());
+
+        //listOfMovieScreening = fileio.readMovieScreeningData();
         for(int i=0;i<listOfMovieScreening.size();i++){
             if(listOfMovieScreening.get(i).getMovieObj().getMovieTitle().equals(movieToBeChanged.getMovieTitle())){
                 listOfMovieScreening.get(i).setMovieObj(movieToBeChanged);
                 MovieTicket.updateMovieTicketWithMovieScreening(listOfMovieScreening.get(i));
             }
         }
-        fileio.writeMovieScreeningData(listOfMovieScreening);
+        screeninginout.writeData(listOfMovieScreening, new MovieScreening());
     } 
 
     public static void removeMovieScreeningWithMovie(Movie movieToRemove) throws Exception{
         ArrayList<MovieScreening> listOfMovieScreening = null;
-        listOfMovieScreening = fileio.readMovieScreeningData();
+        FileInOut<MovieScreening> movieScreeninginout = new FileInOut<MovieScreening>();
+        listOfMovieScreening = movieScreeninginout.readData(new MovieScreening());
+        
+
+        
         for(int i=0;i<listOfMovieScreening.size();i++){
             if(listOfMovieScreening.get(i).getMovieObj().getMovieTitle().equals(movieToRemove.getMovieTitle())){
                 // listOfMovieScreening.remove(i);
@@ -185,13 +200,19 @@ public class MovieScreening implements Serializable{
 
             }
         }
-        fileio.writeMovieScreeningData(listOfMovieScreening);
+        movieScreeninginout.writeData(listOfMovieScreening, new MovieScreening());
     } 
 
     public static void createMovieScreening() throws Exception{
+        
+
+        
+        
         Scanner input = new Scanner(System.in);
-        ArrayList<MovieScreening> myMovieScreeningList = null;
-        myMovieScreeningList = fileio.readMovieScreeningData();
+        
+        FileInOut<MovieScreening> movieScreeninginout = new FileInOut<MovieScreening>();
+        ArrayList<MovieScreening> myMovieScreeningList = movieScreeninginout.readData(new MovieScreening());
+        
         MovieScreening movieScreeningToAdd = null;
 
 
@@ -199,7 +220,10 @@ public class MovieScreening implements Serializable{
         System.out.print("Please enter your Movie Title: ");
         String movieTitleToFetch = input.next();
         Movie movieToFetch = null;
-        ArrayList<Movie> myMovieList = fileio.readMovieData();
+        FileInOut<Movie> movieinout = new FileInOut<Movie>();
+        ArrayList<Movie> myMovieList = movieinout.readData(new Movie());
+
+        
         for(int i=0;i<myMovieList.size();i++){
             if(myMovieList.get(i).getMovieTitle().equals(movieTitleToFetch) && !myMovieList.get(i).getMovieStatus().equals("End_of_Showing")){
                 movieToFetch = myMovieList.get(i);
@@ -216,7 +240,9 @@ public class MovieScreening implements Serializable{
         
         Cinema cinemaToFetch = null;
         Cinema traverser = null;
-        ArrayList<Cinema> myCinemaList = fileio.readCinemaData();
+        FileInOut<Cinema> cinemainout = new FileInOut<Cinema>();
+        ArrayList<Cinema> myCinemaList = cinemainout.readData(new Cinema());
+
         for(int i=0;i<myCinemaList.size();i++){
             traverser = myCinemaList.get(i);
             if(traverser.getCinemaName().equals(cinemaNameToFetch) && traverser.getCineplexName().equals(cineplexNameToFetch)){
@@ -259,7 +285,7 @@ public class MovieScreening implements Serializable{
 
         movieScreeningToAdd = new MovieScreening(movieToFetch, cinemaToFetch, myDate, myArr, isPublicHoliday,0,false);
         myMovieScreeningList.add(movieScreeningToAdd);
-        fileio.writeMovieScreeningData(myMovieScreeningList);
+        movieScreeninginout.writeData(myMovieScreeningList, new MovieScreening());
     }
 
     
@@ -304,11 +330,12 @@ public class MovieScreening implements Serializable{
     public static void removeMovieScreening() throws Exception{
         System.out.println("Remove MovieScreening: ");
         ArrayList<MovieScreening> myMovieScreeningList = null;
-        myMovieScreeningList = fileio.readMovieScreeningData();
+        FileInOut<MovieScreening> movieScreeninginout = new FileInOut<MovieScreening>();
+        myMovieScreeningList = movieScreeninginout.readData(new MovieScreening());
         MovieScreening toBeRemove = movieScreeningToChange(myMovieScreeningList);
         toBeRemove.setHasCompleted(true);
         MovieTicket.updateMovieTicketWithMovieScreening(toBeRemove);
-        fileio.writeMovieScreeningData(myMovieScreeningList);
+        movieScreeninginout.writeData(myMovieScreeningList, new MovieScreening());;
         
     }
     
@@ -392,7 +419,8 @@ public class MovieScreening implements Serializable{
 
     public static ArrayList<MovieScreening> giveScreenTimes(String movieTitle) throws Exception{
         ArrayList<MovieScreening> toRetur = new ArrayList<MovieScreening>();
-        ArrayList<MovieScreening> mylis = fileio.readMovieScreeningData();
+        FileInOut<MovieScreening> movieScreeninginout = new FileInOut<MovieScreening>();
+        ArrayList<MovieScreening> mylis = movieScreeninginout.readData(new MovieScreening());
         for(int i=0;i<mylis.size();i++){
             if(mylis.get(i).getMovieObj().getMovieTitle().equals(movieTitle) && !mylis.get(i).hasCompleted()){
                 toRetur.add(mylis.get(i));
@@ -405,8 +433,8 @@ public class MovieScreening implements Serializable{
     
     public static MovieScreening retrieveMovieScreening(String movieTitleOfMovieScreening,LocalDateTime mydateOfMovieScreening,String myCineplexOfMovieScreening) throws Exception{
        
-
-        ArrayList<MovieScreening> listOfMovieScreening = fileio.readMovieScreeningData();
+        FileInOut<MovieScreening> movieScreeninginout = new FileInOut<MovieScreening>();
+        ArrayList<MovieScreening> listOfMovieScreening = movieScreeninginout.readData(new MovieScreening());
         String movieTitle = null;
         LocalDateTime mydate = null;
         String myCineplex = null;
