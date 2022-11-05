@@ -30,13 +30,14 @@ public class User implements Serializable{
 
             switch(choice){
                 case 1:
-                    System.out.println("Here are the list of movies.");
+                    System.out.println("Here are the full list of movies.");
                     Movie.showMovieList();
-                    System.out.print("Search for the movie title here: ");
+                    System.out.println("Search for the movie title here: ");
                     String movieSearch = input.next();
-                    Movie.searchMovieList(movieSearch);
+                    Movie.showMovieDetail(movieSearch);
                     break;
                 case 2:
+                    showLayoutOnly();
                     break;
                 case 3:
                     // ArrayList<MovieTicket> movieTicketArrList = null;
@@ -107,6 +108,63 @@ public class User implements Serializable{
         return null;
     }
 
+    public static void showLayoutOnly() throws Exception {
+        Scanner input = new Scanner(System.in);
+        FileInOut<Cineplex> cineplexio = new FileInOut<Cineplex>();
+        ArrayList<Cineplex> cineplexList = cineplexio.readData(new Cineplex());
+        //ArrayList<Cineplex> cineplexList = fileio.readCineplexData();
+        System.out.println("To display available seats, we would like to know which movie showtime are you looking at.");
+        System.out.println("Which cineplex are you interested in?");
+        int cineplexcount = 0;
+        for(int i=0; i<cineplexList.size(); i++){
+            System.out.println(++cineplexcount + ". " + cineplexList.get(i).getCineplexName());
+        }
+        System.out.print("Enter the number corresponding to the cineplex: ");
+        int cineplexnum = input.nextInt();
+        Cineplex cineplexchosen = cineplexList.get(cineplexnum-1);
+
+        FileInOut<Movie> movieio = new FileInOut<Movie>();
+        ArrayList<Movie> movieList = movieio.readData(new Movie());
+        //ArrayList<Movie> movieList = fileio.readMovieData();
+        System.out.println("Here are the list of movies to choose from: ");
+        int moviecount = 0;
+        for(int i=0; i<movieList.size(); i++){
+            System.out.println(++moviecount + ". " + movieList.get(i).getMovieTitle());
+        }
+        System.out.print("Enter the number corresponding to the movie you are interested in: ");
+        int movienum = input.nextInt(); 
+        Movie movieObjChosen = movieList.get(movienum-1);
+        String movie = movieObjChosen.getMovieTitle();
+
+        ArrayList<MovieScreening> screeningList = MovieScreening.giveScreenTimes(movie);
+        System.out.println("Here are the list of showtimes for the movie");
+        // Display list of showtimes, pass in movie title
+        System.out.println("Movie = " + movie);
+        for(int i=0; i<screeningList.size(); i++){
+            System.out.print(i+1);
+            System.out.print(".\t");
+            System.out.print(screeningList.get(i).getMydate().getDayOfMonth());
+            System.out.print(" ");
+            System.out.print(screeningList.get(i).getMydate().getMonth().toString());
+            System.out.print(" ");
+            System.out.print(screeningList.get(i).getMydate().getDayOfWeek().toString());
+            System.out.print("\n");
+            System.out.print("Location: " + screeningList.get(i).getMovieScreeningLocation().getCineplexName());
+            System.out.print("\n\n");
+        }
+        System.out.print("Pick a showtime. Enter the number here: ");
+        int screeningnum = input.nextInt();
+        MovieScreening screeningchosen = screeningList.get(screeningnum-1);
+
+        System.out.println("Here is the cinema layout for the showtime you selected");
+        // Display layout of cinema
+        screeningchosen.displayLayout();
+
+        System.out.print("Type anything to return to menu:");
+        String anything = input.next();
+        System.out.println("Returning to user menu...\n")
+    }
+    
     public static void usercreateBooking(User sessionUser) throws Exception {
         Scanner input = new Scanner(System.in);
         FileInOut<Cineplex> cineplexio = new FileInOut<Cineplex>();
@@ -190,6 +248,8 @@ public class User implements Serializable{
         if(option == "Y"){
             System.out.println("Ticket purchase successful!");
             System.out.println("Here is your ticket ID (TID)");
+        } else {
+            System.out.println("Ticket purchase cancelled.");
         }
 
         //System.out.print("Please enter your Movie Title: ");
@@ -240,6 +300,10 @@ public class User implements Serializable{
         fileio.writeMovieScreeningData(screeningList);
 
         MovieTicket.createBooking(screeningchosen, seatId, sessionUser, computedPrice);
+
+        // send user back to user menu
+        System.out.println("Thank you for using our booking services!");
+        System.out.println("Returning to user menu...\n");
 
         // out of application class, closing scanner
         input.close();
