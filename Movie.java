@@ -356,6 +356,8 @@ public static void createMovie()throws Exception{
   System.out.println("Cast 2 name:");
   cast[1] = in.next();
   newMovie.setSaleVolume(0);
+  newMovie.setMovieRating(0);
+  newMovie.setPastReviews(null);
   FileInOut<Movie> movieio = new FileInOut<Movie>();
   ArrayList<Movie> movieList = movieio.readData(new Movie());
   //ArrayList<Movie> movieList = null;
@@ -504,6 +506,21 @@ public static void createMovie()throws Exception{
       System.out.println();
       System.out.println("Movie Synopsis");
       System.out.println(movieList.get(choice).getMovieSypnosis());
+      if(movieList.get(choice).getMovieAverageRating(movieList.get(choice).getMovieRating())== 0.0){
+        System.out.println("Ratings: NA");
+      }
+      else{
+        System.out.println("Ratings: "+ movieList.get(choice).getMovieAverageRating(movieList.get(choice).getMovieRating()) +"\n");
+      }
+      if(movieList.get(choice).getPastReviews().size() == 0){
+        System.out.println("Reviews: NA");
+      }
+      else{
+        System.out.println("Reviews:");
+        for (int index = 0; index < movieList.get(choice).getPastReviews().size(); index++) {
+          System.out.println(index+1 +". "+ movieList.get(choice).getPastReviews().get(index));
+        }
+      }
     }
 
     //Search for movie based on partial String Match when traversing MovieList
