@@ -462,22 +462,29 @@ public static void createMovie()throws Exception{
     //displaying all the movies and the status
     public static void showMovieList() throws Exception{
       FileInOut<Movie> movieio = new FileInOut<Movie>();
-      ArrayList<Movie> movieList = movieio.readData(new Movie());
-      //ArrayList<Movie> movieList = null;
-      //movieList = fileio.readMovieData();
-      int indexer = 1;
+      ArrayList<Movie> allMovieList = movieio.readData(new Movie());
+      ArrayList<Movie> movieList = getAvailableMovieList(allMovieList);
       for (int index = 0; index < movieList.size(); index++) {
-        if(!movieList.get(index).getMovieStatus().equalsIgnoreCase("End_Of_Showing")){
-          System.out.println(indexer++ +". "+ movieList.get(index).getMovieTitle());
+          System.out.println(index+1 +". "+ movieList.get(index).getMovieTitle());
           System.out.println("Status: "+movieList.get(index).getMovieStatus());
         }
-      }
       movieio.writeData(movieList, new Movie());
       //fileio.writeMovieData(movieList);
     }
 
+    //Helper function to get available movie
+    public static ArrayList<Movie> getAvailableMovieList(ArrayList<Movie> arrListToBeLooped) throws Exception{
+      ArrayList<Movie> movieList = new ArrayList<Movie>();
+      for (int i = 0; i < arrListToBeLooped.size(); i++) {
+        if(!arrListToBeLooped.get(i).getMovieStatus().equals("End_Of_Showing")){
+          // System.out.println(i+1 + ". " + movieList.get(i).getMovieTitle());
+          movieList.add(arrListToBeLooped.get(i));
+        }
+      }
+      return movieList;
+    }
+
     // show detail of the movie selected
-    // doing this tmr on 5/11/2022
     public static void showMovieDetail(String movieTitle) throws Exception{
       //FileInOut<Movie> movieio = new FileInOut<Movie>();
       //ArrayList<Movie> movieList = movieio.readData(new Movie());
@@ -486,15 +493,7 @@ public static void createMovie()throws Exception{
       //movieList = searchMovieList(movieTitle);
       Scanner input = new Scanner(System.in);
       System.out.println("Which of these movies are you searching for? Select the option number.");
-      
-      
-      ArrayList<Movie> movieList = new ArrayList<Movie>();
-      for (int i = 0; i < arrListToBeLooped.size(); i++) {
-        if(!arrListToBeLooped.get(i).getMovieStatus().equals("End_Of_Showing")){
-          // System.out.println(i+1 + ". " + movieList.get(i).getMovieTitle());
-          movieList.add(arrListToBeLooped.get(i));
-        }
-      }
+      ArrayList<Movie> movieList = getAvailableMovieList(arrListToBeLooped);
       for(int i=0;i<movieList.size();i++){
           System.out.println(i+1 + ". " + movieList.get(i).getMovieTitle());
       }
