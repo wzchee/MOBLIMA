@@ -97,7 +97,7 @@ public class User implements Serializable{
     private static User fetchDetails(String useremail) throws Exception{
         ArrayList<User> userList = fileio.readUserData();
         for(int i=0; i<userList.size(); i++)
-            if(useremail == userList.get(i).getEmail())
+            if(useremail.equals(userList.get(i).getEmail()))
                 return userList.get(i);
 
         // shouldn't happen, but just for compilation
