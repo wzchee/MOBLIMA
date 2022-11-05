@@ -103,7 +103,7 @@ public class Staff implements Serializable{
     private static Staff fetchDetails(String useremail) throws Exception{
         ArrayList<Staff> staffList = fileio.readStaffData();
         for(int i=0; i<staffList.size(); i++)
-            if(useremail == staffList.get(i).getEmail())
+            if(useremail.equals(staffList.get(i).getEmail()))
                 return staffList.get(i);
 
         // shouldn't happen, but just for compilation

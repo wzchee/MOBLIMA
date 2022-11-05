@@ -87,9 +87,9 @@ public class MOBLIMA {
                     if(choice == 1){
                         for(int i=0; i<userList.size(); i++){
                             // screen email first
-                            if(email == userList.get(i).getEmail())
+                            if(email.equals(userList.get(i).getEmail()))
                                 // if email screening successful, screen password
-                                if(password == userList.get(i).getPassword()){
+                                if(password.equals(userList.get(i).getPassword())){
                                     // if password screening successful, proceed into login UI
                                     User.loggedin(email);
                                     break;
@@ -109,9 +109,9 @@ public class MOBLIMA {
                     if(choice == 2){
                         for(int i=0; i<staffList.size(); i++){
                             // screen email first
-                            if(email == staffList.get(i).getEmail())
+                            if(email.equals(staffList.get(i).getEmail()))
                                 // if email screening successful, screen password
-                                if(password == staffList.get(i).getPassword()){
+                                if(password.equals(staffList.get(i).getPassword())){
                                     // if password screening successful, proceed into login UI
                                     Staff.loggedin(email);
                                     break;
