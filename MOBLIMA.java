@@ -5,13 +5,13 @@ import java.util.InputMismatchException;
 public class MOBLIMA {
     public static void main(String[] args) throws Exception {
 
-        FileInOut<MovieTicket> moviescreeninginout = new FileInOut<MovieTicket>();
-        ArrayList<MovieTicket> moviescreeninglist = moviescreeninginout.readData(new MovieTicket());
+        FileInOut<Cinema> cinema_inout = new FileInOut<Cinema>();
+        ArrayList<Cinema> cinemalist = cinema_inout.readData(new Cinema());
         // moviescreeninglist.clear();
         // moviescreeninginout.writeData(moviescreeninglist, new MovieTicket());
         // moviescreeninglist.clear();
-        for(int i=0;i<moviescreeninglist.size();i++){
-            System.out.println(moviescreeninglist.get(i).toString());
+        for(int i=0;i<cinemalist.size();i++){
+            System.out.println(cinemalist.get(i).getCinemaName());
             
 
         }
