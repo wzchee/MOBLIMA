@@ -2,6 +2,7 @@ import java.io.Serializable;
 import java.util.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;  
+import java.time.temporal.ChronoField; 
 
 
 public class MovieTicket implements Serializable{
@@ -14,11 +15,18 @@ public class MovieTicket implements Serializable{
 
 
 
-    public MovieTicket(MovieScreening movieScreening, int seatNumber,User userObj,Double price,String TID) throws Exception {
+    public MovieTicket(MovieScreening movieScreening, int seatNumber,User userObj,Double price) throws Exception {
         this.seatNumber = seatNumber;
         this.userObj = userObj;
         this.movieScreening = movieScreening;
         this.price = price;
+        LocalDateTime mydate;
+        mydate = movieScreening.getMovieScreeningLocation().getmovieScreening.getMydate();
+        this.TID = movieScreening.getMovieScreeningLocation().getCinemaCOde() + mydate.getYear()+ mydate.getMonth()+ mydate.getDayOfMonth()+ mydate.getHour()+ mydate.getMinute();  
+    }
+
+    public String getTID(){
+        return this.TID;
     }
 
     public MovieTicket(){
