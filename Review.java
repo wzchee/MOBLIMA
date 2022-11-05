@@ -2,8 +2,9 @@ import java.util.Scanner;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.io.Serializable;
 
-public class Review{
+public class Review implements Serializable{
 
     private int rating;
     private Movie movie;
@@ -29,8 +30,8 @@ public class Review{
         ArrayList<Movie> userPastMovies = new ArrayList<Movie>();
         // screen through the list of tickets to get the movies that the user has watched before
         for(int i=0; i<movieTicketList.size(); i++){
-            if(movieTicketList.get(i).getUser().equals(sessionUser) &&
-               movieTicketList.get(i).getMovieScreening().getMydate().isAfter(LocalDateTime.now()))
+            if(movieTicketList.get(i).getUser().getEmail().equals(sessionUser.getEmail()) /*&&
+               movieTicketList.get(i).getMovieScreening().getMydate().isBefore(LocalDateTime.now())*/)
                 userPastMovies.add(movieTicketList.get(i).getMovieScreening().getMovieObj());
         }
 
@@ -78,7 +79,7 @@ public class Review{
             }
         }
 
-        System.out.print("Please give a rating out of 10: ");
+        System.out.print("Please give a rating out of 5: ");
         int movieRating = input.nextInt();
 
         System.out.println("Please type in your review in full below:");
@@ -90,12 +91,11 @@ public class Review{
             reviewList.get(movieNum-1).setReview(movieReview);
         } else {
             // submit new review
-            reviewList.add(new Review(movieRating, movieChosen, movieReview, sessionUser));
+            Review reviewToAdd = new Review(movieRating, movieChosen, movieReview, sessionUser);
+            movieChosen.addReview(reviewToAdd);
         }
         reviewio.writeData(reviewList, new Review());
         //fileio.writeReviewData(reviewList);
-        movieChosen.updateRating();
-        movieChosen.updateReviews();
 
         System.out.println("Your review has been recorded. Thank you for reviewing.");
         System.out.println("Returning to user menu...\n");
