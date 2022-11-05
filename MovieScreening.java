@@ -200,7 +200,7 @@ public class MovieScreening implements Serializable{
 
             }
         }
-        movieScreeninginout.writeData(myCineplexList, new Cineplex());
+        movieScreeninginout.writeData(listOfMovieScreening, new MovieScreening());
     } 
 
     public static void createMovieScreening() throws Exception{
@@ -435,7 +435,7 @@ public class MovieScreening implements Serializable{
        
         FileInOut<MovieScreening> movieScreeninginout = new FileInOut<MovieScreening>();
         ArrayList<MovieScreening> listOfMovieScreening = movieScreeninginout.readData(new MovieScreening());
-git        String movieTitle = null;
+        String movieTitle = null;
         LocalDateTime mydate = null;
         String myCineplex = null;
         MovieScreening toRetur = null;
