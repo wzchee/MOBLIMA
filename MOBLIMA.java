@@ -5,16 +5,14 @@ import java.util.InputMismatchException;
 public class MOBLIMA {
     public static void main(String[] args) throws Exception {
 
-        FileInOut<Cinema> cinema_inout = new FileInOut<Cinema>();
-        ArrayList<Cinema> cinemalist = cinema_inout.readData(new Cinema());
-        // moviescreeninglist.clear();
-        // moviescreeninginout.writeData(moviescreeninglist, new MovieTicket());
-        // moviescreeninglist.clear();
-        for(int i=0;i<cinemalist.size();i++){
-            System.out.println(cinemalist.get(i).getCinemaName());
-            
-
-        }
+        // FileInOut<MovieScreening> moviescreeninginout = new FileInOut<MovieScreening>();
+        // ArrayList<MovieScreening> moviescreeninglist = moviescreeninginout.readData(new MovieScreening());
+        // // // // // moviescreeninglist.clear();
+        // // // // // moviescreeninginout.writeData(moviescreeninglist, new MovieTicket());
+        // // // // // moviescreeninglist.clear();
+        // for(int i=0;i<moviescreeninglist.size();i++){
+        //     System.out.println(moviescreeninglist.get(i).getMovieScreeningLocation().getCinemaName() + moviescreeninglist.get(i).getMovieScreeningLocation().getCineplexName());
+        // }
 
 
         // iniitialize everything
@@ -49,6 +47,10 @@ public class MOBLIMA {
             // overwrite the file
             cinemainout.writeData(myCinemaList, new Cinema());
             //fileio.writeCinemaData(myCinemaList);
+        }
+        for (int index = 0; index < myCinemaList.size(); index++) {
+            System.out.println(myCinemaList.get(index).getCinemaName());
+            
         }
 
         FileInOut<User> userinout = new FileInOut<User>();
