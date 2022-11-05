@@ -13,7 +13,9 @@ public class Review{
     public static void writeReview(User sessionUser) throws Exception{
         Scanner input = new Scanner(System.in);
         
-        ArrayList<Review> reviewList = fileio.readReviewData();
+        FileInOut<Review> reviewio = new FileInOut<Review>();
+        ArrayList<Review> reviewList = reviewio.readData(new Review());
+        //ArrayList<Review> reviewList = fileio.readReviewData();
         ArrayList<Movie> userReviewedMovies = new ArrayList<Movie>();
         // screen through the list of reviews to get the movies that the user has reviewed before
         for(int i=0; i<reviewList.size(); i++){
@@ -21,7 +23,9 @@ public class Review{
                 userReviewedMovies.add(reviewList.get(i).getMovie());
         }
 
-        ArrayList<MovieTicket> movieTicketList = fileio.readMovieTicketData();
+        FileInOut<MovieTicket> movieticketio = new FileInOut<MovieTicket>();
+        ArrayList<MovieTicket> movieTicketList = reviewio.readData(new MovieTicket());
+        //ArrayList<MovieTicket> movieTicketList = fileio.readMovieTicketData();
         ArrayList<Movie> userPastMovies = new ArrayList<Movie>();
         // screen through the list of tickets to get the movies that the user has watched before
         for(int i=0; i<movieTicketList.size(); i++){
@@ -88,25 +92,28 @@ public class Review{
             // submit new review
             reviewList.add(new Review(movieRating, movieChosen, movieReview, sessionUser));
         }
-        fileio.writeReviewData(reviewList);
+        reviewio.writeData(reviewList, new Review());
+        //fileio.writeReviewData(reviewList);
 
         System.out.println("Your review has been recorded. Thank you for reviewing.");
         System.out.println("Returning to user menu...\n");
     }
     
     public static void viewReview(Movie moviechosen) throws Exception{
-        ArrayList<Review> reviewlist = fileio.readReviewData();
+        FileInOut<Review> reviewio = new FileInOut<Review>();
+        ArrayList<Review> reviewList = reviewio.readData(new Review());
+        //ArrayList<Review> reviewList = fileio.readReviewData();
         
         System.out.println("Here are the reviews for this movie:-");
 
         // display the review for that movie
         int reviewcount = 0;
-        for(int i=0; i<reviewlist.size(); i++){
-            if(reviewlist.get(i).getMovie().equals(moviechosen)){
+        for(int i=0; i<reviewList.size(); i++){
+            if(reviewList.get(i).getMovie().equals(moviechosen)){
                 reviewcount++;
                 System.out.println(reviewcount + ". Reviewed by user " + reviewlist.get(i).getUser().getName());
-                System.out.println("Rating given: " + reviewlist.get(i).getRating());
-                System.out.println(reviewlist.get(i).getReview() + "\n");
+                System.out.println("Rating given: " + reviewList.get(i).getRating());
+                System.out.println(reviewList.get(i).getReview() + "\n");
             }
         }
         
@@ -117,6 +124,10 @@ public class Review{
         this.movie = movie;
         this.review = review;
         this.user = user;
+    }
+
+    public Review(){
+
     }
 
     public int getRating(){return rating;}
