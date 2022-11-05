@@ -40,132 +40,7 @@ public class User implements Serializable{
                     // movieTicketArrList = fileio.readMovieTicketData();
                     // MovieTicket movieTicketToAdd = null;
     //=========================================================================================================
-
-                    ArrayList<Cineplex> cineplexlist = fileio.readCineplexData();
-                    System.out.println("Which cineplex would you like to go to?");
-                    int cineplexcount = 0;
-                    for(int i=0; i<cineplexlist.size(); i++){
-                        System.out.println(++cineplexcount + ". " + cineplexlist.get(i).getCineplexName());
-                    }
-                    System.out.print("Enter the number corresponding to the cineplex: ");
-                    int cineplexnum = input.nextInt();
-                    Cineplex cineplexchosen = cineplexlist.get(cineplexnum-1);
-    
-                    ArrayList<Movie> movielist = fileio.readMovieData();
-                    System.out.println("Here are the list of movies to choose from: ");
-                    int moviecount = 0;
-                    for(int i=0; i<movielist.size(); i++){
-                        System.out.println(++moviecount + ". " + movielist.get(i).getMovieTitle());
-                    }
-                    System.out.print("Enter the number corresponding to the movie you would like to watch: ");
-                    int movienum = input.nextInt(); 
-                    Movie movieObjChosen = movielist.get(movienum-1);
-                    String movie = movieObjChosen.getMovieTitle();
-
-                    ArrayList<MovieScreening> screeningList = MovieScreening.giveScreenTimes(movie);
-                    System.out.println("Here are the list of showtimes for the movie");
-                    // Display list of showtimes, pass in movie title
-                    System.out.println("Movie = " + movie);
-                    for(int i=0; i<screeningList.size(); i++){
-                        System.out.print(i+1);
-                        System.out.print(".\t");
-                        System.out.print(screeningList.get(i).getMydate().getDayOfMonth());
-                        System.out.print(" ");
-                        System.out.print(screeningList.get(i).getMydate().getMonth().toString());
-                        System.out.print(" ");
-                        System.out.print(screeningList.get(i).getMydate().getDayOfWeek().toString());
-                        System.out.print("\n");
-                        System.out.print("Location: " + screeningList.get(i).getMovieScreeningLocation().getCineplexName());
-                        System.out.print("\n\n");
-                    }
-                    System.out.print("Pick a showtime. Enter the number here: ");
-                    int screeningnum = input.nextInt();
-                    MovieScreening screeningchosen = screeningList.get(screeningnum-1);
-
-                    // MovieScreening screeningchosen = MovieScreening.retrieveMovieScreening(movie, showtimechosen, cineplexchosen.getCineplexName());
-                    //MovieScreening screeningchosen = null;
-                    //screeningchosen = MovieScreening.retrieveMovieScreening(movie, showtimechosen, cineplexchosen.getCineplexName());
-
-                    
-                    // for(int i=0; i<screeninglist.size(); i++){
-                    //     Boolean bool1 = screeninglist.get(i).getMovieObj().getMovieTitle().equals(movie);
-                    //     Boolean bool2 = screeninglist.get(i).getMydate().equals(showtimechosen);
-                    //     Boolean bool3 = screeninglist.get(i).getMovieScreeningLocation().getCineplexName().equals(cineplexchosen.getCineplexName());
-                    //     //screen cineplex
-
-                    //     if(bool1 && bool2 && bool3){
-                    //         screeningchosen = screeninglist.get(i);
-                    //         break;
-                    //     }
-                    // }
-
-                    System.out.println("Here is the cinema layout for the showtime you selected");
-                    // Display layout of cinema
-                    screeningchosen.displayLayout();
-                    System.out.print("Please pick a vacant seat: ");
-                    String seatIDStr = input.next();
-                    
-
-                    Double computedPrice = screeningchosen.calcPrice(sessionUser);
-                    // Seat screening
-                    // Multiple tickets?
-
-                    System.out.println("Your seat is secured!");
-                    System.out.println("Ticket price = $" + computedPrice);
-                    System.out.print("Proceed (Y/N) ?");
-                    String option = input.next();
-
-                    if(option == "Y"){
-                        System.out.println("Ticket purchase successful!");
-                        System.out.println("Here is your ticket ID (TID)");
-                    }
-
-                    //System.out.print("Please enter your Movie Title: ");
-                    //String movieTitleToFetch = input.next();
-                    //Movie toFetchMovie = Movie.fetchDetails(movieTitleToFetch);
-                    //String movieTitleToConcat = toFetchMovie.getMovieTitle();
-                    
-                    // System.out.print("Please enter your Cinema Name: ");
-                    // String cinemaNameToFetch = input.next();
-                    // Cinema toFetchCinema = Cinema.fetchDetails(cinemaNameToFetch);
-                    // String cinemaNameToConcat = toFetchCinema.getCinemaName();
-
-    //=========================================================================================================
-
-                    //PSA: TAKE IN INPUT TO ASSIGN VARIABLES TO THESE SO I CAN CREATE MOVIESCREENING
-                    int seatId = Integer.parseInt(seatIDStr);
-                    
-
-    //=========================================================================================================
-                    movieObjChosen.incrementSaleVolume();
-                    //after movie object incremented we will bubble up to change the
-                    MovieScreening.updateMovieScreeningWithMovie(movieObjChosen);
-                    ArrayList<MovieScreening> screeninglist = fileio.readMovieScreeningData();
-                    
-                    String movieTitleOfScreeningToChange = null;
-                    LocalDateTime dateTimeOfScreeningToChange = null;
-                    String cineplexNameScreeningToChange = null;
-                    MovieScreening traverser = null;
-                    
-                    for(int i = 0 ;i<screeninglist.size();i++){
-                        traverser =screeninglist.get(i);
-                        movieTitleOfScreeningToChange = traverser.getMovieObj().getMovieTitle();
-                        dateTimeOfScreeningToChange = traverser.getMydate();
-                        cineplexNameScreeningToChange = traverser.getMovieScreeningLocation().getCineplexName();
-
-                        if(movieTitleOfScreeningToChange.equals(movie) && dateTimeOfScreeningToChange.equals(screeningchosen.getMydate()) && cineplexNameScreeningToChange.equals(cineplexchosen.getCineplexName())){
-                            screeningchosen = traverser;
-                            break;
-                        }
-                    }
-                    screeningchosen.setSeatOccupied(seatId);
-                    
-                    fileio.writeMovieData(movielist);
-                    fileio.writeMovieScreeningData(screeninglist);
-
-                    MovieTicket.createBooking(screeningchosen, seatId, sessionUser, computedPrice);
-                    
-
+                    usercreateBooking(sessionUser);
                     break;
                 case 4:
                     MovieTicket.displayBookings(sessionUser);
@@ -225,7 +100,133 @@ public class User implements Serializable{
         return null;
     }
 
+    public static void usercreateBooking(User sessionUser) throws Exception {
+        Scanner input = new Scanner(System.in);
+        ArrayList<Cineplex> cineplexlist = fileio.readCineplexData();
+        System.out.println("Which cineplex would you like to go to?");
+        int cineplexcount = 0;
+        for(int i=0; i<cineplexlist.size(); i++){
+            System.out.println(++cineplexcount + ". " + cineplexlist.get(i).getCineplexName());
+        }
+        System.out.print("Enter the number corresponding to the cineplex: ");
+        int cineplexnum = input.nextInt();
+        Cineplex cineplexchosen = cineplexlist.get(cineplexnum-1);
+
+        ArrayList<Movie> movielist = fileio.readMovieData();
+        System.out.println("Here are the list of movies to choose from: ");
+        int moviecount = 0;
+        for(int i=0; i<movielist.size(); i++){
+            System.out.println(++moviecount + ". " + movielist.get(i).getMovieTitle());
+        }
+        System.out.print("Enter the number corresponding to the movie you would like to watch: ");
+        int movienum = input.nextInt(); 
+        Movie movieObjChosen = movielist.get(movienum-1);
+        String movie = movieObjChosen.getMovieTitle();
+
+        ArrayList<MovieScreening> screeningList = MovieScreening.giveScreenTimes(movie);
+        System.out.println("Here are the list of showtimes for the movie");
+        // Display list of showtimes, pass in movie title
+        System.out.println("Movie = " + movie);
+        for(int i=0; i<screeningList.size(); i++){
+            System.out.print(i+1);
+            System.out.print(".\t");
+            System.out.print(screeningList.get(i).getMydate().getDayOfMonth());
+            System.out.print(" ");
+            System.out.print(screeningList.get(i).getMydate().getMonth().toString());
+            System.out.print(" ");
+            System.out.print(screeningList.get(i).getMydate().getDayOfWeek().toString());
+            System.out.print("\n");
+            System.out.print("Location: " + screeningList.get(i).getMovieScreeningLocation().getCineplexName());
+            System.out.print("\n\n");
+        }
+        System.out.print("Pick a showtime. Enter the number here: ");
+        int screeningnum = input.nextInt();
+        MovieScreening screeningchosen = screeningList.get(screeningnum-1);
+
+        // MovieScreening screeningchosen = MovieScreening.retrieveMovieScreening(movie, showtimechosen, cineplexchosen.getCineplexName());
+        //MovieScreening screeningchosen = null;
+        //screeningchosen = MovieScreening.retrieveMovieScreening(movie, showtimechosen, cineplexchosen.getCineplexName());
 
 
+        // for(int i=0; i<screeninglist.size(); i++){
+        //     Boolean bool1 = screeninglist.get(i).getMovieObj().getMovieTitle().equals(movie);
+        //     Boolean bool2 = screeninglist.get(i).getMydate().equals(showtimechosen);
+        //     Boolean bool3 = screeninglist.get(i).getMovieScreeningLocation().getCineplexName().equals(cineplexchosen.getCineplexName());
+        //     //screen cineplex
+
+        //     if(bool1 && bool2 && bool3){
+        //         screeningchosen = screeninglist.get(i);
+        //         break;
+        //     }
+        // }
+
+        System.out.println("Here is the cinema layout for the showtime you selected");
+        // Display layout of cinema
+        screeningchosen.displayLayout();
+        System.out.print("Please pick a vacant seat: ");
+        String seatIDStr = input.next();
+
+
+        Double computedPrice = screeningchosen.calcPrice(sessionUser);
+        // Seat screening
+        // Multiple tickets?
+
+        System.out.println("Your seat is secured!");
+        System.out.println("Ticket price = $" + computedPrice);
+        System.out.print("Proceed (Y/N) ?");
+        String option = input.next();
+
+        if(option == "Y"){
+            System.out.println("Ticket purchase successful!");
+            System.out.println("Here is your ticket ID (TID)");
+        }
+
+        //System.out.print("Please enter your Movie Title: ");
+        //String movieTitleToFetch = input.next();
+        //Movie toFetchMovie = Movie.fetchDetails(movieTitleToFetch);
+        //String movieTitleToConcat = toFetchMovie.getMovieTitle();
+
+        // System.out.print("Please enter your Cinema Name: ");
+        // String cinemaNameToFetch = input.next();
+        // Cinema toFetchCinema = Cinema.fetchDetails(cinemaNameToFetch);
+        // String cinemaNameToConcat = toFetchCinema.getCinemaName();
+
+//=========================================================================================================
+
+        //PSA: TAKE IN INPUT TO ASSIGN VARIABLES TO THESE SO I CAN CREATE MOVIESCREENING
+        int seatId = Integer.parseInt(seatIDStr);
+
+
+//=========================================================================================================
+        movieObjChosen.incrementSaleVolume();
+        //after movie object incremented we will bubble up to change the
+        MovieScreening.updateMovieScreeningWithMovie(movieObjChosen);
+        ArrayList<MovieScreening> screeninglist = fileio.readMovieScreeningData();
+
+        String movieTitleOfScreeningToChange = null;
+        LocalDateTime dateTimeOfScreeningToChange = null;
+        String cineplexNameScreeningToChange = null;
+        MovieScreening traverser = null;
+
+        for(int i = 0 ;i<screeninglist.size();i++){
+            traverser =screeninglist.get(i);
+            movieTitleOfScreeningToChange = traverser.getMovieObj().getMovieTitle();
+            dateTimeOfScreeningToChange = traverser.getMydate();
+            cineplexNameScreeningToChange = traverser.getMovieScreeningLocation().getCineplexName();
+
+            if(movieTitleOfScreeningToChange.equals(movie) && dateTimeOfScreeningToChange.equals(screeningchosen.getMydate()) && cineplexNameScreeningToChange.equals(cineplexchosen.getCineplexName())){
+                screeningchosen = traverser;
+                break;
+            }
+        }
+        screeningchosen.setSeatOccupied(seatId);
+
+        fileio.writeMovieData(movielist);
+        fileio.writeMovieScreeningData(screeninglist);
+
+        MovieTicket.createBooking(screeningchosen, seatId, sessionUser, computedPrice);
+
+
+    }
 
 }
