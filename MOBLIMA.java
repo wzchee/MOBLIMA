@@ -80,7 +80,7 @@ public class MOBLIMA {
                     // Similar code
                     if(choice == 1) System.out.println("\nWelcome STAFF!");
                     else System.out.println("\nWelcome USER!");
-                    
+
                     System.out.print("Enter your email address: ");
                     email = input.next();
                     System.out.print("Enter your password: ");
@@ -101,12 +101,14 @@ public class MOBLIMA {
                                     System.out.println("Returning to main menu...\n");
                                     break;
                                 }
+                            
+                            if(i == userList.size()-1){
+                                // if reached this stage, then email screening failed
+                                System.out.println("No email record exists.");
+                                System.out.println("Returning to main menu...\n");
+                                break;
+                            }
                         }
-
-                        // if reached this stage, then email screening failed
-                        System.out.println("No email record exists.");
-                        System.out.println("Returning to main menu...\n");
-                        break;
                     }
                     if(choice == 2){
                         for(int i=0; i<staffList.size(); i++){
@@ -123,12 +125,14 @@ public class MOBLIMA {
                                     System.out.println("Returning to main menu...\n");
                                     break;
                                 }
+                            
+                            if(i == staffList.size()-1){
+                                // if reached this stage, then email screening failed
+                                System.out.println("No email record exists.");
+                                System.out.println("Returning to main menu...\n");
+                                break;
+                            }
                         }
-
-                        // if reached this stage, then email screening failed
-                        System.out.println("No email record exists.");
-                        System.out.println("Returning to main menu...\n");
-                        break;
                     }
                 case 3:
                     // a new account wants to be created by user
