@@ -450,8 +450,47 @@ public static void createMovie()throws Exception{
 
     // show detail of the movie selected
     // doing this tmr on 5/11/2022
-    public static void showMovieDetail(String movieTitle){
-      fileio.
+    public static void showMovieDetail(String movieTitle) throws Exception{
+      ArrayList<Movie> movieList = fileio.readMovieData();
+      movieList = searchMovieList(movieTitle);
+      Scanner input = new Scanner(System.in);
+      for (int i = 0; i < movieList.size(); i++) {
+        System.out.println("Which of these movies are you searching for? Select the option number.");
+        System.out.println(i + ". " + movieList.get(i).getMovieTitle());
+      }
+      int choice = 0;
+      boolean success = false;
+      do {
+        try {
+          choice = input.nextInt();
+          success = true;
+        } catch (InputMismatchException e) {
+          System.out.println("That is not a valid number. Please choose again.");
+        } 
+      } while (!success);
+      System.out.println();
+      System.out.println("==============  Information on " + movieList.get(choice).getMovieTitle() + " ==============");
+      System.out.println("Movie Title: " + movieList.get(choice).getMovieTitle());
+      System.out.println("Movie Runtime: " + movieList.get(choice).getMovieRuntime());
+      System.out.println("Movie Status: " + movieList.get(choice).getMovieStatus());
+      System.out.println("Movie Dimensions: " + movieList.get(choice).getMovieDims());
+      System.out.println("Movie Rating: " + movieList.get(choice).getMovieAverageRating(movieList.get(choice).getMovieRating()));
+      System.out.println("Director of film: " + movieList.get(choice).getMovieDirector());
+      System.out.print("Movie Cast: || ");
+      for (String member : movieList.get(choice).getMovieCast()) System.out.print(member + " || ");
+      System.out.println();
+      System.out.println("Movie Synopsis");
+      System.out.println(movieList.get(choice).getMovieSypnosis());
+    }
+
+    //Search for movie based on partial String Match when traversing MovieList
+    public static ArrayList<Movie> searchMovieList(String movieTitle) throws Exception{
+      ArrayList<Movie> movieList = fileio.readMovieData();
+      ArrayList<Movie> listToReturn = new ArrayList<>();
+      for (Movie movie : movieList) {
+        if (movie.getMovieTitle().toLowerCase().contains(movieTitle.toLowerCase())) listToReturn.add(movie);
+      }
+      return listToReturn;
     }
 
 
