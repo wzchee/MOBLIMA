@@ -10,10 +10,11 @@ public class MovieTicket implements Serializable{
     private int seatNumber;
     private User userObj;
     private Double price;
+    private String TID;
 
 
 
-    public MovieTicket(MovieScreening movieScreening, int seatNumber,User userObj,Double price) throws Exception {
+    public MovieTicket(MovieScreening movieScreening, int seatNumber,User userObj,Double price,String TID) throws Exception {
         this.seatNumber = seatNumber;
         this.userObj = userObj;
         this.movieScreening = movieScreening;

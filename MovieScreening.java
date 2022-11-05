@@ -231,12 +231,31 @@ public class MovieScreening implements Serializable{
             }
         }
 
-        System.out.print("Please enter your Cineplex Name: ");
-        String cineplexNameToFetch = input.nextLine();
+        FileInOut<Cineplex> cineplexio = new FileInOut<Cineplex>();
+        ArrayList<Cineplex> cineplexList = cineplexio.readData(new Cineplex());
+        System.out.println("Please choose from an existing list of Cineplexes: \n");
+        for(int i=0; i<cineplexList.size(); i++){
+            System.out.println(i+1 + ". " + cineplexList.get(i).getCineplexName());
+        }
+        System.out.print("Enter the number corresponding to the cineplex: ");
+        int cineplexnum = input.nextInt();
+        String dump = input.nextLine();
+        String cineplexNameToFetch = cineplexList.get(cineplexnum-1).getCineplexName();
 
-        System.out.print("Please enter your Cinema Name: ");
-        String cinemaNameToFetch = input.nextLine();
-
+        FileInOut<Cinema> cinemaio = new FileInOut<Cinema>();
+        ArrayList<Cinema> cinemaList = cinemaio.readData(new Cinema());
+        System.out.print("Please choose from an existing list of Cinemas: \n");
+        int cinemacount = 0;
+        ArrayList<Integer> indexlist = new ArrayList<Integer>();
+        for(int i=0; i<cinemaList.size(); i++){
+            if(cinemaList.get(i).getCineplexName().equals(cineplexNameToFetch))
+                System.out.println(++cinemacount + ". " + cinemaList.get(i).getCinemaName());
+                indexlist.add(i);
+        }
+        System.out.print("Enter the number corresponding to the cinema: ");
+        int cinemanum = input.nextInt();
+        dump = input.nextLine();
+        String cinemaNameToFetch = cinemaList.get(indexlist.get(cinemanum-1)).getCinemaName();
         
         Cinema cinemaToFetch = null;
         Cinema traverser = null;

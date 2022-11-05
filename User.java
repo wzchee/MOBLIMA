@@ -249,6 +249,7 @@ public class User implements Serializable{
         if(option.equals("Y")){
             System.out.println("Ticket purchase successful!");
             System.out.println("Here is your ticket ID (TID)");
+            // Each payment will have a transaction id (TID). The TID is of the format XXXYYYYMMDDhhmm (Y : year, M : month, D : day, h : hour, m : minutes, XXX : cinema code in letters).
         } else {
             System.out.println("Ticket purchase cancelled.");
         }
