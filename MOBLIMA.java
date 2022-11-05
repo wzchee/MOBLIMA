@@ -78,7 +78,7 @@ public class MOBLIMA {
                 case 2:
                     // Either user or staff is logging in
                     // Similar code
-                    if(choice == 1) System.out.println("\nWelcome STAFF!");
+                    if(choice == 2) System.out.println("\nWelcome STAFF!");
                     else System.out.println("\nWelcome USER!");
 
                     System.out.print("Enter your email address: ");
