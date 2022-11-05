@@ -125,7 +125,8 @@ public class User implements Serializable{
         Cineplex cineplexchosen = cineplexList.get(cineplexnum-1);
 
         FileInOut<Movie> movieio = new FileInOut<Movie>();
-        ArrayList<Movie> movieList = movieio.readData(new Movie());
+        ArrayList<Movie> allMovieList = movieio.readData(new Movie());
+        ArrayList<Movie> movieList = Movie.getAvailableMovieList(allMovieList);
         //ArrayList<Movie> movieList = fileio.readMovieData();
         System.out.println("Here are the list of movies to choose from: ");
         int moviecount = 0;
