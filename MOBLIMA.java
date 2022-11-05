@@ -62,6 +62,15 @@ public class MOBLIMA {
             //fileio.writeUserData(userList);
         }
         
+        FileInOut<Configurables> configinout = new FileInOut<Configurables>();
+        ArrayList<Configurables> configList = configinout.readData(new Configurables());
+        //ArrayList<Configurables> configList = fileio.readConfigurablesData();
+        if (configList.isEmpty()) {
+            configList.add(new Configurables(2022, 12, 15, 7.0));
+            // overwrite the file
+            configinout.writeData(configList, new Configurables());
+            //fileio.writeUserData(configList);
+        }
 
 
         Scanner input = new Scanner(System.in);
