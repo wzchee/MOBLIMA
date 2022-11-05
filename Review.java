@@ -20,7 +20,7 @@ public class Review implements Serializable{
         ArrayList<Movie> userReviewedMovies = new ArrayList<Movie>();
         // screen through the list of reviews to get the movies that the user has reviewed before
         for(int i=0; i<reviewList.size(); i++){
-            if(reviewList.get(i).getUser().equals(sessionUser))
+            if(reviewList.get(i).getUser().getEmail().equals(sessionUser.getEmail()))
                 userReviewedMovies.add(reviewList.get(i).getMovie());
         }
 
