@@ -17,7 +17,7 @@ public class User implements Serializable{
         Scanner input = new Scanner(System.in);
         int choice = 0;
         while(choice != 6){
-            System.out.println("Welcome USER " + sessionUser.name + " !");
+            System.out.println("\nWelcome USER " + sessionUser.name + " !");
             System.out.println("What would you like to do today?");
             System.out.println("1. Search for movie and view movie details");
             System.out.println("2. Check seat availability");
