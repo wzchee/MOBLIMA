@@ -456,13 +456,13 @@ public static void createMovie()throws Exception{
       Scanner input = new Scanner(System.in);
       for (int i = 0; i < movieList.size(); i++) {
         System.out.println("Which of these movies are you searching for? Select the option number.");
-        System.out.println(i + ". " + movieList.get(i).getMovieTitle());
+        System.out.println(i+1 + ". " + movieList.get(i).getMovieTitle());
       }
       int choice = 0;
       boolean success = false;
       do {
         try {
-          choice = input.nextInt();
+          choice = input.nextInt() - 1 ;
           success = true;
         } catch (InputMismatchException e) {
           System.out.println("That is not a valid number. Please choose again.");
@@ -474,7 +474,7 @@ public static void createMovie()throws Exception{
       System.out.println("Movie Runtime: " + movieList.get(choice).getMovieRuntime());
       System.out.println("Movie Status: " + movieList.get(choice).getMovieStatus());
       System.out.println("Movie Dimensions: " + movieList.get(choice).getMovieDims());
-      System.out.println("Movie Rating: " + movieList.get(choice).getMovieAverageRating(movieList.get(choice).getMovieRating()));
+      System.out.println("Movie Rating: " + movieList.get(choice).getRating());
       System.out.println("Director of film: " + movieList.get(choice).getMovieDirector());
       System.out.print("Movie Cast: || ");
       for (String member : movieList.get(choice).getMovieCast()) System.out.print(member + " || ");
