@@ -68,7 +68,7 @@ public class MOBLIMA {
         ArrayList<Staff> staffList = staffinout.readData(new Staff());
         //ArrayList<Staff> staffList = fileio.readStaffData();
         if (staffList.isEmpty()) {
-            staffList.add(new Staff("admin@admin.com", "admin", "Wen Zhan", myCineplexList.get(0)));
+            staffList.add(new Staff("admin@admin.com", "admin", "ADMIN", myCineplexList.get(0)));
             // overwrite the file
             staffinout.writeData(staffList, new Staff());
             //fileio.writeUserData(userList);
@@ -96,7 +96,14 @@ public class MOBLIMA {
             System.out.println("4. Quit MOBLIMA");
             System.out.print("Please enter your choice here: ");
             
-            choice = input.nextInt();
+            String dump; //to consume the new line after nextInt()
+            try{
+                choice = input.nextInt();
+                dump = input.nextLine(); 
+            } catch(InputMismatchException e){
+                System.out.println("Your input is not a number!");
+                System.out.println("Terminating MOBLIMA");
+            }
             
             String email, password;
             switch (choice) {
@@ -108,9 +115,9 @@ public class MOBLIMA {
                     else System.out.println("\nWelcome USER!");
 
                     System.out.print("Enter your email address: ");
-                    email = input.next();
+                    email = input.nextLine();
                     System.out.print("Enter your password: ");
-                    password = input.next();
+                    password = input.nextLine();
                     
                     if(choice == 1){
                         for(int i=0; i<userList.size(); i++){
@@ -165,7 +172,7 @@ public class MOBLIMA {
                     // a new account wants to be created by user
                     System.out.println("Welcome to MOBLIMA!");
                     System.out.print("Please enter your email: ");
-                    email = input.next();
+                    email = input.nextLine();
 
                     // check if existing email already exists
                     for(int i=0; i<userList.size(); i++){
@@ -179,17 +186,18 @@ public class MOBLIMA {
                     // no existing email exists, input remaining fields
                     // password has no wrong format, no validation needed
                     System.out.print("Please enter your password: ");
-                    password = input.next();
+                    password = input.nextLine();
 
                     // name has no wrong format, no validation needed
                     System.out.print("What is your name? ");
-                    String name = input.next();
+                    String name = input.nextLine();
 
                     // catch if user inputs something other than an Integer
                     int age = 0;
                     System.out.print("What is your age? ");
                     try{
                         age = input.nextInt();
+                        dump = input.nextLine();
                     } catch(InputMismatchException e){
                         System.out.println("Your input is not a valid number!");
                         System.out.println("Account creation failed");
@@ -201,7 +209,7 @@ public class MOBLIMA {
                     String mobileNumber = null;
                     System.out.println("What is your mobile number?");
                     try{
-                        mobileNumber = input.next();
+                        mobileNumber = input.nextLine();
                         int numericcheck = java.lang.Integer.parseInt(mobileNumber);
                     } catch(NumberFormatException e){
                         System.out.println("Your input is not a valid mobile number!");
@@ -223,7 +231,7 @@ public class MOBLIMA {
                     System.out.println("Thank you for using MOBLIMA!");
                     break;
                 default:
-                System.out.println("Wrong input. Try again");
+                    System.out.println("Wrong input. Try again");
                     break;
             }
         }

@@ -13,12 +13,13 @@ public class Configurables implements Serializable{
     public static void configure() throws Exception{
         Scanner input = new Scanner(System.in);
 
-        System.out.println("Please choose a setting to configure");
+        System.out.println("\nPlease choose a setting to configure");
         System.out.println("1. Change base price of movie");
         System.out.println("2. Add a public holiday");
         //remove a public holiday?
         System.out.print("Enter your choice here: ");
         int choice = input.nextInt();
+        String dump = input.nextLine();
 
         // configurables arraylist only has one element but this is done to comply with FileInOut.java
         FileInOut<Configurables> configinout = new FileInOut<Configurables>();
@@ -28,11 +29,12 @@ public class Configurables implements Serializable{
 
         switch(choice){
             case 1:
-                System.out.println("The old base price for a movie is $" + config.getBasePrice());
+                System.out.println("\nThe old base price for a movie is $" + config.getBasePrice());
                 System.out.print("What would be the new base price? $");
                 double price = config.getBasePrice();
                 try{
                     price = input.nextDouble();
+                    dump = input.nextLine();
                 } catch(InputMismatchException e){
                     System.out.println("Your input is not a valid number!");
                     System.out.println("Returning to main menu...\n");
@@ -48,9 +50,9 @@ public class Configurables implements Serializable{
                 System.out.println("Returning to main menu...\n");
                 break;
             case 2:
-                System.out.println("Which date would you like to declare as a public holiday?");
+                System.out.println("\nWhich date would you like to declare as a public holiday?");
                 System.out.println("Please enter the date in the format [YYYY,MM,DD]");
-                String date = input.next();
+                String date = input.nextLine();
                 String[] arrOfString = date.split(",");
 
                 String correct = "N";
@@ -85,9 +87,6 @@ public class Configurables implements Serializable{
                 configList.set(0, config);
                 configinout.writeData(configList, new Configurables());
         }
-
-        // end of application class, closing scanner
-        input.close();
     }
 
     public Configurables(int year, int month, int day, double basePrice){

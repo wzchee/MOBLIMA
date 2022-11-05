@@ -15,7 +15,7 @@ public class Staff implements Serializable{
         Scanner input = new Scanner(System.in);
         int choice = 0;
         while(choice != 9){
-            System.out.println("Welcome STAFF " + sessionUser.name + " !");
+            System.out.println("\nWelcome STAFF " + sessionUser.name + " !");
             System.out.println("What would you like to do today?");
             System.out.println("1. Create a movie listing");
             System.out.println("2. Update a movie listing");
