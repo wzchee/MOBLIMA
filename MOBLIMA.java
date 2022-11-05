@@ -17,6 +17,9 @@ public class MOBLIMA {
             cineplexinout.writeData(myCineplexList, new Cineplex());
             //fileio.writeCineplexData(myCineplexList);
         }
+        // FileInOut<Cineplex> cineplexinout = new FileInOut<Cineplex>();
+        // ArrayList<Cineplex> myCineplexList = cineplexinout.readData(new Cineplex());
+        // cineplexinout.writeData(myCineplexList, new Cineplex());
 
         FileInOut<Cinema> cinemainout = new FileInOut<Cinema>();
         ArrayList<Cinema> myCinemaList = cinemainout.readData(new Cinema());
@@ -58,6 +61,8 @@ public class MOBLIMA {
             staffinout.writeData(staffList, new Staff());
             //fileio.writeUserData(userList);
         }
+        
+
 
         Scanner input = new Scanner(System.in);
         int choice = 0; // choice of the main menu
@@ -78,8 +83,8 @@ public class MOBLIMA {
                 case 2:
                     // Either user or staff is logging in
                     // Similar code
-                    if(choice == 1) System.out.println("\nWelcome USER!");
-                    else System.out.println("\nWelcome STAFF!");
+                    if(choice == 2) System.out.println("\nWelcome STAFF!");
+                    else System.out.println("\nWelcome USER!");
 
                     System.out.print("Enter your email address: ");
                     email = input.next();
