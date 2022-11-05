@@ -6,17 +6,21 @@ public class MOBLIMA {
     public static void main(String[] args) throws Exception {
 
         // iniitialize everything
-        FileInOut<Cineplex> cineplexin = new FileInOut<Cineplex>();
-        ArrayList<Cineplex> myCineplexList = cineplexin.readData(new Cineplex());
+        FileInOut<Cineplex> cineplexinout = new FileInOut<Cineplex>();
+        ArrayList<Cineplex> myCineplexList = cineplexinout.readData(new Cineplex());
         //ArrayList<Cineplex> myCineplexList = fileio.readCineplexData();
         if (myCineplexList.isEmpty()) {
             myCineplexList.add(new Cineplex("Cathay Cineplex AMK HUB"));
             myCineplexList.add(new Cineplex("Cathay Cineplex JEM"));
             myCineplexList.add(new Cineplex("Cathay Cineplex Cineleisure"));
-            fileio.writeCineplexData(myCineplexList);
+            // overwrite the file
+            cineplexinout.writeData(myCineplexList, new Cineplex());
+            //fileio.writeCineplexData(myCineplexList);
         }
 
-        ArrayList<Cinema> myCinemaList = fileio.readCinemaData();
+        FileInOut<Cinema> cinemainout = new FileInOut<Cinema>();
+        ArrayList<Cinema> myCinemaList = cinemainout.readData(new Cinema());
+        //ArrayList<Cinema> myCinemaList = fileio.readCinemaData();
         if (myCinemaList.isEmpty()) {
             myCinemaList.add(new Cinema("Standard 1", myCineplexList.get(0), false, 100));
             myCinemaList.add(new Cinema("Standard 2", myCineplexList.get(0), false, 100));
@@ -27,24 +31,35 @@ public class MOBLIMA {
             myCinemaList.add(new Cinema("Standard 1" ,myCineplexList.get(2), false, 100));
             myCinemaList.add(new Cinema("Standard 2" ,myCineplexList.get(2), false, 100));
             myCinemaList.add(new Cinema("Standard 3" ,myCineplexList.get(2), false, 100));
-            fileio.writeCinemaData(myCinemaList);
+            // overwrite the file
+            cinemainout.writeData(myCinemaList, new Cinema());
+            //fileio.writeCinemaData(myCinemaList);
         }
 
-        ArrayList<User> userList = fileio.readUserData();
+        FileInOut<User> userinout = new FileInOut<User>();
+        ArrayList<User> userList = userinout.readData(new User());
+        //ArrayList<User> userList = fileio.readUserData();
         if (userList.isEmpty()) {
             userList.add(new User("wz@email.com", "wz", 20, "Wen Zhan", "81234567"));
             userList.add(new User("oliver@email.com", "oliver", 20, "Oliver Low", "81234568"));
             userList.add(new User("bernard@email.com", "bernard", 20, "Bernard", "81234569"));
             userList.add(new User("jiarong@email.com", "jiarong", 20, "Jia Rong", "812345675"));
-            fileio.writeUserData(userList);
+            // overwrite the file
+            userinout.writeData(userList, new User());
+            //fileio.writeUserData(userList);
         }
 
-        ArrayList<Staff> staffList = fileio.readStaffData();
+        FileInOut<Staff> staffinout = new FileInOut<Staff>();
+        ArrayList<Staff> staffList = staffinout.readData(new Staff());
+        //ArrayList<Staff> staffList = fileio.readStaffData();
         if (staffList.isEmpty()) {
             staffList.add(new Staff("admin@admin.com", "admin", "Wen Zhan", myCineplexList.get(0)));
-            fileio.writeUserData(userList);
+            // overwrite the file
+            staffinout.writeData(staffList, new Staff());
+            //fileio.writeUserData(userList);
         }
 
+        Scanner input = new Scanner(System.in);
         int choice = 0; // choice of the main menu
         while(choice != 4){
             System.out.println("Welcome to MOBLIMA! Please login to use our services.");
@@ -55,7 +70,6 @@ public class MOBLIMA {
             System.out.println("4. Quit MOBLIMA");
             System.out.print("Please enter your choice here: ");
             
-            Scanner input = new Scanner(System.in);
             choice = input.nextInt();
             
             String email, password;
@@ -162,7 +176,7 @@ public class MOBLIMA {
                         System.out.println("Returning to main menu...\n");
                         break;
                     }
-                    
+
 
                     // create new User object
                     User newUser = new User(email, password, age, name, mobileNumber);
@@ -175,8 +189,9 @@ public class MOBLIMA {
                 System.out.println("Wrong input. Try again");
                     break;
             }
-
-            input.close();
         }
+
+        // out of application class, close scanner
+        input.close();
     }
 }

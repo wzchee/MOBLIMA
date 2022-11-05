@@ -75,14 +75,15 @@ public class Staff implements Serializable{
         }
     }
 
-    
-
-
     public Staff(String email, String password, String name, Cineplex workplace){
         this.email = email;
         this.password = password;
         this.name = name;
         this.workplace = workplace;
+    }
+
+    public Staff(){
+
     }
 
     private String email;
