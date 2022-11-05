@@ -8,17 +8,18 @@ public class Cinema implements Serializable{
     private String cinemaName;
     private Cineplex cineplex;
     private boolean platinumSuites;
+    private String cinemaCode;
     //private String[] movieList = new String[100];
     //private String[] movieScreening = new String[24];
     private int numOfSeats;
 
 
-    public Cinema(String cinemaName, Cineplex cineplex, boolean platinumSuites, int numOfSeats) {
+    public Cinema(String cinemaName, Cineplex cineplex, boolean platinumSuites, int numOfSeats, String cinemaCode) {
         this.cinemaName = cinemaName;
         this.cineplex = cineplex;
         this.platinumSuites = platinumSuites;
         this.numOfSeats = numOfSeats;
-
+        this.cinemaCode = cinemaCode;
     }
 
     public Cinema() {
@@ -43,12 +44,20 @@ public class Cinema implements Serializable{
         return this.numOfSeats;
     }
 
+    public String getCinemaCOde() {
+        return this.cinemaCode;
+    }
+
     public void setPlatinumSuite(boolean isPlatinumSuites) {
         this.platinumSuites = isPlatinumSuites;
     }
 
     public void setNumOfSeats(int numOfSeats){
         this.numOfSeats = numOfSeats;
+    }
+
+    public void setCinemaCode(String cinemaCode) {
+        this.cinemaCode = cinemaCode;
     }
 
     /*public int getMovieTime(String movieName) {
