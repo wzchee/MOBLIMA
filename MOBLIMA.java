@@ -5,14 +5,14 @@ import java.util.InputMismatchException;
 public class MOBLIMA {
     public static void main(String[] args) throws Exception {
 
-        // FileInOut<MovieScreening> moviescreeninginout = new FileInOut<MovieScreening>();
-        // ArrayList<MovieScreening> moviescreeninglist = moviescreeninginout.readData(new MovieScreening());
-        // // // // // moviescreeninglist.clear();
-        // // // // // moviescreeninginout.writeData(moviescreeninglist, new MovieTicket());
-        // // // // // moviescreeninglist.clear();
-        // for(int i=0;i<moviescreeninglist.size();i++){
-        //     System.out.println(moviescreeninglist.get(i).getMovieScreeningLocation().getCinemaName() + moviescreeninglist.get(i).getMovieScreeningLocation().getCineplexName());
-        // }
+        FileInOut<Movie> moviescreeninginout = new FileInOut<Movie>();
+        ArrayList<Movie> moviescreeninglist = moviescreeninginout.readData(new Movie());
+        // // // // // // // moviescreeninglist.clear();
+        // // // // // // // moviescreeninginout.writeData(moviescreeninglist, new MovieTicket());
+        // // // // // // // moviescreeninglist.clear();
+        for(int i=0;i<moviescreeninglist.size();i++){
+            System.out.println(moviescreeninglist.get(i).getPastReviews().get(0) + moviescreeninglist.get(i).getMovieAverageRating(moviescreeninglist.get(i).getMovieRating()));
+        }
 
 
         // iniitialize everything
@@ -47,10 +47,6 @@ public class MOBLIMA {
             // overwrite the file
             cinemainout.writeData(myCinemaList, new Cinema());
             //fileio.writeCinemaData(myCinemaList);
-        }
-        for (int index = 0; index < myCinemaList.size(); index++) {
-            System.out.println(myCinemaList.get(index).getCinemaName());
-            
         }
 
         FileInOut<User> userinout = new FileInOut<User>();

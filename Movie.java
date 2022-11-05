@@ -16,7 +16,7 @@ public class Movie implements Serializable{
   private String director;
   private String[] cast = new String[2]; 
   private int[] rating = new int[6];
-  private ArrayList<String> pastReviews;
+  private ArrayList<String> pastReviews = new ArrayList<String>();
   private dimension dims;
   private status movieStatus;
   private boolean blockbuster;
@@ -43,7 +43,8 @@ public Movie(String movieTitle){
   this.movieTitle = movieTitle;
 }
 public Movie(){
-
+  this.rating = new int[6];
+  for (int i = 0; i<6;i++) this.rating[i] = 0;
 }
 public String getMovieTitle(){
   return this.movieTitle;
@@ -136,6 +137,10 @@ public void setRating(String movieRating){
   this.movieRating = movieRating;
 }
 
+public void addToPastReview(String reviewString) {
+  this.pastReviews.add(reviewString);
+}
+
 public void incrementSaleVolume(){
   this.saleVolume += 1;
 }
@@ -158,6 +163,25 @@ public String toString(){
 public void setPastReviews(ArrayList<String> pastReviews){
   this.pastReviews = pastReviews;
 }
+
+public void addReview(Review reviewObj) throws Exception {
+  FileInOut<Movie> movieio = new FileInOut<Movie>();
+  ArrayList<Movie> movieList = movieio.readData(new Movie());
+  if(movieList == null){
+    System.out.println("There is no movie available.");
+    return;
+  }
+
+  for (int index = 0; index < movieList.size(); index++) {
+    if (movieList.get(index).getMovieTitle().equals(reviewObj.getMovie().getMovieTitle())){
+      Movie movieToReview = movieList.get(index);
+      movieToReview.addToPastReview(reviewObj.getReview());
+      movieToReview.setMovieRating(reviewObj.getRating());
+    }
+  }
+  movieio.writeData(movieList,new Movie());
+}
+
 public void updateReviews() throws Exception{
   FileInOut<Movie> movieio = new FileInOut<Movie>();
   ArrayList<Movie> movieList = movieio.readData(new Movie());
@@ -178,7 +202,7 @@ public void updateReviews() throws Exception{
       ArrayList<String> reviewsToBeAdded = new ArrayList<String>();
       String movieTitleToBeCompared = movieList.get(index).getMovieTitle();
       for ( int i = 0; i<reviewList.size();i++) {
-        if(reviewList.get(i).getMovie().getMovieTitle() == movieTitleToBeCompared){
+        if(reviewList.get(i).getMovie().getMovieTitle().equals(movieTitleToBeCompared)){
           reviewsToBeAdded.add(reviewList.get(i).getReview());
         }
       }
@@ -210,7 +234,7 @@ public void updateRating() throws Exception{
     for (int index = 0; index < movieList.size(); index++) {
       String movieTitleToBeCompared = movieList.get(index).getMovieTitle();
       for ( int i = 0; i<reviewList.size();i++) {
-        if(reviewList.get(i).getMovie().getMovieTitle() == movieTitleToBeCompared){
+        if(reviewList.get(i).getMovie().getMovieTitle().equals(movieTitleToBeCompared)){
           movieList.get(index).setMovieRating(reviewList.get(i).getRating());
         }
       }
@@ -361,7 +385,6 @@ public static void createMovie()throws Exception{
   cast[1] = in.next();
   newMovie.setMovieCast(cast);
   newMovie.setSaleVolume(0);
-  newMovie.setMovieRating(0);
   newMovie.setPastReviews(new ArrayList<String>());
   FileInOut<Movie> movieio = new FileInOut<Movie>();
   ArrayList<Movie> movieList = movieio.readData(new Movie());
