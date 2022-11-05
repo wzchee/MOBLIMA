@@ -14,7 +14,7 @@ public class Movie implements Serializable{
   private int movieRuntime;
   private String movieSypnosis;
   private String director;
-  private String[] cast;
+  private String[] cast = new String[2]; 
   private int[] rating = new int[6];
   private ArrayList<String> pastReviews;
   private dimension dims;
@@ -272,6 +272,7 @@ public static void createMovie()throws Exception{
   } while (!success);
   newMovie.setMovieRuntime(runtime);
 
+
   int statusChoice = 0;
   success = false;
   do {
@@ -282,6 +283,7 @@ public static void createMovie()throws Exception{
           System.out.println("3. Now Showing");
           System.out.println("4. End of Showing");
           statusChoice = in.nextInt();
+          success = true;
       } catch (InputMismatchException e){
           System.out.println("Your input is not a valid number!");
           System.out.println("Choose a new status choice\n");
@@ -357,9 +359,10 @@ public static void createMovie()throws Exception{
   cast[0] = in.next();
   System.out.println("Cast 2 name:");
   cast[1] = in.next();
+  newMovie.setMovieCast(cast);
   newMovie.setSaleVolume(0);
   newMovie.setMovieRating(0);
-  newMovie.setPastReviews(null);
+  newMovie.setPastReviews(new ArrayList<String>());
   FileInOut<Movie> movieio = new FileInOut<Movie>();
   ArrayList<Movie> movieList = movieio.readData(new Movie());
   //ArrayList<Movie> movieList = null;
@@ -462,9 +465,10 @@ public static void createMovie()throws Exception{
       ArrayList<Movie> movieList = movieio.readData(new Movie());
       //ArrayList<Movie> movieList = null;
       //movieList = fileio.readMovieData();
+      int indexer = 1;
       for (int index = 0; index < movieList.size(); index++) {
         if(!movieList.get(index).getMovieStatus().equalsIgnoreCase("End_Of_Showing")){
-          System.out.println(index+1 +". "+ movieList.get(index).getMovieTitle());
+          System.out.println(indexer++ +". "+ movieList.get(index).getMovieTitle());
           System.out.println("Status: "+movieList.get(index).getMovieStatus());
         }
       }
@@ -477,14 +481,25 @@ public static void createMovie()throws Exception{
     public static void showMovieDetail(String movieTitle) throws Exception{
       //FileInOut<Movie> movieio = new FileInOut<Movie>();
       //ArrayList<Movie> movieList = movieio.readData(new Movie());
-      ArrayList<Movie> movieList = searchMovieList(movieTitle);
+      ArrayList<Movie> arrListToBeLooped = searchMovieList(movieTitle);
       //ArrayList<Movie> movieList = fileio.readMovieData();
       //movieList = searchMovieList(movieTitle);
       Scanner input = new Scanner(System.in);
-      for (int i = 0; i < movieList.size(); i++) {
-        System.out.println("Which of these movies are you searching for? Select the option number.");
-        System.out.println(i+1 + ". " + movieList.get(i).getMovieTitle());
+      System.out.println("Which of these movies are you searching for? Select the option number.");
+      
+      
+      ArrayList<Movie> movieList = new ArrayList<Movie>();
+      for (int i = 0; i < arrListToBeLooped.size(); i++) {
+        if(!arrListToBeLooped.get(i).getMovieStatus().equals("End_Of_Showing")){
+          // System.out.println(i+1 + ". " + movieList.get(i).getMovieTitle());
+          movieList.add(arrListToBeLooped.get(i));
+        }
       }
+      for(int i=0;i<movieList.size();i++){
+          System.out.println(i+1 + ". " + movieList.get(i).getMovieTitle());
+      }
+
+
       int choice = 0;
       boolean success = false;
       do {
@@ -559,7 +574,10 @@ public static void createMovie()throws Exception{
       else{
         Collections.sort(movieList, Movie.movieSalesComparator);
       }
-      for (int index = 0; index < 5; index++) {
+      
+      
+
+      for (int index = 0; index < (movieList.size() < 5 ? movieList.size():5); index++) {
         if(!movieList.get(index).getMovieStatus().equalsIgnoreCase("End_Of_Showing")){
           System.out.println(index+1 +". "+ movieList.get(index).getMovieTitle());
           System.out.println("Status: "+movieList.get(index).getMovieStatus());

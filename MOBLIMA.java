@@ -5,6 +5,18 @@ import java.util.InputMismatchException;
 public class MOBLIMA {
     public static void main(String[] args) throws Exception {
 
+        FileInOut<MovieTicket> moviescreeninginout = new FileInOut<MovieTicket>();
+        ArrayList<MovieTicket> moviescreeninglist = moviescreeninginout.readData(new MovieTicket());
+        // moviescreeninglist.clear();
+        // moviescreeninginout.writeData(moviescreeninglist, new MovieTicket());
+        // moviescreeninglist.clear();
+        for(int i=0;i<moviescreeninglist.size();i++){
+            System.out.println(moviescreeninglist.get(i).toString());
+            
+
+        }
+
+
         // iniitialize everything
         FileInOut<Cineplex> cineplexinout = new FileInOut<Cineplex>();
         ArrayList<Cineplex> myCineplexList = cineplexinout.readData(new Cineplex());

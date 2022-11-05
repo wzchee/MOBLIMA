@@ -218,7 +218,7 @@ public class MovieScreening implements Serializable{
 
         // We will take in movie title and use it as a keyID to fetchDetail that spits out Movie Object
         System.out.print("Please enter your Movie Title: ");
-        String movieTitleToFetch = input.next();
+        String movieTitleToFetch = input.nextLine();
         Movie movieToFetch = null;
         FileInOut<Movie> movieinout = new FileInOut<Movie>();
         ArrayList<Movie> myMovieList = movieinout.readData(new Movie());
@@ -232,10 +232,10 @@ public class MovieScreening implements Serializable{
         }
 
         System.out.print("Please enter your Cineplex Name: ");
-        String cineplexNameToFetch = input.next();
+        String cineplexNameToFetch = input.nextLine();
 
         System.out.print("Please enter your Cinema Name: ");
-        String cinemaNameToFetch = input.next();
+        String cinemaNameToFetch = input.nextLine();
 
         
         Cinema cinemaToFetch = null;
@@ -258,7 +258,7 @@ public class MovieScreening implements Serializable{
         // We will ask for date time in this format and call toString to get string representation 
         // and next time with the string we can call ParseDateTime to reverse the string back to an actual LocalDateTime object
         System.out.println("Please Enter Date and Time  [YYYY,MM,DD,HH,MIN]");
-        String date = input.next();
+        String date = input.nextLine();
         String[] arrOfString = date.split(",");
         int year = Integer.parseInt(arrOfString[0]);
         int month = Integer.parseInt(arrOfString[1]);
@@ -276,7 +276,7 @@ public class MovieScreening implements Serializable{
         }
 
         System.out.print("Is it a public holiday: [y/n]");
-        String isPublicHolidayInput = input.next();
+        String isPublicHolidayInput = input.nextLine();
         boolean isPublicHoliday = true;
         //ask staff if it is public holiday
         if(isPublicHolidayInput=="n"){
@@ -292,11 +292,11 @@ public class MovieScreening implements Serializable{
     public static MovieScreening movieScreeningToChange(ArrayList<MovieScreening> listOfMovieScreenings){
         Scanner input = new Scanner(System.in);
         System.out.println("Enter Movie Title");
-        String movieTitle = input.next();
+        String movieTitle = input.nextLine();
         System.out.println("Enter Cinema Name");
-        String cinemaTitle = input.next();
+        String cinemaTitle = input.nextLine();
         System.out.println("Enter Cineplex Name");
-        String cineplexTitle = input.next();
+        String cineplexTitle = input.nextLine();
         
         
         System.out.println("Enter Movie Screening Time ");
