@@ -20,6 +20,10 @@ public class MovieTicket implements Serializable{
         this.price = price;
     }
 
+    public MovieTicket(){
+
+    }
+
     public Cinema getLocation(){
         return movieScreening.getMovieScreeningLocation();
     }
@@ -66,7 +70,11 @@ public class MovieTicket implements Serializable{
 
     //Based on user object, we will take return an arraylist of all the movieticket
     private static ArrayList<MovieTicket> getArrListOfBookings(User sessionUser) throws Exception{
-        ArrayList<MovieTicket> listOfMovieTix = fileio.readMovieTicketData();
+        
+        FileInOut<MovieTicket> movieTixinout = new FileInOut<MovieTicket>();
+        ArrayList<MovieTicket> listOfMovieTix = movieTixinout.readData(new MovieTicket());
+        
+        
         ArrayList<MovieTicket> movieTicketsHistory = new ArrayList<MovieTicket>();
         for(int i =0;i<listOfMovieTix.size();i++){
             if(listOfMovieTix.get(i).getUser().getEmail().equals(sessionUser.getEmail())){
@@ -102,7 +110,11 @@ public class MovieTicket implements Serializable{
         LocalDateTime mydateOfMovieScreeningChanged = movieScreeningThatHasBeenChanged.getMydate();
         String myCineplexOfMovieScreeningChanged = movieScreeningThatHasBeenChanged.getMovieScreeningLocation().getCineplexName();
 
-        ArrayList<MovieTicket> listOfMovieTix = fileio.readMovieTicketData();
+        
+        FileInOut<MovieTicket> movieTixinout = new FileInOut<MovieTicket>();
+        ArrayList<MovieTicket> listOfMovieTix = movieTixinout.readData(new MovieTicket());
+
+        
         String movieTitle = null;
         LocalDateTime mydate = null;
         String myCineplex = null;
@@ -115,16 +127,22 @@ public class MovieTicket implements Serializable{
             }
         }
 
-        fileio.writeMovieTicketData(listOfMovieTix);
+        movieTixinout.writeData(listOfMovieTix, new MovieTicket());
+
     }
     
 
     public static void createBooking(MovieScreening movieScreeningOfChoice,int seatId,User userBooking,Double price) throws Exception{
-        ArrayList<MovieTicket> movieTicketArrList = null;
-        movieTicketArrList = fileio.readMovieTicketData();
+        
+
+
+        FileInOut<MovieTicket> movieTixinout = new FileInOut<MovieTicket>();
+        ArrayList<MovieTicket> movieTicketArrList = movieTixinout.readData(new MovieTicket());
+
+        
         MovieTicket createdMovieTicket = new MovieTicket(movieScreeningOfChoice, seatId, userBooking,price);
         movieTicketArrList.add(createdMovieTicket);
-        fileio.writeMovieTicketData(movieTicketArrList);
+        movieTixinout.writeData(movieTicketArrList, new MovieTicket());
     }
 
 

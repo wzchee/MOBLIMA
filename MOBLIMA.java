@@ -17,7 +17,9 @@ public class MOBLIMA {
             cineplexinout.writeData(myCineplexList, new Cineplex());
             //fileio.writeCineplexData(myCineplexList);
         }
-
+        // FileInOut<Cineplex> cineplexinout = new FileInOut<Cineplex>();
+        // ArrayList<Cineplex> myCineplexList = cineplexinout.readData(new Cineplex());
+        // cineplexinout.writeData(myCineplexList, new Cineplex());
 
         FileInOut<Cinema> cinemainout = new FileInOut<Cinema>();
         ArrayList<Cinema> myCinemaList = cinemainout.readData(new Cinema());
