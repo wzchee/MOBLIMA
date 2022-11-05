@@ -1,9 +1,10 @@
 import java.util.ArrayList;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 import java.util.InputMismatchException;
 
-public class Configurables{
+public class Configurables implements Serializable{
     // class is specific for attributes that staff can configure
 
     private ArrayList<LocalDateTime> publicHolidays;
