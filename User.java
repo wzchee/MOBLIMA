@@ -1,9 +1,7 @@
 import java.util.Scanner;
-import java.io.*;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
 import java.io.Serializable;
-import java.lang.module.FindException;
 
 
 public class User implements Serializable{
@@ -15,6 +13,7 @@ public class User implements Serializable{
         User sessionUser = fetchDetails(useremail);
 
         // User main menu
+        Scanner input = new Scanner(System.in);
         int choice = 0;
         while(choice != 6){
             System.out.println("Welcome USER " + sessionUser.name + " !");
@@ -27,7 +26,6 @@ public class User implements Serializable{
             System.out.println("6. Logout");
             System.out.print("Please enter your choice here: ");
 
-            Scanner input = new Scanner(System.in);
             choice = input.nextInt();
 
             switch(choice){
@@ -58,6 +56,9 @@ public class User implements Serializable{
                     break;
             }
         }
+
+        // out of application class, closing scanner
+        input.close();
     }
 
     public User(String email, String password, int age, String name, String mobileNumber){
@@ -230,7 +231,8 @@ public class User implements Serializable{
 
         MovieTicket.createBooking(screeningchosen, seatId, sessionUser, computedPrice);
 
-
+        // out of application class, closing scanner
+        input.close();
     }
 
 }
