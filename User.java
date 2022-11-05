@@ -30,6 +30,11 @@ public class User implements Serializable{
 
             switch(choice){
                 case 1:
+                    System.out.println("Here are the list of movies.");
+                    Movie.showMovieList();
+                    System.out.print("Search for the movie title here: ");
+                    String movieSearch = input.next();
+                    Movie.searchMovieList(movieSearch);
                     break;
                 case 2:
                     break;
