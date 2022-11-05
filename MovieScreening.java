@@ -304,11 +304,12 @@ public class MovieScreening implements Serializable{
     public static void removeMovieScreening() throws Exception{
         System.out.println("Remove MovieScreening: ");
         ArrayList<MovieScreening> myMovieScreeningList = null;
-        myMovieScreeningList = fileio.readMovieScreeningData();
+        FileInOut<MovieScreening> movieScreeninginout = new FileInOut<MovieScreening>();
+        myMovieScreeningList = movieScreeninginout.readData(new MovieScreening());
         MovieScreening toBeRemove = movieScreeningToChange(myMovieScreeningList);
         toBeRemove.setHasCompleted(true);
         MovieTicket.updateMovieTicketWithMovieScreening(toBeRemove);
-        fileio.writeMovieScreeningData(myMovieScreeningList);
+        movieScreeninginout.writeData(myMovieScreeningList, new MovieScreening());;
         
     }
     
@@ -392,7 +393,8 @@ public class MovieScreening implements Serializable{
 
     public static ArrayList<MovieScreening> giveScreenTimes(String movieTitle) throws Exception{
         ArrayList<MovieScreening> toRetur = new ArrayList<MovieScreening>();
-        ArrayList<MovieScreening> mylis = fileio.readMovieScreeningData();
+        FileInOut<MovieScreening> movieScreeninginout = new FileInOut<MovieScreening>();
+        ArrayList<MovieScreening> mylis = movieScreeninginout.readData(new MovieScreening());
         for(int i=0;i<mylis.size();i++){
             if(mylis.get(i).getMovieObj().getMovieTitle().equals(movieTitle) && !mylis.get(i).hasCompleted()){
                 toRetur.add(mylis.get(i));
@@ -405,8 +407,8 @@ public class MovieScreening implements Serializable{
     
     public static MovieScreening retrieveMovieScreening(String movieTitleOfMovieScreening,LocalDateTime mydateOfMovieScreening,String myCineplexOfMovieScreening) throws Exception{
        
-
-        ArrayList<MovieScreening> listOfMovieScreening = fileio.readMovieScreeningData();
+        FileInOut<MovieScreening> movieScreeninginout = new FileInOut<MovieScreening>();
+        ArrayList<MovieScreening> listOfMovieScreening = movieScreeninginout.readData(new MovieScreening());
         String movieTitle = null;
         LocalDateTime mydate = null;
         String myCineplex = null;
