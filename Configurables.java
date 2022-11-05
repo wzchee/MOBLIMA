@@ -90,6 +90,7 @@ public class Configurables{
     }
 
     public Configurables(int year, int month, int day, double basePrice){
+        publicHolidays = new ArrayList<LocalDateTime>();
         publicHolidays.add(LocalDateTime.of(year, month, day, 0, 0));
         this.basePrice = basePrice;
     }
