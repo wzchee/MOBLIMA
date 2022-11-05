@@ -36,12 +36,11 @@ public class Staff implements Serializable{
                     break;
                 case 2:
                     String status = Movie.updateMovie();
-                    if (status == "End_Of_Showing"){
-                        Movie.removeMovie();
-                    }
                     break;
                 case 3:
-                    Movie.removeMovie();
+                    System.out.println("Enter title of movie to be deleted: ");
+                    String movieTitle = input.nextLine();
+                    Movie.removeMovie(movieTitle);
                     break;
                 case 4:
                     MovieScreening.createMovieScreening();

@@ -422,6 +422,7 @@ public static void createMovie()throws Exception{
           movieio.writeData(movieList, new Movie());
           //fileio.writeMovieData(movieList);
           if(movieToUpdate.getMovieStatus().equals("End_Of_Showing")){
+            Movie.removeMovie(movieToUpdate.getMovieTitle());
             MovieScreening.removeMovieScreeningWithMovie(movieToUpdate);
           }else{
             MovieScreening.updateMovieScreeningWithMovie(movieToUpdate);
@@ -430,7 +431,7 @@ public static void createMovie()throws Exception{
           }
     }
 
-    public static void removeMovie() throws Exception{
+    public static void removeMovie(String movieName) throws Exception{
         FileInOut<Movie> movieio = new FileInOut<Movie>();
         ArrayList<Movie> movieList = movieio.readData(new Movie());
         //ArrayList<Movie> movieList = null;
@@ -439,8 +440,6 @@ public static void createMovie()throws Exception{
         if (movieList == null || movieList.size()<1){
           System.out.println("There is no movie available.");
         }
-        System.out.println("Enter title of movie to be deleted: ");
-        String movieName = in.next();
         int found = 0;
         for (int i = 0; i < movieList.size(); i++) {
             if(movieList.get(i).getMovieTitle().equals(movieName)){

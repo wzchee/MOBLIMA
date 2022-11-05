@@ -37,15 +37,15 @@ public class MOBLIMA {
         ArrayList<Cinema> myCinemaList = cinemainout.readData(new Cinema());
         //ArrayList<Cinema> myCinemaList = fileio.readCinemaData();
         if (myCinemaList.isEmpty()) {
-            myCinemaList.add(new Cinema("Standard 1", myCineplexList.get(0), false, 100));
-            myCinemaList.add(new Cinema("Standard 2", myCineplexList.get(0), false, 100));
-            myCinemaList.add(new Cinema("Standard 3", myCineplexList.get(0), false, 100));
-            myCinemaList.add(new Cinema("Platinum Movie Suites", myCineplexList.get(1), true, 100));
-            myCinemaList.add(new Cinema("Standard 1", myCineplexList.get(1), false, 100));
-            myCinemaList.add(new Cinema("Standard 2", myCineplexList.get(1), false, 100));
-            myCinemaList.add(new Cinema("Standard 1" ,myCineplexList.get(2), false, 100));
-            myCinemaList.add(new Cinema("Standard 2" ,myCineplexList.get(2), false, 100));
-            myCinemaList.add(new Cinema("Standard 3" ,myCineplexList.get(2), false, 100));
+            myCinemaList.add(new Cinema("Standard 1", myCineplexList.get(0), false, 100, "AMKS1"));
+            myCinemaList.add(new Cinema("Standard 2", myCineplexList.get(0), false, 100, "AMKS2"));
+            myCinemaList.add(new Cinema("Standard 3", myCineplexList.get(0), false, 100, "AMKS3"));
+            myCinemaList.add(new Cinema("Platinum Movie Suites", myCineplexList.get(1), true, 100, "JEMP1"));
+            myCinemaList.add(new Cinema("Standard 1", myCineplexList.get(1), false, 100, "JEMS1"));
+            myCinemaList.add(new Cinema("Standard 2", myCineplexList.get(1), false, 100, "JEMS2"));
+            myCinemaList.add(new Cinema("Standard 1" ,myCineplexList.get(2), false, 100, "CINS1"));
+            myCinemaList.add(new Cinema("Standard 2" ,myCineplexList.get(2), false, 100, "CINS2"));
+            myCinemaList.add(new Cinema("Standard 3" ,myCineplexList.get(2), false, 100, "CINS3"));
             // overwrite the file
             cinemainout.writeData(myCinemaList, new Cinema());
             //fileio.writeCinemaData(myCinemaList);
