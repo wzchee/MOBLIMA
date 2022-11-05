@@ -31,6 +31,11 @@ public class User implements Serializable{
 
             switch(choice){
                 case 1:
+                    System.out.println("Here are the list of movies.");
+                    Movie.showMovieList();
+                    System.out.print("Search for the movie title here: ");
+                    String movieSearch = input.next();
+                    Movie.searchMovieList(movieSearch);
                     break;
                 case 2:
                     break;
@@ -105,25 +110,29 @@ public class User implements Serializable{
 
     public static void usercreateBooking(User sessionUser) throws Exception {
         Scanner input = new Scanner(System.in);
-        ArrayList<Cineplex> cineplexlist = fileio.readCineplexData();
+        FileInOut<Cineplex> cineplexio = new FileInOut<Cineplex>();
+        ArrayList<Cineplex> cineplexList = cineplexio.readData(new Cineplex());
+        //ArrayList<Cineplex> cineplexList = fileio.readCineplexData();
         System.out.println("Which cineplex would you like to go to?");
         int cineplexcount = 0;
-        for(int i=0; i<cineplexlist.size(); i++){
-            System.out.println(++cineplexcount + ". " + cineplexlist.get(i).getCineplexName());
+        for(int i=0; i<cineplexList.size(); i++){
+            System.out.println(++cineplexcount + ". " + cineplexList.get(i).getCineplexName());
         }
         System.out.print("Enter the number corresponding to the cineplex: ");
         int cineplexnum = input.nextInt();
-        Cineplex cineplexchosen = cineplexlist.get(cineplexnum-1);
+        Cineplex cineplexchosen = cineplexList.get(cineplexnum-1);
 
-        ArrayList<Movie> movielist = fileio.readMovieData();
+        FileInOut<Movie> movieio = new FileInOut<Movie>();
+        ArrayList<Movie> movieList = movieio.readData(new Movie());
+        //ArrayList<Movie> movieList = fileio.readMovieData();
         System.out.println("Here are the list of movies to choose from: ");
         int moviecount = 0;
-        for(int i=0; i<movielist.size(); i++){
-            System.out.println(++moviecount + ". " + movielist.get(i).getMovieTitle());
+        for(int i=0; i<movieList.size(); i++){
+            System.out.println(++moviecount + ". " + movieList.get(i).getMovieTitle());
         }
         System.out.print("Enter the number corresponding to the movie you would like to watch: ");
         int movienum = input.nextInt(); 
-        Movie movieObjChosen = movielist.get(movienum-1);
+        Movie movieObjChosen = movieList.get(movienum-1);
         String movie = movieObjChosen.getMovieTitle();
 
         ArrayList<MovieScreening> screeningList = MovieScreening.giveScreenTimes(movie);
@@ -204,15 +213,18 @@ public class User implements Serializable{
         movieObjChosen.incrementSaleVolume();
         //after movie object incremented we will bubble up to change the
         MovieScreening.updateMovieScreeningWithMovie(movieObjChosen);
-        ArrayList<MovieScreening> screeninglist = fileio.readMovieScreeningData();
+
+        //FileInOut<MovieScreening> screeningio = new FileInOut<MovieScreening>();
+        //ArrayList<MovieScreening> screeningList = screeningio.writeData(screeningList, new MovieScreening());
+        //ArrayList<MovieScreening> screeninglist = fileio.readMovieScreeningData();
 
         String movieTitleOfScreeningToChange = null;
         LocalDateTime dateTimeOfScreeningToChange = null;
         String cineplexNameScreeningToChange = null;
         MovieScreening traverser = null;
 
-        for(int i = 0 ;i<screeninglist.size();i++){
-            traverser =screeninglist.get(i);
+        for(int i = 0 ;i<screeningList.size();i++){
+            traverser =screeningList.get(i);
             movieTitleOfScreeningToChange = traverser.getMovieObj().getMovieTitle();
             dateTimeOfScreeningToChange = traverser.getMydate();
             cineplexNameScreeningToChange = traverser.getMovieScreeningLocation().getCineplexName();
@@ -224,8 +236,9 @@ public class User implements Serializable{
         }
         screeningchosen.setSeatOccupied(seatId);
 
-        fileio.writeMovieData(movielist);
-        fileio.writeMovieScreeningData(screeninglist);
+        movieio.writeData(movieList, new Movie());
+        //fileio.writeMovieData(movielist);
+        fileio.writeMovieScreeningData(screeningList);
 
         MovieTicket.createBooking(screeningchosen, seatId, sessionUser, computedPrice);
 

@@ -473,8 +473,9 @@ public static void createMovie()throws Exception{
     // show detail of the movie selected
     // doing this tmr on 5/11/2022
     public static void showMovieDetail(String movieTitle) throws Exception{
-      FileInOut<Movie> movieio = new FileInOut<Movie>();
-      ArrayList<Movie> movieList = movieio.readData(new Movie());
+      //FileInOut<Movie> movieio = new FileInOut<Movie>();
+      //ArrayList<Movie> movieList = movieio.readData(new Movie());
+      ArrayList<Movie> movieList = searchMovieList(movieTitle);
       //ArrayList<Movie> movieList = fileio.readMovieData();
       //movieList = searchMovieList(movieTitle);
       Scanner input = new Scanner(System.in);
