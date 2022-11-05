@@ -119,6 +119,10 @@ public class Review{
         this.user = user;
     }
 
+    public Review(){
+        
+    }
+
     public int getRating(){return rating;}
     public void setRating(int rating){this.rating = rating;}
 
