@@ -19,7 +19,11 @@ public class Configurables{
         System.out.print("Enter your choice here: ");
         int choice = input.nextInt();
 
-        Configurables config = fileio.readConfigurablesData();
+        // configurables arraylist only has one element but this is done to comply with FileInOut.java
+        FileInOut<Configurables> configinout = new FileInOut<Configurables>();
+        ArrayList<Configurables> configList = configinout.readData(new Configurables());
+        Configurables config = configList.get(0);
+        //Configurables config = fileio.readConfigurablesData();
 
         switch(choice){
             case 1:
@@ -35,7 +39,9 @@ public class Configurables{
                 }
                 
                 config.setBasePrice(price);
-                fileio.writeConfigurablesData(config);
+                configList.set(0, config);
+                configinout.writeData(configList, new Configurables());
+                //fileio.writeConfigurablesData(config);
 
                 System.out.println("Base price for a movie successfully changed!");
                 System.out.println("Returning to main menu...\n");
@@ -47,10 +53,10 @@ public class Configurables{
                 String[] arrOfString = date.split(",");
 
                 String correct = "N";
+                int year = 2022, month = 1, day = 1;
                 while(!correct.equals("Y")){
                     // higher chance of wrong input
                     // will allow multiple reattempts for unsatisfactory inputs
-                    int year, month, day;
                     try{
                         year = Integer.parseInt(arrOfString[0]);
                         month = Integer.parseInt(arrOfString[1]);
@@ -68,12 +74,28 @@ public class Configurables{
                     System.out.print("Input your answer (Y/N): ");
                     correct = input.next();
                 }
+
+                // change the public holiday entry
+                ArrayList<LocalDateTime> publicHolidayList = config.getPublicHolidays();
+                publicHolidayList.add(LocalDateTime.of(year, month, day, 0, 0));
+                config.setPublicHolidays(publicHolidayList);
+
+                // overwrite existing file
+                configList.set(0, config);
+                configinout.writeData(configList, new Configurables());
         }
+
+        // end of application class, closing scanner
+        input.close();
     }
 
     public Configurables(int year, int month, int day, double basePrice){
         publicHolidays.add(LocalDateTime.of(year, month, day, 0, 0));
         this.basePrice = basePrice;
+    }
+
+    public Configurables(){
+
     }
 
     public ArrayList<LocalDateTime> getPublicHolidays(){return publicHolidays;}

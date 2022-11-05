@@ -28,6 +28,7 @@ public class FileInOut<o>{
         return toReturn;
     }
     
+    // For ArrayList
     public ArrayList<o> readData(o obj) throws Exception{   //change function name and return type generics
         String txtdir = getDir(obj.getClass().getName() + "Data.txt");   //call the right Dir() method
         ArrayList<o> mylist;

@@ -14,7 +14,7 @@ public class Staff implements Serializable{
         // Staff main menu
         Scanner input = new Scanner(System.in);
         int choice = 0;
-        while(choice != 10){
+        while(choice != 9){
             System.out.println("Welcome STAFF " + sessionUser.name + " !");
             System.out.println("What would you like to do today?");
             System.out.println("1. Create a movie listing");
@@ -24,9 +24,8 @@ public class Staff implements Serializable{
             System.out.println("5. Update a cinema showtime for one movie");
             System.out.println("6. Remove a cinema showtime for one movie");
             System.out.println("7. Configure system settings");
-            System.out.println("8. List Top 5 movies by ticket sales");
-            System.out.println("9. List Top 5 movies by overall reviewer's rating");
-            System.out.println("10. Logout");
+            System.out.println("8. List Top 5 movies");
+            System.out.println("9. Logout");
             System.out.print("Please enter your choice here: ");
 
             choice = input.nextInt();
@@ -58,10 +57,9 @@ public class Staff implements Serializable{
                     Configurables.configure();;
                     break;
                 case 8:
+                    Movie.sortMovie();
                     break;
                 case 9:
-                    break;
-                case 10:
                     System.out.println("Logging out as staff...");
                     System.out.println("Returning to main menu...");
                     break;
