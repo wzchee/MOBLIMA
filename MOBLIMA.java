@@ -5,6 +5,7 @@ import java.util.InputMismatchException;
 public class MOBLIMA {
     public static void main(String[] args) throws Exception {
 
+<<<<<<< HEAD
         FileInOut<Cinema> cinemainout2 = new FileInOut<Cinema>();
         ArrayList<Cinema> moviescreeninglist = cinemainout2.readData(new Cinema());
         // moviescreeninglist.clear();
@@ -15,6 +16,16 @@ public class MOBLIMA {
             
 
         }
+=======
+        // FileInOut<MovieScreening> moviescreeninginout = new FileInOut<MovieScreening>();
+        // ArrayList<MovieScreening> moviescreeninglist = moviescreeninginout.readData(new MovieScreening());
+        // // // moviescreeninglist.clear();
+        // // // moviescreeninginout.writeData(moviescreeninglist, new MovieTicket());
+        // // // moviescreeninglist.clear();
+        // for(int i=0;i<moviescreeninglist.size();i++){
+        //     System.out.println(moviescreeninglist.get(i).getMovieScreeningLocation().getCinemaName());
+        // }
+>>>>>>> 7b2ba8f094feac42fba48c21db1cdf27841869e1
 
 
         // iniitialize everything
@@ -50,6 +61,10 @@ public class MOBLIMA {
             cinemainout.writeData(myCinemaList, new Cinema());
             //fileio.writeCinemaData(myCinemaList);
         }
+        // for (int index = 0; index < myCinemaList.size(); index++) {
+        //     System.out.println(myCinemaList.get(index).getCinemaName());
+            
+        // }
 
         FileInOut<User> userinout = new FileInOut<User>();
         ArrayList<User> userList = userinout.readData(new User());
