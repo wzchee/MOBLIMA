@@ -246,7 +246,7 @@ public class User implements Serializable{
         System.out.print("Proceed (Y/N) ?");
         String option = input.next();
 
-        if(option == "Y"){
+        if(option.equals("Y")){
             System.out.println("Ticket purchase successful!");
             System.out.println("Here is your ticket ID (TID)");
         } else {
@@ -305,9 +305,6 @@ public class User implements Serializable{
         // send user back to user menu
         System.out.println("Thank you for using our booking services!");
         System.out.println("Returning to user menu...\n");
-
-        // out of application class, closing scanner
-        input.close();
     }
 
 

@@ -84,8 +84,14 @@ public class MOBLIMA {
             System.out.println("4. Quit MOBLIMA");
             System.out.print("Please enter your choice here: ");
             
-            choice = input.nextInt();
-            String dump = input.nextLine(); //to consume the new line after nextInt()
+            String dump; //to consume the new line after nextInt()
+            try{
+                choice = input.nextInt();
+                dump = input.nextLine(); 
+            } catch(InputMismatchException e){
+                System.out.println("Your input is not a number!");
+                System.out.println("Terminating MOBLIMA");
+            }
             
             String email, password;
             switch (choice) {
@@ -179,6 +185,7 @@ public class MOBLIMA {
                     System.out.print("What is your age? ");
                     try{
                         age = input.nextInt();
+                        dump = input.nextLine();
                     } catch(InputMismatchException e){
                         System.out.println("Your input is not a valid number!");
                         System.out.println("Account creation failed");
@@ -212,7 +219,7 @@ public class MOBLIMA {
                     System.out.println("Thank you for using MOBLIMA!");
                     break;
                 default:
-                System.out.println("Wrong input. Try again");
+                    System.out.println("Wrong input. Try again");
                     break;
             }
         }
