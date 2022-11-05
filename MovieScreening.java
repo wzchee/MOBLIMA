@@ -217,20 +217,19 @@ public class MovieScreening implements Serializable{
 
 
         // We will take in movie title and use it as a keyID to fetchDetail that spits out Movie Object
-        System.out.print("Please enter your Movie Title: ");
-        String movieTitleToFetch = input.nextLine();
-        Movie movieToFetch = null;
         FileInOut<Movie> movieinout = new FileInOut<Movie>();
         ArrayList<Movie> myMovieList = movieinout.readData(new Movie());
-
-        
-        for(int i=0;i<myMovieList.size();i++){
-            if(myMovieList.get(i).getMovieTitle().equals(movieTitleToFetch) && !myMovieList.get(i).getMovieStatus().equals("End_of_Showing")){
-                movieToFetch = myMovieList.get(i);
-                break;
-            }
+        System.out.println("Here is the full list of movies");
+        for(int i=0; i<myMovieList.size(); i++){
+            if(!myMovieList.get(i).getMovieStatus().equals("End_of_Showing"))
+                System.out.println(i+1 + ". " + myMovieList.get(i).getMovieTitle());
         }
-
+        System.out.print("Enter the number corresponding to the movie: ");
+        int movienum = input.nextInt();
+        String dump = input.nextLine();
+        
+        Movie movieToFetch = myMovieList.get(movienum-1);
+        
         FileInOut<Cineplex> cineplexio = new FileInOut<Cineplex>();
         ArrayList<Cineplex> cineplexList = cineplexio.readData(new Cineplex());
         System.out.println("Please choose from an existing list of Cineplexes: \n");
@@ -239,7 +238,7 @@ public class MovieScreening implements Serializable{
         }
         System.out.print("Enter the number corresponding to the cineplex: ");
         int cineplexnum = input.nextInt();
-        String dump = input.nextLine();
+        dump = input.nextLine();
         String cineplexNameToFetch = cineplexList.get(cineplexnum-1).getCineplexName();
 
         FileInOut<Cinema> cinemaio = new FileInOut<Cinema>();
@@ -255,20 +254,8 @@ public class MovieScreening implements Serializable{
         System.out.print("Enter the number corresponding to the cinema: ");
         int cinemanum = input.nextInt();
         dump = input.nextLine();
-        String cinemaNameToFetch = cinemaList.get(indexlist.get(cinemanum-1)).getCinemaName();
+        Cinema cinemaToFetch = cinemaList.get(cinemanum-1);
         
-        Cinema cinemaToFetch = null;
-        Cinema traverser = null;
-        FileInOut<Cinema> cinemainout = new FileInOut<Cinema>();
-        ArrayList<Cinema> myCinemaList = cinemainout.readData(new Cinema());
-
-        for(int i=0;i<myCinemaList.size();i++){
-            traverser = myCinemaList.get(i);
-            if(traverser.getCinemaName().equals(cinemaNameToFetch) && traverser.getCineplexName().equals(cineplexNameToFetch)){
-                cinemaToFetch = myCinemaList.get(i);
-                break;
-            }
-        }
         
 
 
@@ -308,15 +295,50 @@ public class MovieScreening implements Serializable{
     }
 
     
-    public static MovieScreening movieScreeningToChange(ArrayList<MovieScreening> listOfMovieScreenings){
+    public static MovieScreening movieScreeningToChange(ArrayList<MovieScreening> listOfMovieScreenings) throws Exception{
         Scanner input = new Scanner(System.in);
-        System.out.println("Enter Movie Title");
-        String movieTitle = input.nextLine();
-        System.out.println("Enter Cinema Name");
-        String cinemaTitle = input.nextLine();
-        System.out.println("Enter Cineplex Name");
-        String cineplexTitle = input.nextLine();
         
+        // We will take in movie title and use it as a keyID to fetchDetail that spits out Movie Object
+        FileInOut<Movie> movieinout = new FileInOut<Movie>();
+        ArrayList<Movie> myMovieList = movieinout.readData(new Movie());
+        System.out.println("Here is the full list of movies");
+        for(int i=0; i<myMovieList.size(); i++){
+            if(!myMovieList.get(i).getMovieStatus().equals("End_of_Showing"))
+                System.out.println(i+1 + ". " + myMovieList.get(i).getMovieTitle());
+        }
+        System.out.print("Enter the number corresponding to the movie: ");
+        int movienum = input.nextInt();
+        String dump = input.nextLine();
+        
+        Movie movieToFetch = myMovieList.get(movienum-1);
+        String movieTitle = movieToFetch.getMovieTitle();
+        
+        FileInOut<Cineplex> cineplexio = new FileInOut<Cineplex>();
+        ArrayList<Cineplex> cineplexList = cineplexio.readData(new Cineplex());
+        System.out.println("Please choose from an existing list of Cineplexes: \n");
+        for(int i=0; i<cineplexList.size(); i++){
+            System.out.println(i+1 + ". " + cineplexList.get(i).getCineplexName());
+        }
+        System.out.print("Enter the number corresponding to the cineplex: ");
+        int cineplexnum = input.nextInt();
+        dump = input.nextLine();
+        String cineplexTitle = cineplexList.get(cineplexnum-1).getCineplexName();
+
+        FileInOut<Cinema> cinemaio = new FileInOut<Cinema>();
+        ArrayList<Cinema> cinemaList = cinemaio.readData(new Cinema());
+        System.out.print("Please choose from an existing list of Cinemas: \n");
+        int cinemacount = 0;
+        ArrayList<Integer> indexlist = new ArrayList<Integer>();
+        for(int i=0; i<cinemaList.size(); i++){
+            if(cinemaList.get(i).getCineplexName().equals(cineplexTitle))
+                System.out.println(++cinemacount + ". " + cinemaList.get(i).getCinemaName());
+                indexlist.add(i);
+        }
+        System.out.print("Enter the number corresponding to the cinema: ");
+        int cinemanum = input.nextInt();
+        dump = input.nextLine();
+        Cinema cinemaToFetch = cinemaList.get(cinemanum-1);
+        String cinemaTitle = cinemaToFetch.getCinemaName();
         
         System.out.println("Enter Movie Screening Time ");
         System.out.println("Please Enter Date and Time  [YYYY,MM,DD,HH,MIN]");
@@ -334,7 +356,10 @@ public class MovieScreening implements Serializable{
         
         for(int i=0;i<listOfMovieScreenings.size();i++){
             traverser = listOfMovieScreenings.get(i);
-            if(traverser.getMovieObj().getMovieTitle().equals(movieTitle) && traverser.getMydate().equals(myDate) && traverser.getMovieScreeningLocation().getCinemaName().equals(cinemaTitle)&& traverser.getMovieScreeningLocation().getCineplexName().equals(cineplexTitle)){
+            if(traverser.getMovieObj().getMovieTitle().equals(movieTitle) && 
+               traverser.getMydate().equals(myDate) && 
+               traverser.getMovieScreeningLocation().getCinemaName().equals(cinemaTitle) && 
+               traverser.getMovieScreeningLocation().getCineplexName().equals(cineplexTitle)){
                 toChange = traverser;
                 break;
             }
