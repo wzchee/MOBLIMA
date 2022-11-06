@@ -175,7 +175,7 @@ public class MovieScreening implements Serializable{
 
         //listOfMovieScreening = fileio.readMovieScreeningData();
         for(int i=0;i<listOfMovieScreening.size();i++){
-            if(listOfMovieScreening.get(i).getMovieObj().getMovieTitle().equals(movieToBeChanged.getMovieTitle())){
+            if(listOfMovieScreening.get(i).getMovieObj().getMovieTitle().equalsIgnoreCase(movieToBeChanged.getMovieTitle())){
                 listOfMovieScreening.get(i).setMovieObj(movieToBeChanged);
                 MovieTicket.updateMovieTicketWithMovieScreening(listOfMovieScreening.get(i));
             }
@@ -191,7 +191,7 @@ public class MovieScreening implements Serializable{
 
         
         for(int i=0;i<listOfMovieScreening.size();i++){
-            if(listOfMovieScreening.get(i).getMovieObj().getMovieTitle().equals(movieToRemove.getMovieTitle())){
+            if(listOfMovieScreening.get(i).getMovieObj().getMovieTitle().equalsIgnoreCase(movieToRemove.getMovieTitle())){
                 // listOfMovieScreening.remove(i);
                 listOfMovieScreening.get(i).setMovieObj(movieToRemove);
                 listOfMovieScreening.get(i).setHasCompleted(true);
@@ -246,7 +246,7 @@ public class MovieScreening implements Serializable{
         int cinemacount = 0;
         ArrayList<Integer> indexlist = new ArrayList<Integer>();
         for(int i=0; i<cinemaList.size(); i++){
-            if(cinemaList.get(i).getCineplexName().equals(cineplexNameToFetch)){
+            if(cinemaList.get(i).getCineplexName().equalsIgnoreCase(cineplexNameToFetch)){
                 System.out.println(++cinemacount + ". " + cinemaList.get(i).getCinemaName());
                 indexlist.add(i);
             }
@@ -324,7 +324,7 @@ public class MovieScreening implements Serializable{
         int cinemacount = 0;
         ArrayList<Integer> indexlist = new ArrayList<Integer>();
         for(int i=0; i<cinemaList.size(); i++){
-            if(cinemaList.get(i).getCineplexName().equals(cineplexTitle))
+            if(cinemaList.get(i).getCineplexName().equalsIgnoreCase(cineplexTitle))
                 System.out.println(i + ". " + cinemaList.get(i).getCinemaName());
                 indexlist.add(i);
         }
@@ -349,10 +349,10 @@ public class MovieScreening implements Serializable{
         
         for(int i=0;i<listOfMovieScreenings.size();i++){
             traverser = listOfMovieScreenings.get(i);
-            if(traverser.getMovieObj().getMovieTitle().equals(movieTitle) && 
+            if(traverser.getMovieObj().getMovieTitle().equalsIgnoreCase(movieTitle) && 
                traverser.getMydate().equals(myDate) && 
-               traverser.getMovieScreeningLocation().getCinemaName().equals(cinemaTitle) && 
-               traverser.getMovieScreeningLocation().getCineplexName().equals(cineplexTitle)){
+               traverser.getMovieScreeningLocation().getCinemaName().equalsIgnoreCase(cinemaTitle) && 
+               traverser.getMovieScreeningLocation().getCineplexName().equalsIgnoreCase(cineplexTitle)){
                 toChange = traverser;
                 break;
             }
@@ -459,8 +459,8 @@ public class MovieScreening implements Serializable{
         FileInOut<MovieScreening> movieScreeninginout = new FileInOut<MovieScreening>();
         ArrayList<MovieScreening> mylis = movieScreeninginout.readData(new MovieScreening());
         for(int i=0;i<mylis.size();i++){
-            if(mylis.get(i).getMovieObj().getMovieTitle().equals(movieTitle) && !mylis.get(i).hasCompleted() &&
-               mylis.get(i).getMovieScreeningLocation().getCineplexName().equals(cineplexChosen.getCineplexName())){
+            if(mylis.get(i).getMovieObj().getMovieTitle().equalsIgnoreCase(movieTitle) && !mylis.get(i).hasCompleted() &&
+               mylis.get(i).getMovieScreeningLocation().getCineplexName().equalsIgnoreCase(cineplexChosen.getCineplexName())){
                 toRetur.add(mylis.get(i));
             }
         }
@@ -481,7 +481,7 @@ public class MovieScreening implements Serializable{
             movieTitle = listOfMovieScreening.get(i).getMovieObj().getMovieTitle();
             mydate = listOfMovieScreening.get(i).getMydate();
             myCineplex = listOfMovieScreening.get(i).getMovieScreeningLocation().getCineplexName();
-            if(movieTitle.equals(movieTitleOfMovieScreening) && mydate.equals(mydateOfMovieScreening) && myCineplex.equals(myCineplexOfMovieScreening)){
+            if(movieTitle.equalsIgnoreCase(movieTitleOfMovieScreening) && mydate.equals(mydateOfMovieScreening) && myCineplex.equalsIgnoreCase(myCineplexOfMovieScreening)){
                 toRetur = listOfMovieScreening.get(i);
             }
         }

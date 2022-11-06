@@ -73,7 +73,7 @@ public class Review implements Serializable{
             System.out.println("Would you like to review this movie again (Y/N)?");
             String yesno = input.nextLine();
 
-            if(!yesno.equals("Y")){
+            if(!yesno.equalsIgnoreCase("Y")){
                 System.out.println("Review cancelled.");
                 System.out.println("Returning to user menu...\n");
             }
@@ -141,7 +141,7 @@ public class Review implements Serializable{
             System.out.println("You have reviewed this movie before");
             System.out.println("Do you want to update it? [y/n]");
             yesnochoice = in.nextLine();
-            if(yesnochoice.equals("y")){
+            if(yesnochoice.equalsIgnoreCase("y")){
                 
                 String oldReview = reviewToBeChanged.getReview();
                 int oldRating = reviewToBeChanged.getRating();

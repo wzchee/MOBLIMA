@@ -203,7 +203,7 @@ public static void updateReviews2(String oldReview,int oldRating,Review reviewTo
     }
   }
   for(int i =0;i<movieToReview.getPastReviews().size();i++){
-    if(movieToReview.getPastReviews().get(i).equals(oldReview)){
+    if(movieToReview.getPastReviews().get(i).equalsIgnoreCase(oldReview)){
       movieToReview.getPastReviews().remove(i);
       movieToReview.addToPastReview(reviewToBeChanged.getReview());
     }
@@ -455,7 +455,7 @@ public static void createMovie()throws Exception{
           String movieName = in.nextLine();
           int found = 0;
           for (int i = 0; i < movieList.size(); i++) {
-              if(movieList.get(i).getMovieTitle().equals(movieName)){
+              if(movieList.get(i).getMovieTitle().equalsIgnoreCase(movieName)){
                   movieToUpdate = movieList.get(i);
                   found = 1;
                   break;
@@ -506,7 +506,7 @@ public static void createMovie()throws Exception{
         }
         int found = 0;
         for (int i = 0; i < movieList.size(); i++) {
-            if(movieList.get(i).getMovieTitle().equals(movieName)){
+            if(movieList.get(i).getMovieTitle().equalsIgnoreCase(movieName)){
               
                 movieList.get(i).setMovieStatus(status.End_Of_Showing);
                 MovieScreening.removeMovieScreeningWithMovie(movieList.get(i));

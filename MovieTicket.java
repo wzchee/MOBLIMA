@@ -134,7 +134,7 @@ public class MovieTicket implements Serializable{
             movieTitle = listOfMovieTix.get(i).getMovieScreening().getMovieObj().getMovieTitle();
             mydate = listOfMovieTix.get(i).getMovieScreening().getMydate();
             myCineplex = listOfMovieTix.get(i).getMovieScreening().getMovieScreeningLocation().getCineplexName();
-            if(movieTitle.equals(movieTitleOfMovieScreeningChanged) && mydate.equals(mydateOfMovieScreeningChanged) && myCineplex.equals(myCineplexOfMovieScreeningChanged)){
+            if(movieTitle.equalsIgnoreCase(movieTitleOfMovieScreeningChanged) && mydate.equals(mydateOfMovieScreeningChanged) && myCineplex.equalsIgnoreCase(myCineplexOfMovieScreeningChanged)){
                 listOfMovieTix.get(i).setMovieScreening(movieScreeningThatHasBeenChanged);
             }
         }
