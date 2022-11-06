@@ -132,7 +132,9 @@ public void setMovieCast(String[] cast){
 public void  setMovieRating(int rating){
   this.rating[rating] += 1;
 }
-
+public void  setMovieRatingDown(int rating){
+  this.rating[rating] -= 1;
+}
 public void setRating(String movieRating){
   this.movieRating = movieRating;
 }
@@ -164,7 +166,7 @@ public void setPastReviews(ArrayList<String> pastReviews){
   this.pastReviews = pastReviews;
 }
 
-public void addReview(Review reviewObj) throws Exception {
+public static void addReview(Review reviewObj) throws Exception {
   FileInOut<Movie> movieio = new FileInOut<Movie>();
   ArrayList<Movie> movieList = movieio.readData(new Movie());
   if(movieList == null){
@@ -181,6 +183,37 @@ public void addReview(Review reviewObj) throws Exception {
   }
   movieio.writeData(movieList,new Movie());
 }
+
+
+
+
+
+public static void updateReviews2(String oldReview,int oldRating,Review reviewToBeChanged) throws Exception{
+  FileInOut<Movie> movieio = new FileInOut<Movie>();
+  ArrayList<Movie> movieList = movieio.readData(new Movie());
+  if(movieList == null){
+    System.out.println("There is no movie available.");
+    return;
+  }
+  Movie movieToReview = null;
+  for (int index = 0; index < movieList.size(); index++) {
+    if (movieList.get(index).getMovieTitle().equals(reviewToBeChanged.getMovie().getMovieTitle())){
+      movieToReview = movieList.get(index);
+      break;
+    }
+  }
+  for(int i =0;i<movieToReview.getPastReviews().size();i++){
+    if(movieToReview.getPastReviews().get(i).equals(oldReview)){
+      movieToReview.getPastReviews().remove(i);
+      movieToReview.addToPastReview(reviewToBeChanged.getReview());
+    }
+  }
+  movieToReview.setMovieRating(reviewToBeChanged.getRating());
+  movieToReview.setMovieRatingDown(oldRating);
+  movieio.writeData(movieList,new Movie());
+
+}
+
 
 public void updateReviews() throws Exception{
   FileInOut<Movie> movieio = new FileInOut<Movie>();
