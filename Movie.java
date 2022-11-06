@@ -331,11 +331,11 @@ public static void createMovie()throws Exception{
           runtime = Integer.parseInt(in.nextLine());
           success = true;
       } catch(InputMismatchException e){
-          System.out.println("Your input is not a valid number!");
+          System.out.println("Your input is not a valid positive number!");
           System.out.println("Choose a new runtime\n");
           in.nextLine();
       }
-  } while (!success);
+  } while (!success && runtime < 0);
   newMovie.setMovieRuntime(runtime);
 
 
@@ -355,7 +355,7 @@ public static void createMovie()throws Exception{
           System.out.println("Choose a new status choice\n");
           in.nextLine();
       }
-  } while (!success);
+  } while (!success && (statusChoice < 1 || statusChoice > 4));
 
   switch (statusChoice){
       case 1:
@@ -387,7 +387,7 @@ public static void createMovie()throws Exception{
           System.out.println("Choose a new option\n");
           in.nextLine();
       }
-  } while (!success);
+  } while (!success && (blockbusterChoice != 1 || blockbusterChoice != 2));
   if (blockbusterChoice == 1){
       newMovie.setBlockbuster(true);
   }else{
@@ -408,7 +408,7 @@ public static void createMovie()throws Exception{
           System.out.println("Choose a new dimension\n");
           in.nextLine();
       }
-  } while (!success);
+  } while (!success && (blockbusterChoice != 1 || blockbusterChoice != 2));
   if (dimChoice == 1){
       newMovie.setMovieDims(dimension.valueOf("TwoD"));
   }else{
