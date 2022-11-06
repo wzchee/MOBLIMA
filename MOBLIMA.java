@@ -5,7 +5,6 @@ import java.util.InputMismatchException;
 public class MOBLIMA {
     public static void main(String[] args) throws Exception {
 
-<<<<<<< HEAD
         FileInOut<Cinema> cinemainout2 = new FileInOut<Cinema>();
         ArrayList<Cinema> moviescreeninglist = cinemainout2.readData(new Cinema());
         // moviescreeninglist.clear();
@@ -16,7 +15,6 @@ public class MOBLIMA {
             
 
         }
-=======
         // FileInOut<MovieScreening> moviescreeninginout = new FileInOut<MovieScreening>();
         // ArrayList<MovieScreening> moviescreeninglist = moviescreeninginout.readData(new MovieScreening());
         // // // // // moviescreeninglist.clear();
@@ -25,7 +23,6 @@ public class MOBLIMA {
         // for(int i=0;i<moviescreeninglist.size();i++){
         //     System.out.println(moviescreeninglist.get(i).getMovieScreeningLocation().getCinemaName() + moviescreeninglist.get(i).getMovieScreeningLocation().getCineplexName());
         // }
->>>>>>> 7b2ba8f094feac42fba48c21db1cdf27841869e1
 
         FileInOut<Movie> moviescreeninginout = new FileInOut<Movie>();
         ArrayList<Movie> moviescreeninglist = moviescreeninginout.readData(new Movie());
