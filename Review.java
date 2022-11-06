@@ -20,7 +20,7 @@ public class Review implements Serializable{
         ArrayList<Movie> userReviewedMovies = new ArrayList<Movie>();
         // screen through the list of reviews to get the movies that the user has reviewed before
         for(int i=0; i<reviewList.size(); i++){
-            if(reviewList.get(i).getUser().equals(sessionUser))
+            if(reviewList.get(i).getUser().getEmail().equals(sessionUser.getEmail()))
                 userReviewedMovies.add(reviewList.get(i).getMovie());
         }
 
@@ -54,7 +54,7 @@ public class Review implements Serializable{
         System.out.print("Enter the number corresponding to the movie you would like to review: ");
         int movieNum;
         try{
-            movieNum = input.nextInt();
+            movieNum = Integer.parseInt(input.nextLine());
         } catch(InputMismatchException e){
             System.out.println("Wrong input. Please try again.");
             System.out.println("Returning to user menu...\n");
@@ -71,7 +71,7 @@ public class Review implements Serializable{
         if(userReviewedMovies.contains(movieChosen)){
             System.out.println("You have reviewed this movie before. Reviewing it again will overwrite your previous review.");
             System.out.println("Would you like to review this movie again (Y/N)?");
-            String yesno = input.next();
+            String yesno = input.nextLine();
 
             if(!yesno.equals("Y")){
                 System.out.println("Review cancelled.");
@@ -80,10 +80,10 @@ public class Review implements Serializable{
         }
 
         System.out.print("Please give a rating out of 5: ");
-        int movieRating = input.nextInt();
+        int movieRating = Integer.parseInt(input.nextLine());
 
         System.out.println("Please type in your review in full below:");
-        String movieReview = input.next();
+        String movieReview = input.nextLine();
 
         if(userReviewedMovies.contains(movieChosen)){
             // overwrite existing review
@@ -92,13 +92,84 @@ public class Review implements Serializable{
         } else {
             // submit new review
             Review reviewToAdd = new Review(movieRating, movieChosen, movieReview, sessionUser);
-            movieChosen.addReview(reviewToAdd);
+            Movie.addReview(reviewToAdd);
         }
         reviewio.writeData(reviewList, new Review());
         //fileio.writeReviewData(reviewList);
 
         System.out.println("Your review has been recorded. Thank you for reviewing.");
         System.out.println("Returning to user menu...\n");
+    }
+
+    public static void writeReview2(User sessionUser) throws Exception{
+        FileInOut<Movie> movieio = new FileInOut<Movie>();
+        ArrayList<Movie> movieList = movieio.readData(new Movie());
+        FileInOut<Review> reviewio = new FileInOut<Review>();
+        ArrayList<Review> reviewList = reviewio.readData(new Review());
+
+
+        Scanner in = new Scanner(System.in);
+
+        String choice = null;
+        System.out.println("Please choose from the movie listings to review");
+        for(int i=0;i<movieList.size();i++){
+            System.out.println((i+1) + ". " + movieList.get(i).getMovieTitle());
+        }
+        choice = in.nextLine();
+
+        Movie movieToBeReviewed = movieList.get(Integer.parseInt(choice)-1);
+
+        Review reviewToBeChanged = null;
+        for(int i=0;i<reviewList.size();i++){
+            if(reviewList.get(i).getMovie().getMovieTitle().equals(movieToBeReviewed.getMovieTitle()) && reviewList.get(i).getUser().getEmail().equals(sessionUser.getEmail())){
+                reviewToBeChanged = reviewList.get(i);
+            }
+        }
+
+        if (reviewToBeChanged == null){
+            System.out.print("Please give a rating out of 5: ");
+            int movieRating = Integer.parseInt(in.nextLine());
+
+            System.out.println("Please type in your review in full below:");
+            String movieReview = in.nextLine();
+
+            Review reviewToAdd = new Review(movieRating, movieToBeReviewed, movieReview, sessionUser);
+            Movie.addReview(reviewToAdd);
+            reviewList.add(reviewToAdd);
+        }else{
+            String yesnochoice = null;
+            System.out.println("You have reviewed this movie before");
+            System.out.println("Do you want to update it? [y/n]");
+            yesnochoice = in.nextLine();
+            if(yesnochoice.equals("y")){
+                
+                String oldReview = reviewToBeChanged.getReview();
+                int oldRating = reviewToBeChanged.getRating();
+                
+                System.out.print("Please give a rating out of 5: ");
+                int newmovieRating = Integer.parseInt(in.nextLine());
+    
+                System.out.println("Please type in your review in full below:");
+                String newmovieReview = in.nextLine();
+
+                reviewToBeChanged.setRating(newmovieRating);
+                reviewToBeChanged.setReview(newmovieReview);
+
+
+                Movie.updateReviews2(oldReview, oldRating, reviewToBeChanged);
+
+            }
+
+            
+
+            
+
+        }
+        reviewio.writeData(reviewList, new Review());
+
+
+        
+
     }
     
     public static void viewReview(Movie moviechosen) throws Exception{
