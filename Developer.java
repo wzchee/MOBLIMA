@@ -74,8 +74,25 @@ public class Developer {
 
         FileInOut<Movie> movieinout = new FileInOut<Movie>();
         ArrayList<Movie> movieList = movieinout.readData(new Movie());
+        String[] cast = {"Jacqueline","Virginia",};
+        String[] cast2 = {"Jesse T.Usher","Sosie Bacon"};
+        String[] cast3 = {"Dwayne Johnson","Aldis Hodge"};
+        String[] cast4 = {"Zoe Saldana", "Sam Worthington"};
+        String[] cast5 = {"Lupita Nyong'o", "Danai Gurira"};
+        String[] cast6 = {"Leonardo DiCaprio", "Elliot Page"};
+        String[] cast7 = {"Chris Evans", "Jamie Bell"};
+        String[] cast8 = {"Scarlett Johansson ", "Florence Pugh"};
+        String[] cast9 = {"Tom Cruise", "Emily Blunt"};
+        String[] cast10 = {"Daniel Craig", "Javier Bardem"};
         if (movieList.isEmpty()) {
-            movieList.add(new Movie("Prey for the"))
+            movieList.add(new Movie("Prey for the devil", 93,dimension.TwoD,status.Now_Showing,false,"The Roman Catholic Church combats a global rise in demonic possessions by opening a school to train priests to perform exorcisms. Although nuns are forbidden to perform this ritual, a professor recognizes Sister Ann's gifts and agrees to train her. Thrust onto the spiritual frontline, she soon finds herself in a battle for the soul of a young girl who's possessed by the same demon that tormented her own mother years earlier.","Daniel Stamm",cast,"M18"));
+            movieList.add(new Movie("Smile",115,dimension.TwoD,status.Now_Showing,false,"After witnessing a bizarre, traumatic incident involving a patient, Dr. Rose Cotter (Sosie Bacon) starts experiencing frightening occurrences that she can't explain. As an overwhelming terror begins taking over her life, Rose must confront her troubling past in order to survive and escape her horrifying new reality.","Parker Finn",cast2,"M18"));
+            movieList.add(new Movie("Black Adam",125,dimension.TwoD, status.Now_Showing, false, "Nearly 5,000 years after he was bestowed with the almighty powers of the Egyptian gods -- and imprisoned just as quickly -- Black Adam is freed from his earthly tomb, ready to unleash his unique form of justice on the modern world.", "Jaume Collet- Serra", cast3, "PG"));
+            movieList.add(new Movie("Avatar: The Way Of Water ",90,dimension.TwoD, status.Coming_Soon, false, "Set more than a decade after the events of the first film, “Avatar: The Way of Water” begins to tell the story of the Sully family (Jake, Neytiri, and their kids), the trouble that follows them, the lengths they go to keep each other safe, the battles they fight to stay alive, and the tragedies they endure", "James Cameron", cast4, "PG"));
+            movieList.add(new Movie("Black Panther", 161, dimension.TwoD, status.Now_Showing, false, "Queen Ramonda, Shuri, M'Baku, Okoye and the Dora Milaje fight to protect their nation from intervening world powers in the wake of King T'Challa's death. As the Wakandans strive to embrace their next chapter, the heroes must band together with Nakia and Everett Ross to forge a new path for their beloved kingdom.", "Ryan Coogler", cast5, "PG"));
+            movieList.add(new Movie("Edge of Tomorrow",113,dimension.TwoD,status.Preview,false,"A soldier fighting aliens gets to relive the same day over and over again, the day restarting every time he dies.","Doug Liman",cast9,"PG"));
+            movieList.add(new Movie("SkyFall",143,dimension.TwoD,status.Coming_Soon,false,"James Bond's loyalty to M is tested when her past comes back to haunt her. When MI6 comes under attack, 007 must track down and destroy the threat, no matter how personal the cost.","Sam Mendes",cast10,"PG"));
+            
         }
     }
 
