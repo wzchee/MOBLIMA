@@ -74,7 +74,9 @@ public class Developer {
 
         FileInOut<Movie> movieinout = new FileInOut<Movie>();
         ArrayList<Movie> movieList = movieinout.readData(new Movie());
-        if (movieList.isEmpty()) {}
+        if (movieList.isEmpty()) {
+            movieList
+        }
     }
 
     public static void clearAllFiles(){
