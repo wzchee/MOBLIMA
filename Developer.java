@@ -96,6 +96,8 @@ public class Developer {
             MovieScreeningtxt.delete();
             File MovieTickettxt = new File("MovieTicketData.txt");
             MovieTickettxt.delete();
+            File Reviewtxt = new File("ReviewData.txt");
+            Reviewtxt.delete();
             File Configurablestxt = new File("ConfigurablesData.txt");
             Configurablestxt.delete();
         } else{
@@ -190,6 +192,17 @@ public class Developer {
             System.out.print(movieTicketList.get(i).getLocation() + "\t");
             System.out.print(movieTicketList.get(i).getMovieScreening() + "\t");
             System.out.print(movieTicketList.get(i).getUser() + "\t");
+        }
+        System.out.println("\n");
+
+        FileInOut<Review> reviewinout = new FileInOut<Review>();
+        ArrayList<Review> reviewList = reviewinout.readData(new Review());
+        System.out.println("Showing the contents of Review.java");
+        for(int i=0; i<staffList.size(); i++){
+            System.out.print(reviewList.get(i).getRating() + "\t");
+            System.out.print(reviewList.get(i).getReview() + "\t");
+            System.out.print(reviewList.get(i).getMovie() + "\t");
+            System.out.print(reviewList.get(i).getUser() + "\t");
         }
         System.out.println("\n");
 
