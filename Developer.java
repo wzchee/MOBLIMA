@@ -133,7 +133,7 @@ public class Developer {
         ArrayList<Cinema> cinemaList = cinemainout.readData(new Cinema());
         System.out.println("Showing the contents of Cinema.java");
         for(int i=0; i<staffList.size(); i++){
-            System.out.print(cinemaList.get(i).getCinemaCOde() + "\t");
+            System.out.print(cinemaList.get(i).getCinemaCode() + "\t");
             System.out.print(cinemaList.get(i).getCinemaName() + "\t");
             System.out.print(cinemaList.get(i).getCineplexName() + "\t");
             System.out.print(cinemaList.get(i).getNumOfSeats() + "\t");
