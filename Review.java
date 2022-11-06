@@ -115,6 +115,7 @@ public class Review implements Serializable{
         for(int i=0;i<movieList.size();i++){
             System.out.println((i+1) + ". " + movieList.get(i).getMovieTitle());
         }
+        System.out.println("Enter you choice of movie: ");
         choice = in.nextLine();
 
         Movie movieToBeReviewed = movieList.get(Integer.parseInt(choice)-1);

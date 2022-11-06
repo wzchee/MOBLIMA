@@ -47,6 +47,7 @@ public class Developer {
             userList.add(new User("oliver@email.com", "oliver", 20, "Oliver Low", "81234568"));
             userList.add(new User("bernard@email.com", "bernard", 20, "Bernard", "81234569"));
             userList.add(new User("jiarong@email.com", "jiarong", 20, "Jia Rong", "812345675"));
+            userList.add(new User("kid@email.com", "kid", 2, "Rong", "812345675"));
             // overwrite the file
             userinout.writeData(userList, new User());
             //fileio.writeUserData(userList);
@@ -97,6 +98,7 @@ public class Developer {
             movieList.add(new Movie("SkyFall",143,dimension.TwoD,status.Coming_Soon,false,"James Bond's loyalty to M is tested when her past comes back to haunt her. When MI6 comes under attack, 007 must track down and destroy the threat, no matter how personal the cost.","Sam Mendes",cast10,"PG"));
             
         }
+        movieinout.writeData(movieList, new Movie());
     }
 
     public static void clearAllFiles(){

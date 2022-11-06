@@ -35,21 +35,22 @@ public class MOBLIMA {
 
 
 
-        // FileInOut<MovieScreening> moviescreeninginout = new FileInOut<MovieScreening>();
-        // ArrayList<MovieScreening> moviescreeninglist = moviescreeninginout.readData(new MovieScreening());
-        // // System.out.println(moviescreeninglist.size());
-        // // // // // // // moviescreeninglist.clear();
-        // // // // // // // moviescreeninginout.writeData(moviescreeninglist, new MovieTicket());
-        // // // // // // // moviescreeninglist.clear();
-        // for(int i=0;i<moviescreeninglist.size();i++){
-        //     System.out.println(moviescreeninglist.get(i).getMovieObj().getMovieTitle() + moviescreeninglist.get(i).getMydate().toString());
-        // }
+        
 
         // Developer tools, comment out to disable it
-        Developer.clearAllFiles();
-        Developer.peekFiles();
+        // Developer.clearAllFiles();
+        // Developer.peekFiles();
         Developer.Initializer(); // DO NOT COMMENT OUT THIS LINE!!
 
+        FileInOut<Movie> moviescreeninginout = new FileInOut<Movie>();
+        ArrayList<Movie> moviescreeninglist = moviescreeninginout.readData(new Movie());
+        // System.out.println(moviescreeninglist.size());
+        // // // // // // moviescreeninglist.clear();
+        // // // // // // moviescreeninginout.writeData(moviescreeninglist, new MovieTicket());
+        // // // // // // moviescreeninglist.clear();
+        for(int i=0;i<moviescreeninglist.size();i++){
+            System.out.println(moviescreeninglist.get(i).getMovieTitle());
+        }
 
         // // iniitialize everything
         // FileInOut<Cineplex> cineplexinout = new FileInOut<Cineplex>();
