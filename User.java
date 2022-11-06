@@ -281,10 +281,10 @@ public class User implements Serializable{
         System.out.print("Proceed (Y/N) ?");
         String option = input.nextLine();
         LocalDateTime nowDate = null;
-        if(option.equals("Y")){
+        if(option.equalsIgnoreCase("Y")){
             System.out.println("Ticket purchase successful!");
             nowDate = LocalDateTime.now();
-            String TID = screeningchosen.getMovieScreeningLocation().getCinemaCOde() + String.format("%04d", nowDate.getYear()) + String.format("%02d", nowDate.getMonthValue()) + String.format("%02d", nowDate.getDayOfMonth())+ String.format("%02d", nowDate.getHour())+ String.format("%02d", nowDate.getMinute());
+            String TID = screeningchosen.getMovieScreeningLocation().getCinemaCode() + String.format("%04d", nowDate.getYear()) + String.format("%02d", nowDate.getMonthValue()) + String.format("%02d", nowDate.getDayOfMonth())+ String.format("%02d", nowDate.getHour())+ String.format("%02d", nowDate.getMinute());
             System.out.println("======================================");
             System.out.println("Here is your ticket ID (" + TID +")");
             System.out.println("Name: " + sessionUser.getName());
@@ -332,7 +332,7 @@ public class User implements Serializable{
             dateTimeOfScreeningToChange = traverser.getMydate();
             cineplexNameScreeningToChange = traverser.getMovieScreeningLocation().getCineplexName();
 
-            if(movieTitleOfScreeningToChange.equals(movie) && dateTimeOfScreeningToChange.equals(screeningchosen.getMydate()) && cineplexNameScreeningToChange.equals(cineplexchosen.getCineplexName())){
+            if(movieTitleOfScreeningToChange.equalsIgnoreCase(movie) && dateTimeOfScreeningToChange.equals(screeningchosen.getMydate()) && cineplexNameScreeningToChange.equalsIgnoreCase(cineplexchosen.getCineplexName())){
                 screeningchosen = traverser;
                 break;
             }

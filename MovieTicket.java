@@ -21,14 +21,14 @@ public class MovieTicket implements Serializable{
         this.userObj = userObj;
         this.movieScreening = movieScreening;
         this.price = price;
-        this.TID = movieScreening.getMovieScreeningLocation().getCinemaCOde() + String.format("%04d", mydate.getYear()) 
+        this.TID = movieScreening.getMovieScreeningLocation().getCinemaCode() + String.format("%04d", mydate.getYear()) 
         + String.format("%02d", mydate.getMonthValue()) + String.format("%02d", mydate.getDayOfMonth())+ 
         String.format("%02d", mydate.getHour())+ String.format("%02d", mydate.getMinute());
 
     }
     
     public String getTID(){
-        return this.TID;
+          return this.TID;
     }
 
     public MovieTicket(){
@@ -133,7 +133,7 @@ public class MovieTicket implements Serializable{
             movieTitle = listOfMovieTix.get(i).getMovieScreening().getMovieObj().getMovieTitle();
             mydate = listOfMovieTix.get(i).getMovieScreening().getMydate();
             myCineplex = listOfMovieTix.get(i).getMovieScreening().getMovieScreeningLocation().getCineplexName();
-            if(movieTitle.equals(movieTitleOfMovieScreeningChanged) && mydate.equals(mydateOfMovieScreeningChanged) && myCineplex.equals(myCineplexOfMovieScreeningChanged)){
+            if(movieTitle.equalsIgnoreCase(movieTitleOfMovieScreeningChanged) && mydate.equals(mydateOfMovieScreeningChanged) && myCineplex.equalsIgnoreCase(myCineplexOfMovieScreeningChanged)){
                 listOfMovieTix.get(i).setMovieScreening(movieScreeningThatHasBeenChanged);
             }
         }
