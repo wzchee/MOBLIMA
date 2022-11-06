@@ -71,6 +71,12 @@ public class Developer {
             configinout.writeData(configList, new Configurables());
             //fileio.writeUserData(configList);
         }
+
+        FileInOut<Movie> movieinout = new FileInOut<Movie>();
+        ArrayList<Movie> movieList = movieinout.readData(new Movie());
+        if (movieList.isEmpty()) {
+            
+        }
     }
 
     public static void clearAllFiles(){
