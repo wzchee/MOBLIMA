@@ -75,7 +75,11 @@ public class Developer {
         FileInOut<Movie> movieinout = new FileInOut<Movie>();
         ArrayList<Movie> movieList = movieinout.readData(new Movie());
         if (movieList.isEmpty()) {
-            movieList
+            String cast[] = {"Lupita Nyong'o", "Danai Gurira"};
+            movieList.add(new Movie("Black Panther", 161, dimension.TwoD, status.Now_Showing, false, "Queen Ramonda, Shuri, M'Baku, Okoye and the Dora Milaje fight to protect their nation from intervening world powers in the wake of King T'Challa's death. As the Wakandans strive to embrace their next chapter, the heroes must band together with Nakia and Everett Ross to forge a new path for their beloved kingdom.", "Ryan Coogler", cast, "PG"));
+            movieList.add(new Movie("Inception", 148, dimension.TwoD, status.Now_Showing, false, "A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O., but his tragic past may doom the project and his team to disaster.", "Christopher Nolan", cast6, "M18"));
+            movieList.add(new Movie("Snowpiercer", 126, dimension.TwoD, status.Coming_Soon, false, "In a future where a failed climate change experiment has killed all life except for the survivors who boarded the Snowpiercer (a train that travels around the globe), a new class system emerges.", "Bong Joon Ho", cast7, "R21"));
+            movieList.add(new Movie("Black Widow", 134, dimension.TwoD, status.Now_Showing, false, "A soldier fighting aliens gets to relive the same day over and over again, the day restarting every time he dies.", "Cate Shortland", cast8, "PG"));
         }
     }
 
