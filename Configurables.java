@@ -18,8 +18,7 @@ public class Configurables implements Serializable{
         System.out.println("2. Add a public holiday");
         //remove a public holiday?
         System.out.print("Enter your choice here: ");
-        int choice = input.nextInt();
-        String dump = input.nextLine();
+        int choice = Integer.parseInt(input.nextLine());
 
         // configurables arraylist only has one element but this is done to comply with FileInOut.java
         FileInOut<Configurables> configinout = new FileInOut<Configurables>();
@@ -34,7 +33,7 @@ public class Configurables implements Serializable{
                 double price = config.getBasePrice();
                 try{
                     price = input.nextDouble();
-                    dump = input.nextLine();
+                    String dump = input.nextLine();
                 } catch(InputMismatchException e){
                     System.out.println("Your input is not a valid number!");
                     System.out.println("Returning to main menu...\n");
@@ -75,7 +74,7 @@ public class Configurables implements Serializable{
                     System.out.println("Declare " + holiday.getDayOfYear() + " "
                                         + holiday.getMonth().toString() + " " + holiday.getYear() + " a holiday?");
                     System.out.print("Input your answer (Y/N): ");
-                    correct = input.next();
+                    correct = input.nextLine();
                 }
 
                 // change the public holiday entry
