@@ -75,6 +75,7 @@ public class Developer {
         FileInOut<Movie> movieinout = new FileInOut<Movie>();
         ArrayList<Movie> movieList = movieinout.readData(new Movie());
         String[] cast = {"Jacqueline","Virginia",};
+        String[] cast1 = {"Lupita Nyong'o", "Danai Gurira"};
         String[] cast2 = {"Jesse T.Usher","Sosie Bacon"};
         String[] cast3 = {"Dwayne Johnson","Aldis Hodge"};
         String[] cast4 = {"Zoe Saldana", "Sam Worthington"};
@@ -85,6 +86,10 @@ public class Developer {
         String[] cast9 = {"Tom Cruise", "Emily Blunt"};
         String[] cast10 = {"Daniel Craig", "Javier Bardem"};
         if (movieList.isEmpty()) {
+            movieList.add(new Movie("Black Panther", 161, dimension.TwoD, status.Now_Showing, false, "Queen Ramonda, Shuri, M'Baku, Okoye and the Dora Milaje fight to protect their nation from intervening world powers in the wake of King T'Challa's death. As the Wakandans strive to embrace their next chapter, the heroes must band together with Nakia and Everett Ross to forge a new path for their beloved kingdom.", "Ryan Coogler", cast1, "PG"));
+            movieList.add(new Movie("Inception", 148, dimension.TwoD, status.Now_Showing, false, "A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O., but his tragic past may doom the project and his team to disaster.", "Christopher Nolan", cast6, "M18"));
+            movieList.add(new Movie("Snowpiercer", 126, dimension.TwoD, status.Coming_Soon, false, "In a future where a failed climate change experiment has killed all life except for the survivors who boarded the Snowpiercer (a train that travels around the globe), a new class system emerges.", "Bong Joon Ho", cast7, "R21"));
+            movieList.add(new Movie("Black Widow", 134, dimension.TwoD, status.Now_Showing, false, "A soldier fighting aliens gets to relive the same day over and over again, the day restarting every time he dies.", "Cate Shortland", cast8, "PG"));
             movieList.add(new Movie("Prey for the devil", 93,dimension.TwoD,status.Now_Showing,false,"The Roman Catholic Church combats a global rise in demonic possessions by opening a school to train priests to perform exorcisms. Although nuns are forbidden to perform this ritual, a professor recognizes Sister Ann's gifts and agrees to train her. Thrust onto the spiritual frontline, she soon finds herself in a battle for the soul of a young girl who's possessed by the same demon that tormented her own mother years earlier.","Daniel Stamm",cast,"M18"));
             movieList.add(new Movie("Smile",115,dimension.TwoD,status.Now_Showing,false,"After witnessing a bizarre, traumatic incident involving a patient, Dr. Rose Cotter (Sosie Bacon) starts experiencing frightening occurrences that she can't explain. As an overwhelming terror begins taking over her life, Rose must confront her troubling past in order to survive and escape her horrifying new reality.","Parker Finn",cast2,"M18"));
             movieList.add(new Movie("Black Adam",125,dimension.TwoD, status.Now_Showing, false, "Nearly 5,000 years after he was bestowed with the almighty powers of the Egyptian gods -- and imprisoned just as quickly -- Black Adam is freed from his earthly tomb, ready to unleash his unique form of justice on the modern world.", "Jaume Collet- Serra", cast3, "PG"));
