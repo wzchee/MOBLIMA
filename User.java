@@ -52,7 +52,7 @@ public class User implements Serializable{
                     break;
                     
                 case 5:
-                    Review.writeReview(sessionUser);
+                    Review.writeReview2(sessionUser);
                     break;
                 case 6:
                     System.out.println("Logging out as user...");

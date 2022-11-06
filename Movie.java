@@ -188,7 +188,7 @@ public static void addReview(Review reviewObj) throws Exception {
 
 
 
-public static void updateReviews2(String oldReview,int oldRating,Review reviewToBeChanged){
+public static void updateReviews2(String oldReview,int oldRating,Review reviewToBeChanged) throws Exception{
   FileInOut<Movie> movieio = new FileInOut<Movie>();
   ArrayList<Movie> movieList = movieio.readData(new Movie());
   if(movieList == null){
@@ -197,7 +197,7 @@ public static void updateReviews2(String oldReview,int oldRating,Review reviewTo
   }
   Movie movieToReview = null;
   for (int index = 0; index < movieList.size(); index++) {
-    if (movieList.get(index).getMovieTitle().equals(reviewObj.getMovie().getMovieTitle())){
+    if (movieList.get(index).getMovieTitle().equals(reviewToBeChanged.getMovie().getMovieTitle())){
       movieToReview = movieList.get(index);
       break;
     }

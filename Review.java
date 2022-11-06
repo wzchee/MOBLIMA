@@ -92,7 +92,7 @@ public class Review implements Serializable{
         } else {
             // submit new review
             Review reviewToAdd = new Review(movieRating, movieChosen, movieReview, sessionUser);
-            movieChosen.addReview(reviewToAdd);
+            Movie.addReview(reviewToAdd);
         }
         reviewio.writeData(reviewList, new Review());
         //fileio.writeReviewData(reviewList);
