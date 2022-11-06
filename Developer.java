@@ -140,7 +140,7 @@ public class Developer {
         FileInOut<Cinema> cinemainout = new FileInOut<Cinema>();
         ArrayList<Cinema> cinemaList = cinemainout.readData(new Cinema());
         System.out.println("Showing the contents of Cinema.java");
-        for(int i=0; i<staffList.size(); i++){
+        for(int i=0; i<cinemaList.size(); i++){
             System.out.print(cinemaList.get(i).getCinemaCode() + "\t");
             System.out.print(cinemaList.get(i).getCinemaName() + "\t");
             System.out.print(cinemaList.get(i).getCineplexName() + "\t");
@@ -159,7 +159,7 @@ public class Developer {
         FileInOut<Movie> movieinout = new FileInOut<Movie>();
         ArrayList<Movie> movieList = movieinout.readData(new Movie());
         System.out.println("Showing the contents of Movie.java");
-        for(int i=0; i<staffList.size(); i++){
+        for(int i=0; i<movieList.size(); i++){
             System.out.print(movieList.get(i).getMovieDims() + "\t");
             System.out.print(movieList.get(i).getMovieDirector() + "\t");
             System.out.print(movieList.get(i).getMovieRuntime() + "\t");
@@ -178,7 +178,7 @@ public class Developer {
         FileInOut<MovieScreening> movieScreeninginout = new FileInOut<MovieScreening>();
         ArrayList<MovieScreening> movieScreeningList = movieScreeninginout.readData(new MovieScreening());
         System.out.println("Showing the contents of MovieScreening.java");
-        for(int i=0; i<staffList.size(); i++){
+        for(int i=0; i<movieScreeningList.size(); i++){
             System.out.print(movieScreeningList.get(i).getNumOfOccupiedSeats() + "\t");
             System.out.print(movieScreeningList.get(i).getAvailabilityOfSeats(i) + "\t");
             System.out.print(movieScreeningList.get(i).getMovieObj() + "\t");
@@ -191,7 +191,7 @@ public class Developer {
         FileInOut<MovieTicket> movieTicketinout = new FileInOut<MovieTicket>();
         ArrayList<MovieTicket> movieTicketList = movieTicketinout.readData(new MovieTicket());
         System.out.println("Showing the contents of MovieTicket.java");
-        for(int i=0; i<staffList.size(); i++){
+        for(int i=0; i<movieTicketList.size(); i++){
             System.out.print(movieTicketList.get(i).getTID() + "\t");
             System.out.print(movieTicketList.get(i).getseatNumber() + "\t");
             System.out.print(movieTicketList.get(i).getPrice() + "\t");
@@ -204,7 +204,7 @@ public class Developer {
         FileInOut<Review> reviewinout = new FileInOut<Review>();
         ArrayList<Review> reviewList = reviewinout.readData(new Review());
         System.out.println("Showing the contents of Review.java");
-        for(int i=0; i<staffList.size(); i++){
+        for(int i=0; i<reviewList.size(); i++){
             System.out.print(reviewList.get(i).getRating() + "\t");
             System.out.print(reviewList.get(i).getReview() + "\t");
             System.out.print(reviewList.get(i).getMovie() + "\t");
