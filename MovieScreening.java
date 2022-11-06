@@ -144,17 +144,29 @@ public class MovieScreening implements Serializable{
         FileInOut<Configurables> configinout = new FileInOut<Configurables>();
         ArrayList<Configurables> configList = configinout.readData(new Configurables());
         Configurables config = configList.get(0);
+
         
         double price = config.getBasePrice();
+        String day = this.mydate.getDayOfWeek().toString();
+        if(day=="SATURDAY" || day=="SUNDAY"){
+            System.out.println("WEEKEND");
+
+            price+=2;
+        }
+
+
         if(this.movieScreeningLocation.isPlatinumSuite()){
             price += 10;
         }
 
         if(this.getMovieObj().getBlockbuster()){
+            
+            System.out.println("BLOCKBUSTER");
             price+=2;
         }
 
         if(config.holidayMatch(mydate)){
+            System.out.println("HOLIDAY");
             price+=2;
         }
 
@@ -219,6 +231,11 @@ public class MovieScreening implements Serializable{
         // We will take in movie title and use it as a keyID to fetchDetail that spits out Movie Object
         FileInOut<Movie> movieinout = new FileInOut<Movie>();
         ArrayList<Movie> myMovieList = movieinout.readData(new Movie());
+        if(myMovieList.size()==0){
+            System.out.println("No available movies");
+            System.out.println("Returning to main page");
+            return;
+        }
         System.out.println("Here is the full list of movies");
         for(int i=0; i<myMovieList.size(); i++){
             if(!myMovieList.get(i).getMovieStatus().equals("End_of_Showing"))
@@ -276,90 +293,59 @@ public class MovieScreening implements Serializable{
             myArr[j] = 0;
         }
 
-        System.out.print("Is it a public holiday: [y/n]");
-        String isPublicHolidayInput = input.nextLine();
-        boolean isPublicHoliday = true;
-        //ask staff if it is public holiday
-        if(isPublicHolidayInput=="n"){
-            isPublicHoliday = false;
-        }
+        FileInOut<Configurables> configinout = new FileInOut<Configurables>();
+        ArrayList<Configurables> configList = configinout.readData(new Configurables());
+        Configurables config = configList.get(0);
 
-        movieScreeningToAdd = new MovieScreening(movieToFetch, cinemaToFetch, myDate, myArr, isPublicHoliday,0,false);
+        movieScreeningToAdd = new MovieScreening(movieToFetch, cinemaToFetch, myDate, myArr, config.holidayMatch(myDate),0,false);
         myMovieScreeningList.add(movieScreeningToAdd);
         movieScreeninginout.writeData(myMovieScreeningList, new MovieScreening());
     }
 
     
-    public static MovieScreening movieScreeningToChange(ArrayList<MovieScreening> listOfMovieScreenings) throws Exception{
+    public static MovieScreening movieScreeningToChange() throws Exception{
         Scanner input = new Scanner(System.in);
-        
-        // We will take in movie title and use it as a keyID to fetchDetail that spits out Movie Object
         FileInOut<Movie> movieinout = new FileInOut<Movie>();
         ArrayList<Movie> myMovieList = movieinout.readData(new Movie());
+        ArrayList<Integer> indexList = new ArrayList<Integer>();
         System.out.println("Here is the full list of movies");
         for(int i=0; i<myMovieList.size(); i++){
-            if(!myMovieList.get(i).getMovieStatus().equals("End_of_Showing"))
+            if(!myMovieList.get(i).getMovieStatus().equals("End_of_Showing")){
                 System.out.println(i+1 + ". " + myMovieList.get(i).getMovieTitle());
+                indexList.add(i);
+            }      
         }
+        // We will take in movie title and use it as a keyID to fetchDetail that spits out Movie Object
+
         System.out.print("Enter the number corresponding to the movie: ");
         int movienum = Integer.parseInt(input.nextLine());
-        
-        Movie movieToFetch = myMovieList.get(movienum-1);
-        String movieTitle = movieToFetch.getMovieTitle();
-        
-        FileInOut<Cineplex> cineplexio = new FileInOut<Cineplex>();
-        ArrayList<Cineplex> cineplexList = cineplexio.readData(new Cineplex());
-        System.out.println("Please choose from an existing list of Cineplexes: \n");
-        for(int i=0; i<cineplexList.size(); i++){
-            System.out.println(i+1 + ". " + cineplexList.get(i).getCineplexName());
-        }
-        System.out.print("Enter the number corresponding to the cineplex: ");
-        int cineplexnum = Integer.parseInt(input.nextLine());
-        String cineplexTitle = cineplexList.get(cineplexnum-1).getCineplexName();
-       
+        Movie movieToFetch = myMovieList.get(indexList.get(movienum-1));
 
-        FileInOut<Cinema> cinemaio = new FileInOut<Cinema>();
-        ArrayList<Cinema> cinemaList = cinemaio.readData(new Cinema());
-        System.out.print("Please choose from an existing list of Cinemas: \n");
-        int cinemacount = 0;
-        ArrayList<Integer> indexlist = new ArrayList<Integer>();
-        for(int i=0; i<cinemaList.size(); i++){
-            if(cinemaList.get(i).getCineplexName().equals(cineplexTitle))
-                System.out.println(i + ". " + cinemaList.get(i).getCinemaName());
-                indexlist.add(i);
-        }
-        System.out.print("Enter the number corresponding to the cinema: ");
-        int cinemanum = Integer.parseInt(input.nextLine());
-        Cinema cinemaToFetch = cinemaList.get(indexlist.get(cinemanum - 1));
-        String cinemaTitle = cinemaToFetch.getCinemaName();
-        System.out.println(cinemaTitle);
-        System.out.println("Enter Movie Screening Time ");
-        System.out.println("Please Enter Date and Time  [YYYY,MM,DD,HH,MIN]");
-        String date = input.nextLine();
-        String[] arrOfString = date.split(",");
-        int year = Integer.parseInt(arrOfString[0]);
-        int month = Integer.parseInt(arrOfString[1]);
-        int day = Integer.parseInt(arrOfString[2]);
-        int hour = Integer.parseInt(arrOfString[3]);
-        int minute = Integer.parseInt(arrOfString[4]);
-        LocalDateTime myDate = LocalDateTime.of(year, month, day, hour, minute, 0);
 
-        MovieScreening toChange = null;
-        MovieScreening traverser = null;
-        
-        for(int i=0;i<listOfMovieScreenings.size();i++){
-            traverser = listOfMovieScreenings.get(i);
-            if(traverser.getMovieObj().getMovieTitle().equals(movieTitle) && 
-               traverser.getMydate().equals(myDate) && 
-               traverser.getMovieScreeningLocation().getCinemaName().equals(cinemaTitle) && 
-               traverser.getMovieScreeningLocation().getCineplexName().equals(cineplexTitle)){
-                toChange = traverser;
-                break;
+        FileInOut<MovieScreening> movieScreeninginout = new FileInOut<MovieScreening>();
+        ArrayList<MovieScreening> myMovieScreeningList = movieScreeninginout.readData(new MovieScreening());
+        ArrayList<Integer> indexList2 = new ArrayList<Integer>();
+        int indexCount =0;
+        for(int i =0;i<myMovieScreeningList.size();i++){
+            if(myMovieScreeningList.get(i).getMovieObj().getMovieTitle().equals(movieToFetch.getMovieTitle())){
+                indexList2.add(i);
+                System.out.print(++indexCount);
+                System.out.print(".\t");
+                System.out.print(myMovieScreeningList.get(i).getMydate().getDayOfMonth());
+                System.out.print(" ");
+                System.out.print(myMovieScreeningList.get(i).getMydate().getMonth().toString());
+                System.out.print(" ");
+                System.out.print(myMovieScreeningList.get(i).getMydate().getDayOfWeek().toString());
+                System.out.print("\n");
+                System.out.print("Location: " + myMovieScreeningList.get(i).getMovieScreeningLocation().getCineplexName());
+                System.out.print("\n\n");
             }
         }
+        System.out.print("Enter the number corresponding to the movie screening: ");
 
-        return toChange;
-
+        int choice = Integer.parseInt(input.nextLine());
+        MovieScreening movieScreeningToChange = myMovieScreeningList.get(indexList2.get(choice-1));
+        return movieScreeningToChange;
 
 
     }
@@ -369,14 +355,81 @@ public class MovieScreening implements Serializable{
         ArrayList<MovieScreening> myMovieScreeningList = null;
         FileInOut<MovieScreening> movieScreeninginout = new FileInOut<MovieScreening>();
         myMovieScreeningList = movieScreeninginout.readData(new MovieScreening());
-        MovieScreening toBeRemove = movieScreeningToChange(myMovieScreeningList);
-        toBeRemove.setHasCompleted(true);
-        MovieTicket.updateMovieTicketWithMovieScreening(toBeRemove);
-        movieScreeninginout.writeData(myMovieScreeningList, new MovieScreening());;
+
+        MovieScreening retrievedScreening = movieScreeningToChange();
+        String mymovieTitle = retrievedScreening.getMovieObj().getMovieTitle();
+        String myDate = retrievedScreening.getMydate().toString();
+        String mycineplexname = retrievedScreening.getMovieScreeningLocation().getCineplexName();
+        
+        MovieScreening screeningTraverser = null;
+        MovieScreening screeningToBeRemoved = null;
+        
+        for(int i=0;i<myMovieScreeningList.size();i++){
+            screeningTraverser = myMovieScreeningList.get(i);
+            if(screeningTraverser.getMovieObj().getMovieTitle().equals(mymovieTitle) && screeningTraverser.getMydate().toString().equals(myDate) && screeningTraverser.getMovieScreeningLocation().getCineplexName().equals(mycineplexname)){
+                screeningToBeRemoved = screeningTraverser;
+            }
+        }
+        screeningToBeRemoved.setHasCompleted(true);
+
+
+        MovieTicket.updateMovieTicketWithMovieScreening(screeningToBeRemoved);
+        movieScreeninginout.writeData(myMovieScreeningList, new MovieScreening());
         
     }
     
-    // public static void updateMovieScreening() throws Exception{
+    public static void updateMovieScreening() throws Exception{
+        Scanner input = new Scanner(System.in);
+        FileInOut<MovieScreening> movieScreeninginout = new FileInOut<MovieScreening>();
+        ArrayList<MovieScreening> myMovieScreeningList = movieScreeninginout.readData(new MovieScreening());
+        MovieScreening retrievedScreening = movieScreeningToChange();
+
+        String mymovieTitle = retrievedScreening.getMovieObj().getMovieTitle();
+        String myDate = retrievedScreening.getMydate().toString();
+        String mycineplexname = retrievedScreening.getMovieScreeningLocation().getCineplexName();
+        
+        MovieScreening screeningTraverser = null;
+        MovieScreening screeningToBeUpdated = null;
+        
+        for(int i=0;i<myMovieScreeningList.size();i++){
+            screeningTraverser = myMovieScreeningList.get(i);
+            if(screeningTraverser.getMovieObj().getMovieTitle().equals(mymovieTitle) && screeningTraverser.getMydate().toString().equals(myDate) && screeningTraverser.getMovieScreeningLocation().getCineplexName().equals(mycineplexname)){
+                screeningToBeUpdated = screeningTraverser;
+            }
+        }
+
+        System.out.println("Please Enter New Date and Time  [YYYY,MM,DD,HH,MIN]");
+        String date = input.nextLine();
+        String[] arrOfString = date.split(",");
+        int year = Integer.parseInt(arrOfString[0]);
+        int month = Integer.parseInt(arrOfString[1]);
+        int day = Integer.parseInt(arrOfString[2]);
+        int hour = Integer.parseInt(arrOfString[3]);
+        int minute = Integer.parseInt(arrOfString[4]);
+        LocalDateTime myDate2 = LocalDateTime.of(year, month, day, hour, minute, 0);
+        screeningToBeUpdated.setMydate(myDate2);
+
+
+        FileInOut<MovieTicket> movieTicketinout = new FileInOut<MovieTicket>();
+        ArrayList<MovieTicket> myMovieTicketList = movieTicketinout.readData(new MovieTicket());
+
+        MovieTicket myTicketTraverser = null;
+        for(int i = 0;i<myMovieTicketList.size();i++){
+            myTicketTraverser = myMovieTicketList.get(i);
+            if(myTicketTraverser.getMovieScreening().getMovieObj().getMovieTitle().equals(mymovieTitle) && myTicketTraverser.getMovieScreening().getMydate().toString().equals(myDate) && myTicketTraverser.getMovieScreening().getMovieScreeningLocation().getCineplexName().equals(mycineplexname)){
+                myMovieTicketList.get(i).setMovieScreening(screeningToBeUpdated);
+            }
+        }
+
+        movieScreeninginout.writeData(myMovieScreeningList, new MovieScreening());
+        movieTicketinout.writeData(myMovieTicketList, new MovieTicket());
+
+
+
+
+
+
+
     //     ArrayList<Cineplex> cineplexlist = fileio.readCineplexData();
     //     System.out.println("Which cineplex is the movie Screening in?");
     //     int cineplexcount = 0;
@@ -452,7 +505,7 @@ public class MovieScreening implements Serializable{
     //     // toBeChanged.setMydate(myDate);
     //     // fileio.writeMovieScreeningData(listOfMovieScreenings);
         
-    // }
+    }
 
     public static ArrayList<MovieScreening> giveScreenTimes(String movieTitle, Cineplex cineplexChosen) throws Exception{
         ArrayList<MovieScreening> toRetur = new ArrayList<MovieScreening>();

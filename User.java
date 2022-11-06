@@ -201,13 +201,19 @@ public class User implements Serializable{
         }
         //ArrayList<Movie> movieList = fileio.readMovieData();
         System.out.println("Here are the list of movies to choose from: ");
+
+        ArrayList<Integer> myindexArray = new ArrayList<Integer>();
         int moviecount = 0;
         for(int i=0; i<movieList.size(); i++){
-            System.out.println(++moviecount + ". " + movieList.get(i).getMovieTitle());
+            if(movieList.get(i).getMovieStatus().equals("Preview") || movieList.get(i).getMovieStatus().equals("Now_Showing")){
+                System.out.println(++moviecount + ". " + movieList.get(i).getMovieTitle());
+                myindexArray.add(i);
+            }
+            
         }
         System.out.print("Enter the number corresponding to the movie you would like to watch: ");
         int movienum = Integer.parseInt(input.nextLine());
-        Movie movieObjChosen = movieList.get(movienum-1);
+        Movie movieObjChosen = movieList.get(myindexArray.get(movienum-1));
         String movie = movieObjChosen.getMovieTitle();
 
         ArrayList<MovieScreening> screeningList = MovieScreening.giveScreenTimes(movie, cineplexchosen);
@@ -270,17 +276,25 @@ public class User implements Serializable{
         // Multiple tickets?
 
         System.out.println("Your seat is secured!");
-        System.out.println("Ticket price = $" + computedPrice);
+        System.out.println("Ticket price = SGD" + computedPrice + "(Excl of GST)");
+        System.out.println("Ticket price = SGD" + computedPrice * 1.07 + "(Incl of GST)");
         System.out.print("Proceed (Y/N) ?");
         String option = input.nextLine();
-
+        LocalDateTime nowDate = null;
         if(option.equals("Y")){
             System.out.println("Ticket purchase successful!");
-            String TID = screeningchosen.getMovieScreeningLocation().getCinemaCOde() + String.format("%04d", screeningchosen.getMydate().getYear()) + String.format("%02d", screeningchosen.getMydate().getDayOfMonth()) + String.format("%02d", screeningchosen.getMydate().getDayOfMonth())+ String.format("%02d", screeningchosen.getMydate().getHour())+ String.format("%02d", screeningchosen.getMydate().getMinute());
+            nowDate = LocalDateTime.now();
+            String TID = screeningchosen.getMovieScreeningLocation().getCinemaCOde() + String.format("%04d", nowDate.getYear()) + String.format("%02d", nowDate.getMonthValue()) + String.format("%02d", nowDate.getDayOfMonth())+ String.format("%02d", nowDate.getHour())+ String.format("%02d", nowDate.getMinute());
+            System.out.println("======================================");
             System.out.println("Here is your ticket ID (" + TID +")");
+            System.out.println("Name: " + sessionUser.getName());
+            System.out.println("Mobile Number: " + sessionUser.getMobileNumber());
+            System.out.println("======================================");
+
             // Each payment will have a transaction id (TID). The TID is of the format XXXYYYYMMDDhhmm (Y : year, M : month, D : day, h : hour, m : minutes, XXX : cinema code in letters).
         } else {
             System.out.println("Ticket purchase cancelled.");
+            return;
         }
 
         //System.out.print("Please enter your Movie Title: ");
@@ -329,7 +343,7 @@ public class User implements Serializable{
         //fileio.writeMovieData(movielist);
         fileio.writeMovieScreeningData(screeningList);
 
-        MovieTicket.createBooking(screeningchosen, seatId, sessionUser, computedPrice);
+        MovieTicket.createBooking(screeningchosen, seatId, sessionUser, computedPrice,nowDate);
 
         // send user back to user menu
         System.out.println("Thank you for using our booking services!");

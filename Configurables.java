@@ -71,7 +71,7 @@ public class Configurables implements Serializable{
                     
                     LocalDateTime holiday = LocalDateTime.of(year, month, day, 0, 0, 0);
 
-                    System.out.println("Declare " + holiday.getDayOfYear() + " "
+                    System.out.println("Declare " + holiday.getDayOfMonth() + " "
                                         + holiday.getMonth().toString() + " " + holiday.getYear() + " a holiday?");
                     System.out.print("Input your answer (Y/N): ");
                     correct = input.nextLine();
@@ -107,7 +107,7 @@ public class Configurables implements Serializable{
     public boolean holidayMatch(LocalDateTime inputDateTime){
         for(int i=0; i<publicHolidays.size(); i++){
             Boolean boolyear = inputDateTime.getYear() == publicHolidays.get(i).getYear();
-            Boolean boolmonth = inputDateTime.getMonthValue() == publicHolidays.get(i).getYear();;
+            Boolean boolmonth = inputDateTime.getMonthValue() == publicHolidays.get(i).getMonthValue();;
             Boolean boolday = inputDateTime.getDayOfMonth() == publicHolidays.get(i).getDayOfMonth();
 
             if(boolyear && boolmonth && boolday) return true;

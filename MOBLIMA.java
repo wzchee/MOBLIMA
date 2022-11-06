@@ -21,15 +21,28 @@ public class MOBLIMA {
         // // // // // moviescreeninginout.writeData(moviescreeninglist, new MovieTicket());
         // // // // // moviescreeninglist.clear();
         // for(int i=0;i<moviescreeninglist.size();i++){
-        //     System.out.println(moviescreeninglist.get(i).getMovieScreeningLocation().getCinemaName() + moviescreeninglist.get(i).getMovieScreeningLocation().getCineplexName());
+        //     System.out.println(moviescreeninglist.get(i).getMovieObj().getMovieTitle() + moviescreeninglist.get(i).getMovieScreeningLocation().getCinemaName() + moviescreeninglist.get(i).getMovieScreeningLocation().getCineplexName() + moviescreeninglist.get(i).hasCompleted() + moviescreeninglist.get(i).getMydate().toString());
         // }
-        // FileInOut<Movie> moviescreeninginout = new FileInOut<Movie>();
-        // ArrayList<Movie> moviescreeninglist = moviescreeninginout.readData(new Movie());
-        // // // // // // // // moviescreeninglist.clear();
-        // // // // // // // // moviescreeninginout.writeData(moviescreeninglist, new MovieTicket());
-        // // // // // // // // moviescreeninglist.clear();
+
+        FileInOut<Movie> movieinout = new FileInOut<Movie>();
+        ArrayList<Movie> movielist = movieinout.readData(new Movie());
+        // // // // moviescreeninglist.clear();
+        // // // // moviescreeninginout.writeData(moviescreeninglist, new MovieTicket());
+        // // // // moviescreeninglist.clear();
+        for(int i=0;i<movielist.size();i++){
+            System.out.println(movielist.get(i).getMovieTitle() + movielist.get(i).getMovieStatus());
+        }
+
+
+
+        // FileInOut<MovieScreening> moviescreeninginout = new FileInOut<MovieScreening>();
+        // ArrayList<MovieScreening> moviescreeninglist = moviescreeninginout.readData(new MovieScreening());
+        // // System.out.println(moviescreeninglist.size());
+        // // // // // // // moviescreeninglist.clear();
+        // // // // // // // moviescreeninginout.writeData(moviescreeninglist, new MovieTicket());
+        // // // // // // // moviescreeninglist.clear();
         // for(int i=0;i<moviescreeninglist.size();i++){
-        //     System.out.println(moviescreeninglist.get(i).getPastReviews().get(0) + moviescreeninglist.get(i).getMovieAverageRating(moviescreeninglist.get(i).getMovieRating()));
+        //     System.out.println(moviescreeninglist.get(i).getMovieObj().getMovieTitle() + moviescreeninglist.get(i).getMydate().toString());
         // }
 
 
@@ -75,6 +88,7 @@ public class MOBLIMA {
             userList.add(new User("oliver@email.com", "oliver", 20, "Oliver Low", "81234568"));
             userList.add(new User("bernard@email.com", "bernard", 20, "Bernard", "81234569"));
             userList.add(new User("jiarong@email.com", "jiarong", 20, "Jia Rong", "812345675"));
+            userList.add(new User("kid@email.com", "kid", 11, "Jia Rong", "812345675"));
             // overwrite the file
             userinout.writeData(userList, new User());
             //fileio.writeUserData(userList);

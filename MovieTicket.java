@@ -12,16 +12,15 @@ public class MovieTicket implements Serializable{
     private User userObj;
     private Double price;
     private String TID;
+    
 
 
 
-    public MovieTicket(MovieScreening movieScreening, int seatNumber,User userObj,Double price) throws Exception {
+    public MovieTicket(MovieScreening movieScreening, int seatNumber,User userObj,Double price,LocalDateTime mydate) throws Exception {
         this.seatNumber = seatNumber;
         this.userObj = userObj;
         this.movieScreening = movieScreening;
         this.price = price;
-        LocalDateTime mydate;
-        mydate = movieScreening.getMydate();
         this.TID = movieScreening.getMovieScreeningLocation().getCinemaCOde() + String.format("%04d", mydate.getYear()) 
         + String.format("%02d", mydate.getMonthValue()) + String.format("%02d", mydate.getDayOfMonth())+ 
         String.format("%02d", mydate.getHour())+ String.format("%02d", mydate.getMinute());
@@ -144,7 +143,7 @@ public class MovieTicket implements Serializable{
     }
     
 
-    public static void createBooking(MovieScreening movieScreeningOfChoice,int seatId,User userBooking,Double price) throws Exception{
+    public static void createBooking(MovieScreening movieScreeningOfChoice,int seatId,User userBooking,Double price,LocalDateTime nowDate) throws Exception{
         
 
 
@@ -152,7 +151,7 @@ public class MovieTicket implements Serializable{
         ArrayList<MovieTicket> movieTicketArrList = movieTixinout.readData(new MovieTicket());
 
         
-        MovieTicket createdMovieTicket = new MovieTicket(movieScreeningOfChoice, seatId, userBooking,price);
+        MovieTicket createdMovieTicket = new MovieTicket(movieScreeningOfChoice, seatId, userBooking,price,nowDate);
         movieTicketArrList.add(createdMovieTicket);
         movieTixinout.writeData(movieTicketArrList, new MovieTicket());
     }
