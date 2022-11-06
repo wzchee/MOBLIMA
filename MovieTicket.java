@@ -22,7 +22,7 @@ public class MovieTicket implements Serializable{
         this.price = price;
         LocalDateTime mydate;
         mydate = movieScreening.getMydate();
-        this.TID = movieScreening.getMovieScreeningLocation().getCinemaCOde() + String.format("%04d", mydate.getYear()) 
+        this.TID = movieScreening.getMovieScreeningLocation().getCinemaCode() + String.format("%04d", mydate.getYear()) 
         + String.format("%02d", mydate.getMonthValue()) + String.format("%02d", mydate.getDayOfMonth())+ 
         String.format("%02d", mydate.getHour())+ String.format("%02d", mydate.getMinute());
 

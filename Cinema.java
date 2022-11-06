@@ -44,7 +44,7 @@ public class Cinema implements Serializable{
         return this.numOfSeats;
     }
 
-    public String getCinemaCOde() {
+    public String getCinemaCode() {
         return this.cinemaCode;
     }
 
