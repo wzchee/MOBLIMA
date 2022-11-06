@@ -310,9 +310,18 @@ public static void createMovie()throws Exception{
           success = true;
       } catch(InputMismatchException e){
           System.out.println("Your input is not a valid string!");
-          System.out.println("Returning to main menu...\n");
+          System.out.println("Returning to staff menu...\n");
       }
   } while (!success);
+  FileInOut<Movie> movieio = new FileInOut<Movie>();
+  ArrayList<Movie> movieList = movieio.readData(new Movie());
+  for (int i = 0; i < movieList.size(); i++) {
+    if(movieList.get(i).getMovieTitle().equalsIgnoreCase(title)){
+      System.out.println("Movie has already been created!");
+      System.out.println("Returning to staff menu...\n");
+      return;
+    }
+  }
   newMovie.setMovieTitle(title);
   int runtime = 0;
   success = false;
@@ -419,10 +428,6 @@ public static void createMovie()throws Exception{
   newMovie.setMovieCast(cast);
   newMovie.setSaleVolume(0);
   newMovie.setPastReviews(new ArrayList<String>());
-  FileInOut<Movie> movieio = new FileInOut<Movie>();
-  ArrayList<Movie> movieList = movieio.readData(new Movie());
-  //ArrayList<Movie> movieList = null;
-  //movieList = fileio.readMovieData();
   if(movieList == null){
     movieList = new ArrayList<Movie>();
   }
