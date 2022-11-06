@@ -58,9 +58,9 @@
         //             // Similar code
         //             System.out.println("\nWelcome STAFF!");
         //             System.out.print("Enter your email address: ");
-        //             email = input.next();
+        //             email = input.nextLine();
         //             System.out.print("Enter your password: ");
-        //             password = input.next();
+        //             password = input.nextLine();
 
         //             if(choice == 1){
         //                 for(int i=0; i<userList.size(); i++){
@@ -110,7 +110,7 @@
         //             // a new account wants to be created by user
         //             System.out.println("Welcome to MOBLIMA!");
         //             System.out.print("Please enter your email: ");
-        //             email = input.next();
+        //             email = input.nextLine();
 
         //             // check if existing email already exists
         //             for(int i=0; i<userList.size(); i++){
@@ -124,11 +124,11 @@
         //             // no existing email exists, input remaining fields
         //             // password has no wrong format, no validation needed
         //             System.out.print("Please enter your password: ");
-        //             password = input.next();
+        //             password = input.nextLine();
 
         //             // name has no wrong format, no validation needed
         //             System.out.print("What is your name? ");
-        //             String name = input.next();
+        //             String name = input.nextLine();
 
         //             // catch if user inputs something other than an Integer
         //             int age = 0;
@@ -146,7 +146,7 @@
         //             String mobileNumber = null;
         //             System.out.println("What is your mobile number?");
         //             try{
-        //                 mobileNumber = input.next();
+        //                 mobileNumber = input.nextLine();
         //                 int numericcheck = java.lang.Integer.parseInt(mobileNumber);
         //             } catch(NumberFormatException e){
         //                 System.out.println("Your input is not a valid mobile number!");

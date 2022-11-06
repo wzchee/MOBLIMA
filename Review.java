@@ -54,7 +54,7 @@ public class Review implements Serializable{
         System.out.print("Enter the number corresponding to the movie you would like to review: ");
         int movieNum;
         try{
-            movieNum = input.nextInt();
+            movieNum = Integer.parseInt(input.nextLine());
         } catch(InputMismatchException e){
             System.out.println("Wrong input. Please try again.");
             System.out.println("Returning to user menu...\n");
@@ -71,7 +71,7 @@ public class Review implements Serializable{
         if(userReviewedMovies.contains(movieChosen)){
             System.out.println("You have reviewed this movie before. Reviewing it again will overwrite your previous review.");
             System.out.println("Would you like to review this movie again (Y/N)?");
-            String yesno = input.next();
+            String yesno = input.nextLine();
 
             if(!yesno.equals("Y")){
                 System.out.println("Review cancelled.");
@@ -80,10 +80,10 @@ public class Review implements Serializable{
         }
 
         System.out.print("Please give a rating out of 5: ");
-        int movieRating = input.nextInt();
+        int movieRating = Integer.parseInt(input.nextLine());
 
         System.out.println("Please type in your review in full below:");
-        String movieReview = input.next();
+        String movieReview = input.nextLine();
 
         if(userReviewedMovies.contains(movieChosen)){
             // overwrite existing review
@@ -113,7 +113,7 @@ public class Review implements Serializable{
         String choice = null;
         System.out.println("Please choose from the movie listings to review");
         for(int i=0;i<movieList.size();i++){
-            System.out.println((i+1) + movieList.get(i).getMovieTitle());
+            System.out.println((i+1) + ". " + movieList.get(i).getMovieTitle());
         }
         choice = in.nextLine();
 

@@ -28,7 +28,7 @@ public class Staff implements Serializable{
             System.out.println("9. Logout");
             System.out.print("Please enter your choice here: ");
 
-            choice = input.nextInt();
+            choice = Integer.parseInt(input.nextLine());
 
             switch(choice){
                 case 1:

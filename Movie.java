@@ -306,7 +306,7 @@ public static void createMovie()throws Exception{
   do {
       try{
           System.out.println("Movie title: ");
-          title = in.next();
+          title = in.nextLine();
           success = true;
       } catch(InputMismatchException e){
           System.out.println("Your input is not a valid string!");
@@ -319,12 +319,12 @@ public static void createMovie()throws Exception{
   do {
       try{
           System.out.println("Movie Runtime: ");
-          runtime = in.nextInt();
+          runtime = Integer.parseInt(in.nextLine());
           success = true;
       } catch(InputMismatchException e){
           System.out.println("Your input is not a valid number!");
           System.out.println("Choose a new runtime\n");
-          in.next();
+          in.nextLine();
       }
   } while (!success);
   newMovie.setMovieRuntime(runtime);
@@ -339,12 +339,12 @@ public static void createMovie()throws Exception{
           System.out.println("2. Preview");
           System.out.println("3. Now Showing");
           System.out.println("4. End of Showing");
-          statusChoice = in.nextInt();
+          statusChoice = Integer.parseInt(in.nextLine());
           success = true;
       } catch (InputMismatchException e){
           System.out.println("Your input is not a valid number!");
           System.out.println("Choose a new status choice\n");
-          in.next();
+          in.nextLine();
       }
   } while (!success);
 
@@ -371,12 +371,12 @@ public static void createMovie()throws Exception{
           System.out.println("BlockBuster?");
           System.out.println("1. True");
           System.out.println("2. False");
-          blockbusterChoice = in.nextInt();
+          blockbusterChoice = Integer.parseInt(in.nextLine());
           success = true;
       } catch(InputMismatchException e){
           System.out.println("Your input is not a valid number!");
           System.out.println("Choose a new option\n");
-          in.next();
+          in.nextLine();
       }
   } while (!success);
   if (blockbusterChoice == 1){
@@ -392,12 +392,12 @@ public static void createMovie()throws Exception{
           System.out.println("MovieDimension: ");
           System.out.println("1. 2D");
           System.out.println("2. 3D");
-          dimChoice = in.nextInt();
+          dimChoice = Integer.parseInt(in.nextLine());
           success = true;
       } catch(InputMismatchException e){
           System.out.println("Your input is not a valid number!");
           System.out.println("Choose a new dimension\n");
-          in.next();
+          in.nextLine();
       }
   } while (!success);
   if (dimChoice == 1){
@@ -406,16 +406,16 @@ public static void createMovie()throws Exception{
       newMovie.setMovieDims(dimension.valueOf("ThreeD"));
   }
   System.out.println("Movie Rating: ");
-  newMovie.setRating(in.next());
+  newMovie.setRating(in.nextLine());
   System.out.println("Movie Sypnosis: ");
-  newMovie.setMovieSypnosis(in.next());
+  newMovie.setMovieSypnosis(in.nextLine());
   System.out.println("Director: ");
-  newMovie.setMovieDirector(in.next());
+  newMovie.setMovieDirector(in.nextLine());
   String[] cast = new String[2];
   System.out.println("Cast 1 name: ");
-  cast[0] = in.next();
+  cast[0] = in.nextLine();
   System.out.println("Cast 2 name:");
-  cast[1] = in.next();
+  cast[1] = in.nextLine();
   newMovie.setMovieCast(cast);
   newMovie.setSaleVolume(0);
   newMovie.setPastReviews(new ArrayList<String>());
@@ -446,7 +446,7 @@ public static void createMovie()throws Exception{
         }
         else{
           System.out.println("Enter title of movie to be updated: ");
-          String movieName = in.next();
+          String movieName = in.nextLine();
           int found = 0;
           for (int i = 0; i < movieList.size(); i++) {
               if(movieList.get(i).getMovieTitle().equals(movieName)){
@@ -558,7 +558,7 @@ public static void createMovie()throws Exception{
       boolean success = false;
       do {
         try {
-          choice = input.nextInt() - 1 ;
+          choice = Integer.parseInt(input.nextLine())- 1 ;
           success = true;
         } catch (InputMismatchException e) {
           System.out.println("That is not a valid number. Please choose again.");
@@ -619,7 +619,7 @@ public static void createMovie()throws Exception{
         System.out.println("View top 5 movies");
         System.out.println("1. By Ratings");
         System.out.println("2. By Sales Volume");
-        choice = input.nextInt();
+        choice = Integer.parseInt(input.nextLine());
       }
       while(choice<1 || choice >2);
       if (choice == 1){
@@ -649,7 +649,7 @@ public static void createMovie()throws Exception{
       for (int i = 0; i < movieList.size(); i++) {
         if(movieList.get(i).getMovieTitle().equalsIgnoreCase(movieTitle)){
           System.out.println("Input rating(1 - 5[best]) : ");
-          movieList.get(i).setMovieRating(input.nextInt());
+          movieList.get(i).setMovieRating(Integer.parseInt(input.nextLine()));
           MovieScreening.updateMovieScreeningWithMovie(movieList.get(i));
           break;
         }

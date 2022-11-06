@@ -5,16 +5,16 @@ import java.util.InputMismatchException;
 public class MOBLIMA {
     public static void main(String[] args) throws Exception {
 
-        FileInOut<Cinema> cinemainout2 = new FileInOut<Cinema>();
-        ArrayList<Cinema> moviescreeninglist = cinemainout2.readData(new Cinema());
-        // moviescreeninglist.clear();
-        // moviescreeninginout.writeData(moviescreeninglist, new MovieTicket());
-        // moviescreeninglist.clear();
-        for(int i=0;i<moviescreeninglist.size();i++){
-            System.out.println(moviescreeninglist.get(i).getCinemaName());
+        // FileInOut<Cinema> cinemainout2 = new FileInOut<Cinema>();
+        // ArrayList<Cinema> moviescreeninglist = cinemainout2.readData(new Cinema());
+        // // moviescreeninglist.clear();
+        // // moviescreeninginout.writeData(moviescreeninglist, new MovieTicket());
+        // // moviescreeninglist.clear();
+        // for(int i=0;i<moviescreeninglist.size();i++){
+        //     System.out.println(moviescreeninglist.get(i).getCinemaName());
             
 
-        }
+        // }
         // FileInOut<MovieScreening> moviescreeninginout = new FileInOut<MovieScreening>();
         // ArrayList<MovieScreening> moviescreeninglist = moviescreeninginout.readData(new MovieScreening());
         // // // // // moviescreeninglist.clear();
@@ -112,10 +112,8 @@ public class MOBLIMA {
             System.out.println("4. Quit MOBLIMA");
             System.out.print("Please enter your choice here: ");
             
-            String dump; //to consume the new line after nextInt()
             try{
-                choice = input.nextInt();
-                dump = input.nextLine(); 
+                choice = Integer.parseInt(input.nextLine());
             } catch(InputMismatchException e){
                 System.out.println("Your input is not a number!");
                 System.out.println("Terminating MOBLIMA");
@@ -212,8 +210,7 @@ public class MOBLIMA {
                     int age = 0;
                     System.out.print("What is your age? ");
                     try{
-                        age = input.nextInt();
-                        dump = input.nextLine();
+                        age = Integer.parseInt(input.nextLine());
                     } catch(InputMismatchException e){
                         System.out.println("Your input is not a valid number!");
                         System.out.println("Account creation failed");

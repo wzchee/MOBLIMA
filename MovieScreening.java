@@ -225,8 +225,7 @@ public class MovieScreening implements Serializable{
                 System.out.println(i+1 + ". " + myMovieList.get(i).getMovieTitle());
         }
         System.out.print("Enter the number corresponding to the movie: ");
-        int movienum = input.nextInt();
-        String dump = input.nextLine();
+        int movienum = Integer.parseInt(input.nextLine());
         
         Movie movieToFetch = myMovieList.get(movienum-1);
         
@@ -237,8 +236,7 @@ public class MovieScreening implements Serializable{
             System.out.println(i+1 + ". " + cineplexList.get(i).getCineplexName());
         }
         System.out.print("Enter the number corresponding to the cineplex: ");
-        int cineplexnum = input.nextInt();
-        dump = input.nextLine();
+        int cineplexnum = Integer.parseInt(input.nextLine());
         String cineplexNameToFetch = cineplexList.get(cineplexnum-1).getCineplexName();
         
 
@@ -255,8 +253,7 @@ public class MovieScreening implements Serializable{
 
         }
         System.out.print("Enter the number corresponding to the cinema: ");
-        int cinemanum = input.nextInt();
-        dump = input.nextLine();
+        int cinemanum = Integer.parseInt(input.nextLine());
         Cinema cinemaToFetch = cinemaList.get(indexlist.get(cinemanum-1));
 
         // We will ask for date time in this format and call toString to get string representation 
@@ -305,8 +302,7 @@ public class MovieScreening implements Serializable{
                 System.out.println(i+1 + ". " + myMovieList.get(i).getMovieTitle());
         }
         System.out.print("Enter the number corresponding to the movie: ");
-        int movienum = input.nextInt();
-        String dump = input.nextLine();
+        int movienum = Integer.parseInt(input.nextLine());
         
         Movie movieToFetch = myMovieList.get(movienum-1);
         String movieTitle = movieToFetch.getMovieTitle();
@@ -318,8 +314,7 @@ public class MovieScreening implements Serializable{
             System.out.println(i+1 + ". " + cineplexList.get(i).getCineplexName());
         }
         System.out.print("Enter the number corresponding to the cineplex: ");
-        int cineplexnum = input.nextInt();
-        dump = input.nextLine();
+        int cineplexnum = Integer.parseInt(input.nextLine());
         String cineplexTitle = cineplexList.get(cineplexnum-1).getCineplexName();
        
 
@@ -334,14 +329,13 @@ public class MovieScreening implements Serializable{
                 indexlist.add(i);
         }
         System.out.print("Enter the number corresponding to the cinema: ");
-        int cinemanum = input.nextInt();
-        dump = input.nextLine();
+        int cinemanum = Integer.parseInt(input.nextLine());
         Cinema cinemaToFetch = cinemaList.get(indexlist.get(cinemanum - 1));
         String cinemaTitle = cinemaToFetch.getCinemaName();
         System.out.println(cinemaTitle);
         System.out.println("Enter Movie Screening Time ");
         System.out.println("Please Enter Date and Time  [YYYY,MM,DD,HH,MIN]");
-        String date = input.next();
+        String date = input.nextLine();
         String[] arrOfString = date.split(",");
         int year = Integer.parseInt(arrOfString[0]);
         int month = Integer.parseInt(arrOfString[1]);
@@ -446,7 +440,7 @@ public class MovieScreening implements Serializable{
     //     // ArrayList<MovieScreening> listOfMovieScreenings = fileio.readMovieScreeningData();
     //     // MovieScreening toBeChanged = movieScreeningToChange(listOfMovieScreenings);
     //     // System.out.println("Please Enter Date and Time  [YYYY,MM,DD,HH,MIN]");
-    //     // String date = input.next();
+    //     // String date = input.nextLine();
     //     // String[] arrOfString = date.split(",");
     //     // int year = Integer.parseInt(arrOfString[0]);
     //     // int month = Integer.parseInt(arrOfString[1]);
@@ -460,12 +454,13 @@ public class MovieScreening implements Serializable{
         
     // }
 
-    public static ArrayList<MovieScreening> giveScreenTimes(String movieTitle) throws Exception{
+    public static ArrayList<MovieScreening> giveScreenTimes(String movieTitle, Cineplex cineplexChosen) throws Exception{
         ArrayList<MovieScreening> toRetur = new ArrayList<MovieScreening>();
         FileInOut<MovieScreening> movieScreeninginout = new FileInOut<MovieScreening>();
         ArrayList<MovieScreening> mylis = movieScreeninginout.readData(new MovieScreening());
         for(int i=0;i<mylis.size();i++){
-            if(mylis.get(i).getMovieObj().getMovieTitle().equals(movieTitle) && !mylis.get(i).hasCompleted()){
+            if(mylis.get(i).getMovieObj().getMovieTitle().equals(movieTitle) && !mylis.get(i).hasCompleted() &&
+               mylis.get(i).getMovieScreeningLocation().getCineplexName().equals(cineplexChosen.getCineplexName())){
                 toRetur.add(mylis.get(i));
             }
         }
