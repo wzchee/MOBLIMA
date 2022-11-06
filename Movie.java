@@ -23,7 +23,7 @@ public class Movie implements Serializable{
   private int saleVolume;
   private String movieRating;
   private double averageRating;
-  public Movie(String movieTitle, int movieRuntime, int saleVolume,dimension dims, status movieStatus,boolean blockbuster, String movieSypnosis,String director,String[] cast,int[] rating,ArrayList<String>pastReviews, String movieRating)
+  public Movie(String movieTitle, int movieRuntime,dimension dims, status movieStatus,boolean blockbuster, String movieSypnosis,String director,String[] cast, String movieRating)
 {
   this.movieTitle = movieTitle;
   this.movieRuntime = movieRuntime;
@@ -31,12 +31,12 @@ public class Movie implements Serializable{
   this.movieSypnosis = movieSypnosis;
   this.director = director;
   this.cast = cast;
-  this.rating = rating;
-  this.pastReviews = pastReviews;
+  this.rating = new int[6];
+  this.pastReviews = new ArrayList<String>();
   this.dims = dims;
   this.movieStatus = movieStatus;
   this.blockbuster = blockbuster;
-  this.saleVolume = saleVolume;
+  this.saleVolume = 0;
   this.movieRating = movieRating;
 }
 public Movie(String movieTitle){

@@ -75,7 +75,7 @@ public class Developer {
         FileInOut<Movie> movieinout = new FileInOut<Movie>();
         ArrayList<Movie> movieList = movieinout.readData(new Movie());
         if (movieList.isEmpty()) {
-            
+            movieList.add(new Movie("Prey for the"))
         }
     }
 
