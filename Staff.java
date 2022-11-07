@@ -28,24 +28,39 @@ public class Staff implements Serializable{
             System.out.println("9. Logout");
             System.out.print("Please enter your choice here: ");
 
-            choice = Integer.parseInt(input.nextLine());
+            try{
+                choice = Integer.parseInt(input.nextLine());
+            } catch(NumberFormatException e){
+                System.out.println("Please input a valid number!");
+                System.out.println("Returning to staff menu...\n");
+                return;
+            }
 
             switch(choice){
                 case 1:
                     Movie.createMovie();
                     break;
                 case 2:
-                    String status = Movie.updateMovie();
+                    Movie.updateMovie();
                     break;
                 case 3:
-                    System.out.println("Enter title of movie to be deleted: ");
-                    String movieTitle = input.nextLine();
+                    System.out.println("Here are the list of movies available on the system.");
+                    ArrayList<Movie> movieList = Movie.showMovieList();
+                    System.out.print("Enter the number of the movie to be deleted: ");
+                    int movienum;
+                    try{
+                        movienum = Integer.parseInt(input.nextLine());
+                    } catch(NumberFormatException e){
+                        System.out.println("Please input a valid number!");
+                        System.out.println("Returning to staff menu...\n");
+                        break;
+                    }
+                    String movieTitle = movieList.get(movienum-1).getMovieTitle();
                     Movie.removeMovie(movieTitle);
                     break;
                 case 4:
                     MovieScreening.createMovieScreening();
                     break;
-
                 case 5:
                     MovieScreening.updateMovieScreening();
                     break;
@@ -97,7 +112,8 @@ public class Staff implements Serializable{
     public void setWorkplace(Cineplex workplace){this.workplace = workplace;}
 
     private static Staff fetchDetails(String useremail) throws Exception{
-        ArrayList<Staff> staffList = fileio.readStaffData();
+        FileInOut<Staff> staffio = new FileInOut<Staff>();
+        ArrayList<Staff> staffList = staffio.readData(new Staff());
         for(int i=0; i<staffList.size(); i++)
             if(useremail.equals(staffList.get(i).getEmail()))
                 return staffList.get(i);
@@ -106,8 +122,4 @@ public class Staff implements Serializable{
         System.out.println("No record found!");
         return null;
     }
-
-
-
-
 }

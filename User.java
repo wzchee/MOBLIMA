@@ -1,6 +1,5 @@
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.util.List;
 import java.time.LocalDateTime;
 import java.io.Serializable;
 
@@ -27,32 +26,41 @@ public class User implements Serializable{
             System.out.println("6. Logout");
             System.out.print("Please enter your choice here: ");
 
-            choice = Integer.parseInt(input.nextLine());
+            try{
+                choice = Integer.parseInt(input.nextLine());
+            } catch(NumberFormatException e){
+                System.out.println("Please input a valid number!");
+                System.out.println("Returning to staff menu...\n");
+                return;
+            }
 
             switch(choice){
                 case 1:
                     System.out.println("Here are the full list of movies.");
-                    Movie.showMovieList();
-                    System.out.println("Search for the movie title here: ");
-                    String movieSearch = input.nextLine();
+                    ArrayList<Movie> movieList = Movie.showMovieList();
+                    System.out.print("Enter the number corresponding to the movie here: ");
+                    int movienum;
+                    try{
+                        movienum = Integer.parseInt(input.nextLine());
+                    } catch(NumberFormatException e){
+                        System.out.println("PLease input a valid number!");
+                        System.out.println("Returning to user menu...\n");
+                        break;
+                    }
+                    String movieSearch = movieList.get(movienum-1).getMovieTitle();
                     Movie.showMovieDetail(movieSearch);
                     break;
                 case 2:
                     showLayoutOnly();
                     break;
                 case 3:
-                    // ArrayList<MovieTicket> movieTicketArrList = null;
-                    // movieTicketArrList = fileio.readMovieTicketData();
-                    // MovieTicket movieTicketToAdd = null;
-    //=========================================================================================================
                     usercreateBooking(sessionUser);
                     break;
                 case 4:
                     MovieTicket.displayBookings(sessionUser);
                     break;
-                    
                 case 5:
-                    Review.writeReview2(sessionUser);
+                    Review.writeReview(sessionUser);
                     break;
                 case 6:
                     System.out.println("Logging out as user...");
@@ -99,7 +107,8 @@ public class User implements Serializable{
     public void setMobileNumber(String mobileNumber){this.mobileNumber = mobileNumber;}
 
     private static User fetchDetails(String useremail) throws Exception{
-        ArrayList<User> userList = fileio.readUserData();
+        FileInOut<User> userio = new FileInOut<User>();
+        ArrayList<User> userList = userio.readData(new User());
         for(int i=0; i<userList.size(); i++)
             if(useremail.equals(userList.get(i).getEmail()))
                 return userList.get(i);
@@ -111,9 +120,10 @@ public class User implements Serializable{
 
     public static void showLayoutOnly() throws Exception {
         Scanner input = new Scanner(System.in);
+
+        // read cineplex data
         FileInOut<Cineplex> cineplexio = new FileInOut<Cineplex>();
         ArrayList<Cineplex> cineplexList = cineplexio.readData(new Cineplex());
-        //ArrayList<Cineplex> cineplexList = fileio.readCineplexData();
         System.out.println("To display available seats, we would like to know which movie showtime are you looking at.");
         System.out.println("Which cineplex are you interested in?");
         int cineplexcount = 0;
@@ -121,9 +131,17 @@ public class User implements Serializable{
             System.out.println(++cineplexcount + ". " + cineplexList.get(i).getCineplexName());
         }
         System.out.print("Enter the number corresponding to the cineplex: ");
-        int cineplexnum = Integer.parseInt(input.nextLine());
+        int cineplexnum;
+        try{
+            cineplexnum = Integer.parseInt(input.nextLine());
+        } catch(NumberFormatException e){
+            System.out.println("Please input a valid number!");
+            System.out.println("Returning to staff menu...\n");
+            return;
+        }
         Cineplex cineplexchosen = cineplexList.get(cineplexnum-1);
 
+        // show list of movies
         FileInOut<Movie> movieio = new FileInOut<Movie>();
         ArrayList<Movie> allMovieList = movieio.readData(new Movie());
         ArrayList<Movie> movieList = Movie.getAvailableMovieList(allMovieList);
@@ -132,25 +150,31 @@ public class User implements Serializable{
             System.out.println("Returning to user menu...\n");
             return;
         }
-        //ArrayList<Movie> movieList = fileio.readMovieData();
         System.out.println("Here are the list of movies to choose from: ");
         int moviecount = 0;
         for(int i=0; i<movieList.size(); i++){
             System.out.println(++moviecount + ". " + movieList.get(i).getMovieTitle());
         }
         System.out.print("Enter the number corresponding to the movie you are interested in: ");
-        int movienum = Integer.parseInt(input.nextLine());
+        int movienum;
+        try{
+            movienum = Integer.parseInt(input.nextLine());
+        } catch(NumberFormatException e){
+            System.out.println("Please input a valid number!");
+            System.out.println("Returning to staff menu...\n");
+            return;
+        }
         Movie movieObjChosen = movieList.get(movienum-1);
         String movie = movieObjChosen.getMovieTitle();
 
+        // show all available screentimes
         ArrayList<MovieScreening> screeningList = MovieScreening.giveScreenTimes(movie, cineplexchosen);
         if(screeningList.isEmpty()){
             System.out.println("Sorry, no showtime is available for this movie at the cineplex you have chosen.");
             System.out.println("Returning to user menu...\n");
             return;
         }
-        System.out.println("Here are the list of showtimes for the movie");
-        // Display list of showtimes, pass in movie title
+        System.out.println("Here are the list of showtimes for the movie: ");
         System.out.println("Movie = " + movie);
         for(int i=0; i<screeningList.size(); i++){
             System.out.print(i+1);
@@ -165,7 +189,14 @@ public class User implements Serializable{
             System.out.print("\n\n");
         }
         System.out.print("Pick a showtime. Enter the number here: ");
-        int screeningnum = Integer.parseInt(input.nextLine());
+        int screeningnum;
+        try{
+            screeningnum = Integer.parseInt(input.nextLine());
+        } catch(NumberFormatException e){
+            System.out.println("Please input a valid number!");
+            System.out.println("Returning to staff menu...\n");
+            return;
+        }
         MovieScreening screeningchosen = screeningList.get(screeningnum-1);
 
         System.out.println("Here is the cinema layout for the showtime you selected");
@@ -173,24 +204,33 @@ public class User implements Serializable{
         screeningchosen.displayLayout();
 
         System.out.print("Type anything to return to menu:");
-        String anything = input.nextLine();
+        input.nextLine();
         System.out.println("Returning to user menu...\n");
     }
     
     public static void usercreateBooking(User sessionUser) throws Exception {
         Scanner input = new Scanner(System.in);
+
+        // read list of cineplexes
         FileInOut<Cineplex> cineplexio = new FileInOut<Cineplex>();
         ArrayList<Cineplex> cineplexList = cineplexio.readData(new Cineplex());
-        //ArrayList<Cineplex> cineplexList = fileio.readCineplexData();
         System.out.println("Which cineplex would you like to go to?");
         int cineplexcount = 0;
         for(int i=0; i<cineplexList.size(); i++){
             System.out.println(++cineplexcount + ". " + cineplexList.get(i).getCineplexName());
         }
         System.out.print("Enter the number corresponding to the cineplex: ");
-        int cineplexnum = Integer.parseInt(input.nextLine());
+        int cineplexnum;
+        try{
+            cineplexnum = Integer.parseInt(input.nextLine());
+        } catch(NumberFormatException e){
+            System.out.println("Please input a valid number!");
+            System.out.println("Returning to staff menu...\n");
+            return;
+        }
         Cineplex cineplexchosen = cineplexList.get(cineplexnum-1);
 
+        // show all movies
         FileInOut<Movie> movieio = new FileInOut<Movie>();
         ArrayList<Movie> allMovieList = movieio.readData(new Movie());
         ArrayList<Movie> movieList = Movie.getAvailableMovieList(allMovieList);
@@ -199,7 +239,6 @@ public class User implements Serializable{
             System.out.println("Returning to user menu...\n");
             return;
         }
-        //ArrayList<Movie> movieList = fileio.readMovieData();
         System.out.println("Here are the list of movies to choose from: ");
 
         ArrayList<Integer> myindexArray = new ArrayList<Integer>();
@@ -212,10 +251,18 @@ public class User implements Serializable{
             
         }
         System.out.print("Enter the number corresponding to the movie you would like to watch: ");
-        int movienum = Integer.parseInt(input.nextLine());
+        int movienum;
+        try{
+            movienum = Integer.parseInt(input.nextLine());
+        } catch(NumberFormatException e){
+            System.out.println("Please input a valid number!");
+            System.out.println("Returning to staff menu...\n");
+            return;
+        }
         Movie movieObjChosen = movieList.get(myindexArray.get(movienum-1));
         String movie = movieObjChosen.getMovieTitle();
 
+        // display list of showtimes
         ArrayList<MovieScreening> screeningList = MovieScreening.giveScreenTimes(movie, cineplexchosen);
         if(screeningList.isEmpty()){
             System.out.println("Sorry, no showtime is available for this movie at the cineplex you have chosen.");
@@ -238,31 +285,29 @@ public class User implements Serializable{
             System.out.print("\n\n");
         }
         System.out.print("Pick a showtime. Enter the number here: ");
-        int screeningnum = Integer.parseInt(input.nextLine());
+        int screeningnum;
+        try{
+            screeningnum = Integer.parseInt(input.nextLine());
+        } catch(NumberFormatException e){
+            System.out.println("Please input a valid number!");
+            System.out.println("Returning to staff menu...\n");
+            return;
+        }
         MovieScreening screeningchosen = screeningList.get(screeningnum-1);
 
-        // MovieScreening screeningchosen = MovieScreening.retrieveMovieScreening(movie, showtimechosen, cineplexchosen.getCineplexName());
-        //MovieScreening screeningchosen = null;
-        //screeningchosen = MovieScreening.retrieveMovieScreening(movie, showtimechosen, cineplexchosen.getCineplexName());
 
-
-        // for(int i=0; i<screeninglist.size(); i++){
-        //     Boolean bool1 = screeninglist.get(i).getMovieObj().getMovieTitle().equals(movie);
-        //     Boolean bool2 = screeninglist.get(i).getMydate().equals(showtimechosen);
-        //     Boolean bool3 = screeninglist.get(i).getMovieScreeningLocation().getCineplexName().equals(cineplexchosen.getCineplexName());
-        //     //screen cineplex
-
-        //     if(bool1 && bool2 && bool3){
-        //         screeningchosen = screeninglist.get(i);
-        //         break;
-        //     }
-        // }
-
-        System.out.println("Here is the cinema layout for the showtime you selected");
         // Display layout of cinema
+        System.out.println("Here is the cinema layout for the showtime you selected");
         screeningchosen.displayLayout();
         System.out.print("Please pick a vacant seat: ");
-        int seatId = Integer.parseInt(input.nextLine());
+        int seatId;
+        try{
+            seatId = Integer.parseInt(input.nextLine());
+        } catch(NumberFormatException e){
+            System.out.println("Please input a valid number!");
+            System.out.println("Returning to staff menu...\n");
+            return;
+        }
 
         if(!screeningchosen.getAvailabilityOfSeats(seatId)){
             System.out.println("Your seat was taken!");
@@ -271,10 +316,8 @@ public class User implements Serializable{
             return;
         }
 
+        // price calculation
         Double computedPrice = screeningchosen.calcPrice(sessionUser);
-        // Seat screening
-        // Multiple tickets?
-
         System.out.println("Your seat is secured!");
         System.out.println("Ticket price = SGD" + computedPrice + "(Excl of GST)");
         System.out.println("Ticket price = SGD" + String.format("%.2f",computedPrice * 1.07) + "(Incl of GST)");
@@ -289,6 +332,7 @@ public class User implements Serializable{
             System.out.println("======================================");
             System.out.println("Here is your ticket ID (" + TID +")");
             System.out.println("Name: " + sessionUser.getName());
+            System.out.println("Email: " + sessionUser.getEmail());
             System.out.println("Mobile Number: " + sessionUser.getMobileNumber());
             System.out.println("======================================");
 
@@ -298,53 +342,37 @@ public class User implements Serializable{
             return;
         }
 
-        //System.out.print("Please enter your Movie Title: ");
-        //String movieTitleToFetch = input.nextLine();
-        //Movie toFetchMovie = Movie.fetchDetails(movieTitleToFetch);
-        //String movieTitleToConcat = toFetchMovie.getMovieTitle();
-
-        // System.out.print("Please enter your Cinema Name: ");
-        // String cinemaNameToFetch = input.nextLine();
-        // Cinema toFetchCinema = Cinema.fetchDetails(cinemaNameToFetch);
-        // String cinemaNameToConcat = toFetchCinema.getCinemaName();
-
-//=========================================================================================================
-
-        //PSA: TAKE IN INPUT TO ASSIGN VARIABLES TO THESE SO I CAN CREATE MOVIESCREENING
-
-
-//=========================================================================================================
+        // register the sale on the movie side
         movieObjChosen.incrementSaleVolume();
-        //after movie object incremented we will bubble up to change the
+        //after movie object incremented we will bubble up to change the classes that use the object
         MovieScreening.updateMovieScreeningWithMovie(movieObjChosen);
 
-        //FileInOut<MovieScreening> screeningio = new FileInOut<MovieScreening>();
-        //ArrayList<MovieScreening> screeningList = screeningio.writeData(screeningList, new MovieScreening());
-        //ArrayList<MovieScreening> screeninglist = fileio.readMovieScreeningData();
+        // identify the seat taken and set seat to occupied
+        // String movieTitleOfScreeningToChange = null;
+        // LocalDateTime dateTimeOfScreeningToChange = null;
+        // String cineplexNameScreeningToChange = null;
+        // MovieScreening traverser = null;
 
-        String movieTitleOfScreeningToChange = null;
-        LocalDateTime dateTimeOfScreeningToChange = null;
-        String cineplexNameScreeningToChange = null;
-        MovieScreening traverser = null;
+        // for(int i = 0 ;i<screeningList.size();i++){
+        //     traverser =screeningList.get(i);
+        //     movieTitleOfScreeningToChange = traverser.getMovieObj().getMovieTitle();
+        //     dateTimeOfScreeningToChange = traverser.getMydate();
+        //     cineplexNameScreeningToChange = traverser.getMovieScreeningLocation().getCineplexName();
 
-        for(int i = 0 ;i<screeningList.size();i++){
-            traverser =screeningList.get(i);
-            movieTitleOfScreeningToChange = traverser.getMovieObj().getMovieTitle();
-            dateTimeOfScreeningToChange = traverser.getMydate();
-            cineplexNameScreeningToChange = traverser.getMovieScreeningLocation().getCineplexName();
-
-            if(movieTitleOfScreeningToChange.equalsIgnoreCase(movie) && dateTimeOfScreeningToChange.equals(screeningchosen.getMydate()) && cineplexNameScreeningToChange.equalsIgnoreCase(cineplexchosen.getCineplexName())){
-                screeningchosen = traverser;
-                break;
-            }
-        }
+        //     if(movieTitleOfScreeningToChange.equalsIgnoreCase(movie) && dateTimeOfScreeningToChange.equals(screeningchosen.getMydate()) && cineplexNameScreeningToChange.equalsIgnoreCase(cineplexchosen.getCineplexName())){
+        //         screeningchosen = traverser;
+        //         break;
+        //     }
+        // }
         screeningchosen.setSeatOccupied(seatId);
 
+        // write into Movie and Movie Screening text documents
         movieio.writeData(movieList, new Movie());
-        //fileio.writeMovieData(movielist);
-        fileio.writeMovieScreeningData(screeningList);
+        FileInOut<MovieScreening> screeningio = new FileInOut<MovieScreening>();
+        screeningio.writeData(screeningList, new MovieScreening());
 
         MovieTicket.createBooking(screeningchosen, seatId, sessionUser, computedPrice,nowDate,TID);
+
 
         // send user back to user menu
         System.out.println("Thank you for using our booking services!");

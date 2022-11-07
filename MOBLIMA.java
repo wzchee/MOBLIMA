@@ -1,130 +1,19 @@
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 
 public class MOBLIMA {
     public static void main(String[] args) throws Exception {
 
-        // FileInOut<Cinema> cinemainout2 = new FileInOut<Cinema>();
-        // ArrayList<Cinema> moviescreeninglist = cinemainout2.readData(new Cinema());
-        // // moviescreeninglist.clear();
-        // // moviescreeninginout.writeData(moviescreeninglist, new MovieTicket());
-        // // moviescreeninglist.clear();
-        // for(int i=0;i<moviescreeninglist.size();i++){
-        //     System.out.println(moviescreeninglist.get(i).getCinemaName());
-            
-
-        // }
-        // FileInOut<MovieScreening> moviescreeninginout = new FileInOut<MovieScreening>();
-        // ArrayList<MovieScreening> moviescreeninglist = moviescreeninginout.readData(new MovieScreening());
-        // // // // // moviescreeninglist.clear();
-        // // // // // moviescreeninginout.writeData(moviescreeninglist, new MovieTicket());
-        // // // // // moviescreeninglist.clear();
-        // for(int i=0;i<moviescreeninglist.size();i++){
-        //     System.out.println(moviescreeninglist.get(i).getMovieObj().getMovieTitle() + moviescreeninglist.get(i).getMovieScreeningLocation().getCinemaName() + moviescreeninglist.get(i).getMovieScreeningLocation().getCineplexName() + moviescreeninglist.get(i).hasCompleted() + moviescreeninglist.get(i).getMydate().toString());
-        // }
-
-
-
-
-
-        
-
-        // Developer tools, comment out to disable it
+        /*** Developer tools, comment out to disable it ***/
         // Developer.clearAllFiles();
         // Developer.peekFiles();
         Developer.Initializer(); // DO NOT COMMENT OUT THIS LINE!!
 
-        // FileInOut<Movie> moviescreeninginout = new FileInOut<Movie>();
-        // ArrayList<Movie> moviescreeninglist = moviescreeninginout.readData(new Movie());
-        // // System.out.println(moviescreeninglist.size());
-        // // // // // // // moviescreeninglist.clear();
-        // // // // // // // moviescreeninginout.writeData(moviescreeninglist, new MovieTicket());
-        // // // // // // // moviescreeninglist.clear();
-        // for(int i=0;i<moviescreeninglist.size();i++){
-        //     System.out.println(moviescreeninglist.get(i).getMovieTitle());
-        // }
-
-        FileInOut<MovieScreening> moviescreeninginout = new FileInOut<MovieScreening>();
-        ArrayList<MovieScreening> moviescreeninglist = moviescreeninginout.readData(new MovieScreening());
-        // // // // moviescreeninglist.clear();
-        // // // // moviescreeninginout.writeData(moviescreeninglist, new MovieTicket());
-        // // // // moviescreeninglist.clear();
-        for(int i=0;i<moviescreeninglist.size();i++){
-            System.out.println(moviescreeninglist.get(i).getMovieObj().getMovieTitle() + moviescreeninglist.get(i).getMovieScreeningLocation().getCinemaName() + moviescreeninglist.get(i).getMovieScreeningLocation().getCineplexName() + moviescreeninglist.get(i).hasCompleted() + moviescreeninglist.get(i).getMydate().toString());
-        }
-
-
-        // // iniitialize everything
-        // FileInOut<Cineplex> cineplexinout = new FileInOut<Cineplex>();
-        // ArrayList<Cineplex> myCineplexList = cineplexinout.readData(new Cineplex());
-        // //ArrayList<Cineplex> myCineplexList = fileio.readCineplexData();
-        // if (myCineplexList.isEmpty()) {
-        //     myCineplexList.add(new Cineplex("Cathay Cineplex AMK HUB"));
-        //     myCineplexList.add(new Cineplex("Cathay Cineplex JEM"));
-        //     myCineplexList.add(new Cineplex("Cathay Cineplex Cineleisure"));
-        //     // overwrite the file
-        //     cineplexinout.writeData(myCineplexList, new Cineplex());
-        //     //fileio.writeCineplexData(myCineplexList);
-        // }
-        // // FileInOut<Cineplex> cineplexinout = new FileInOut<Cineplex>();
-        // // ArrayList<Cineplex> myCineplexList = cineplexinout.readData(new Cineplex());
-        // // cineplexinout.writeData(myCineplexList, new Cineplex());
-
-        // FileInOut<Cinema> cinemainout = new FileInOut<Cinema>();
-        // ArrayList<Cinema> myCinemaList = cinemainout.readData(new Cinema());
-        // //ArrayList<Cinema> myCinemaList = fileio.readCinemaData();
-        // if (myCinemaList.isEmpty()) {
-        //     myCinemaList.add(new Cinema("Standard 1", myCineplexList.get(0), false, 100, "AS1"));
-        //     myCinemaList.add(new Cinema("Standard 2", myCineplexList.get(0), false, 100, "AS2"));
-        //     myCinemaList.add(new Cinema("Standard 3", myCineplexList.get(0), false, 100, "AS3"));
-        //     myCinemaList.add(new Cinema("Platinum Movie Suites", myCineplexList.get(1), true, 100, "JP1"));
-        //     myCinemaList.add(new Cinema("Standard 1", myCineplexList.get(1), false, 100, "JS1"));
-        //     myCinemaList.add(new Cinema("Standard 2", myCineplexList.get(1), false, 100, "JS2"));
-        //     myCinemaList.add(new Cinema("Standard 1" ,myCineplexList.get(2), false, 100, "CS1"));
-        //     myCinemaList.add(new Cinema("Standard 2" ,myCineplexList.get(2), false, 100, "CS2"));
-        //     myCinemaList.add(new Cinema("Standard 3" ,myCineplexList.get(2), false, 100, "CS3"));
-        //     // overwrite the file
-        //     cinemainout.writeData(myCinemaList, new Cinema());
-        //     //fileio.writeCinemaData(myCinemaList);
-        // }
-
-        // FileInOut<User> userinout = new FileInOut<User>();
-        // ArrayList<User> userList = userinout.readData(new User());
-        // //ArrayList<User> userList = fileio.readUserData();
-        // if (userList.isEmpty()) {
-        //     userList.add(new User("wz@email.com", "wz", 20, "Wen Zhan", "81234567"));
-        //     userList.add(new User("oliver@email.com", "oliver", 20, "Oliver Low", "81234568"));
-        //     userList.add(new User("bernard@email.com", "bernard", 20, "Bernard", "81234569"));
-        //     userList.add(new User("jiarong@email.com", "jiarong", 20, "Jia Rong", "812345675"));
-        //     // overwrite the file
-        //     userinout.writeData(userList, new User());
-        //     //fileio.writeUserData(userList);
-        // }
-
-        // FileInOut<Staff> staffinout = new FileInOut<Staff>();
-        // ArrayList<Staff> staffList = staffinout.readData(new Staff());
-        // //ArrayList<Staff> staffList = fileio.readStaffData();
-        // if (staffList.isEmpty()) {
-        //     staffList.add(new Staff("admin@admin.com", "admin", "ADMIN", myCineplexList.get(0)));
-        //     // overwrite the file
-        //     staffinout.writeData(staffList, new Staff());
-        //     //fileio.writeUserData(userList);
-        // }
-        
-        // FileInOut<Configurables> configinout = new FileInOut<Configurables>();
-        // ArrayList<Configurables> configList = configinout.readData(new Configurables());
-        // //ArrayList<Configurables> configList = fileio.readConfigurablesData();
-        // if (configList.isEmpty()) {
-        //     configList.add(new Configurables(2022, 12, 15, 7.0));
-        //     // overwrite the file
-        //     configinout.writeData(configList, new Configurables());
-        //     //fileio.writeUserData(configList);
-        // }
-
+        // Import user list
         FileInOut<User> userinout = new FileInOut<User>();
         ArrayList<User> userList = userinout.readData(new User());
 
+        // Import staff list
         FileInOut<Staff> staffinout = new FileInOut<Staff>();
         ArrayList<Staff> staffList = staffinout.readData(new Staff());
 
@@ -141,9 +30,8 @@ public class MOBLIMA {
             
             try{
                 choice = Integer.parseInt(input.nextLine());
-            } catch(InputMismatchException e){
-                System.out.println("Your input is not a number!");
-                System.out.println("Terminating MOBLIMA");
+            } catch(NumberFormatException e){
+                System.out.println("Please input a valid number!");
             }
             
             String email, password;
@@ -238,11 +126,11 @@ public class MOBLIMA {
                     System.out.print("What is your age? ");
                     try{
                         age = Integer.parseInt(input.nextLine());
-                    } catch(InputMismatchException e){
+                    } catch(NumberFormatException e){
                         System.out.println("Your input is not a valid number!");
                         System.out.println("Account creation failed");
                         System.out.println("Returning to main menu...\n");
-                        break;
+                        return;
                     }
                     
                     // catch if user inputs something other than an Integer
@@ -250,7 +138,7 @@ public class MOBLIMA {
                     System.out.println("What is your mobile number?");
                     try{
                         mobileNumber = input.nextLine();
-                        int numericcheck = java.lang.Integer.parseInt(mobileNumber);
+                        Integer.parseInt(mobileNumber);
                     } catch(NumberFormatException e){
                         System.out.println("Your input is not a valid mobile number!");
                         System.out.println("Account creation failed");
@@ -263,7 +151,6 @@ public class MOBLIMA {
                     User newUser = new User(email, password, age, name, mobileNumber);
                     userList.add(newUser);
                     userinout.writeData(userList, new User());
-                    //fileio.writeUserData(userList);
                     System.out.println("User account added successfully!");
                     System.out.println("Please login again using your new account. \n");
                     break;

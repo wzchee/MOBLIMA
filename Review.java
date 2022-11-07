@@ -1,7 +1,5 @@
 import java.util.Scanner;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.io.Serializable;
 
 public class Review implements Serializable{
@@ -12,96 +10,6 @@ public class Review implements Serializable{
     private User user;
 
     public static void writeReview(User sessionUser) throws Exception{
-        Scanner input = new Scanner(System.in);
-        
-        FileInOut<Review> reviewio = new FileInOut<Review>();
-        ArrayList<Review> reviewList = reviewio.readData(new Review());
-        //ArrayList<Review> reviewList = fileio.readReviewData();
-        ArrayList<Movie> userReviewedMovies = new ArrayList<Movie>();
-        // screen through the list of reviews to get the movies that the user has reviewed before
-        for(int i=0; i<reviewList.size(); i++){
-            if(reviewList.get(i).getUser().getEmail().equals(sessionUser.getEmail()))
-                userReviewedMovies.add(reviewList.get(i).getMovie());
-        }
-
-        FileInOut<MovieTicket> movieticketio = new FileInOut<MovieTicket>();
-        ArrayList<MovieTicket> movieTicketList = movieticketio.readData(new MovieTicket());
-        //ArrayList<MovieTicket> movieTicketList = fileio.readMovieTicketData();
-        ArrayList<Movie> userPastMovies = new ArrayList<Movie>();
-        // screen through the list of tickets to get the movies that the user has watched before
-        for(int i=0; i<movieTicketList.size(); i++){
-            if(movieTicketList.get(i).getUser().getEmail().equals(sessionUser.getEmail()) /*&&
-               movieTicketList.get(i).getMovieScreening().getMydate().isBefore(LocalDateTime.now())*/)
-                userPastMovies.add(movieTicketList.get(i).getMovieScreening().getMovieObj());
-        }
-
-        // display the list of movies and whether the user reviewed them or not
-        if(userPastMovies.isEmpty()){
-            System.out.println("Based on our records, you have not watched any reviewable movies");
-            System.out.println("Returning to user menu...\n");
-            return;
-        }
-        
-        System.out.println("Based on our records, here are a list of movies that you have watched:");
-        for(int i=0; i<userPastMovies.size(); i++){
-            System.out.print((i+1) + ". " + userPastMovies.get(i).getMovieTitle());
-            if(userReviewedMovies.contains(userPastMovies.get(i)))
-                System.out.print(" (Already reviewed)\n");
-            else
-                System.out.print("\n");
-        }
-        System.out.println("-1: Return to User Menu");
-        System.out.print("Enter the number corresponding to the movie you would like to review: ");
-        int movieNum;
-        try{
-            movieNum = Integer.parseInt(input.nextLine());
-        } catch(InputMismatchException e){
-            System.out.println("Wrong input. Please try again.");
-            System.out.println("Returning to user menu...\n");
-            return;
-        }
-
-        if(movieNum == -1){
-            System.out.println("Returning to user menu...\n");
-            return;
-        }
-        Movie movieChosen = userPastMovies.get(movieNum-1);
-
-        // allow user to edit their reviews. If selected movie has been reviewed before, ask if overwrite review
-        if(userReviewedMovies.contains(movieChosen)){
-            System.out.println("You have reviewed this movie before. Reviewing it again will overwrite your previous review.");
-            System.out.println("Would you like to review this movie again (Y/N)?");
-            String yesno = input.nextLine();
-
-            if(!yesno.equalsIgnoreCase("Y")){
-                System.out.println("Review cancelled.");
-                System.out.println("Returning to user menu...\n");
-            }
-        }
-
-        System.out.print("Please give a rating out of 5: ");
-        int movieRating = Integer.parseInt(input.nextLine());
-
-        System.out.println("Please type in your review in full below:");
-        String movieReview = input.nextLine();
-
-        if(userReviewedMovies.contains(movieChosen)){
-            // overwrite existing review
-            reviewList.get(movieNum-1).setRating(movieRating);
-            reviewList.get(movieNum-1).setReview(movieReview);
-        } else {
-            // submit new review
-            Review reviewToAdd = new Review(movieRating, movieChosen, movieReview, sessionUser);
-            Movie.addReview(reviewToAdd);
-        }
-        reviewio.writeData(reviewList, new Review());
-        //fileio.writeReviewData(reviewList);
-
-        System.out.println("Your review has been recorded. Thank you for reviewing.");
-        System.out.println("Returning to user menu...\n");
-    }
-
-    public static void writeReview2(User sessionUser) throws Exception{
         FileInOut<Movie> movieio = new FileInOut<Movie>();
         ArrayList<Movie> movieList = movieio.readData(new Movie());
         FileInOut<Review> reviewio = new FileInOut<Review>();
@@ -163,23 +71,13 @@ public class Review implements Serializable{
                 System.out.println("Returning you back to main page");
                 return;
             }
-
-            
-
-            
-
         }
         reviewio.writeData(reviewList, new Review());
-
-
-        
-
     }
     
     public static void viewReview(Movie moviechosen) throws Exception{
         FileInOut<Review> reviewio = new FileInOut<Review>();
         ArrayList<Review> reviewList = reviewio.readData(new Review());
-        //ArrayList<Review> reviewList = fileio.readReviewData();
         
         System.out.println("Here are the reviews for this movie:-");
 
