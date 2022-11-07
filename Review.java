@@ -159,6 +159,9 @@ public class Review implements Serializable{
 
                 Movie.updateReviews2(oldReview, oldRating, reviewToBeChanged);
 
+            }else{
+                System.out.println("Returning you back to main page");
+                return;
             }
 
             

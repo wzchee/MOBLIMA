@@ -24,14 +24,7 @@ public class MOBLIMA {
         //     System.out.println(moviescreeninglist.get(i).getMovieObj().getMovieTitle() + moviescreeninglist.get(i).getMovieScreeningLocation().getCinemaName() + moviescreeninglist.get(i).getMovieScreeningLocation().getCineplexName() + moviescreeninglist.get(i).hasCompleted() + moviescreeninglist.get(i).getMydate().toString());
         // }
 
-        FileInOut<Movie> movieinout = new FileInOut<Movie>();
-        ArrayList<Movie> movielist = movieinout.readData(new Movie());
-        // // // // moviescreeninglist.clear();
-        // // // // moviescreeninginout.writeData(moviescreeninglist, new MovieTicket());
-        // // // // moviescreeninglist.clear();
-        for(int i=0;i<movielist.size();i++){
-            System.out.println(movielist.get(i).getMovieTitle() + movielist.get(i).getMovieStatus());
-        }
+
 
 
 

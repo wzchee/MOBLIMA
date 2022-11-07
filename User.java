@@ -277,7 +277,7 @@ public class User implements Serializable{
 
         System.out.println("Your seat is secured!");
         System.out.println("Ticket price = SGD" + computedPrice + "(Excl of GST)");
-        System.out.println("Ticket price = SGD" + computedPrice * 1.07 + "(Incl of GST)");
+        System.out.println("Ticket price = SGD" + String.format("%.2f",computedPrice * 1.07) + "(Incl of GST)");
         System.out.print("Proceed (Y/N) ?");
         String option = input.nextLine();
         LocalDateTime nowDate = null;

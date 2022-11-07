@@ -372,7 +372,7 @@ public class MovieScreening implements Serializable{
         }
         screeningToBeRemoved.setHasCompleted(true);
 
-
+        System.out.println("Movie Screening Successfully deleted");
         MovieTicket.updateMovieTicketWithMovieScreening(screeningToBeRemoved);
         movieScreeninginout.writeData(myMovieScreeningList, new MovieScreening());
         
