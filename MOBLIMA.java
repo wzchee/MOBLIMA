@@ -138,7 +138,7 @@ public class MOBLIMA {
                     System.out.println("What is your mobile number?");
                     try{
                         mobileNumber = input.nextLine();
-                        int numericcheck = Integer.parseInt(mobileNumber);
+                        Integer.parseInt(mobileNumber);
                     } catch(NumberFormatException e){
                         System.out.println("Your input is not a valid mobile number!");
                         System.out.println("Account creation failed");

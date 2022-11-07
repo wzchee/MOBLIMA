@@ -491,7 +491,6 @@ public static void createMovie()throws Exception{
     public static void removeMovie(String movieName) throws Exception{
         FileInOut<Movie> movieio = new FileInOut<Movie>();
         ArrayList<Movie> movieList = movieio.readData(new Movie());
-        Scanner in = new Scanner(System.in);
         if (movieList == null || movieList.size()<1){
           System.out.println("There is no movie available.");
           System.out.println("Returning to staff menu...\n");
