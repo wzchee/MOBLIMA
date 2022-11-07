@@ -18,13 +18,20 @@ public class Configurables implements Serializable{
         System.out.println("2. Add a public holiday");
         //remove a public holiday?
         System.out.print("Enter your choice here: ");
-        int choice = Integer.parseInt(input.nextLine());
+        int choice;
+        try{
+            choice = Integer.parseInt(input.nextLine());
+        } catch(NumberFormatException e){
+            System.out.println("Please input a valid number!");
+            System.out.println("Returning to staff menu...\n");
+            return;
+        }
+        
 
         // configurables arraylist only has one element but this is done to comply with FileInOut.java
         FileInOut<Configurables> configinout = new FileInOut<Configurables>();
         ArrayList<Configurables> configList = configinout.readData(new Configurables());
         Configurables config = configList.get(0);
-        //Configurables config = fileio.readConfigurablesData();
 
         switch(choice){
             case 1:
@@ -33,7 +40,7 @@ public class Configurables implements Serializable{
                 double price = config.getBasePrice();
                 try{
                     price = input.nextDouble();
-                    String dump = input.nextLine();
+                    input.nextLine();
                 } catch(InputMismatchException e){
                     System.out.println("Your input is not a valid number!");
                     System.out.println("Returning to main menu...\n");
@@ -43,7 +50,6 @@ public class Configurables implements Serializable{
                 config.setBasePrice(price);
                 configList.set(0, config);
                 configinout.writeData(configList, new Configurables());
-                //fileio.writeConfigurablesData(config);
 
                 System.out.println("Base price for a movie successfully changed!");
                 System.out.println("Returning to main menu...\n");
