@@ -151,7 +151,6 @@ public class MOBLIMA {
                     User newUser = new User(email, password, age, name, mobileNumber);
                     userList.add(newUser);
                     userinout.writeData(userList, new User());
-                    //fileio.writeUserData(userList);
                     System.out.println("User account added successfully!");
                     System.out.println("Please login again using your new account. \n");
                     break;

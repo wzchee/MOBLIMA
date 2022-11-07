@@ -168,7 +168,6 @@ public class Review implements Serializable{
     public static void viewReview(Movie moviechosen) throws Exception{
         FileInOut<Review> reviewio = new FileInOut<Review>();
         ArrayList<Review> reviewList = reviewio.readData(new Review());
-        //ArrayList<Review> reviewList = fileio.readReviewData();
         
         System.out.println("Here are the reviews for this movie:-");
 

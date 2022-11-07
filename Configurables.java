@@ -31,7 +31,6 @@ public class Configurables implements Serializable{
         FileInOut<Configurables> configinout = new FileInOut<Configurables>();
         ArrayList<Configurables> configList = configinout.readData(new Configurables());
         Configurables config = configList.get(0);
-        //Configurables config = fileio.readConfigurablesData();
 
         switch(choice){
             case 1:
@@ -50,7 +49,6 @@ public class Configurables implements Serializable{
                 config.setBasePrice(price);
                 configList.set(0, config);
                 configinout.writeData(configList, new Configurables());
-                //fileio.writeConfigurablesData(config);
 
                 System.out.println("Base price for a movie successfully changed!");
                 System.out.println("Returning to main menu...\n");

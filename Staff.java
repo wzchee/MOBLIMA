@@ -103,7 +103,8 @@ public class Staff implements Serializable{
     public void setWorkplace(Cineplex workplace){this.workplace = workplace;}
 
     private static Staff fetchDetails(String useremail) throws Exception{
-        ArrayList<Staff> staffList = fileio.readStaffData();
+        FileInOut<Staff> staffio = new FileInOut<Staff>();
+        ArrayList<Staff> staffList = staffio.readData(new Staff());
         for(int i=0; i<staffList.size(); i++)
             if(useremail.equals(staffList.get(i).getEmail()))
                 return staffList.get(i);

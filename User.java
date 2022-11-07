@@ -46,10 +46,6 @@ public class User implements Serializable{
                     showLayoutOnly();
                     break;
                 case 3:
-                    // ArrayList<MovieTicket> movieTicketArrList = null;
-                    // movieTicketArrList = fileio.readMovieTicketData();
-                    // MovieTicket movieTicketToAdd = null;
-    //=========================================================================================================
                     usercreateBooking(sessionUser);
                     break;
                 case 4:
@@ -104,7 +100,8 @@ public class User implements Serializable{
     public void setMobileNumber(String mobileNumber){this.mobileNumber = mobileNumber;}
 
     private static User fetchDetails(String useremail) throws Exception{
-        ArrayList<User> userList = fileio.readUserData();
+        FileInOut<User> userio = new FileInOut<User>();
+        ArrayList<User> userList = userio.readData(new User());
         for(int i=0; i<userList.size(); i++)
             if(useremail.equals(userList.get(i).getEmail()))
                 return userList.get(i);
@@ -146,7 +143,6 @@ public class User implements Serializable{
             System.out.println("Returning to user menu...\n");
             return;
         }
-        //ArrayList<Movie> movieList = fileio.readMovieData();
         System.out.println("Here are the list of movies to choose from: ");
         int moviecount = 0;
         for(int i=0; i<movieList.size(); i++){
@@ -236,7 +232,6 @@ public class User implements Serializable{
             System.out.println("Returning to user menu...\n");
             return;
         }
-        //ArrayList<Movie> movieList = fileio.readMovieData();
         System.out.println("Here are the list of movies to choose from: ");
 
         ArrayList<Integer> myindexArray = new ArrayList<Integer>();
