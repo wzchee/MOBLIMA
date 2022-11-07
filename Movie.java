@@ -428,9 +428,6 @@ public static void createMovie()throws Exception{
   newMovie.setMovieCast(cast);
   newMovie.setSaleVolume(0);
   newMovie.setPastReviews(new ArrayList<String>());
-  if(movieList == null){
-    movieList = new ArrayList<Movie>();
-  }
   movieList.add(newMovie);
   movieio.writeData(movieList, new Movie());
 
