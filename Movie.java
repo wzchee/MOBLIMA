@@ -516,7 +516,7 @@ public static void createMovie()throws Exception{
         //fileio.writeMovieData(movieList);
     }
     //displaying all the movies and the status
-    public static void showMovieList() throws Exception{
+    public static ArrayList<Movie> showMovieList() throws Exception{
       FileInOut<Movie> movieio = new FileInOut<Movie>();
       ArrayList<Movie> allMovieList = movieio.readData(new Movie());
       ArrayList<Movie> movieList = getAvailableMovieList(allMovieList);
@@ -524,7 +524,7 @@ public static void createMovie()throws Exception{
           System.out.println(index+1 +". "+ movieList.get(index).getMovieTitle());
           System.out.println("Status: "+movieList.get(index).getMovieStatus());
         }
-      movieio.writeData(movieList, new Movie());
+      return movieList;
     }
 
     //Helper function to get available movie
@@ -613,7 +613,7 @@ public static void createMovie()throws Exception{
       FileInOut<Movie> movieio = new FileInOut<Movie>();
       ArrayList<Movie> movieList = movieio.readData(new Movie());
       do{
-        System.out.println("View top 5 movies");
+        System.out.println("\nView top 5 movies");
         System.out.println("1. By Ratings");
         System.out.println("2. By Sales Volume");
         try{

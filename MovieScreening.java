@@ -218,10 +218,7 @@ public class MovieScreening implements Serializable{
     } 
 
     public static void createMovieScreening() throws Exception{
-        
 
-        
-        
         Scanner input = new Scanner(System.in);
         
         FileInOut<MovieScreening> movieScreeninginout = new FileInOut<MovieScreening>();
@@ -399,7 +396,7 @@ public class MovieScreening implements Serializable{
         MovieScreening retrievedScreening = movieScreeningToChange();
         if(retrievedScreening == null){
             System.out.println("No screenings to remove");
-            System.out.println("Redirecting");
+            System.out.println("Returning to staff menu...\n");
             return;
         }
         String mymovieTitle = retrievedScreening.getMovieObj().getMovieTitle();
@@ -430,7 +427,7 @@ public class MovieScreening implements Serializable{
         MovieScreening retrievedScreening = movieScreeningToChange();
         if(retrievedScreening==null){
             System.out.println("No screenings to update");
-            System.out.println("Redirecting");
+            System.out.println("Returning to staff menu...\n");
             return;
         }
 

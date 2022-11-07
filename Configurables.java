@@ -18,8 +18,9 @@ public class Configurables implements Serializable{
         System.out.println("2. Add a public holiday");
         //remove a public holiday?
         System.out.print("Enter your choice here: ");
+        int choice;
         try{
-            int choice = Integer.parseInt(input.nextLine());
+            choice = Integer.parseInt(input.nextLine());
         } catch(NumberFormatException e){
             System.out.println("Please input a valid number!");
             System.out.println("Returning to staff menu...\n");
@@ -39,7 +40,7 @@ public class Configurables implements Serializable{
                 double price = config.getBasePrice();
                 try{
                     price = input.nextDouble();
-                    String dump = input.nextLine();
+                    input.nextLine();
                 } catch(InputMismatchException e){
                     System.out.println("Your input is not a valid number!");
                     System.out.println("Returning to main menu...\n");

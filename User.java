@@ -37,9 +37,17 @@ public class User implements Serializable{
             switch(choice){
                 case 1:
                     System.out.println("Here are the full list of movies.");
-                    Movie.showMovieList();
-                    System.out.println("Search for the movie title here: ");
-                    String movieSearch = input.nextLine();
+                    ArrayList<Movie> movieList = Movie.showMovieList();
+                    System.out.print("Enter the number corresponding to the movie here: ");
+                    int movienum;
+                    try{
+                        movienum = Integer.parseInt(input.nextLine());
+                    } catch(NumberFormatException e){
+                        System.out.println("PLease input a valid number!");
+                        System.out.println("Returning to user menu...\n")
+                        break;
+                    }
+                    String movieSearch = movieList.get(movienum-1).getMovieTitle();
                     Movie.showMovieDetail(movieSearch);
                     break;
                 case 2:
@@ -51,9 +59,8 @@ public class User implements Serializable{
                 case 4:
                     MovieTicket.displayBookings(sessionUser);
                     break;
-                    
                 case 5:
-                    Review.writeReview2(sessionUser);
+                    Review.writeReview(sessionUser);
                     break;
                 case 6:
                     System.out.println("Logging out as user...");
