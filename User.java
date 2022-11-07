@@ -44,7 +44,7 @@ public class User implements Serializable{
                         movienum = Integer.parseInt(input.nextLine());
                     } catch(NumberFormatException e){
                         System.out.println("PLease input a valid number!");
-                        System.out.println("Returning to user menu...\n")
+                        System.out.println("Returning to user menu...\n");
                         break;
                     }
                     String movieSearch = movieList.get(movienum-1).getMovieTitle();

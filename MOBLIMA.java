@@ -29,7 +29,7 @@ public class MOBLIMA {
             System.out.print("Please enter your choice here: ");
             
             try{
-                int choice = Integer.parseInt(input.nextLine());
+                choice = Integer.parseInt(input.nextLine());
             } catch(NumberFormatException e){
                 System.out.println("Please input a valid number!");
             }
