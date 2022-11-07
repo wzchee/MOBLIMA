@@ -1,7 +1,11 @@
+package Models;
 import java.util.ArrayList;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Scanner;
+
+import FileInOut;
+
 import java.util.InputMismatchException;
 
 public class Configurables implements Serializable{

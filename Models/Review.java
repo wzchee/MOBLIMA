@@ -1,4 +1,8 @@
+package Models;
 import java.util.Scanner;
+
+import FileInOut;
+
 import java.util.ArrayList;
 import java.io.Serializable;
 

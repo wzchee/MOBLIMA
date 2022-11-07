@@ -1,3 +1,4 @@
+package Models;
 import java.io.Serializable;
 
 public class Cineplex implements Serializable{

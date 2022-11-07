@@ -1,3 +1,4 @@
+
 public class Seat{
   private int id;
   private boolean isOccupied;

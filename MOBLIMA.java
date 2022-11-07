@@ -1,4 +1,8 @@
 import java.util.Scanner;
+
+import Models.Staff;
+import Models.User;
+
 import java.util.ArrayList;
 
 public class MOBLIMA {

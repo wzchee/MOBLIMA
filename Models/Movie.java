@@ -1,15 +1,24 @@
+package Models;
 import java.util.*;
 import java.io.Serializable;
 import java.util.Comparator;
+
+import FileInOut;
+
 import java.util.ArrayList;
 
-enum status{
-   Coming_Soon,Preview,Now_Showing,End_Of_Showing
-  }
-enum dimension{
-  TwoD,ThreeD
-}
+
+
 public class Movie implements Serializable{
+
+  public enum status{
+    Coming_Soon,Preview,Now_Showing,End_Of_Showing
+  }
+  
+  public enum dimension{
+    TwoD,ThreeD
+  }
+  
   private String movieTitle;
   private int movieRuntime;
   private String movieSypnosis;
