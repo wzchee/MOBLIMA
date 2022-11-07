@@ -2,9 +2,33 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.Serializable;
 
-
+/**
+ * Java class representing a staff member in MOBLIMA
+ * @author  Chee Wen Zhan
+ * @version 1.0
+ * @since   2022-7-11
+ * @see     Movie
+ * @see     MovieScreening
+ * @see     Configurables
+ */
 public class Staff implements Serializable{
 
+    /**
+     * User interface after a staff member logged into MOBLIMA
+     * <p>
+     * Provides staff member with the option to create, update and remove
+     * movies from the system. Also allows staff members to create, update
+     * and remove a movie showtime from the system. Note that 'remove' does
+     * not delete the entry from the system, but instead makes the user unable
+     * to see the movie entry or movie showtime entry when searched for it
+     * <p>
+     * Staff members can also configure the base price of the movie and 
+     * declare a certain day as public holiday, which will affect the pricing.
+     * Staff members can also display the Top 5 movies in the system based on
+     * rating or sale volume.
+     * @param useremail Email of the staff logged into the system
+     * @throws Exception
+     */
     public static void loggedin(String useremail) throws Exception{
         // User interface after a STAFF has logged in
 
