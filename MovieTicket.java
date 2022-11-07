@@ -2,63 +2,155 @@ import java.io.Serializable;
 import java.util.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;  
-import java.time.temporal.ChronoField; 
 
 
 public class MovieTicket implements Serializable{
     // Include an array of public holiday dates to check against that of the movie screening and if its pub hol, then change price
-    private MovieScreening movieScreening;
-    private int seatNumber;
-    private User userObj;
-    private Double price;
-    private String TID;
     
+    
+    /** 
+     * Contains the movie screening object which is the session
+     * 
+     */
+    private MovieScreening movieScreening;
+    /** 
+     * Contains the seatID that the user chose
+     * 
+     */
+    private int seatNumber;
+    /** 
+     * Contains the user object 
+     * 
+     */
+    private User userObj;
+    /** 
+     * Contains the price of the ticket
+     * 
+     */
+    private Double price;
+    /** 
+     * Contains the ticket ID
+     * 
+     */
+    private String TID;
+    /** 
+     * Contains the ticket ID
+     * 
+     */
+    private LocalDateTime dateOfPurchase;
 
 
 
-    public MovieTicket(MovieScreening movieScreening, int seatNumber,User userObj,Double price,LocalDateTime mydate) throws Exception {
+    public MovieTicket(MovieScreening movieScreening, int seatNumber,User userObj,Double price,LocalDateTime dateOfPurchase,String TID) throws Exception {
         this.seatNumber = seatNumber;
         this.userObj = userObj;
         this.movieScreening = movieScreening;
         this.price = price;
-        this.TID = movieScreening.getMovieScreeningLocation().getCinemaCode() + String.format("%04d", mydate.getYear()) 
-        + String.format("%02d", mydate.getMonthValue()) + String.format("%02d", mydate.getDayOfMonth())+ 
-        String.format("%02d", mydate.getHour())+ String.format("%02d", mydate.getMinute());
+        this.dateOfPurchase = dateOfPurchase;
+        this.TID = TID;
 
     }
     
-    public String getTID(){
-          return this.TID;
-    }
+    
+    
 
     public MovieTicket(){
 
     }
 
+    /**returns the ticket ID 
+     * 
+     * @return String is the ticket ID
+     */
+    public String getTID(){
+        return this.TID;
+    }
+
+    /** 
+     * getter for cinema location
+     * 
+     * @return Cinema which is the Cinema location of this screening
+     */
     public Cinema getLocation(){
         return movieScreening.getMovieScreeningLocation();
     }
 
+    
+    /** 
+     * getter for the seat number
+     * 
+     * @return int for the seat number
+     */
     public int getseatNumber(){
         return this.seatNumber;
     }
 
+   
+   /** 
+    * getter for user object
+    * 
+    * @return User object that this ticket has
+    */
    public User getUser(){
        return this.userObj;
    }
 
+   
+   /**
+    * getter for the price of this ticket 
+    * 
+    * @return Double which is the price of this ticket
+    */
    public Double getPrice(){
         return this.price;
     }
 
+    
+    /** 
+     * getter for movie screening that is associated with this ticket
+     * 
+     * @return MovieScreening
+     */
     public MovieScreening getMovieScreening(){
         return this.movieScreening;
     }
 
+    
+    /** 
+     * setter for the movie screening
+     * 
+     * @param movieScreeningToSet that we want to set the MovieScreening object to
+     */
     public void setMovieScreening(MovieScreening movieScreeningToSet){
         this.movieScreening = movieScreeningToSet;
     }
 
+
+    /** 
+     * getter for movie ticket datetime
+     * 
+     * @return LocalDateTime which is the time at which the ticket was purchased
+     */
+    public LocalDateTime getDateOfPurchase(){
+        return this.dateOfPurchase;
+    }
+
+    
+    /** 
+     * setter for movie ticket datetime
+     * 
+     * @param dateOfPurchase is the time at which the ticket was purchased
+     */
+    public void setDateOfPurchase(LocalDateTime dateOfPurchase){
+        this.dateOfPurchase = dateOfPurchase;
+    }
+
+    
+    /** 
+     * gives a string representation of this ticket
+     * 
+     * @return String
+     */
     public String toString(){
         LocalDateTime myDateTime = this.getMovieScreening().getMydate();
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");  
@@ -67,6 +159,13 @@ public class MovieTicket implements Serializable{
         return this.getMovieScreening().getMovieObj().getMovieTitle() + " at " + formatDateTime;
     }
 
+
+/** 
+ * Calls the getArrListOfBookings that will return an arraylist of MovieTickets that is associated with a user
+ * 
+ * @param sessionUser which is the user object associated with the MovieTicket object
+ * @throws Exception
+ */
 //Use getArrListOfBookings to print out the toString
     public static void displayBookings(User sessionUser)throws Exception{
         ArrayList<MovieTicket> movieTicketsHistory = getArrListOfBookings(sessionUser);
@@ -79,7 +178,14 @@ public class MovieTicket implements Serializable{
     }
 
 
-    //Based on user object, we will take return an arraylist of all the movieticket
+    
+    /** 
+     * returns the booking history of the user by taking in the user object 
+     * 
+     * @param sessionUser which is the user object associated with the MovieTicket object
+     * @return ArrayList<MovieTicket> is an arraylist of movie tickets
+     * @throws Exception
+     */
     private static ArrayList<MovieTicket> getArrListOfBookings(User sessionUser) throws Exception{
         
         FileInOut<MovieTicket> movieTixinout = new FileInOut<MovieTicket>();
@@ -98,6 +204,13 @@ public class MovieTicket implements Serializable{
 
 
 
+    
+    /** 
+     * will take in an arraylist of movieTickets and sort them based on the datetime which the MovieScreening attribute has
+     * 
+     * @param movieTicketsHistory is an arraylist of movieTickets
+     * @return ArrayList<MovieTicket> is an arraylist of movieTickets which is sorted based on datetime
+     */
     // Sorting for Booking History
     private static ArrayList<MovieTicket> sortArrListOfBookings(ArrayList<MovieTicket> movieTicketsHistory) {
         int j, totalTickets = 0;
@@ -115,6 +228,13 @@ public class MovieTicket implements Serializable{
         return movieTicketsHistory;
     }
 
+    
+    /** 
+     * When movie screening has been changed, because movie ticket has-a moviescreening object, any change to a particular moviescreening object has to come with an update to the movieticket object(s)
+     * 
+     * @param movieScreeningThatHasBeenChanged is the moviescreening object that has been changed
+     * @throws Exception
+     */
     //when a movieScreening has been changed, we will take all the affected movieTicket objects and update (VOID)
     public static void updateMovieTicketWithMovieScreening(MovieScreening movieScreeningThatHasBeenChanged) throws Exception{
         String movieTitleOfMovieScreeningChanged = movieScreeningThatHasBeenChanged.getMovieObj().getMovieTitle();
@@ -143,7 +263,20 @@ public class MovieTicket implements Serializable{
     }
     
 
-    public static void createBooking(MovieScreening movieScreeningOfChoice,int seatId,User userBooking,Double price,LocalDateTime nowDate) throws Exception{
+    
+    /** 
+     * 
+     * 
+     * takes in user moviescreening object,seatID,user object,price and the current date to create a booking
+     * 
+     * @param movieScreeningOfChoice is the movie screening object
+     * @param seatId is the seat number that the user has chosen
+     * @param userBooking is the user object associated with the ticket object
+     * @param price is the price of this ticket
+     * @param nowDate is the datetime object that the ticket was bought
+     * @throws Exception
+     */
+    public static void createBooking(MovieScreening movieScreeningOfChoice,int seatId,User userBooking,Double price,LocalDateTime nowDate,String TID) throws Exception{
         
 
 
@@ -151,7 +284,7 @@ public class MovieTicket implements Serializable{
         ArrayList<MovieTicket> movieTicketArrList = movieTixinout.readData(new MovieTicket());
 
         
-        MovieTicket createdMovieTicket = new MovieTicket(movieScreeningOfChoice, seatId, userBooking,price,nowDate);
+        MovieTicket createdMovieTicket = new MovieTicket(movieScreeningOfChoice, seatId, userBooking,price,nowDate,TID);
         movieTicketArrList.add(createdMovieTicket);
         movieTixinout.writeData(movieTicketArrList, new MovieTicket());
     }
