@@ -341,6 +341,12 @@ public class MovieScreening implements Serializable{
                 System.out.print("\n\n");
             }
         }
+        if(indexCount==0){
+            System.out.println("No screenings to remove");
+            System.out.println("Redirecting");
+            return null;
+        }
+
         System.out.print("Enter the number corresponding to the movie screening: ");
 
         int choice = Integer.parseInt(input.nextLine());
@@ -357,6 +363,9 @@ public class MovieScreening implements Serializable{
         myMovieScreeningList = movieScreeninginout.readData(new MovieScreening());
 
         MovieScreening retrievedScreening = movieScreeningToChange();
+        if(retrievedScreening == null){
+            return;
+        }
         String mymovieTitle = retrievedScreening.getMovieObj().getMovieTitle();
         String myDate = retrievedScreening.getMydate().toString();
         String mycineplexname = retrievedScreening.getMovieScreeningLocation().getCineplexName();
