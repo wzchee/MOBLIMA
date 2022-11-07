@@ -18,7 +18,14 @@ public class Configurables implements Serializable{
         System.out.println("2. Add a public holiday");
         //remove a public holiday?
         System.out.print("Enter your choice here: ");
-        int choice = Integer.parseInt(input.nextLine());
+        try{
+            int choice = Integer.parseInt(input.nextLine());
+        } catch(NumberFormatException e){
+            System.out.println("Please input a valid number!");
+            System.out.println("Returning to staff menu...\n");
+            return;
+        }
+        
 
         // configurables arraylist only has one element but this is done to comply with FileInOut.java
         FileInOut<Configurables> configinout = new FileInOut<Configurables>();

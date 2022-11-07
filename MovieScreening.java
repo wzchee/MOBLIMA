@@ -170,7 +170,11 @@ public class MovieScreening implements Serializable{
             price+=2;
         }
 
-        if(user.getAge()<12 || user.getAge()>55){
+        if(user.getAge()<12){
+            System.out.println("STUDENT PRICING");
+            price = price * 0.75;
+        } else if(user.getAge()>55){
+            System.out.println("SENIOR CITIZEN PRICE");
             price = price * 0.75;
         }
 
@@ -233,7 +237,7 @@ public class MovieScreening implements Serializable{
         ArrayList<Movie> myMovieList = movieinout.readData(new Movie());
         if(myMovieList.size()==0){
             System.out.println("No available movies");
-            System.out.println("Returning to main page");
+            System.out.println("Returning to staff menu...\n");
             return;
         }
         System.out.println("Here is the full list of movies");
@@ -242,7 +246,14 @@ public class MovieScreening implements Serializable{
                 System.out.println(i+1 + ". " + myMovieList.get(i).getMovieTitle());
         }
         System.out.print("Enter the number corresponding to the movie: ");
-        int movienum = Integer.parseInt(input.nextLine());
+        int movienum;
+        try{
+            movienum = Integer.parseInt(input.nextLine());
+        } catch(NumberFormatException e){
+            System.out.println("Please input a valid number!");
+            System.out.println("Returning to staff menu...\n");
+            return;
+        }
         
         Movie movieToFetch = myMovieList.get(movienum-1);
         
@@ -253,7 +264,14 @@ public class MovieScreening implements Serializable{
             System.out.println(i+1 + ". " + cineplexList.get(i).getCineplexName());
         }
         System.out.print("Enter the number corresponding to the cineplex: ");
-        int cineplexnum = Integer.parseInt(input.nextLine());
+        int cineplexnum;
+        try{
+            cineplexnum = Integer.parseInt(input.nextLine());
+        } catch(NumberFormatException e){
+            System.out.println("Please input a valid number!");
+            System.out.println("Returning to staff menu...\n");
+            return;
+        }
         String cineplexNameToFetch = cineplexList.get(cineplexnum-1).getCineplexName();
         
 
@@ -270,7 +288,14 @@ public class MovieScreening implements Serializable{
 
         }
         System.out.print("Enter the number corresponding to the cinema: ");
-        int cinemanum = Integer.parseInt(input.nextLine());
+        int cinemanum;
+        try{
+            cinemanum = Integer.parseInt(input.nextLine());
+        } catch(NumberFormatException e){
+            System.out.println("Please input a valid number!");
+            System.out.println("Returning to staff menu...\n");
+            return;
+        }
         Cinema cinemaToFetch = cinemaList.get(indexlist.get(cinemanum-1));
 
         // We will ask for date time in this format and call toString to get string representation 
@@ -318,7 +343,13 @@ public class MovieScreening implements Serializable{
         // We will take in movie title and use it as a keyID to fetchDetail that spits out Movie Object
 
         System.out.print("Enter the number corresponding to the movie: ");
-        int movienum = Integer.parseInt(input.nextLine());
+        int movienum;
+        try{
+            movienum = Integer.parseInt(input.nextLine());
+        } catch(NumberFormatException e){
+            System.out.println("Please input a valid number!");
+            return null;
+        }
         Movie movieToFetch = myMovieList.get(indexList.get(movienum-1));
 
 
@@ -347,7 +378,14 @@ public class MovieScreening implements Serializable{
 
         System.out.print("Enter the number corresponding to the movie screening: ");
 
-        int choice = Integer.parseInt(input.nextLine());
+        int choice;
+        try{
+            choice = Integer.parseInt(input.nextLine());
+        } catch(NumberFormatException e){
+            System.out.println("Please input a valid number!");
+            System.out.println("Returning to staff menu...\n");
+            return null;
+        }
         MovieScreening movieScreeningToChange = myMovieScreeningList.get(indexList2.get(choice-1));
         return movieScreeningToChange;
 

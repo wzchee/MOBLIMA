@@ -569,7 +569,7 @@ public static void createMovie()throws Exception{
         try {
           choice = Integer.parseInt(input.nextLine())- 1 ;
           success = true;
-        } catch (InputMismatchException e) {
+        } catch (NumberFormatException e) {
           System.out.println("That is not a valid number. Please choose again.");
         } 
       } while (!success);
@@ -628,7 +628,13 @@ public static void createMovie()throws Exception{
         System.out.println("View top 5 movies");
         System.out.println("1. By Ratings");
         System.out.println("2. By Sales Volume");
-        choice = Integer.parseInt(input.nextLine());
+        try{
+          choice = Integer.parseInt(input.nextLine());
+        } catch(NumberFormatException e){
+            System.out.println("Please input a valid number!");
+            System.out.println("Returning to staff menu...\n");
+            return;
+        }
       }
       while(choice<1 || choice >2);
       if (choice == 1){

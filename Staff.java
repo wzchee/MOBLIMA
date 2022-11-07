@@ -28,7 +28,13 @@ public class Staff implements Serializable{
             System.out.println("9. Logout");
             System.out.print("Please enter your choice here: ");
 
-            choice = Integer.parseInt(input.nextLine());
+            try{
+                choice = Integer.parseInt(input.nextLine());
+            } catch(NumberFormatException e){
+                System.out.println("Please input a valid number!");
+                System.out.println("Returning to staff menu...\n");
+                return;
+            }
 
             switch(choice){
                 case 1:
@@ -106,8 +112,4 @@ public class Staff implements Serializable{
         System.out.println("No record found!");
         return null;
     }
-
-
-
-
 }
