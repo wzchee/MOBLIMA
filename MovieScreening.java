@@ -342,8 +342,6 @@ public class MovieScreening implements Serializable{
             }
         }
         if(indexCount==0){
-            System.out.println("No screenings to remove");
-            System.out.println("Redirecting");
             return null;
         }
 
@@ -364,6 +362,8 @@ public class MovieScreening implements Serializable{
 
         MovieScreening retrievedScreening = movieScreeningToChange();
         if(retrievedScreening == null){
+            System.out.println("No screenings to remove");
+            System.out.println("Redirecting");
             return;
         }
         String mymovieTitle = retrievedScreening.getMovieObj().getMovieTitle();
@@ -392,6 +392,11 @@ public class MovieScreening implements Serializable{
         FileInOut<MovieScreening> movieScreeninginout = new FileInOut<MovieScreening>();
         ArrayList<MovieScreening> myMovieScreeningList = movieScreeninginout.readData(new MovieScreening());
         MovieScreening retrievedScreening = movieScreeningToChange();
+        if(retrievedScreening==null){
+            System.out.println("No screenings to update");
+            System.out.println("Redirecting");
+            return;
+        }
 
         String mymovieTitle = retrievedScreening.getMovieObj().getMovieTitle();
         String myDate = retrievedScreening.getMydate().toString();

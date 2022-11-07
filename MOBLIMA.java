@@ -35,15 +35,25 @@ public class MOBLIMA {
         // Developer.peekFiles();
         Developer.Initializer(); // DO NOT COMMENT OUT THIS LINE!!
 
-        FileInOut<Movie> moviescreeninginout = new FileInOut<Movie>();
-        ArrayList<Movie> moviescreeninglist = moviescreeninginout.readData(new Movie());
-        // System.out.println(moviescreeninglist.size());
-        // // // // // // moviescreeninglist.clear();
-        // // // // // // moviescreeninginout.writeData(moviescreeninglist, new MovieTicket());
-        // // // // // // moviescreeninglist.clear();
+        // FileInOut<Movie> moviescreeninginout = new FileInOut<Movie>();
+        // ArrayList<Movie> moviescreeninglist = moviescreeninginout.readData(new Movie());
+        // // System.out.println(moviescreeninglist.size());
+        // // // // // // // moviescreeninglist.clear();
+        // // // // // // // moviescreeninginout.writeData(moviescreeninglist, new MovieTicket());
+        // // // // // // // moviescreeninglist.clear();
+        // for(int i=0;i<moviescreeninglist.size();i++){
+        //     System.out.println(moviescreeninglist.get(i).getMovieTitle());
+        // }
+
+        FileInOut<MovieScreening> moviescreeninginout = new FileInOut<MovieScreening>();
+        ArrayList<MovieScreening> moviescreeninglist = moviescreeninginout.readData(new MovieScreening());
+        // // // // moviescreeninglist.clear();
+        // // // // moviescreeninginout.writeData(moviescreeninglist, new MovieTicket());
+        // // // // moviescreeninglist.clear();
         for(int i=0;i<moviescreeninglist.size();i++){
-            System.out.println(moviescreeninglist.get(i).getMovieTitle());
+            System.out.println(moviescreeninglist.get(i).getMovieObj().getMovieTitle() + moviescreeninglist.get(i).getMovieScreeningLocation().getCinemaName() + moviescreeninglist.get(i).getMovieScreeningLocation().getCineplexName() + moviescreeninglist.get(i).hasCompleted() + moviescreeninglist.get(i).getMydate().toString());
         }
+
 
         // // iniitialize everything
         // FileInOut<Cineplex> cineplexinout = new FileInOut<Cineplex>();
