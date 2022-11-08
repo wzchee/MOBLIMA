@@ -150,11 +150,13 @@ public class Movie implements Serializable{
  * Alternative constructor to create a {@code Movie} with 0 parameters
  * Initialize rating of movie to be created to be a 1D array of size 6 .
  * Initialize past reviews of movie to be created to be an empty ArrayList of type string.
+ * Intialize average rating of movie to be created to be 0.
  */
 public Movie(){
   this.rating = new int[6];
   for (int i = 0; i<6;i++) this.rating[i] = 0;
   this.pastReviews = new ArrayList<String>();
+  this.averageRating = 0.0;
 }
 
 /** 
