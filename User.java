@@ -33,7 +33,7 @@ public class User implements Serializable{
         // User main menu
         Scanner input = new Scanner(System.in);
         int choice = 0;
-        while(choice != 6){
+        while(choice != 7){
             System.out.println("\nWelcome USER " + sessionUser.name + " !");
             System.out.println("What would you like to do today?");
             System.out.println("1. Search for movie and view movie details");
@@ -41,7 +41,8 @@ public class User implements Serializable{
             System.out.println("3. Make a booking");
             System.out.println("4. View booking history");
             System.out.println("5. Review a movie");
-            System.out.println("6. Logout");
+            System.out.println("6. View top 5 movies based on (1)Rating (2)Sale Volume ");
+            System.out.println("7. Logout");
             System.out.print("Please enter your choice here: ");
 
             try{
@@ -59,7 +60,7 @@ public class User implements Serializable{
                     System.out.print("Enter the number corresponding to the movie here: ");
                     int movienum = 0;
                     try{
-                        
+                        movienum = Integer.parseInt(input.nextLine());
                         while(movienum<=0 || movienum>movieList.size()){
                             System.out.println("Please input a valid option!");
                             movienum = Integer.parseInt(input.nextLine());
@@ -86,6 +87,9 @@ public class User implements Serializable{
                     Review.writeReview(sessionUser);
                     break;
                 case 6:
+                    Movie.sortMovie();
+                    break;
+                case 7:
                     System.out.println("Logging out as user...");
                     System.out.println("Returning to main menu...\n");
                     break;
