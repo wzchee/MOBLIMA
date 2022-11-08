@@ -116,13 +116,13 @@ public class Developer {
 
         FileInOut<MovieScreening> movieScreeningInOut = new FileInOut<MovieScreening>();
         ArrayList<MovieScreening> movieScreeningList = movieScreeningInOut.readData(new MovieScreening());
-        int[] myArr = new int[100];
-        for(int j=0;j<100;j++){
-            myArr[j] = 0;
-        }
         if(movieScreeningList.isEmpty()){
         for (int index = 0; index < movieList.size(); index++) {
             for (int j = 0; j < myCinemaList.size(); j++) {
+                int[] myArr = new int[100];
+        for(int k =0;k<100;k++){
+            myArr[k] = 0;
+        }
                 movieScreeningList.add(new MovieScreening(movieList.get(index) ,myCinemaList.get(j),LocalDateTime.of(2022,j+1, index+1, 20, 30, index),myArr,false,0,false));
             }
         }
