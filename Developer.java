@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
+import java.time.LocalDateTime;
 
 /**
  * Java class that contains methods only accessible to developers of this system
@@ -112,6 +113,22 @@ public class Developer {
             
         }
         movieinout.writeData(movieList, new Movie());
+
+        FileInOut<MovieScreening> movieScreeningInOut = new FileInOut<MovieScreening>();
+        ArrayList<MovieScreening> movieScreeningList = movieScreeningInOut.readData(new MovieScreening());
+        int[] myArr = new int[100];
+        for(int j=0;j<100;j++){
+            myArr[j] = 0;
+        }
+        if(movieScreeningList.isEmpty()){
+        for (int index = 0; index < movieList.size(); index++) {
+            for (int j = 0; j < myCinemaList.size(); j++) {
+                movieScreeningList.add(new MovieScreening(movieList.get(index) ,myCinemaList.get(j),LocalDateTime.now(),myArr,false,0,false));
+            }
+        }
+    }
+    movieScreeningInOut.writeData(movieScreeningList, new MovieScreening());
+        
     }
 
     /**
