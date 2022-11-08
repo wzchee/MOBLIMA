@@ -53,7 +53,6 @@ enum dimension{
   ThreeD
 }
 
-
 public class Movie implements Serializable{
   /**
    * Movie Title
