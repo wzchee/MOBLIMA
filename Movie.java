@@ -896,7 +896,7 @@ public static void sortMovie()throws Exception{
     if(!movieList.get(index).getMovieStatus().equalsIgnoreCase("End_Of_Showing")){
       System.out.println(index+1 +". "+ movieList.get(index).getMovieTitle());
       System.out.println("Status: "+movieList.get(index).getMovieStatus());
-      System.out.println("Rating: "+movieList.get(index).getMovieAverageRating(movieList.get(index).getMovieRating()));
+      System.out.println("Rating: "+ String.format(" %.2f",movieList.get(index).getMovieAverageRating(movieList.get(index).getMovieRating())));
       System.out.println("Sale Volume: "+movieList.get(index).getSaleVolume());
       System.out.println();
     }
