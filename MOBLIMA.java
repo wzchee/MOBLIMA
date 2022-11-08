@@ -6,8 +6,8 @@ import java.util.ArrayList;
  * Application class containing the main method. 
  * <p>
  * Provides users of MOBLIMA with
- * the option to login as either a movie-goer(user) or staff member(staff). Also
- * provides the user with the option to create a new movie-goer(user) account
+ * the option to login as either a movie-goer({@code User}) or staff member({@code Staff}). Also
+ * provides the user with the option to create a new movie-goer({@code User}) account
  * @author  Chee Wen Zhan
  * @version 1.0
  * @since   2022-11-7
@@ -20,8 +20,8 @@ public class MOBLIMA {
      * The first interface when user launches MOBLIMA. 
      * <p>
      * Provides users of MOBLIMA with
-     * the option to login as either a movie-goer(user) or staff member(staff). Also
-     * provides the user with the option to create a new movie-goer(user) account
+     * the option to login as either a movie-goer({@code User}) or staff member({@code Staff}). Also
+     * provides the user with the option to create a new movie-goer({@code User}) account
      * @param   args
      * @throws  Exception
      */
