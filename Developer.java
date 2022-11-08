@@ -126,9 +126,9 @@ public class Developer {
                 movieScreeningList.add(new MovieScreening(movieList.get(index) ,myCinemaList.get(j),LocalDateTime.of(2022,j+1, index+1, 20, 30, index),myArr,false,0,false));
             }
         }
+        movieScreeningInOut.writeData(movieScreeningList, new MovieScreening());   
     }
-    movieScreeningInOut.writeData(movieScreeningList, new MovieScreening());
-        
+  
     }
 
     /**

@@ -396,7 +396,6 @@ public class User implements Serializable{
         }
         Movie movieObjChosen = movieList.get(myindexArray.get(movienum-1));
         String movie = movieObjChosen.getMovieTitle();
-
         // display list of showtimes
         ArrayList<MovieScreening> screeningList = MovieScreening.giveScreenTimes(movie, cineplexchosen);
         if(screeningList.isEmpty()){
@@ -481,30 +480,17 @@ public class User implements Serializable{
         movieObjChosen.incrementSaleVolume();
         //after movie object incremented we will bubble up to change the classes that use the object
         MovieScreening.updateMovieScreeningWithMovie(movieObjChosen);
-
-        // identify the seat taken and set seat to occupied
-        // String movieTitleOfScreeningToChange = null;
-        // LocalDateTime dateTimeOfScreeningToChange = null;
-        // String cineplexNameScreeningToChange = null;
-        // MovieScreening traverser = null;
-
-        // for(int i = 0 ;i<screeningList.size();i++){
-        //     traverser =screeningList.get(i);
-        //     movieTitleOfScreeningToChange = traverser.getMovieObj().getMovieTitle();
-        //     dateTimeOfScreeningToChange = traverser.getMydate();
-        //     cineplexNameScreeningToChange = traverser.getMovieScreeningLocation().getCineplexName();
-
-        //     if(movieTitleOfScreeningToChange.equalsIgnoreCase(movie) && dateTimeOfScreeningToChange.equals(screeningchosen.getMydate()) && cineplexNameScreeningToChange.equalsIgnoreCase(cineplexchosen.getCineplexName())){
-        //         screeningchosen = traverser;
-        //         break;
-        //     }
-        // }
-        screeningchosen.setSeatOccupied(seatId);
-
+        FileInOut<MovieScreening> screeningio = new FileInOut<MovieScreening>();
+        ArrayList<MovieScreening> allScreeningList = screeningio.readData(new MovieScreening());
+        for (int i = 0; i < allScreeningList.size(); i++) {
+            if((allScreeningList.get(i).getMovieObj().getMovieTitle().equalsIgnoreCase(screeningchosen.getMovieObj().getMovieTitle())) && (allScreeningList.get(i).getMovieScreeningLocation().getCinemaName().equalsIgnoreCase(screeningchosen.getMovieScreeningLocation().getCinemaName())) && (allScreeningList.get(i).getMydate().equals(screeningchosen.getMydate()))){
+                allScreeningList.get(i).setSeatOccupied(seatId);
+                break;
+            }
+        }
         // write into Movie and Movie Screening text documents
         movieio.writeData(movieList, new Movie());
-        FileInOut<MovieScreening> screeningio = new FileInOut<MovieScreening>();
-        screeningio.writeData(screeningList, new MovieScreening());
+        screeningio.writeData(allScreeningList, new MovieScreening());
 
         MovieTicket.createBooking(screeningchosen, seatId, sessionUser, computedPrice,nowDate,TID);
 
