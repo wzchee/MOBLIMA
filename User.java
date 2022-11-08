@@ -412,7 +412,7 @@ public class User implements Serializable{
             System.out.print(" ");
             System.out.print(screeningList.get(i).getMydate().getDayOfWeek().toString());
             System.out.print("\n");
-            System.out.print("Location: " + screeningList.get(i).getMovieScreeningLocation().getCineplexName());
+            System.out.print("Location: " + screeningList.get(i).getMovieScreeningLocation().getCineplexName() + " "+screeningList.get(i).getMovieScreeningLocation().getCinemaName());
             System.out.print("\n\n");
         }
         System.out.print("Pick a showtime. Enter the number here: ");
