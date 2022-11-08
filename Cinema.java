@@ -18,6 +18,7 @@ public class Cinema implements Serializable{
     private Cineplex cineplex;
     /**
      * Whether the <code>Cinema</code> Object is Platinum Suites or not
+     * @see Cineplex.java
      */
     private boolean platinumSuites;
     /**

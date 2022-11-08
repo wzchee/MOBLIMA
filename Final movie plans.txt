@@ -1,0 +1,66 @@
+Final movie plans
+
+# Objectives
+A) Admin module
+1. Login
+2. Create movie listing
+3. Update movie listing
+4. Remove movie listing
+5. Create cinema showtimes
+6. Update cinema showtimes
+7. Remove cinema showtimes
+8. Configure system settings
+
+B) Movie-goer module
+1. Search/List movie
+2. View movie-details - including reviews and ratings
+3. Check seat availability and selection of seats
+4. Book and purchase ticket
+5. View booking history
+6. List Top 5 ranking by ticket sales OR by overall ratings
+
+C) Specific test cases
+1. Configuring a holiday and ticket price is shown correctly when booking is done on that date
+2. Booking on different day of week 
+3. Booking is done on different types of cinemas
+4. Configuring 'End of Showing' and movie to not be listed
+5. Booking only allowed for 'Preview' and 'Now Showing'
+
+# Scenes
+
+0. Introduction
+- Introduce our names and the parts we will explain
+- Bernard will run all of the code and change to the different files parallel to our explaining
+
+1. Creating and updating movie and movie screentime
+a) Explain staff login functions
+b) Create a movie with 'Preview' and another movie with 'Coming Soon'
+c) Update an existing movie - Change 'Coming Soon' to 'Now Showing'
+d) Create a screening
+e) Update a screening - Change timing in case of typo
+
+2. Make a booking
+a) Explain user login functions
+b) Search through movies - Show that the 'Preview' movie is not there
+c) Check for seats
+d) Make the purchase
+e) Check their booking history
+
+3. Situations
+a) User (adult) checks the price of a ticket weekday non-holiday
+b) User (adult) checks the price of a ticket weekend non-holiday
+c) User (adult) checks the price of a ticket weekday non-holiday for Platinum
+d) Staff declares public holiday
+e) User tries to purchase ticket weekday holiday, compare prices
+f) Users of different ages tries to purchase movie
+g) User (student) tries to purchase ticket weekday non-holiday
+h) Staff changes base price
+i) User (adult) checks the price of a ticket weekday non-holiday
+
+4. Post watching movie
+a) User make a review
+b) User checks movie details to see if his review registered
+c) Staff checks list rankings by sale volume or by ratings
+d) Staff removes the showtime because it has passed
+e) Staff removes the movie because all of the showtimes ended
+f) User checks again to see if the movie is listed - it shouldn't appear anymore
