@@ -2,27 +2,125 @@ import java.util.*;
 import java.io.Serializable;
 import java.util.Comparator;
 import java.util.ArrayList;
+/**
+ * Java class representing a movie in MOBLIMA
+ * @author  Cheong Jia Rong
+ * @version 1.0
+ * @since   2022-7-11
+ * @see     Review
+ * @see     MovieScreening
+ */
 
+/**
+ * Movie status to be assigned
+ * @see #Coming_Soon
+ * @see #Preview
+ * @see #Now_Showing
+ * @see #End_Of_Showing
+ */
 enum status{
-   Coming_Soon,Preview,Now_Showing,End_Of_Showing
+  /**
+   * Coming soon
+   */
+   Coming_Soon,
+  /**
+   * Preview
+   */
+   Preview,
+  /**
+   * Now Showing 
+   */
+   Now_Showing,
+  /**
+   * End of Showing
+   */
+   End_Of_Showing
   }
+
+/**
+ * Dimensions of the movie
+ * @see #TwoD
+ * @see #ThreeD
+ */
 enum dimension{
-  TwoD,ThreeD
+  /**
+   * 2D
+   */
+  TwoD,
+  /** 
+   * 3D
+   */
+  ThreeD
 }
+
+
 public class Movie implements Serializable{
+  /**
+   * Movie Title
+   */
   private String movieTitle;
+  /**
+   * Movie Runtime
+   */
   private int movieRuntime;
+  /**
+   * Movie Sypnosis
+   */
   private String movieSypnosis;
+  /**
+   * Name of the Movie Director
+   */
   private String director;
+  /**
+   * Name of the casts
+   * Only stores the male lead and female lead
+   */
   private String[] cast = new String[2]; 
+  /**
+   * 1D Array to store the count of the coresponding rating from 1-5 of the movie
+   */
   private int[] rating = new int[6];
+  /**
+   * ArrayList of type String to store the reviews of the movie
+   */
   private ArrayList<String> pastReviews = new ArrayList<String>();
+  /**
+   * Movie dimensions using enum {@code dimensions}
+   */
   private dimension dims;
+  /**
+   * Movie Status using enum {@code status}
+   */
   private status movieStatus;
+  /**
+   * Boolean to check if the movie is a blockbuster
+   */
   private boolean blockbuster;
+  /**
+   * Sale volume of the movie based on number of tickets sold
+   */
   private int saleVolume;
+  /**
+   * Movie Rating(PG,PG13, M18, R21)
+   */
   private String movieRating;
+  /**
+   * Average rating of the movie
+   */
   private double averageRating;
+
+  /**
+   * Constructor to create a {@code Movie} object with its attributes initialized
+   * @param movieTitle    Title of movie to be created
+   * @param movieRuntime  Runtime of movie to be created
+   * @param dims          Dimension of movie to be created
+   * @param movieStatus   Status of movie to be created
+   * @param blockbuster   Check whether the movie to be created is a blockbuster 
+   * @param movieSypnosis Sypnosis of movie to be created
+   * @param director      Name of director of the movie to be created
+   * @param cast          Names of the male and female lead of the movie to be created
+   * @param movieRating   Rating of the movie to be created (PG, PG13, M18, R21)
+   */
   public Movie(String movieTitle, int movieRuntime,dimension dims, status movieStatus,boolean blockbuster, String movieSypnosis,String director,String[] cast, String movieRating)
 {
   this.movieTitle = movieTitle;
@@ -31,59 +129,131 @@ public class Movie implements Serializable{
   this.movieSypnosis = movieSypnosis;
   this.director = director;
   this.cast = cast;
+  /**
+   * Initializing 1D array of rating of movie to be created of size 6 to be {0,0,0,0,0,0}
+   */
   this.rating = new int[6];
+  /**
+   * Initializing ArrayList of pastReviews of movie to be created to be an empty Arraylist of type string
+   */
   this.pastReviews = new ArrayList<String>();
   this.dims = dims;
   this.movieStatus = movieStatus;
   this.blockbuster = blockbuster;
+  /**
+   * Initializing sale volume of movie to be created to be 0 since no tickets are sold yet
+   */
   this.saleVolume = 0;
   this.movieRating = movieRating;
 }
-public Movie(String movieTitle){
-  this.movieTitle = movieTitle;
-}
+
+/**
+ * Alternative constructor to create a {@code Movie} with 0 parameters
+ * Initialize rating of movie to be created to be a 1D array of size 6 .
+ * Initialize past reviews of movie to be created to be an empty ArrayList of type string.
+ */
 public Movie(){
   this.rating = new int[6];
   for (int i = 0; i<6;i++) this.rating[i] = 0;
+  this.pastReviews = new ArrayList<String>();
 }
+
+/** 
+ * Getter method to retrieve title of movie.
+ * @return String name of movie title.
+ */
 public String getMovieTitle(){
   return this.movieTitle;
 }
+
+/** 
+ * Getter method to retrieve runtime of movie.
+ * @return int runtime of movie.
+ */
 public int getMovieRuntime() {
   return this.movieRuntime;
 }
+
+/** 
+ * Getter method to retrieve movie status.
+ * @return String status of movie.
+ */
 public String getMovieStatus(){
   return this.movieStatus.toString();
 }
+
+/** 
+ * getter method to retrieve movie dimensions.
+ * @return String dimensions of movie.
+ */
 public String getMovieDims(){
   return this.dims.toString();
 }
+
+/** 
+ * Getter method to retrieve blockbuster status of movie.
+ * @return boolean true for blockbuster; false for non blockbuster.
+ */
 public boolean getBlockbuster(){
   return this.blockbuster;
 }
+
+/** 
+ * Getter method to retrieve sypnosis of movie.
+ * @return String sypnosis of movie.
+ */
 public String getMovieSypnosis(){
   return this.movieSypnosis;
 }
+
+/** 
+ * Getter method to retrieve name of movie director.
+ * @return String name of movie director.
+ */
 public String getMovieDirector(){
   return this.director;
 }
+
+/** 
+ * Getter method to retrieve name of the casts in the movie.
+ * @return String[] name of casts.
+ */
 public String[] getMovieCast(){
   return this.cast;
 }
+
+/** 
+ * Getter method to retrieve the 1D array of movie ratings.
+ * @return int[] ratings of movie.
+ */
 public int[] getMovieRating(){
   return this.rating;
 }
+
+/** 
+ * Getter method to get the Movie Rating(PG, PG13, M18, R21).
+ * @return String rating of movie.
+ */
 public String getRating(){
   return this.movieRating;
 }
+
+/** 
+ * Getter method to get average rating of the movie.
+ * @param rating of movie to be passed in.
+ * @return double calculated average rating from the 1D array passed in.
+ */
 public double getMovieAverageRating(int[] rating){
   double sum = 0;
   double numberOfRatings = 0;
   double average = 0;
   for (int i = 1; i < rating.length; i++) {
+    //numerator which is the sum of all the ratings
     sum+=(rating[i]*i);
+    //denominator which is the number of ratings
     numberOfRatings+=rating[i];
   }
+  //Movie details will show NA if there are less than 2 ratings
   if(numberOfRatings<2){
     return 0.0;
   }
@@ -92,88 +262,162 @@ public double getMovieAverageRating(int[] rating){
 
 }
 
+
+/** 
+ * Getter method to retrieve the past reviews of the movie.
+ * @return ArrayList<String> past reviews of movie.
+ */
 public ArrayList<String> getPastReviews(){
   return this.pastReviews;
 }
+
+/** 
+ * Getter method to retrieve sale volume of movie based on tickets sold.
+ * @return int sale volume of movie.
+ */
 public int getSaleVolume(){
   return this.saleVolume;
 }
+
+/** 
+ * Setter method to set movie sale volume.
+ * @param saleVolume of the movie.
+ */
 public void setSaleVolume(int saleVolume){
   this.saleVolume = saleVolume;
 }
+
+/** 
+ * Setter method to set blockbuster status
+ * @param blockbuster
+ */
 public void setBlockbuster(boolean blockbuster){
   this.blockbuster = blockbuster;
 }
 
+
+/** 
+ * Setter method to set movie dimensions.
+ * @param dims dimension of the movie.
+ */
 public void setMovieDims(dimension dims){
   this.dims = dims;
 }
 
+
+/** 
+ * Setter method to set movie title.
+ * @param movieTitle 
+ */
 public void setMovieTitle(String movieTitle){
   this.movieTitle = movieTitle ;
 }
 
+
+/** 
+ * Setter method to set movie run time.
+ * @param movieRuntime
+ */
 public void setMovieRuntime(int movieRuntime) {
   this.movieRuntime = movieRuntime;
 }
+
+/** 
+ * Setter method to set movie status.
+ * @param movieStatus
+ */
 public void setMovieStatus(status movieStatus){
   this.movieStatus = movieStatus;
 
 }
+
+/** 
+ * Setter method to set movie sypnosis.
+ * @param movieSypnosis
+ */
 public void setMovieSypnosis(String movieSypnosis){
   this.movieSypnosis = movieSypnosis;
 }
+
+/** 
+ * Setter method to set name of movie director.
+ * @param director
+ */
 public void setMovieDirector(String director){
   this.director = director;
 }
+
+/** 
+ * Setter method to set name of casts
+ * @param cast
+ */
 public void setMovieCast(String[] cast){
   this.cast = cast;
 }
+
+/** 
+ * Setter method to set movie rating by user.
+ * @param rating
+ */
 public void  setMovieRating(int rating){
   this.rating[rating] += 1;
 }
+
+/** Setter method to decrement movie rating for overwriting reviews {@link Review#writeReview(User)}.
+ * @param rating
+ */
 public void  setMovieRatingDown(int rating){
   this.rating[rating] -= 1;
 }
+
+/** 
+ * Setter method to set movie rating by staff.
+ * @param movieRating
+ */
 public void setRating(String movieRating){
   this.movieRating = movieRating;
 }
 
+/** 
+ * Setter method to set movie past review by user.
+ * @param reviewString from user.
+ */
 public void addToPastReview(String reviewString) {
   this.pastReviews.add(reviewString);
 }
 
+/**
+ * Method to increment sale volume of movie after every ticket is bought {@link User#usercreateBooking(User)}.
+ */
 public void incrementSaleVolume(){
   this.saleVolume += 1;
 }
 
-public String toString(){
-  if(this.getMovieAverageRating(this.getMovieRating())== 0.0){
-    return "Movie Title: " + this.getMovieTitle() + "is currently " + this.getMovieStatus() 
-  + ". \nSynopsis: " + this.getMovieSypnosis() + ". \nDirector: " + this.getMovieDirector() 
-  + "   Cast: " + this.getMovieCast()[0] + ", " + this.getMovieCast()[1] + ". \nRating: NA"+
-  "\nPast Reviews: NA";
-  }
-  return "Movie Title: " + this.getMovieTitle() + "is currently " + this.getMovieStatus() 
-  + ". \nSynopsis: " + this.getMovieSypnosis() + ". \nDirector: " + this.getMovieDirector() 
-  + "   Cast: " + this.getMovieCast()[0] + ", " + this.getMovieCast()[1] + ". \nRating: "+ this.getMovieAverageRating(this.getMovieRating())+
-  "\nPast Reviews: "+this.getPastReviews().toArray(new String[this.getPastReviews().size()]);//convert ArrayList to string for printing
-}
-
-
-
+/** 
+ * Setter method to set the past reviews of the movie.
+ * @param pastReviews
+ */
 public void setPastReviews(ArrayList<String> pastReviews){
   this.pastReviews = pastReviews;
 }
 
+
+/** 
+ * Method to add review to the current reviews of the movie{@link Review#writeReview(User)}.
+ * Check if there is any movie available to add review.
+ * If movie exists, check if there are any reviews from the user.
+ * if the user has reviewed and rated the movie, add it into the current list of reviews and ratings for the movie.
+ * @param reviewObj
+ * @throws Exception
+ */
 public static void addReview(Review reviewObj) throws Exception {
   FileInOut<Movie> movieio = new FileInOut<Movie>();
   ArrayList<Movie> movieList = movieio.readData(new Movie());
+
   if(movieList == null){
     System.out.println("There is no movie available.");
     return;
   }
-
   for (int index = 0; index < movieList.size(); index++) {
     if (movieList.get(index).getMovieTitle().equals(reviewObj.getMovie().getMovieTitle())){
       Movie movieToReview = movieList.get(index);
@@ -185,38 +429,49 @@ public static void addReview(Review reviewObj) throws Exception {
 }
 
 
-
-
-
-public static void updateReviews2(String oldReview,int oldRating,Review reviewToBeChanged) throws Exception{
+/** 
+ * Method to update the review of the movie after user has overwritten their review {@link Review#writeReview(User)}.
+ * Find the movie that user has changed their review and update accordingly by removing old reviews 
+ * and add new reviews.
+ * @param oldReview
+ * @param oldRating
+ * @param reviewToBeChanged contains the new review and rating by the user
+ * @throws Exception
+ */
+public static void updateReviews(String oldReview,int oldRating,Review reviewToBeChanged) throws Exception{
   FileInOut<Movie> movieio = new FileInOut<Movie>();
   ArrayList<Movie> movieList = movieio.readData(new Movie());
+
   if(movieList == null){
     System.out.println("There is no movie available.");
     return;
   }
+
   Movie movieToReview = null;
+
   for (int index = 0; index < movieList.size(); index++) {
     if (movieList.get(index).getMovieTitle().equals(reviewToBeChanged.getMovie().getMovieTitle())){
       movieToReview = movieList.get(index);
       break;
     }
   }
+
   for(int i =0;i<movieToReview.getPastReviews().size();i++){
     if(movieToReview.getPastReviews().get(i).equalsIgnoreCase(oldReview)){
       movieToReview.getPastReviews().remove(i);
       movieToReview.addToPastReview(reviewToBeChanged.getReview());
     }
   }
+
   movieToReview.setMovieRating(reviewToBeChanged.getRating());
   movieToReview.setMovieRatingDown(oldRating);
   movieio.writeData(movieList,new Movie());
 
 }
 
-
-
-// Comparator for sorting the list by Sale Volume
+/**
+ * Comparator for sorting the movies by descending sale volume
+ */
 public static Comparator<Movie> movieSalesComparator = new Comparator<Movie>(){
   public int compare(Movie m1, Movie m2){
     int saleVolume1 = m1.getSaleVolume();
@@ -225,20 +480,28 @@ public static Comparator<Movie> movieSalesComparator = new Comparator<Movie>(){
     return saleVolume2 - saleVolume1;
   }
 };
-// Comparator for sorting the list by Sale Volume
+
+/**
+ * Comparator to sorting the movies by descending average rating
+ */
 public static Comparator<Movie> movieRatingComparator = new Comparator<Movie>(){
   public int compare(Movie m1, Movie m2){
     return Double.compare(m2.getMovieAverageRating(m2.getMovieRating()),m1.getMovieAverageRating(m1.getMovieRating()));
   }
 };
 
-
+/** 
+ * Method for staff to create a movie.
+ * Includes an interface to ask staff for inputs.
+ * Create a movie based on staff inputs.
+ * @throws Exception
+ */
 public static void createMovie()throws Exception{
   Movie newMovie = new Movie();
   Scanner in = new Scanner(System.in);
-  
   String title = "";
   boolean success = false;
+
   do {
       try{
           System.out.println("Movie title: ");
@@ -249,8 +512,10 @@ public static void createMovie()throws Exception{
           System.out.println("Returning to staff menu...\n");
       }
   } while (!success);
+
   FileInOut<Movie> movieio = new FileInOut<Movie>();
   ArrayList<Movie> movieList = movieio.readData(new Movie());
+
   for (int i = 0; i < movieList.size(); i++) {
     if(movieList.get(i).getMovieTitle().equalsIgnoreCase(title)){
       System.out.println("Movie has already been created!");
@@ -259,8 +524,10 @@ public static void createMovie()throws Exception{
     }
   }
   newMovie.setMovieTitle(title);
+
   int runtime = 0;
   success = false;
+
   do {
       try{
           System.out.println("Movie Runtime: ");
@@ -272,11 +539,11 @@ public static void createMovie()throws Exception{
           in.nextLine();
       }
   } while (!success && runtime < 0);
+
   newMovie.setMovieRuntime(runtime);
-
-
   int statusChoice = 0;
   success = false;
+
   do {
       try{
           System.out.println("Movie Status");
@@ -306,11 +573,11 @@ public static void createMovie()throws Exception{
       case 4:
       newMovie.setMovieStatus(status.valueOf("End_Of_Showing"));
       break;
-      
   }
 
   int blockbusterChoice = 0;
   success = false;
+
   do {
       try{
           System.out.println("BlockBuster?");
@@ -324,14 +591,17 @@ public static void createMovie()throws Exception{
           in.nextLine();
       }
   } while (!success && (blockbusterChoice != 1 || blockbusterChoice != 2));
+
   if (blockbusterChoice == 1){
       newMovie.setBlockbuster(true);
-  }else{
+  }
+  else{
       newMovie.setBlockbuster(false);
   }
 
   int dimChoice = 0;
   success = false;
+
   do {
       try{
           System.out.println("MovieDimension: ");
@@ -345,11 +615,14 @@ public static void createMovie()throws Exception{
           in.nextLine();
       }
   } while (!success && (blockbusterChoice != 1 || blockbusterChoice != 2));
+
   if (dimChoice == 1){
       newMovie.setMovieDims(dimension.valueOf("TwoD"));
-  }else{
+  }
+  else{
       newMovie.setMovieDims(dimension.valueOf("ThreeD"));
   }
+
   System.out.println("Movie Rating: ");
   newMovie.setRating(in.nextLine());
   System.out.println("Movie Sypnosis: ");
@@ -363,233 +636,282 @@ public static void createMovie()throws Exception{
   cast[1] = in.nextLine();
   newMovie.setMovieCast(cast);
   newMovie.setSaleVolume(0);
-  newMovie.setPastReviews(new ArrayList<String>());
   movieList.add(newMovie);
   movieio.writeData(movieList, new Movie());
 
 }
 
-    public static String updateMovie() throws Exception{
-        FileInOut<Movie> movieio = new FileInOut<Movie>();
-        ArrayList<Movie> movieList = movieio.readData(new Movie());
-        Movie movieToUpdate = null;
-        Scanner in = new Scanner(System.in);
-        if(movieList == null){
-          System.out.println("There is no movie available.");
+    
+/** 
+ * Method for the staff to update the status of the movie.
+ * Check for available movies, if there is a matching movie, change the corresponding movie status.
+ * Update the list of movies and available screenings.
+ * @return String
+ * @throws Exception
+ */
+public static String updateMovie() throws Exception{
+    FileInOut<Movie> movieio = new FileInOut<Movie>();
+    ArrayList<Movie> movieList = movieio.readData(new Movie());
+    Movie movieToUpdate = null;
+    Scanner in = new Scanner(System.in);
+
+    if(movieList == null){
+      System.out.println("There is no movie available.");
+      System.out.println("Returning to staff menu...\n");
+      return null;
+    }
+    else{
+      System.out.println("Enter title of movie to be updated: ");
+      String movieName = in.nextLine();
+      int found = 0;
+
+      for (int i = 0; i < movieList.size(); i++) {
+          if(movieList.get(i).getMovieTitle().equalsIgnoreCase(movieName)){
+              movieToUpdate = movieList.get(i);
+              found = 1;
+              break;
+          }
+      }
+
+      if (found == 0){
+          System.out.println("No such movie exists!");
           System.out.println("Returning to staff menu...\n");
           return null;
-        }
-        else{
-          System.out.println("Enter title of movie to be updated: ");
-          String movieName = in.nextLine();
-          int found = 0;
-          for (int i = 0; i < movieList.size(); i++) {
-              if(movieList.get(i).getMovieTitle().equalsIgnoreCase(movieName)){
-                  movieToUpdate = movieList.get(i);
-                  found = 1;
-                  break;
-              }
-          }
-          if (found == 0){
-              System.out.println("No such movie exists!");
-              System.out.println("Returning to staff menu...\n");
-              return null;
-          }
-          else{
-              System.out.println("Current movie status: "+ movieToUpdate.getMovieStatus());
-              String currentMovieStatus = movieToUpdate.getMovieStatus();
-              switch (currentMovieStatus){
-                  case "Coming_Soon":
-                  movieToUpdate.setMovieStatus(status.Preview);
-                  break;
-                  case "Preview":
-                  movieToUpdate.setMovieStatus((status.Now_Showing));
-                  break;
-                  case "Now_Showing":
-                  movieToUpdate.setMovieStatus(status.End_Of_Showing);
-              }
-              System.out.println("Movie status changed to "+movieToUpdate.getMovieStatus());
-          }
-          movieio.writeData(movieList, new Movie());
-          if(movieToUpdate.getMovieStatus().equals("End_Of_Showing")){
-            Movie.removeMovie(movieToUpdate.getMovieTitle());
-            MovieScreening.removeMovieScreeningWithMovie(movieToUpdate);
-          }else{
-            MovieScreening.updateMovieScreeningWithMovie(movieToUpdate);
-          }
-          return movieToUpdate.getMovieStatus();     
-          }
-    }
-
-    public static void removeMovie(String movieName) throws Exception{
-        FileInOut<Movie> movieio = new FileInOut<Movie>();
-        ArrayList<Movie> movieList = movieio.readData(new Movie());
-        if (movieList == null || movieList.size()<1){
-          System.out.println("There is no movie available.");
-          System.out.println("Returning to staff menu...\n");
-        }
-        int found = 0;
-        for (int i = 0; i < movieList.size(); i++) {
-            if(movieList.get(i).getMovieTitle().equalsIgnoreCase(movieName)){
-              
-                movieList.get(i).setMovieStatus(status.End_Of_Showing);
-                MovieScreening.removeMovieScreeningWithMovie(movieList.get(i));
-                found = 1;
-                System.out.println(movieList.get(i).getMovieTitle()+" successfully deleted!");
-                break;
-            }
-        }
-        if (found == 0){
-            System.out.println("No such movie exists!");
-            System.out.println("Returning to staff menu...\n");
-        }
-
-        movieio.writeData(movieList, new Movie());
-        //fileio.writeMovieData(movieList);
-    }
-    //displaying all the movies and the status
-    public static ArrayList<Movie> showMovieList() throws Exception{
-      FileInOut<Movie> movieio = new FileInOut<Movie>();
-      ArrayList<Movie> allMovieList = movieio.readData(new Movie());
-      ArrayList<Movie> movieList = getAvailableMovieList(allMovieList);
-      for (int index = 0; index < movieList.size(); index++) {
-          System.out.println(index+1 +". "+ movieList.get(index).getMovieTitle());
-          System.out.println("Status: "+movieList.get(index).getMovieStatus());
-        }
-      return movieList;
-    }
-
-    //Helper function to get available movie
-    public static ArrayList<Movie> getAvailableMovieList(ArrayList<Movie> arrListToBeLooped) throws Exception{
-      ArrayList<Movie> movieList = new ArrayList<Movie>();
-      for (int i = 0; i < arrListToBeLooped.size(); i++) {
-        if(!arrListToBeLooped.get(i).getMovieStatus().equals("End_Of_Showing")){
-          // System.out.println(i+1 + ". " + movieList.get(i).getMovieTitle());
-          movieList.add(arrListToBeLooped.get(i));
-        }
       }
-      return movieList;
-    }
-
-    // show detail of the movie selected
-    public static void showMovieDetail(String movieTitle) throws Exception{
-      //FileInOut<Movie> movieio = new FileInOut<Movie>();
-      //ArrayList<Movie> movieList = movieio.readData(new Movie());
-      ArrayList<Movie> arrListToBeLooped = searchMovieList(movieTitle);
-      //movieList = searchMovieList(movieTitle);
-      Scanner input = new Scanner(System.in);
-      System.out.println("Which of these movies are you searching for? Select the option number.");
-      ArrayList<Movie> movieList = getAvailableMovieList(arrListToBeLooped);
-      for(int i=0;i<movieList.size();i++){
-          System.out.println(i+1 + ". " + movieList.get(i).getMovieTitle());
+      else{
+          System.out.println("Current movie status: "+ movieToUpdate.getMovieStatus());
+          String currentMovieStatus = movieToUpdate.getMovieStatus();
+          switch (currentMovieStatus){
+              case "Coming_Soon":
+              movieToUpdate.setMovieStatus(status.Preview);
+              break;
+              case "Preview":
+              movieToUpdate.setMovieStatus((status.Now_Showing));
+              break;
+              case "Now_Showing":
+              movieToUpdate.setMovieStatus(status.End_Of_Showing);
+          }
+          System.out.println("Movie status changed to "+movieToUpdate.getMovieStatus());
       }
 
+      movieio.writeData(movieList, new Movie());
 
-      int choice = 0;
-      boolean success = false;
-      do {
-        try {
-          choice = Integer.parseInt(input.nextLine())- 1 ;
-          success = true;
-        } catch (NumberFormatException e) {
-          System.out.println("That is not a valid number. Please choose again.");
-        } 
-      } while (!success);
-      System.out.println();
-      System.out.println("==============  Information on " + movieList.get(choice).getMovieTitle() + " ==============");
-      System.out.println("Movie Title: " + movieList.get(choice).getMovieTitle());
-      System.out.println("Movie Runtime: " + movieList.get(choice).getMovieRuntime());
-      System.out.println("Movie Status: " + movieList.get(choice).getMovieStatus());
-      System.out.println("Movie Dimensions: " + movieList.get(choice).getMovieDims());
-      System.out.println("Movie Rating: " + movieList.get(choice).getRating());
-      System.out.println("Director of film: " + movieList.get(choice).getMovieDirector());
-      System.out.print("Movie Cast: || ");
-      for (String member : movieList.get(choice).getMovieCast()) System.out.print(member + " || ");
-      System.out.println();
-      System.out.println("Movie Synopsis");
-      System.out.println(movieList.get(choice).getMovieSypnosis());
-      if(movieList.get(choice).getMovieAverageRating(movieList.get(choice).getMovieRating())== 0.0){
+      if(movieToUpdate.getMovieStatus().equals("End_Of_Showing")){
+        Movie.removeMovie(movieToUpdate.getMovieTitle());
+        MovieScreening.removeMovieScreeningWithMovie(movieToUpdate);
+      }
+      else{
+        MovieScreening.updateMovieScreeningWithMovie(movieToUpdate);
+      }
+
+      return movieToUpdate.getMovieStatus();     
+      }
+}
+
+
+/** 
+ * Method to remove a movie by changing the status of the movie to End of Showing.
+ * Update the corresponding movie screening by removing it.
+ * @param movieName
+ * @throws Exception
+ */
+public static void removeMovie(String movieName) throws Exception{
+    FileInOut<Movie> movieio = new FileInOut<Movie>();
+    ArrayList<Movie> movieList = movieio.readData(new Movie());
+
+    if (movieList == null || movieList.size()<1){
+      System.out.println("There is no movie available.");
+      System.out.println("Returning to staff menu...\n");
+    }
+
+    int found = 0;
+
+    for (int i = 0; i < movieList.size(); i++) {
+        if(movieList.get(i).getMovieTitle().equalsIgnoreCase(movieName)){
+          
+            movieList.get(i).setMovieStatus(status.End_Of_Showing);
+            MovieScreening.removeMovieScreeningWithMovie(movieList.get(i));
+            found = 1;
+            System.out.println(movieList.get(i).getMovieTitle()+" successfully deleted!");
+            break;
+        }
+      }
+
+    if (found == 0){
+        System.out.println("No such movie exists!");
+        System.out.println("Returning to staff menu...\n");
+    }
+
+    movieio.writeData(movieList, new Movie());
+}
+
+/** 
+ * Method to display all available movie and its corresponding status and rating
+ * @return ArrayList<Movie>
+ * @throws Exception
+ */
+public static ArrayList<Movie> showMovieList() throws Exception{
+  FileInOut<Movie> movieio = new FileInOut<Movie>();
+  ArrayList<Movie> allMovieList = movieio.readData(new Movie());
+  ArrayList<Movie> movieList = getAvailableMovieList(allMovieList);
+
+  for (int index = 0; index < movieList.size(); index++) {
+      System.out.println(index+1 +". "+ movieList.get(index).getMovieTitle());
+      System.out.println("Status: "+movieList.get(index).getMovieStatus());
+
+      if(movieList.get(index).getMovieAverageRating(movieList.get(index).getMovieRating())== 0.0){
         System.out.println("Ratings: NA");
       }
       else{
-        System.out.println("Ratings: "+ movieList.get(choice).getMovieAverageRating(movieList.get(choice).getMovieRating()) +"\n");
-      }
-      if(movieList.get(choice).getPastReviews().size() == 0){
-        System.out.println("Reviews: NA");
-      }
-      else{
-        System.out.println("Reviews:");
-        for (int index = 0; index < movieList.get(choice).getPastReviews().size(); index++) {
-          System.out.println(index+1 +". "+ movieList.get(choice).getPastReviews().get(index));
-        }
+        System.out.println("Ratings: "+     movieList.get(index).getMovieAverageRating(movieList.get(index).getMovieRating()) +"\n");
       }
     }
 
-    //Search for movie based on partial String Match when traversing MovieList
-    public static ArrayList<Movie> searchMovieList(String movieTitle) throws Exception{
-      FileInOut<Movie> movieio = new FileInOut<Movie>();
-      ArrayList<Movie> movieList = movieio.readData(new Movie());
-      ArrayList<Movie> listToReturn = new ArrayList<>();
-      for (Movie movie : movieList) {
-        if (movie.getMovieTitle().toLowerCase().contains(movieTitle.toLowerCase())) listToReturn.add(movie);
-      }
-      return listToReturn;
-    }
-
-
-// sort the ArrayList of movies based on user input and print the top 5 movies based on 
-//(1) by rating, (2) sales
-    public static void sortMovie()throws Exception{
-      Scanner input = new Scanner(System.in);
-      int choice = 0;
-      FileInOut<Movie> movieio = new FileInOut<Movie>();
-      ArrayList<Movie> movieList = movieio.readData(new Movie());
-      do{
-        System.out.println("\nView top 5 movies");
-        System.out.println("1. By Ratings");
-        System.out.println("2. By Sales Volume");
-        try{
-          choice = Integer.parseInt(input.nextLine());
-        } catch(NumberFormatException e){
-            System.out.println("Please input a valid number!");
-            System.out.println("Returning to staff menu...\n");
-            return;
-        }
-      }
-      while(choice<1 || choice >2);
-      if (choice == 1){
-        Collections.sort(movieList, Movie.movieRatingComparator);
-      }
-      else{
-        Collections.sort(movieList, Movie.movieSalesComparator);
-      }
-      
-      
-
-      for (int index = 0; index < (movieList.size() < 5 ? movieList.size():5); index++) {
-        if(!movieList.get(index).getMovieStatus().equalsIgnoreCase("End_Of_Showing")){
-          System.out.println(index+1 +". "+ movieList.get(index).getMovieTitle());
-          System.out.println("Status: "+movieList.get(index).getMovieStatus());
-        }
-      }
-      movieio.writeData(movieList, new Movie());
-    }
-    // // Rate movie based on user input movie title
-    // public static void userRate(String movieTitle) throws Exception{
-    //   Scanner input =new Scanner(System.in);
-    //   FileInOut<Movie> movieio = new FileInOut<Movie>();
-    //   ArrayList<Movie> movieList = movieio.readData(new Movie());
-    //   //ArrayList<Movie> movieList= fileio.readMovieData(); 
-    //   for (int i = 0; i < movieList.size(); i++) {
-    //     if(movieList.get(i).getMovieTitle().equalsIgnoreCase(movieTitle)){
-    //       System.out.println("Input rating(1 - 5[best]) : ");
-    //       movieList.get(i).setMovieRating(Integer.parseInt(input.nextLine()));
-    //       MovieScreening.updateMovieScreeningWithMovie(movieList.get(i));
-    //       break;
-    //     }
-    //   }
-    //   movieio.writeData(movieList, new Movie());
-    //   //fileio.writeMovieData(movieList);
-    // }
-  
+  movieio.writeData(allMovieList, new Movie());
+  return movieList;
 }
+
+
+/** 
+ * Helper function to retrieve all the available movies.
+ * @param arrListToBeLooped the list of all movies to be passed in.
+ * @return ArrayList<Movie> list of available movies that status are not End of Showing.
+ * @throws Exception
+ */
+public static ArrayList<Movie> getAvailableMovieList(ArrayList<Movie> arrListToBeLooped) throws Exception{
+  ArrayList<Movie> movieList = new ArrayList<Movie>();
+
+  for (int i = 0; i < arrListToBeLooped.size(); i++) {
+    if(!arrListToBeLooped.get(i).getMovieStatus().equals("End_Of_Showing")){
+      movieList.add(arrListToBeLooped.get(i));
+    }
+  }
+  return movieList;
+}
+
+
+/** 
+ * Method to show the details of the movie selected
+ * @param movieTitle
+ * @throws Exception
+ */
+public static void showMovieDetail(String movieTitle) throws Exception{
+  ArrayList<Movie> arrListToBeLooped = searchMovieList(movieTitle);
+  Scanner input = new Scanner(System.in);
+  System.out.println("Which of these movies are you searching for? Select the option number.");
+  ArrayList<Movie> movieList = getAvailableMovieList(arrListToBeLooped);
+
+  for(int i=0;i<movieList.size();i++){
+      System.out.println(i+1 + ". " + movieList.get(i).getMovieTitle());
+  }
+  int choice = 0;
+  boolean success = false;
+
+  do {
+    try {
+      choice = Integer.parseInt(input.nextLine())- 1 ;
+      success = true;
+    } catch (NumberFormatException e) {
+      System.out.println("That is not a valid number. Please choose again.");
+    } 
+  } while (!success);
+
+  System.out.println();
+  System.out.println("==============  Information on " + movieList.get(choice).getMovieTitle() + " ==============");
+  System.out.println("Movie Title: " + movieList.get(choice).getMovieTitle());
+  System.out.println("Movie Runtime: " + movieList.get(choice).getMovieRuntime());
+  System.out.println("Movie Status: " + movieList.get(choice).getMovieStatus());
+  System.out.println("Movie Dimensions: " + movieList.get(choice).getMovieDims());
+  System.out.println("Movie Rating: " + movieList.get(choice).getRating());
+  System.out.println("Director of film: " + movieList.get(choice).getMovieDirector());
+  System.out.print("Movie Cast: || ");
+  for (String member : movieList.get(choice).getMovieCast()) System.out.print(member + " || ");
+  System.out.println();
+  System.out.println("Movie Synopsis");
+  System.out.println(movieList.get(choice).getMovieSypnosis());
+
+  if(movieList.get(choice).getMovieAverageRating(movieList.get(choice).getMovieRating())== 0.0){
+    System.out.println("Ratings: NA");
+  }
+  else{
+    System.out.println("Ratings: "+ movieList.get(choice).getMovieAverageRating(movieList.get(choice).getMovieRating()) +"\n");
+  }
+
+  if(movieList.get(choice).getPastReviews().size() == 0){
+    System.out.println("Reviews: NA");
+  }
+  else{
+    System.out.println("Reviews:");
+
+    for (int index = 0; index < movieList.get(choice).getPastReviews().size(); index++) {
+      System.out.println(index+1 +". "+ movieList.get(choice).getPastReviews().get(index));
+    }
+  }
+}
+
+
+/** 
+ * Method to search for the movie by the user.
+ * Allows user to search for available movies without typing out the entire movie title due to substring matching.
+ * @param movieTitle of the movie user wants to search
+ * @return ArrayList<Movie> the list of available movies that the user may want to search.
+ * @throws Exception
+ */
+public static ArrayList<Movie> searchMovieList(String movieTitle) throws Exception{
+  FileInOut<Movie> movieio = new FileInOut<Movie>();
+  ArrayList<Movie> allMovieList = movieio.readData(new Movie());
+  ArrayList<Movie> movieList = Movie.getAvailableMovieList(allMovieList);
+  ArrayList<Movie> listToReturn = new ArrayList<>();
+
+  for (Movie movie : movieList) {
+    if (movie.getMovieTitle().toLowerCase().contains(movieTitle.toLowerCase())) listToReturn.add(movie);
+  }
+
+  movieio.writeData(allMovieList, new Movie());
+  return listToReturn;
+}
+
+/** 
+ * Method to sort the ArrayList of movies based on user input and print the top 5 available movies based on 
+ * (1) by rating, (2) sales
+ * @throws Exception
+ */
+public static void sortMovie()throws Exception{
+  Scanner input = new Scanner(System.in);
+  int choice = 0;
+  FileInOut<Movie> movieio = new FileInOut<Movie>();
+  ArrayList<Movie> allMovieList = movieio.readData(new Movie());
+  ArrayList<Movie> movieList = Movie.getAvailableMovieList(allMovieList);
+
+  do{
+    System.out.println("\nView top 5 movies");
+    System.out.println("1. By Ratings");
+    System.out.println("2. By Sales Volume");
+    try{
+      choice = Integer.parseInt(input.nextLine());
+    } catch(NumberFormatException e){
+        System.out.println("Please input a valid number!");
+        System.out.println("Returning to staff menu...\n");
+        return;
+    }
+  }
+  while(choice<1 || choice >2);
+  
+  if (choice == 1){
+    Collections.sort(movieList, Movie.movieRatingComparator);
+  }
+  else{
+    Collections.sort(movieList, Movie.movieSalesComparator);
+  }
+  
+  for (int index = 0; index < (movieList.size() < 5 ? movieList.size():5); index++) {
+    if(!movieList.get(index).getMovieStatus().equalsIgnoreCase("End_Of_Showing")){
+      System.out.println(index+1 +". "+ movieList.get(index).getMovieTitle());
+      System.out.println("Status: "+movieList.get(index).getMovieStatus());
+    }
+  }
+  movieio.writeData(allMovieList, new Movie());
+}
+
+}
+

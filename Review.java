@@ -80,7 +80,7 @@ public class Review implements Serializable{
                 reviewToBeChanged.setReview(newmovieReview);
 
 
-                Movie.updateReviews2(oldReview, oldRating, reviewToBeChanged);
+                Movie.updateReviews(oldReview, oldRating, reviewToBeChanged);
 
             }else{
                 System.out.println("Returning you back to main page");
