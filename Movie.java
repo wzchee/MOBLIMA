@@ -794,25 +794,15 @@ public static ArrayList<Movie> getAvailableMovieList(ArrayList<Movie> arrListToB
  * @throws Exception
  */
 public static void showMovieDetail(String movieTitle) throws Exception{
-  ArrayList<Movie> arrListToBeLooped = searchMovieList(movieTitle);
-  Scanner input = new Scanner(System.in);
-  System.out.println("Which of these movies are you searching for? Select the option number.");
-  ArrayList<Movie> movieList = getAvailableMovieList(arrListToBeLooped);
-
-  for(int i=0;i<movieList.size();i++){
-      System.out.println(i+1 + ". " + movieList.get(i).getMovieTitle());
-  }
+  FileInOut<Movie> movieio = new FileInOut<Movie>();
+  ArrayList<Movie> movieList = movieio.readData(new Movie());
   int choice = 0;
-  boolean success = false;
-
-  do {
-    try {
-      choice = Integer.parseInt(input.nextLine())- 1 ;
-      success = true;
-    } catch (NumberFormatException e) {
-      System.out.println("That is not a valid number. Please choose again.");
-    } 
-  } while (!success);
+  for(int i=0; i<movieList.size(); i++){
+    if(movieList.get(i).getMovieTitle().equals(movieTitle)){
+      choice= i;
+      break;
+    }
+  }
 
   System.out.println();
   System.out.println("==============  Information on " + movieList.get(choice).getMovieTitle() + " ==============");
