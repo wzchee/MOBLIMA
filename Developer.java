@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
 import java.time.LocalDateTime;
+import java.lang.Math.*;
 
 /**
  * Java class that contains methods only accessible to developers of this system
@@ -112,6 +113,16 @@ public class Developer {
             movieList.add(new Movie("SkyFall",143,dimension.TwoD,status.Coming_Soon,false,"James Bond's loyalty to M is tested when her past comes back to haunt her. When MI6 comes under attack, 007 must track down and destroy the threat, no matter how personal the cost.","Sam Mendes",cast10,"PG"));
             
         }
+        for (int index = 0; index < movieList.size(); index++) {
+            for(int j = 1; j<6;j++){
+                movieList.get(index).setMovieRating((int)Math.ceil(Math.random()*5));
+            }
+        }
+
+        for (int index = 0; index < movieList.size(); index++) {
+                movieList.get(index).setSaleVolume((int)Math.ceil(Math.random()*100));
+        }
+
         movieinout.writeData(movieList, new Movie());
 
         FileInOut<MovieScreening> movieScreeningInOut = new FileInOut<MovieScreening>();
