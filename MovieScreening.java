@@ -2,20 +2,51 @@ import java.util.ArrayList;
 import java.io.Serializable;
 
 import java.util.Scanner;
-import java.io.*;
-import java.nio.CharBuffer;
 import java.time.LocalDateTime;
-
+/**
+ Represents the MovieScreening object which is a session of a Movie
+ @author Oliver Low
+ @version 1.0
+ @since 2022-11-7
+*/
 
 public class MovieScreening implements Serializable{
+    /** 
+     * movie object that the screening has
+     *
+     */
     private Movie movieObj;
+    /** 
+     * cinema object that the screening has
+     *
+     */
     private Cinema movieScreeningLocation;
+    /** 
+     * datetime that the screening has
+     *
+     */
     private LocalDateTime mydate;
+    /** 
+     * integer array to denote seat availability so it will be an array of 1s and 0s depending on availability
+     *
+     */
     private int[] seatArr;
-    //seatArr will contain array of 0,1 depending on occupancy
-    //NOT SURE IF WANT THIS?
+    /** 
+     * boolean to see if it is a public holiday
+     *
+     */
     private boolean isPublicHoliday;
+    /** 
+     * integer to see the numOfOccupiedSeats
+     *
+     */
+
     private int numOfOccupiedSeats;
+
+    /** 
+     * boolean to see if the screening has been completed
+     *
+     */
     private boolean hasCompleted;
 
 
@@ -34,58 +65,141 @@ public class MovieScreening implements Serializable{
 
     }
 
+    
+    /** 
+     * getter method for hasCompleted
+     * 
+     * @return boolean for whether the movie has been completed or not
+     * 
+     * 
+     */
     public boolean hasCompleted(){
         return this.hasCompleted;
     }
 
+    
+    /** 
+     * setter method for hasCompleted
+     * @param hasCompleted Is the boolean that will be changed to
+     */
     public void setHasCompleted(boolean hasCompleted){
         this.hasCompleted = hasCompleted;
     }
 
+    
+    /** 
+     * getter method for the movie
+     * 
+     * @return Movie which is the movie object that this movie screening object has
+     */
     public Movie getMovieObj() {
         return movieObj;
     }
 
+    
+    /** 
+     * setter method for the Movie
+     * 
+     * @param movieObj Which is the movie object to set the attribute to
+     */
     public void setMovieObj(Movie movieObj) {
         this.movieObj = movieObj;
     }
 
+    
+    /** 
+     * getter method for Cinema
+     * 
+     * @return Cinema which is the Cinema that this movie screening object has as attribute
+     */
     public Cinema getMovieScreeningLocation() {
         return movieScreeningLocation;
     }
 
+    
+    /** 
+     * setter method for Cinema
+     * 
+     * @param movieScreeningLocation which is the Cinema object
+     */
     public void setMovieScreeningLocation(Cinema movieScreeningLocation) {
         this.movieScreeningLocation = movieScreeningLocation;
     }
 
+    
+    /** 
+     * getter method for datetime
+     * 
+     * @return LocalDateTime which is the date time for when this moviescreening will occur
+     */
     public LocalDateTime getMydate() {
         return mydate;
     }
 
+    
+    /** 
+     * setter method for datetime
+     * @param mydate which is the datetime to set to
+     */
     public void setMydate(LocalDateTime mydate) {
         this.mydate = mydate;
     }
 
+    
+    /** 
+     * getter method for integer array for the seats
+     * @return int[] Which is the integer array for the seats
+     */
     public int[] getSeatArr() {
         return seatArr;
     }
 
+    
+    /** 
+     * setter method for the integer array representing the seats
+     * 
+     * @param seatArr Which is the integer array representing the seats
+     */
     public void setSeatArr(int[] seatArr) {
         this.seatArr = seatArr;
     }
 
+    
+    /** 
+     * getter method for public holiday
+     * 
+     * @return boolean Which is whether it is a public holiday or not
+     */
     public boolean isPublicHoliday() {
         return isPublicHoliday;
     }
 
+    
+    /** 
+     * setter method for public holiday that sets the public holiday
+     * 
+     * @param publicHoliday Which is whether it is a public holiday or not
+     */
     public void setPublicHoliday(boolean publicHoliday) {
         isPublicHoliday = publicHoliday;
     }
 
+    
+    /** 
+     * getter method for the number of occupied seats
+     * 
+     * @return int for the number of occupied seats
+     */
     public int getNumOfOccupiedSeats() {
         return numOfOccupiedSeats;
     }
 
+    
+    /** 
+     * setter method for the number of occupied seats
+     * 
+     * @param numOfOccupiedSeats which takes in the number of occupied seats
+     */
     public void setNumOfOccupiedSeats(int numOfOccupiedSeats) {
         this.numOfOccupiedSeats = numOfOccupiedSeats;
     }
@@ -93,11 +207,23 @@ public class MovieScreening implements Serializable{
 
 
 
+    
+    /** 
+     * setter method that will take in a integer that represents the seat of choice and set it as occupied
+     * 
+     * @param seatId is the seat number that we will set the index on the int[] to be 1 indicating the occupancy of the seat
+     */
     public void setSeatOccupied(int seatId){
         seatArr[seatId] = 1;
         this.numOfOccupiedSeats++;
     }
 
+
+    /** 
+     * to display the seat layout and also indicating which seats has been taken
+     * 
+     * @param seatId is the seat number that we will set the index on the int[] to be 1 indicating the occupancy of the seat
+     */
     public void displayLayout(){
         for (int i = 0; i < 11; i++) {
             if (i == 5) System.out.print("       <ENT>");
@@ -131,6 +257,13 @@ public class MovieScreening implements Serializable{
 
 
 
+    
+    /** 
+     * takes in seatNumber and we'll check whether the seat is available
+     * 
+     * @param seatNumber which is the seat that the user has opted for
+     * @return boolean that represents whether that seat has been occupied or not
+     */
     public boolean getAvailabilityOfSeats(int seatNumber){
         if(this.seatArr[seatNumber]==0){
             return true;
@@ -139,6 +272,14 @@ public class MovieScreening implements Serializable{
         }
     }
 
+    
+    /** 
+     * takes in user information and together with the MovieScreening attributes, we'll compute a price
+     * 
+     * @param user is the user object that contains information like age that will affect the ticket price
+     * @return double
+     * @throws Exception
+     */
     public double calcPrice(User user) throws Exception{
 
         FileInOut<Configurables> configinout = new FileInOut<Configurables>();
@@ -170,7 +311,11 @@ public class MovieScreening implements Serializable{
             price+=2;
         }
 
-        if(user.getAge()<12 || user.getAge()>55){
+        if(user.getAge()<12){
+            System.out.println("STUDENT PRICING");
+            price = price * 0.75;
+        } else if(user.getAge()>55){
+            System.out.println("SENIOR CITIZEN PRICE");
             price = price * 0.75;
         }
 
@@ -179,13 +324,18 @@ public class MovieScreening implements Serializable{
         return price;
     }
 
+    
+    /** 
+     * when there is a change in the movie object, since this moviescreening object has-a movie, we'll have to change all movie screenings with this movie object to ensure data integrity
+     * 
+     * @param movieToBeChanged is the movie object that has been changed
+     * @throws Exception
+     */
     public static void updateMovieScreeningWithMovie(Movie movieToBeChanged) throws Exception{
         ArrayList<MovieScreening> listOfMovieScreening = null;
 
         FileInOut<MovieScreening> screeninginout = new FileInOut<MovieScreening>();
         listOfMovieScreening = screeninginout.readData(new MovieScreening());
-
-        //listOfMovieScreening = fileio.readMovieScreeningData();
         for(int i=0;i<listOfMovieScreening.size();i++){
             if(listOfMovieScreening.get(i).getMovieObj().getMovieTitle().equalsIgnoreCase(movieToBeChanged.getMovieTitle())){
                 listOfMovieScreening.get(i).setMovieObj(movieToBeChanged);
@@ -195,6 +345,12 @@ public class MovieScreening implements Serializable{
         screeninginout.writeData(listOfMovieScreening, new MovieScreening());
     } 
 
+    
+    /** 
+     * when there is a removal of movie object, since this moviescreening object has-a movie, we'll have to remove this remove screening by setting hasCompleted to true
+     * @param movieToRemove is the movie object that has been removed
+     * @throws Exception
+     */
     public static void removeMovieScreeningWithMovie(Movie movieToRemove) throws Exception{
         ArrayList<MovieScreening> listOfMovieScreening = null;
         FileInOut<MovieScreening> movieScreeninginout = new FileInOut<MovieScreening>();
@@ -215,11 +371,14 @@ public class MovieScreening implements Serializable{
         movieScreeninginout.writeData(listOfMovieScreening, new MovieScreening());
     } 
 
+    
+    /** 
+     * We will show the list of movies and the staff will choose which movie and pass in relevant fields to create a MovieScreening object
+     * 
+     * @throws Exception
+     */
     public static void createMovieScreening() throws Exception{
-        
 
-        
-        
         Scanner input = new Scanner(System.in);
         
         FileInOut<MovieScreening> movieScreeninginout = new FileInOut<MovieScreening>();
@@ -233,7 +392,7 @@ public class MovieScreening implements Serializable{
         ArrayList<Movie> myMovieList = movieinout.readData(new Movie());
         if(myMovieList.size()==0){
             System.out.println("No available movies");
-            System.out.println("Returning to main page");
+            System.out.println("Returning to staff menu...\n");
             return;
         }
         System.out.println("Here is the full list of movies");
@@ -242,7 +401,14 @@ public class MovieScreening implements Serializable{
                 System.out.println(i+1 + ". " + myMovieList.get(i).getMovieTitle());
         }
         System.out.print("Enter the number corresponding to the movie: ");
-        int movienum = Integer.parseInt(input.nextLine());
+        int movienum;
+        try{
+            movienum = Integer.parseInt(input.nextLine());
+        } catch(NumberFormatException e){
+            System.out.println("Please input a valid number!");
+            System.out.println("Returning to staff menu...\n");
+            return;
+        }
         
         Movie movieToFetch = myMovieList.get(movienum-1);
         
@@ -253,7 +419,14 @@ public class MovieScreening implements Serializable{
             System.out.println(i+1 + ". " + cineplexList.get(i).getCineplexName());
         }
         System.out.print("Enter the number corresponding to the cineplex: ");
-        int cineplexnum = Integer.parseInt(input.nextLine());
+        int cineplexnum;
+        try{
+            cineplexnum = Integer.parseInt(input.nextLine());
+        } catch(NumberFormatException e){
+            System.out.println("Please input a valid number!");
+            System.out.println("Returning to staff menu...\n");
+            return;
+        }
         String cineplexNameToFetch = cineplexList.get(cineplexnum-1).getCineplexName();
         
 
@@ -270,7 +443,14 @@ public class MovieScreening implements Serializable{
 
         }
         System.out.print("Enter the number corresponding to the cinema: ");
-        int cinemanum = Integer.parseInt(input.nextLine());
+        int cinemanum;
+        try{
+            cinemanum = Integer.parseInt(input.nextLine());
+        } catch(NumberFormatException e){
+            System.out.println("Please input a valid number!");
+            System.out.println("Returning to staff menu...\n");
+            return;
+        }
         Cinema cinemaToFetch = cinemaList.get(indexlist.get(cinemanum-1));
 
         // We will ask for date time in this format and call toString to get string representation 
@@ -303,6 +483,13 @@ public class MovieScreening implements Serializable{
     }
 
     
+    
+    /** 
+     * When updating or removing a movie screening, we will ask the staff which movie and then show them the listings. They will chose from the listings and this returns the MovieScreening object that they want to change.
+     * 
+     * @return MovieScreening
+     * @throws Exception
+     */
     public static MovieScreening movieScreeningToChange() throws Exception{
         Scanner input = new Scanner(System.in);
         FileInOut<Movie> movieinout = new FileInOut<Movie>();
@@ -318,7 +505,13 @@ public class MovieScreening implements Serializable{
         // We will take in movie title and use it as a keyID to fetchDetail that spits out Movie Object
 
         System.out.print("Enter the number corresponding to the movie: ");
-        int movienum = Integer.parseInt(input.nextLine());
+        int movienum;
+        try{
+            movienum = Integer.parseInt(input.nextLine());
+        } catch(NumberFormatException e){
+            System.out.println("Please input a valid number!");
+            return null;
+        }
         Movie movieToFetch = myMovieList.get(indexList.get(movienum-1));
 
 
@@ -341,15 +534,33 @@ public class MovieScreening implements Serializable{
                 System.out.print("\n\n");
             }
         }
+        if(indexCount==0){
+            return null;
+        }
+
         System.out.print("Enter the number corresponding to the movie screening: ");
 
-        int choice = Integer.parseInt(input.nextLine());
+        int choice;
+        try{
+            choice = Integer.parseInt(input.nextLine());
+        } catch(NumberFormatException e){
+            System.out.println("Please input a valid number!");
+            System.out.println("Returning to staff menu...\n");
+            return null;
+        }
         MovieScreening movieScreeningToChange = myMovieScreeningList.get(indexList2.get(choice-1));
         return movieScreeningToChange;
 
 
     }
 
+    
+    /** 
+     * Calls movieScreeningToChange() that will allow staff to put in input so we know which movie screening is to be removed
+     * 
+     * 
+     * @throws Exception
+     */
     public static void removeMovieScreening() throws Exception{
         System.out.println("Remove MovieScreening: ");
         ArrayList<MovieScreening> myMovieScreeningList = null;
@@ -357,6 +568,11 @@ public class MovieScreening implements Serializable{
         myMovieScreeningList = movieScreeninginout.readData(new MovieScreening());
 
         MovieScreening retrievedScreening = movieScreeningToChange();
+        if(retrievedScreening == null){
+            System.out.println("No screenings to remove");
+            System.out.println("Returning to staff menu...\n");
+            return;
+        }
         String mymovieTitle = retrievedScreening.getMovieObj().getMovieTitle();
         String myDate = retrievedScreening.getMydate().toString();
         String mycineplexname = retrievedScreening.getMovieScreeningLocation().getCineplexName();
@@ -372,17 +588,28 @@ public class MovieScreening implements Serializable{
         }
         screeningToBeRemoved.setHasCompleted(true);
 
-
+        System.out.println("Movie Screening Successfully deleted");
         MovieTicket.updateMovieTicketWithMovieScreening(screeningToBeRemoved);
         movieScreeninginout.writeData(myMovieScreeningList, new MovieScreening());
         
     }
     
+    
+    /** 
+     * Calls movieScreeningToChange() that will allow staff to put in input so we know which movie screening is to be updated
+     * 
+     * @throws Exception
+     */
     public static void updateMovieScreening() throws Exception{
         Scanner input = new Scanner(System.in);
         FileInOut<MovieScreening> movieScreeninginout = new FileInOut<MovieScreening>();
         ArrayList<MovieScreening> myMovieScreeningList = movieScreeninginout.readData(new MovieScreening());
         MovieScreening retrievedScreening = movieScreeningToChange();
+        if(retrievedScreening==null){
+            System.out.println("No screenings to update");
+            System.out.println("Returning to staff menu...\n");
+            return;
+        }
 
         String mymovieTitle = retrievedScreening.getMovieObj().getMovieTitle();
         String myDate = retrievedScreening.getMydate().toString();
@@ -425,88 +652,18 @@ public class MovieScreening implements Serializable{
         movieTicketinout.writeData(myMovieTicketList, new MovieTicket());
 
 
-
-
-
-
-
-    //     ArrayList<Cineplex> cineplexlist = fileio.readCineplexData();
-    //     System.out.println("Which cineplex is the movie Screening in?");
-    //     int cineplexcount = 0;
-    //     for(int i=0; i<cineplexlist.size(); i++){
-    //         System.out.println(++cineplexcount + ". " + cineplexlist.get(i).getCineplexName());
-    //     }
-
-    //     System.out.print("Enter the number corresponding to the cineplex: ");
-    //     int cineplexnum = input.nextInt();
-        
-        
-    //     String cineplexchosen = cineplexlist.get(cineplexnum-1).getCineplexName();
-
-    //     ArrayList<Movie> movielist = fileio.readMovieData();
-    //     System.out.println("Here are the list of movies to choose from: ");
-    //     int moviecount = 0;
-    //     for(int i=0; i<movielist.size(); i++){
-    //         System.out.println(++moviecount + ". " + movielist.get(i).getMovieTitle());
-    //     }
-    //     System.out.print("Enter the number corresponding to the movie you would like to change: ");
-    //     int movienum = input.nextInt(); 
-    //     Movie movieObjChosen = movielist.get(movienum-1);
-        
-        
-    //     String movie = movieObjChosen.getMovieTitle();
-
-    //     ArrayList<LocalDateTime> screeningtimelist = MovieScreening.giveScreenTimes(movie);
-    //     System.out.println("Here are the list of showtimes for the movie");
-    //     // Display list of showtimes, pass in movie title
-    //     System.out.println("Movie = " + movie);
-    //     for(int i=0; i<screeningtimelist.size(); i++){
-    //         System.out.print(i+1);
-    //         System.out.print(".\t");
-    //         System.out.print(screeningtimelist.get(i).getDayOfMonth());
-    //         System.out.print(" ");
-    //         System.out.print(screeningtimelist.get(i).getMonth().toString());
-    //         System.out.print(" ");
-    //         System.out.print(screeningtimelist.get(i).getDayOfWeek().toString());
-    //         System.out.print("\n");
-    //     }
-    //     System.out.print("Pick a showtime. Enter the number here: ");
-    //     int showtimenum = input.nextInt();
-
-
-    //     LocalDateTime showtimechosen = screeningtimelist.get(showtimenum-1);
-
-
-
-    //     ArrayList<MovieScreening> screenings = fileio.readMovieScreeningData();
-    //     String screeningMovieTitle = null;
-    //     LocalDateTime screeningDateTime = null;
-    //     String screeningCineplex = null;
-    //     for(int i=0;i<screenings.size();i++){
-    //         screeningMovieTitle = screenings.get(i).getMovieObj().getMovieTitle();
-    //         screeningDateTime = screenings.get(i).getMydate();
-    //         screeningMovieTitle = screenings.get(i).getMovieScreeningLocation().getCineplexName();
-    //         if()
-    //     }
-
-
-    //     // ArrayList<MovieScreening> listOfMovieScreenings = fileio.readMovieScreeningData();
-    //     // MovieScreening toBeChanged = movieScreeningToChange(listOfMovieScreenings);
-    //     // System.out.println("Please Enter Date and Time  [YYYY,MM,DD,HH,MIN]");
-    //     // String date = input.nextLine();
-    //     // String[] arrOfString = date.split(",");
-    //     // int year = Integer.parseInt(arrOfString[0]);
-    //     // int month = Integer.parseInt(arrOfString[1]);
-    //     // int day = Integer.parseInt(arrOfString[2]);
-    //     // int hour = Integer.parseInt(arrOfString[3]);
-    //     // int minute = Integer.parseInt(arrOfString[4]);
-    //     // LocalDateTime myDate = LocalDateTime.of(year, month, day, hour, minute, 0);
-
-    //     // toBeChanged.setMydate(myDate);
-    //     // fileio.writeMovieScreeningData(listOfMovieScreenings);
         
     }
 
+    
+    /** 
+     * Takes movie title and cineplex name and returns an arraylist of moviescreening timees that is available and it is different from movieScreeningToChange because this one is specific to cineplex
+     * 
+     * @param movieTitle is the movie title that the user has chosen
+     * @param cineplexChosen is the cineplex name that the user has chosen
+     * @return ArrayList<MovieScreening> contains the list of available movie screenings
+     * @throws Exception
+     */
     public static ArrayList<MovieScreening> giveScreenTimes(String movieTitle, Cineplex cineplexChosen) throws Exception{
         ArrayList<MovieScreening> toRetur = new ArrayList<MovieScreening>();
         FileInOut<MovieScreening> movieScreeninginout = new FileInOut<MovieScreening>();
@@ -522,25 +679,7 @@ public class MovieScreening implements Serializable{
     }
 
     
-    public static MovieScreening retrieveMovieScreening(String movieTitleOfMovieScreening,LocalDateTime mydateOfMovieScreening,String myCineplexOfMovieScreening) throws Exception{
-       
-        FileInOut<MovieScreening> movieScreeninginout = new FileInOut<MovieScreening>();
-        ArrayList<MovieScreening> listOfMovieScreening = movieScreeninginout.readData(new MovieScreening());
-        String movieTitle = null;
-        LocalDateTime mydate = null;
-        String myCineplex = null;
-        MovieScreening toRetur = null;
-        for(int i =0;i<listOfMovieScreening.size();i++){
-            movieTitle = listOfMovieScreening.get(i).getMovieObj().getMovieTitle();
-            mydate = listOfMovieScreening.get(i).getMydate();
-            myCineplex = listOfMovieScreening.get(i).getMovieScreeningLocation().getCineplexName();
-            if(movieTitle.equalsIgnoreCase(movieTitleOfMovieScreening) && mydate.equals(mydateOfMovieScreening) && myCineplex.equalsIgnoreCase(myCineplexOfMovieScreening)){
-                toRetur = listOfMovieScreening.get(i);
-            }
-        }
 
-        return toRetur;
-    }
 
 }
 

@@ -215,70 +215,6 @@ public static void updateReviews2(String oldReview,int oldRating,Review reviewTo
 }
 
 
-// public void updateReviews() throws Exception{
-//   FileInOut<Movie> movieio = new FileInOut<Movie>();
-//   ArrayList<Movie> movieList = movieio.readData(new Movie());
-//   //ArrayList<Movie> movieList = fileio.readMovieData();
-//   if(movieList == null){
-//     System.out.println("There is no movie available.");
-//     return;
-//   }
-//   FileInOut<Review> reviewio = new FileInOut<Review>();
-//   ArrayList<Review> reviewList = reviewio.readData(new Review());
-//   //ArrayList<Review> reviewList = fileio.readReviewData();
-//   if(reviewList == null){
-//     System.out.println("No reviews yet.");
-//     return;
-//   }
-//   else{
-//     for (int index = 0; index < movieList.size(); index++) {
-//       ArrayList<String> reviewsToBeAdded = new ArrayList<String>();
-//       String movieTitleToBeCompared = movieList.get(index).getMovieTitle();
-//       for ( int i = 0; i<reviewList.size();i++) {
-//         if(reviewList.get(i).getMovie().getMovieTitle().equals(movieTitleToBeCompared)){
-//           reviewsToBeAdded.add(reviewList.get(i).getReview());
-//         }
-//       }
-//       movieList.get(index).setPastReviews(reviewsToBeAdded);
-//       MovieScreening.updateMovieScreeningWithMovie(movieList.get(index));
-//     }
-//   }
-//   movieio.writeData(movieList, new Movie());
-//   //fileio.writeMovieData(movieList);
-//   reviewio.writeData(reviewList, new Review());
-//   //fileio.writeReviewData(reviewList);
-// }
-// public void updateRating() throws Exception{
-//   FileInOut<Movie> movieio = new FileInOut<Movie>();
-//   ArrayList<Movie> movieList = movieio.readData(new Movie());
-//   //ArrayList<Movie> movieList = fileio.readMovieData();
-//   if(movieList == null){
-//     System.out.println("There is no movie available.");
-//     return;
-//   }
-//   FileInOut<Review> reviewio = new FileInOut<Review>();
-//   ArrayList<Review> reviewList = reviewio.readData(new Review());
-//   //ArrayList<Review> reviewList = fileio.readReviewData();
-//   if(reviewList == null){
-//     System.out.println("No ratings yet.");
-//     return;
-//   }
-//   else{
-//     for (int index = 0; index < movieList.size(); index++) {
-//       String movieTitleToBeCompared = movieList.get(index).getMovieTitle();
-//       for ( int i = 0; i<reviewList.size();i++) {
-//         if(reviewList.get(i).getMovie().getMovieTitle().equals(movieTitleToBeCompared)){
-//           movieList.get(index).setMovieRating(reviewList.get(i).getRating());
-//         }
-//       }
-//       MovieScreening.updateMovieScreeningWithMovie(movieList.get(index));
-//     }
-//   }
-//   movieio.writeData(movieList, new Movie());
-//   //fileio.writeMovieData(movieList);
-//   reviewio.writeData(reviewList, new Review());
-//   //fileio.writeReviewData(reviewList);
-// }
 
 // Comparator for sorting the list by Sale Volume
 public static Comparator<Movie> movieSalesComparator = new Comparator<Movie>(){
@@ -428,26 +364,19 @@ public static void createMovie()throws Exception{
   newMovie.setMovieCast(cast);
   newMovie.setSaleVolume(0);
   newMovie.setPastReviews(new ArrayList<String>());
-  if(movieList == null){
-    movieList = new ArrayList<Movie>();
-  }
   movieList.add(newMovie);
   movieio.writeData(movieList, new Movie());
-  //fileio.writeMovieData(movieList);
 
 }
 
     public static String updateMovie() throws Exception{
         FileInOut<Movie> movieio = new FileInOut<Movie>();
         ArrayList<Movie> movieList = movieio.readData(new Movie());
-        //ArrayList<Movie> movieList = null;
-        //movieList = fileio.readMovieData();
         Movie movieToUpdate = null;
         Scanner in = new Scanner(System.in);
         if(movieList == null){
           System.out.println("There is no movie available.");
           System.out.println("Returning to staff menu...\n");
-          fileio.writeMovieData(movieList);
           return null;
         }
         else{
@@ -464,7 +393,6 @@ public static void createMovie()throws Exception{
           if (found == 0){
               System.out.println("No such movie exists!");
               System.out.println("Returning to staff menu...\n");
-              fileio.writeMovieData(movieList);
               return null;
           }
           else{
@@ -483,7 +411,6 @@ public static void createMovie()throws Exception{
               System.out.println("Movie status changed to "+movieToUpdate.getMovieStatus());
           }
           movieio.writeData(movieList, new Movie());
-          //fileio.writeMovieData(movieList);
           if(movieToUpdate.getMovieStatus().equals("End_Of_Showing")){
             Movie.removeMovie(movieToUpdate.getMovieTitle());
             MovieScreening.removeMovieScreeningWithMovie(movieToUpdate);
@@ -497,9 +424,6 @@ public static void createMovie()throws Exception{
     public static void removeMovie(String movieName) throws Exception{
         FileInOut<Movie> movieio = new FileInOut<Movie>();
         ArrayList<Movie> movieList = movieio.readData(new Movie());
-        //ArrayList<Movie> movieList = null;
-        //movieList = fileio.readMovieData();
-        Scanner in = new Scanner(System.in);
         if (movieList == null || movieList.size()<1){
           System.out.println("There is no movie available.");
           System.out.println("Returning to staff menu...\n");
@@ -524,7 +448,7 @@ public static void createMovie()throws Exception{
         //fileio.writeMovieData(movieList);
     }
     //displaying all the movies and the status
-    public static void showMovieList() throws Exception{
+    public static ArrayList<Movie> showMovieList() throws Exception{
       FileInOut<Movie> movieio = new FileInOut<Movie>();
       ArrayList<Movie> allMovieList = movieio.readData(new Movie());
       ArrayList<Movie> movieList = getAvailableMovieList(allMovieList);
@@ -532,8 +456,7 @@ public static void createMovie()throws Exception{
           System.out.println(index+1 +". "+ movieList.get(index).getMovieTitle());
           System.out.println("Status: "+movieList.get(index).getMovieStatus());
         }
-      movieio.writeData(movieList, new Movie());
-      //fileio.writeMovieData(movieList);
+      return movieList;
     }
 
     //Helper function to get available movie
@@ -553,7 +476,6 @@ public static void createMovie()throws Exception{
       //FileInOut<Movie> movieio = new FileInOut<Movie>();
       //ArrayList<Movie> movieList = movieio.readData(new Movie());
       ArrayList<Movie> arrListToBeLooped = searchMovieList(movieTitle);
-      //ArrayList<Movie> movieList = fileio.readMovieData();
       //movieList = searchMovieList(movieTitle);
       Scanner input = new Scanner(System.in);
       System.out.println("Which of these movies are you searching for? Select the option number.");
@@ -569,7 +491,7 @@ public static void createMovie()throws Exception{
         try {
           choice = Integer.parseInt(input.nextLine())- 1 ;
           success = true;
-        } catch (InputMismatchException e) {
+        } catch (NumberFormatException e) {
           System.out.println("That is not a valid number. Please choose again.");
         } 
       } while (!success);
@@ -607,7 +529,6 @@ public static void createMovie()throws Exception{
     public static ArrayList<Movie> searchMovieList(String movieTitle) throws Exception{
       FileInOut<Movie> movieio = new FileInOut<Movie>();
       ArrayList<Movie> movieList = movieio.readData(new Movie());
-      //ArrayList<Movie> movieList = fileio.readMovieData();
       ArrayList<Movie> listToReturn = new ArrayList<>();
       for (Movie movie : movieList) {
         if (movie.getMovieTitle().toLowerCase().contains(movieTitle.toLowerCase())) listToReturn.add(movie);
@@ -623,12 +544,17 @@ public static void createMovie()throws Exception{
       int choice = 0;
       FileInOut<Movie> movieio = new FileInOut<Movie>();
       ArrayList<Movie> movieList = movieio.readData(new Movie());
-      //ArrayList<Movie> movieList= fileio.readMovieData(); 
       do{
-        System.out.println("View top 5 movies");
+        System.out.println("\nView top 5 movies");
         System.out.println("1. By Ratings");
         System.out.println("2. By Sales Volume");
-        choice = Integer.parseInt(input.nextLine());
+        try{
+          choice = Integer.parseInt(input.nextLine());
+        } catch(NumberFormatException e){
+            System.out.println("Please input a valid number!");
+            System.out.println("Returning to staff menu...\n");
+            return;
+        }
       }
       while(choice<1 || choice >2);
       if (choice == 1){
@@ -647,7 +573,6 @@ public static void createMovie()throws Exception{
         }
       }
       movieio.writeData(movieList, new Movie());
-      //fileio.writeMovieData(movieList);
     }
     // // Rate movie based on user input movie title
     // public static void userRate(String movieTitle) throws Exception{

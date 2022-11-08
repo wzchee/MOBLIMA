@@ -2,28 +2,48 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
 
+/**
+ * Java class that contains methods only accessible to developers of this system
+ * <p>
+ * Handles the initialization and monitoring of the data files used by this system.
+ * The methods of this class should not be shown to the staff members or users of
+ * this system
+ * @author  Chee Wen Zhan
+ * @version 1.0
+ * @since   2022-8-11
+ */
 public class Developer {
 
+    /**
+     * Creates new data files and initialize them if the files are deleted or not found
+     * <p>
+     * Creates new data files using {@code FileInOut#writeData(ArrayList, Object)}
+     * if data files of their corresponding name are not found. Afterwards, initialize
+     * the data files with a fixed set of values for easy testing and use of this system
+     * @see     Cineplex#Cineplex(String)
+     * @see     Cinema#Cinema(String, Cineplex, boolean, int, String)
+     * @see     User#User(String, String, int, String, String)
+     * @see     Staff#Staff(String, String, String, Cineplex)
+     * @see     Movie#Movie(String, int, dimension, status, boolean, String, String, String[], String)
+     * @see     Configurables#Configurables(int, int, int, double)
+     * @see     FileInOut#readData(Object)
+     * @see     FileInOut#writeData(ArrayList, Object)
+     * @throws  Exception
+     */
     public static void Initializer() throws Exception{
         // iniitialize everything
         FileInOut<Cineplex> cineplexinout = new FileInOut<Cineplex>();
         ArrayList<Cineplex> myCineplexList = cineplexinout.readData(new Cineplex());
-        //ArrayList<Cineplex> myCineplexList = fileio.readCineplexData();
         if (myCineplexList.isEmpty()) {
             myCineplexList.add(new Cineplex("Cathay Cineplex AMK HUB"));
             myCineplexList.add(new Cineplex("Cathay Cineplex JEM"));
             myCineplexList.add(new Cineplex("Cathay Cineplex Cineleisure"));
             // overwrite the file
             cineplexinout.writeData(myCineplexList, new Cineplex());
-            //fileio.writeCineplexData(myCineplexList);
         }
-        // FileInOut<Cineplex> cineplexinout = new FileInOut<Cineplex>();
-        // ArrayList<Cineplex> myCineplexList = cineplexinout.readData(new Cineplex());
-        // cineplexinout.writeData(myCineplexList, new Cineplex());
 
         FileInOut<Cinema> cinemainout = new FileInOut<Cinema>();
         ArrayList<Cinema> myCinemaList = cinemainout.readData(new Cinema());
-        //ArrayList<Cinema> myCinemaList = fileio.readCinemaData();
         if (myCinemaList.isEmpty()) {
             myCinemaList.add(new Cinema("Standard 1", myCineplexList.get(0), false, 100, "AS1"));
             myCinemaList.add(new Cinema("Standard 2", myCineplexList.get(0), false, 100, "AS2"));
@@ -36,40 +56,34 @@ public class Developer {
             myCinemaList.add(new Cinema("Standard 3" ,myCineplexList.get(2), false, 100, "CS3"));
             // overwrite the file
             cinemainout.writeData(myCinemaList, new Cinema());
-            //fileio.writeCinemaData(myCinemaList);
         }
 
         FileInOut<User> userinout = new FileInOut<User>();
         ArrayList<User> userList = userinout.readData(new User());
-        //ArrayList<User> userList = fileio.readUserData();
         if (userList.isEmpty()) {
             userList.add(new User("wz@email.com", "wz", 20, "Wen Zhan", "81234567"));
             userList.add(new User("oliver@email.com", "oliver", 20, "Oliver Low", "81234568"));
             userList.add(new User("bernard@email.com", "bernard", 20, "Bernard", "81234569"));
             userList.add(new User("jiarong@email.com", "jiarong", 20, "Jia Rong", "812345675"));
+            userList.add(new User("kid@email.com", "kid", 2, "Rong", "812345675"));
             // overwrite the file
             userinout.writeData(userList, new User());
-            //fileio.writeUserData(userList);
         }
 
         FileInOut<Staff> staffinout = new FileInOut<Staff>();
         ArrayList<Staff> staffList = staffinout.readData(new Staff());
-        //ArrayList<Staff> staffList = fileio.readStaffData();
         if (staffList.isEmpty()) {
             staffList.add(new Staff("admin@admin.com", "admin", "ADMIN", myCineplexList.get(0)));
             // overwrite the file
             staffinout.writeData(staffList, new Staff());
-            //fileio.writeUserData(userList);
         }
         
         FileInOut<Configurables> configinout = new FileInOut<Configurables>();
         ArrayList<Configurables> configList = configinout.readData(new Configurables());
-        //ArrayList<Configurables> configList = fileio.readConfigurablesData();
         if (configList.isEmpty()) {
             configList.add(new Configurables(2022, 12, 15, 7.0));
             // overwrite the file
             configinout.writeData(configList, new Configurables());
-            //fileio.writeUserData(configList);
         }
 
         FileInOut<Movie> movieinout = new FileInOut<Movie>();
@@ -97,8 +111,15 @@ public class Developer {
             movieList.add(new Movie("SkyFall",143,dimension.TwoD,status.Coming_Soon,false,"James Bond's loyalty to M is tested when her past comes back to haunt her. When MI6 comes under attack, 007 must track down and destroy the threat, no matter how personal the cost.","Sam Mendes",cast10,"PG"));
             
         }
+        movieinout.writeData(movieList, new Movie());
     }
 
+    /**
+     * Clear the entries and delete all data files for this system
+     * <p>
+     * To prevent the accidental deletion of files, this method will first
+     * confirm with a Y/N input on whether the files will be deleted
+     */
     public static void clearAllFiles(){
         Scanner input = new Scanner(System.in);
 
@@ -131,6 +152,20 @@ public class Developer {
         }
     }
 
+    /**
+     * Shows all attributes of all objects that is stored in all data files in the system
+     * @see     Cineplex#Cineplex(String)
+     * @see     Cinema#Cinema(String, Cineplex, boolean, int, String)
+     * @see     User#User(String, String, int, String, String)
+     * @see     Staff#Staff(String, String, String, Cineplex)
+     * @see     Movie#Movie(String, int, dimension, status, boolean, String, String, String[], String)
+     * @see     MovieScreening#MovieScreening(Movie, Cinema, java.time.LocalDateTime, int[], boolean, int, boolean)
+     * @see     MovieTicket#MovieTicket(MovieScreening, int, User, Double, java.time.LocalDateTime, String)
+     * @see     Configurables#Configurables(int, int, int, double)
+     * @see     FileInOut#readData(Object)
+     * @see     FileInOut#writeData(ArrayList, Object)
+     * @throws Exception
+     */
     public static void peekFiles() throws Exception{
         System.out.println("!!!!! Developer mode only function");
         
@@ -142,6 +177,7 @@ public class Developer {
             System.out.print(staffList.get(i).getPassword() + "\t");
             System.out.print(staffList.get(i).getName() + "\t");
             System.out.print(staffList.get(i).getWorkplace() + "\t");
+            System.out.print("\n");
         }
         System.out.println("\n");
 
@@ -154,6 +190,7 @@ public class Developer {
             System.out.print(userList.get(i).getName() + "\t");
             System.out.print(userList.get(i).getAge() + "\t");
             System.out.print(userList.get(i).getMobileNumber() + "\t");
+            System.out.print("\n");
         }
         System.out.println("\n");
 
@@ -165,6 +202,7 @@ public class Developer {
             System.out.print(cinemaList.get(i).getCinemaName() + "\t");
             System.out.print(cinemaList.get(i).getCineplexName() + "\t");
             System.out.print(cinemaList.get(i).getNumOfSeats() + "\t");
+            System.out.print("\n");
         }
         System.out.println("\n");
 
@@ -173,6 +211,7 @@ public class Developer {
         System.out.println("Showing the contents of Cineplex.java");
         for(int i=0; i<staffList.size(); i++){
             System.out.print(cineplexList.get(i).getCineplexName() + "\t");
+            System.out.print("\n");
         }
         System.out.println("\n");
 
@@ -192,6 +231,7 @@ public class Developer {
             System.out.print(movieList.get(i).getMovieCast() + "\t");
             System.out.print(movieList.get(i).getMovieRating() + "\t");
             System.out.print(movieList.get(i).getPastReviews() + "\t");
+            System.out.print("\n");
         }
         System.out.println("\n");
 
@@ -200,11 +240,11 @@ public class Developer {
         System.out.println("Showing the contents of MovieScreening.java");
         for(int i=0; i<movieScreeningList.size(); i++){
             System.out.print(movieScreeningList.get(i).getNumOfOccupiedSeats() + "\t");
-            System.out.print(movieScreeningList.get(i).getAvailabilityOfSeats(i) + "\t");
             System.out.print(movieScreeningList.get(i).getMovieObj() + "\t");
             System.out.print(movieScreeningList.get(i).getMovieScreeningLocation() + "\t");
             System.out.print(movieScreeningList.get(i).getMydate() + "\t");
             System.out.print(movieScreeningList.get(i).getSeatArr() + "\t");
+            System.out.print("\n");
         }
         System.out.println("\n");
 
@@ -218,6 +258,7 @@ public class Developer {
             System.out.print(movieTicketList.get(i).getLocation() + "\t");
             System.out.print(movieTicketList.get(i).getMovieScreening() + "\t");
             System.out.print(movieTicketList.get(i).getUser() + "\t");
+            System.out.print("\n");
         }
         System.out.println("\n");
 
@@ -229,6 +270,7 @@ public class Developer {
             System.out.print(reviewList.get(i).getReview() + "\t");
             System.out.print(reviewList.get(i).getMovie() + "\t");
             System.out.print(reviewList.get(i).getUser() + "\t");
+            System.out.print("\n");
         }
         System.out.println("\n");
 
@@ -238,6 +280,7 @@ public class Developer {
         for(int i=0; i<staffList.size(); i++){
             System.out.print(configurablesList.get(i).getBasePrice() + "\t");
             System.out.print(configurablesList.get(i).getPublicHolidays() + "\t");
+            System.out.print("\n");
         }
         System.out.println("\n");
     }
