@@ -26,8 +26,11 @@ public class Staff implements Serializable{
      * declare a certain day as public holiday, which will affect the pricing.
      * Staff members can also display the Top 5 movies in the system based on
      * rating or sale volume.
-     * @param useremail Email of the staff logged into the system
-     * @throws Exception
+     * @param   useremail Email of the staff logged into the system
+     * @see     Movie
+     * @see     MovieScreening
+     * @see     Configurables
+     * @throws  Exception
      */
     public static void loggedin(String useremail) throws Exception{
         // User interface after a STAFF has logged in
@@ -108,6 +111,13 @@ public class Staff implements Serializable{
         }
     }
 
+    /**
+     * Constructor to create a {@code Staff} object with all of its attributes initialized
+     * @param email         Email of staff member used to log into this system
+     * @param password      Password of staff member used to log into this system
+     * @param name          Name of staff member
+     * @param workplace     The cineplex associated to the staff member. He is still able to access all staff features of MOBLIMA
+     */
     public Staff(String email, String password, String name, Cineplex workplace){
         this.email = email;
         this.password = password;
@@ -119,22 +129,94 @@ public class Staff implements Serializable{
 
     }
 
+    /**
+     * Email of staff member used to log into this system
+     */
     private String email;
-    public String getEmail(){return email;}
-    public void setEmail(String email){this.email = email;}
+    /**
+     * Retrieve the email of the staff member
+     * @return Email of staff member
+     */
+    public String getEmail(){
+        return email;
+    }
+    /**
+     * Set the new email of this staff member
+     * @param email New email of staff member
+     */
+    public void setEmail(String email){
+        this.email = email;
+    }
 
+    /**
+     * Password of staff member used to log into the system
+     */
     private String password;
-    public String getPassword(){return password;}
-    public void setPassword(String password){this.password = password;}
+    /**
+     * Retrieve the password of the staff member
+     * @return Password of staff member
+     */
+    public String getPassword(){
+        return password;
+    }
+    /**
+     * Set the new password of the staff member
+     * @param password New password of staff member
+     */
+    public void setPassword(String password){
+        this.password = password;
+    }
 
+    /**
+     * Name of staff member
+     */
     private String name;
-    public String getName(){return name;}
-    public void setName(String name){this.name = name;}
+    /**
+     * Retrieve the name of the staff member
+     * @return Name of staff member
+     */
+    public String getName(){
+        return name;
+    }
+    /**
+     * Set the new name of the staff member
+     * @param name New name of staff member
+     */
+    public void setName(String name){
+        this.name = name;
+    }
 
+    /**
+     * Cineplex where the staff member goes to work.
+     * However, this does not restrict the staff member from all of the functionalities
+     * in this system.
+     */
     private Cineplex workplace;
-    public Cineplex getWorkplace(){return workplace;}
-    public void setWorkplace(Cineplex workplace){this.workplace = workplace;}
+    /**
+     * Retrieve the cineplex of work of this staff member
+     * @return Cineplex of work of this staff member
+     */
+    public Cineplex getWorkplace(){
+        return workplace;
+    }
+    /**
+     * Set the new cineplex of work for this staff member
+     * @param workplace New cineplex of work for this staff member
+     */
+    public void setWorkplace(Cineplex workplace){
+        this.workplace = workplace;
+    }
 
+    /**
+     * Returns the current {@code Staff} instance.
+     * <p>
+     * Scans the email against the database of staff accounts, and then
+     * create a new entry for this {@code Staff} user with all of the staff 
+     * attributes inside the instance
+     * @param useremail Email of staff member used to log into the system
+     * @return {@code Staff} object with the corresponding email address
+     * @throws Exception
+     */
     private static Staff fetchDetails(String useremail) throws Exception{
         FileInOut<Staff> staffio = new FileInOut<Staff>();
         ArrayList<Staff> staffList = staffio.readData(new Staff());

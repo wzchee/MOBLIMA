@@ -8,10 +8,6 @@ import java.io.Serializable;
  * @author  Chee Wen Zhan
  * @version 1.0
  * @since   2022-7-11
- * @see     Movie
- * @see     MovieScreening
- * @see     MovieTicket
- * @see     Review
  */
 public class User implements Serializable{
    
@@ -22,6 +18,10 @@ public class User implements Serializable{
      * availability and make a booking. Also allows them to write reviews
      * and check their booking history.
      * @param   useremail   Email of the user logged into the system
+     * @see     Movie
+     * @see     MovieScreening
+     * @see     MovieTicket
+     * @see     Review
      * @throws  Exception
      */
     public static void loggedin(String useremail) throws Exception{
@@ -92,7 +92,7 @@ public class User implements Serializable{
     }
 
     /**
-     * Constructor to create a User instance with all of the attributes instantiated
+     * Constructor to create a {@code User} instance with all of the attributes instantiated
      * @param email         Email address of movie-goer, uniquely identifies the user
      * @param password      Password used by movie-goer to log into the system
      * @param age           Age of movie-goer, used to calculate ticket pricing
@@ -117,14 +117,14 @@ public class User implements Serializable{
      */
     private String email;
     /**
-     * Retrieve the email address of the movie-goer (current User)
+     * Retrieve the email address of the movie-goer (current {@code User})
      * @return  Email address of the movie-goer
      */
     public String getEmail(){
         return email;
     }
     /**
-     * Set the new email address of the movie-goer (current User)
+     * Set the new email address of the movie-goer (current {@code User})
      * @param email New email address to replace the current email attribute
      */
     public void setEmail(String email){
@@ -136,14 +136,14 @@ public class User implements Serializable{
      */
     private String password;
     /**
-     * Retrieve the password of the movie-goer (current User)
+     * Retrieve the password of the movie-goer (current {@code User})
      * @return  Password of the movie-goer
      */
     public String getPassword(){
         return password;
     }
     /**
-     * Set the new password of the movie-goer (current User)
+     * Set the new password of the movie-goer (current {@code User})
      * @param password New password of movie-goer used for this system
      */
     public void setPassword(String password){
@@ -155,14 +155,14 @@ public class User implements Serializable{
      */
     private int age;
     /**
-     * Retrieve the age of the movie-goer (current User)
+     * Retrieve the age of the movie-goer (current {@code User})
      * @return  Age of the movie-goer
      */
     public int getAge(){
         return age;
     }
     /**
-     * Set the new age of the movie-goer (current User)
+     * Set the new age of the movie-goer (current {@code User})
      * @param age New age of movie-goer
      */
     public void setAge(int age){
@@ -174,14 +174,14 @@ public class User implements Serializable{
      */
     private String name;
     /**
-     * Retrieve the name of the movie-goer (current User)
+     * Retrieve the name of the movie-goer (current {@code User})
      * @return Name of movie-goer
      */
     public String getName(){
         return name;
     }
     /**
-     * Set the new name of the movie-goer (current User)
+     * Set the new name of the movie-goer (current {@code User})
      * @param name New name of movie-goer
      */
     public void setName(String name){this.name = name;}
@@ -191,25 +191,25 @@ public class User implements Serializable{
      */
     private String mobileNumber;
     /**
-     * Retrieve the mobile number of the movie-goer (current User)
+     * Retrieve the mobile number of the movie-goer (current {@code User})
      * @return Mobile number of movie-goer
      */
     public String getMobileNumber(){
         return mobileNumber;
     }
     /**
-     * Set the new mobile number of the movie-goer (current User)
+     * Set the new mobile number of the movie-goer (current {@code User})
      * @param mobileNumber New mobile number of movie-goer
      */
     public void setMobileNumber(String mobileNumber){this.mobileNumber = mobileNumber;}
 
     /**
-     * Returns the current User instance
+     * Returns the current {@code User} instance
      * <p>
      * Scans the email against the database of user accounts, and then create
-     * a new User instance with the correct entry and attributes of the User
+     * a new {@code User} instance with the correct entry and attributes of the {@code User}
      * @param useremail Email of movie-goer passed from the login page
-     * @return User object with the corresponding email address and all other attributes
+     * @return {@code User} object with the corresponding email address and all other attributes
      * @throws Exception
      */
     private static User fetchDetails(String useremail) throws Exception{

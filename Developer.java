@@ -2,8 +2,34 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
 
+/**
+ * Java class that contains methods only accessible to developers of this system
+ * <p>
+ * Handles the initialization and monitoring of the data files used by this system.
+ * The methods of this class should not be shown to the staff members or users of
+ * this system
+ * @author  Chee Wen Zhan
+ * @version 1.0
+ * @since   2022-8-11
+ */
 public class Developer {
 
+    /**
+     * Creates new data files and initialize them if the files are deleted or not found
+     * <p>
+     * Creates new data files using {@code FileInOut#writeData(ArrayList, Object)}
+     * if data files of their corresponding name are not found. Afterwards, initialize
+     * the data files with a fixed set of values for easy testing and use of this system
+     * @see     Cineplex#Cineplex(String)
+     * @see     Cinema#Cinema(String, Cineplex, boolean, int, String)
+     * @see     User#User(String, String, int, String, String)
+     * @see     Staff#Staff(String, String, String, Cineplex)
+     * @see     Movie#Movie(String, int, dimension, status, boolean, String, String, String[], String)
+     * @see     Configurables#Configurables(int, int, int, double)
+     * @see     FileInOut#readData(Object)
+     * @see     FileInOut#writeData(ArrayList, Object)
+     * @throws  Exception
+     */
     public static void Initializer() throws Exception{
         // iniitialize everything
         FileInOut<Cineplex> cineplexinout = new FileInOut<Cineplex>();
@@ -88,6 +114,12 @@ public class Developer {
         movieinout.writeData(movieList, new Movie());
     }
 
+    /**
+     * Clear the entries and delete all data files for this system
+     * <p>
+     * To prevent the accidental deletion of files, this method will first
+     * confirm with a Y/N input on whether the files will be deleted
+     */
     public static void clearAllFiles(){
         Scanner input = new Scanner(System.in);
 
@@ -120,6 +152,20 @@ public class Developer {
         }
     }
 
+    /**
+     * Shows all attributes of all objects that is stored in all data files in the system
+     * @see     Cineplex#Cineplex(String)
+     * @see     Cinema#Cinema(String, Cineplex, boolean, int, String)
+     * @see     User#User(String, String, int, String, String)
+     * @see     Staff#Staff(String, String, String, Cineplex)
+     * @see     Movie#Movie(String, int, dimension, status, boolean, String, String, String[], String)
+     * @see     MovieScreening#MovieScreening(Movie, Cinema, java.time.LocalDateTime, int[], boolean, int, boolean)
+     * @see     MovieTicket#MovieTicket(MovieScreening, int, User, Double, java.time.LocalDateTime, String)
+     * @see     Configurables#Configurables(int, int, int, double)
+     * @see     FileInOut#readData(Object)
+     * @see     FileInOut#writeData(ArrayList, Object)
+     * @throws Exception
+     */
     public static void peekFiles() throws Exception{
         System.out.println("!!!!! Developer mode only function");
         
@@ -194,7 +240,6 @@ public class Developer {
         System.out.println("Showing the contents of MovieScreening.java");
         for(int i=0; i<movieScreeningList.size(); i++){
             System.out.print(movieScreeningList.get(i).getNumOfOccupiedSeats() + "\t");
-            System.out.print(movieScreeningList.get(i).getAvailabilityOfSeats(i) + "\t");
             System.out.print(movieScreeningList.get(i).getMovieObj() + "\t");
             System.out.print(movieScreeningList.get(i).getMovieScreeningLocation() + "\t");
             System.out.print(movieScreeningList.get(i).getMydate() + "\t");
