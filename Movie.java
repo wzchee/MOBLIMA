@@ -781,7 +781,7 @@ public static ArrayList<Movie> getAvailableMovieList(ArrayList<Movie> arrListToB
   ArrayList<Movie> movieList = new ArrayList<Movie>();
 
   for (int i = 0; i < arrListToBeLooped.size(); i++) {
-    if(!arrListToBeLooped.get(i).getMovieStatus().equals("End_Of_Showing")){
+    if(!arrListToBeLooped.get(i).getMovieStatus().equals("End_Of_Showing") && !arrListToBeLooped.get(i).getMovieStatus().equals("Coming_Soon")){
       movieList.add(arrListToBeLooped.get(i));
     }
   }

@@ -57,9 +57,13 @@ public class User implements Serializable{
                     System.out.println("Here are the full list of movies.");
                     ArrayList<Movie> movieList = Movie.showMovieList();
                     System.out.print("Enter the number corresponding to the movie here: ");
-                    int movienum;
+                    int movienum = 0;
                     try{
-                        movienum = Integer.parseInt(input.nextLine());
+                        while(movienum<=0 || movienum>movieList.size()){
+                            System.out.println("Please input a valid option!");
+                            movienum = Integer.parseInt(input.nextLine());
+                        }
+                        
                     } catch(NumberFormatException e){
                         System.out.println("PLease input a valid number!");
                         System.out.println("Returning to user menu...\n");

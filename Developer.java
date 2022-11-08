@@ -123,7 +123,7 @@ public class Developer {
         if(movieScreeningList.isEmpty()){
         for (int index = 0; index < movieList.size(); index++) {
             for (int j = 0; j < myCinemaList.size(); j++) {
-                movieScreeningList.add(new MovieScreening(movieList.get(index) ,myCinemaList.get(j),LocalDateTime.now(),myArr,false,0,false));
+                movieScreeningList.add(new MovieScreening(movieList.get(index) ,myCinemaList.get(j),LocalDateTime.of(2022,j+1, index+1, 20, 30, index),myArr,false,0,false));
             }
         }
     }
