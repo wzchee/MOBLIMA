@@ -168,7 +168,7 @@ public String getMovieTitle(){
 
 /** 
  * Getter method to retrieve runtime of movie.
- * @return int runtime of movie.
+ * @return int Runtime of movie.
  */
 public int getMovieRuntime() {
   return this.movieRuntime;
@@ -176,7 +176,7 @@ public int getMovieRuntime() {
 
 /** 
  * Getter method to retrieve movie status.
- * @return String status of movie.
+ * @return String Status of movie.
  */
 public String getMovieStatus(){
   return this.movieStatus.toString();
@@ -184,7 +184,7 @@ public String getMovieStatus(){
 
 /** 
  * getter method to retrieve movie dimensions.
- * @return String dimensions of movie.
+ * @return String Dimensions of movie.
  */
 public String getMovieDims(){
   return this.dims.toString();
@@ -200,7 +200,7 @@ public boolean getBlockbuster(){
 
 /** 
  * Getter method to retrieve sypnosis of movie.
- * @return String sypnosis of movie.
+ * @return String Sypnosis of movie.
  */
 public String getMovieSypnosis(){
   return this.movieSypnosis;
@@ -208,7 +208,7 @@ public String getMovieSypnosis(){
 
 /** 
  * Getter method to retrieve name of movie director.
- * @return String name of movie director.
+ * @return String Name of movie director.
  */
 public String getMovieDirector(){
   return this.director;
@@ -216,7 +216,7 @@ public String getMovieDirector(){
 
 /** 
  * Getter method to retrieve name of the casts in the movie.
- * @return String[] name of casts.
+ * @return String[] Name of casts.
  */
 public String[] getMovieCast(){
   return this.cast;
@@ -224,7 +224,7 @@ public String[] getMovieCast(){
 
 /** 
  * Getter method to retrieve the 1D array of movie ratings.
- * @return int[] ratings of movie.
+ * @return int[] Ratings of movie.
  */
 public int[] getMovieRating(){
   return this.rating;
@@ -232,7 +232,7 @@ public int[] getMovieRating(){
 
 /** 
  * Getter method to get the Movie Rating(PG, PG13, M18, R21).
- * @return String rating of movie.
+ * @return String Rating of movie.
  */
 public String getRating(){
   return this.movieRating;
@@ -240,8 +240,8 @@ public String getRating(){
 
 /** 
  * Getter method to get average rating of the movie.
- * @param rating of movie to be passed in.
- * @return double calculated average rating from the 1D array passed in.
+ * @param rating Rating of movie.
+ * @return double Average rating from the 1D array passed in.
  */
 public double getMovieAverageRating(int[] rating){
   double sum = 0;
@@ -265,7 +265,7 @@ public double getMovieAverageRating(int[] rating){
 
 /** 
  * Getter method to retrieve the past reviews of the movie.
- * @return ArrayList<String> past reviews of movie.
+ * @return ArrayList<String>  Past reviews of movie.
  */
 public ArrayList<String> getPastReviews(){
   return this.pastReviews;
@@ -273,7 +273,7 @@ public ArrayList<String> getPastReviews(){
 
 /** 
  * Getter method to retrieve sale volume of movie based on tickets sold.
- * @return int sale volume of movie.
+ * @return int Sale volume of movie.
  */
 public int getSaleVolume(){
   return this.saleVolume;
@@ -281,7 +281,7 @@ public int getSaleVolume(){
 
 /** 
  * Setter method to set movie sale volume.
- * @param saleVolume of the movie.
+ * @param saleVolume Sale volume of the movie to be set to
  */
 public void setSaleVolume(int saleVolume){
   this.saleVolume = saleVolume;
@@ -289,7 +289,7 @@ public void setSaleVolume(int saleVolume){
 
 /** 
  * Setter method to set blockbuster status
- * @param blockbuster
+ * @param blockbuster Blockbuster status to be set to
  */
 public void setBlockbuster(boolean blockbuster){
   this.blockbuster = blockbuster;
@@ -298,7 +298,7 @@ public void setBlockbuster(boolean blockbuster){
 
 /** 
  * Setter method to set movie dimensions.
- * @param dims dimension of the movie.
+ * @param dims Dimension of the movie to be set to
  */
 public void setMovieDims(dimension dims){
   this.dims = dims;
@@ -307,7 +307,7 @@ public void setMovieDims(dimension dims){
 
 /** 
  * Setter method to set movie title.
- * @param movieTitle 
+ * @param movieTitle Title of movie to be set to
  */
 public void setMovieTitle(String movieTitle){
   this.movieTitle = movieTitle ;
@@ -316,7 +316,7 @@ public void setMovieTitle(String movieTitle){
 
 /** 
  * Setter method to set movie run time.
- * @param movieRuntime
+ * @param movieRuntime Runtime of Movie to be set to
  */
 public void setMovieRuntime(int movieRuntime) {
   this.movieRuntime = movieRuntime;
@@ -324,7 +324,7 @@ public void setMovieRuntime(int movieRuntime) {
 
 /** 
  * Setter method to set movie status.
- * @param movieStatus
+ * @param movieStatus Status of movie to be set to
  */
 public void setMovieStatus(status movieStatus){
   this.movieStatus = movieStatus;
@@ -333,7 +333,7 @@ public void setMovieStatus(status movieStatus){
 
 /** 
  * Setter method to set movie sypnosis.
- * @param movieSypnosis
+ * @param movieSypnosis Movie sypnosis to be set to
  */
 public void setMovieSypnosis(String movieSypnosis){
   this.movieSypnosis = movieSypnosis;
@@ -341,7 +341,7 @@ public void setMovieSypnosis(String movieSypnosis){
 
 /** 
  * Setter method to set name of movie director.
- * @param director
+ * @param director Name of director to be set to
  */
 public void setMovieDirector(String director){
   this.director = director;
@@ -349,7 +349,7 @@ public void setMovieDirector(String director){
 
 /** 
  * Setter method to set name of casts
- * @param cast
+ * @param cast Names of cast to be set to
  */
 public void setMovieCast(String[] cast){
   this.cast = cast;
@@ -357,14 +357,14 @@ public void setMovieCast(String[] cast){
 
 /** 
  * Setter method to set movie rating by user.
- * @param rating
+ * @param rating Movie rating given by user
  */
 public void  setMovieRating(int rating){
   this.rating[rating] += 1;
 }
 
 /** Setter method to decrement movie rating for overwriting reviews {@link Review#writeReview(User)}.
- * @param rating
+ * @param rating Old movie rating gieven by user
  */
 public void  setMovieRatingDown(int rating){
   this.rating[rating] -= 1;
@@ -372,7 +372,7 @@ public void  setMovieRatingDown(int rating){
 
 /** 
  * Setter method to set movie rating by staff.
- * @param movieRating
+ * @param movieRating Movie rating(PG, PG13, M18, R21)
  */
 public void setRating(String movieRating){
   this.movieRating = movieRating;
@@ -380,7 +380,7 @@ public void setRating(String movieRating){
 
 /** 
  * Setter method to set movie past review by user.
- * @param reviewString from user.
+ * @param reviewString Review from user.
  */
 public void addToPastReview(String reviewString) {
   this.pastReviews.add(reviewString);
@@ -395,7 +395,7 @@ public void incrementSaleVolume(){
 
 /** 
  * Setter method to set the past reviews of the movie.
- * @param pastReviews
+ * @param pastReviews  Past reviews of movie
  */
 public void setPastReviews(ArrayList<String> pastReviews){
   this.pastReviews = pastReviews;
@@ -407,7 +407,7 @@ public void setPastReviews(ArrayList<String> pastReviews){
  * Check if there is any movie available to add review.
  * If movie exists, check if there are any reviews from the user.
  * if the user has reviewed and rated the movie, add it into the current list of reviews and ratings for the movie.
- * @param reviewObj
+ * @param reviewObj Review from the user
  * @throws Exception
  */
 public static void addReview(Review reviewObj) throws Exception {
@@ -433,9 +433,9 @@ public static void addReview(Review reviewObj) throws Exception {
  * Method to update the review of the movie after user has overwritten their review {@link Review#writeReview(User)}.
  * Find the movie that user has changed their review and update accordingly by removing old reviews 
  * and add new reviews.
- * @param oldReview
- * @param oldRating
- * @param reviewToBeChanged contains the new review and rating by the user
+ * @param oldReview Old review that user wants to overwrite
+ * @param oldRating Old rating given by the user
+ * @param reviewToBeChanged New review and rating by the user
  * @throws Exception
  */
 public static void updateReviews(String oldReview,int oldRating,Review reviewToBeChanged) throws Exception{
@@ -470,7 +470,7 @@ public static void updateReviews(String oldReview,int oldRating,Review reviewToB
 }
 
 /**
- * Comparator for sorting the movies by descending sale volume
+ * Comparator for sorting the movies by descending sale volume.
  */
 public static Comparator<Movie> movieSalesComparator = new Comparator<Movie>(){
   public int compare(Movie m1, Movie m2){
@@ -482,7 +482,7 @@ public static Comparator<Movie> movieSalesComparator = new Comparator<Movie>(){
 };
 
 /**
- * Comparator to sorting the movies by descending average rating
+ * Comparator for sorting the movies by descending average rating.
  */
 public static Comparator<Movie> movieRatingComparator = new Comparator<Movie>(){
   public int compare(Movie m1, Movie m2){
@@ -646,19 +646,19 @@ public static void createMovie()throws Exception{
  * Method for the staff to update the status of the movie.
  * Check for available movies, if there is a matching movie, change the corresponding movie status.
  * Update the list of movies and available screenings.
- * @return String
+ * @return String status of the updated movie
  * @throws Exception
  */
-public static String updateMovie() throws Exception{
+public static void updateMovie() throws Exception{
     FileInOut<Movie> movieio = new FileInOut<Movie>();
     ArrayList<Movie> movieList = movieio.readData(new Movie());
     Movie movieToUpdate = null;
     Scanner in = new Scanner(System.in);
 
-    if(movieList == null){
+    if(movieList.size() == 0){
       System.out.println("There is no movie available.");
       System.out.println("Returning to staff menu...\n");
-      return null;
+      return;
     }
     else{
       System.out.println("Enter title of movie to be updated: ");
@@ -676,7 +676,7 @@ public static String updateMovie() throws Exception{
       if (found == 0){
           System.out.println("No such movie exists!");
           System.out.println("Returning to staff menu...\n");
-          return null;
+          return;
       }
       else{
           System.out.println("Current movie status: "+ movieToUpdate.getMovieStatus());
@@ -702,9 +702,7 @@ public static String updateMovie() throws Exception{
       }
       else{
         MovieScreening.updateMovieScreeningWithMovie(movieToUpdate);
-      }
-
-      return movieToUpdate.getMovieStatus();     
+      }     
       }
 }
 
@@ -712,7 +710,7 @@ public static String updateMovie() throws Exception{
 /** 
  * Method to remove a movie by changing the status of the movie to End of Showing.
  * Update the corresponding movie screening by removing it.
- * @param movieName
+ * @param movieName Title of movie to be deleted
  * @throws Exception
  */
 public static void removeMovie(String movieName) throws Exception{
@@ -747,7 +745,7 @@ public static void removeMovie(String movieName) throws Exception{
 
 /** 
  * Method to display all available movie and its corresponding status and rating
- * @return ArrayList<Movie>
+ * @return ArrayList<Movie> List of Movies with its coresponding title, status and rating.
  * @throws Exception
  */
 public static ArrayList<Movie> showMovieList() throws Exception{
@@ -774,8 +772,8 @@ public static ArrayList<Movie> showMovieList() throws Exception{
 
 /** 
  * Helper function to retrieve all the available movies.
- * @param arrListToBeLooped the list of all movies to be passed in.
- * @return ArrayList<Movie> list of available movies that status are not End of Showing.
+ * @param arrListToBeLooped The list of all movies to be passed in.
+ * @return ArrayList<Movie> List of available movies that status are not End of Showing.
  * @throws Exception
  */
 public static ArrayList<Movie> getAvailableMovieList(ArrayList<Movie> arrListToBeLooped) throws Exception{
@@ -792,7 +790,7 @@ public static ArrayList<Movie> getAvailableMovieList(ArrayList<Movie> arrListToB
 
 /** 
  * Method to show the details of the movie selected
- * @param movieTitle
+ * @param movieTitle Title of the movie for its details to be shown
  * @throws Exception
  */
 public static void showMovieDetail(String movieTitle) throws Exception{
@@ -853,7 +851,7 @@ public static void showMovieDetail(String movieTitle) throws Exception{
 /** 
  * Method to search for the movie by the user.
  * Allows user to search for available movies without typing out the entire movie title due to substring matching.
- * @param movieTitle of the movie user wants to search
+ * @param movieTitle Title of the movie user wants to search
  * @return ArrayList<Movie> the list of available movies that the user may want to search.
  * @throws Exception
  */
@@ -896,7 +894,7 @@ public static void sortMovie()throws Exception{
     }
   }
   while(choice<1 || choice >2);
-  
+
   if (choice == 1){
     Collections.sort(movieList, Movie.movieRatingComparator);
   }
