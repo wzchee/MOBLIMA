@@ -111,12 +111,13 @@ public class Developer {
             movieList.add(new Movie("Avatar: The Way Of Water ",90,dimension.TwoD, status.Coming_Soon, false, "Set more than a decade after the events of the first film, “Avatar: The Way of Water” begins to tell the story of the Sully family (Jake, Neytiri, and their kids), the trouble that follows them, the lengths they go to keep each other safe, the battles they fight to stay alive, and the tragedies they endure", "James Cameron", cast4, "PG"));
             movieList.add(new Movie("Edge of Tomorrow",113,dimension.TwoD,status.Preview,false,"A soldier fighting aliens gets to relive the same day over and over again, the day restarting every time he dies.","Doug Liman",cast9,"PG"));
             movieList.add(new Movie("SkyFall",143,dimension.TwoD,status.Coming_Soon,false,"James Bond's loyalty to M is tested when her past comes back to haunt her. When MI6 comes under attack, 007 must track down and destroy the threat, no matter how personal the cost.","Sam Mendes",cast10,"PG"));
+        // randomise movie ratings
         for (int index = 0; index < movieList.size(); index++) {
             for(int j = 1; j<6;j++){
                 movieList.get(index).setMovieRating((int)Math.ceil(Math.random()*5));
             }
         }
-
+        // randomise sale volume of movie
         for (int index = 0; index < movieList.size(); index++) {
                 movieList.get(index).setSaleVolume((int)Math.ceil(Math.random()*100));
         }

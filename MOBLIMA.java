@@ -28,7 +28,7 @@ public class MOBLIMA {
     public static void main(String[] args) throws Exception {
 
         /*** Developer tools, comment out to disable it ***/
-        //Developer.clearAllFiles();
+        Developer.clearAllFiles();
         //Developer.peekFiles();
         Developer.Initializer(); // DO NOT COMMENT OUT THIS LINE!!
 

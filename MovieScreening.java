@@ -364,8 +364,6 @@ public class MovieScreening implements Serializable{
                 listOfMovieScreening.get(i).setMovieObj(movieToRemove);
                 listOfMovieScreening.get(i).setHasCompleted(true);
                 MovieTicket.updateMovieTicketWithMovieScreening(listOfMovieScreening.get(i));
-
-
             }
         }
         movieScreeninginout.writeData(listOfMovieScreening, new MovieScreening());
@@ -397,7 +395,7 @@ public class MovieScreening implements Serializable{
         }
         System.out.println("Here is the full list of movies");
         for(int i=0; i<myMovieList.size(); i++){
-            if(!myMovieList.get(i).getMovieStatus().equals("End_of_Showing"))
+            if(!myMovieList.get(i).getMovieStatus().equals("End_Of_Showing"))
                 System.out.println(i+1 + ". " + myMovieList.get(i).getMovieTitle());
         }
         System.out.print("Enter the number corresponding to the movie: ");
@@ -497,7 +495,7 @@ public class MovieScreening implements Serializable{
         ArrayList<Integer> indexList = new ArrayList<Integer>();
         System.out.println("Here is the full list of movies");
         for(int i=0; i<myMovieList.size(); i++){
-            if(!myMovieList.get(i).getMovieStatus().equals("End_of_Showing")){
+            if(!myMovieList.get(i).getMovieStatus().equals("End_Of_Showing")){
                 System.out.println(i+1 + ". " + myMovieList.get(i).getMovieTitle());
                 indexList.add(i);
             }      
