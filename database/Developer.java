@@ -161,23 +161,31 @@ public class Developer {
         if(yesno.equalsIgnoreCase("Y")){
             System.out.println("All files are deleted and reinitialized.\n");
 
-            File Stafftxt = new File("StaffData.txt");
+            String myOs = System.getProperty("os.name").toLowerCase();
+            String pathAppend = "database";
+            if (myOs.indexOf("win") >= 0) {
+                pathAppend += "\\\\";
+            } else if (myOs.indexOf("mac") >= 0) {
+                pathAppend += "/";
+            } 
+
+            File Stafftxt = new File(pathAppend + "StaffData.txt");
             Stafftxt.delete();
-            File Usertxt = new File("UserData.txt");
+            File Usertxt = new File(pathAppend + "UserData.txt");
             Usertxt.delete();
-            File Cinematxt = new File("CinemaData.txt");
+            File Cinematxt = new File(pathAppend + "CinemaData.txt");
             Cinematxt.delete();
-            File Cineplextxt = new File("CineplexData.txt");
+            File Cineplextxt = new File(pathAppend + "CineplexData.txt");
             Cineplextxt.delete();
-            File Movietxt = new File("MovieData.txt");
+            File Movietxt = new File(pathAppend + "MovieData.txt");
             Movietxt.delete();
-            File MovieScreeningtxt = new File("MovieScreeningData.txt");
+            File MovieScreeningtxt = new File(pathAppend + "MovieScreeningData.txt");
             MovieScreeningtxt.delete();
-            File MovieTickettxt = new File("MovieTicketData.txt");
+            File MovieTickettxt = new File(pathAppend + "MovieTicketData.txt");
             MovieTickettxt.delete();
-            File Reviewtxt = new File("ReviewData.txt");
+            File Reviewtxt = new File(pathAppend + "ReviewData.txt");
             Reviewtxt.delete();
-            File Configurablestxt = new File("ConfigurablesData.txt");
+            File Configurablestxt = new File(pathAppend + "ConfigurablesData.txt");
             Configurablestxt.delete();
         } else{
             System.out.println("Files will remain how they were.\n");
