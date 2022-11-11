@@ -3,7 +3,7 @@ import java.util.*;
 import java.io.Serializable;
 import java.util.Comparator;
 
-import MOBLIMA.FileInOut.*;
+//import MOBLIMA.FileInOut.*;
 
 import java.util.ArrayList;
 import models.*;
@@ -172,16 +172,16 @@ public class MovieController{
   
     switch (statusChoice){
         case 1:
-        newMovie.setMovieStatus(status.valueOf("Coming_Soon"));
+        newMovie.setMovieStatus(Movie.status.valueOf("Coming_Soon"));
         break;
         case 2:
-        newMovie.setMovieStatus(status.valueOf("Preview"));
+        newMovie.setMovieStatus(Movie.status.valueOf("Preview"));
         break;
         case 3:
-        newMovie.setMovieStatus(status.valueOf("Now_Showing"));
+        newMovie.setMovieStatus(Movie.status.valueOf("Now_Showing"));
         break;
         case 4:
-        newMovie.setMovieStatus(status.valueOf("End_Of_Showing"));
+        newMovie.setMovieStatus(Movie.status.valueOf("End_Of_Showing"));
         break;
     }
   
@@ -227,10 +227,10 @@ public class MovieController{
     } while (!success && (blockbusterChoice != 1 || blockbusterChoice != 2));
   
     if (dimChoice == 1){
-        newMovie.setMovieDims(dimension.valueOf("TwoD"));
+        newMovie.setMovieDims(Movie.dimension.valueOf("TwoD"));
     }
     else{
-        newMovie.setMovieDims(dimension.valueOf("ThreeD"));
+        newMovie.setMovieDims(Movie.dimension.valueOf("ThreeD"));
     }
   
     System.out.println("Movie Rating: ");
@@ -293,13 +293,13 @@ public class MovieController{
             String currentMovieStatus = movieToUpdate.getMovieStatus();
             switch (currentMovieStatus){
                 case "Coming_Soon":
-                movieToUpdate.setMovieStatus(status.Preview);
+                movieToUpdate.setMovieStatus(Movie.status.Preview);
                 break;
                 case "Preview":
-                movieToUpdate.setMovieStatus((status.Now_Showing));
+                movieToUpdate.setMovieStatus((Movie.status.Now_Showing));
                 break;
                 case "Now_Showing":
-                movieToUpdate.setMovieStatus(status.End_Of_Showing);
+                movieToUpdate.setMovieStatus(Movie.status.End_Of_Showing);
             }
             System.out.println("Movie status changed to "+movieToUpdate.getMovieStatus());
         }
@@ -337,7 +337,7 @@ public class MovieController{
       for (int i = 0; i < movieList.size(); i++) {
           if(movieList.get(i).getMovieTitle().equalsIgnoreCase(movieName)){
             
-              movieList.get(i).setMovieStatus(status.End_Of_Showing);
+              movieList.get(i).setMovieStatus(Movie.status.End_Of_Showing);
               MovieScreeningController.removeMovieScreeningWithMovie(movieList.get(i));
               found = 1;
               System.out.println(movieList.get(i).getMovieTitle()+" successfully deleted!");

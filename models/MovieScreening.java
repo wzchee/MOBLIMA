@@ -1,13 +1,334 @@
-package controller;
+package models;
 import java.util.ArrayList;
 import java.io.Serializable;
+
 import java.util.Scanner;
+
+import database.FileInOut;
+
 import java.time.LocalDateTime;
-import models.*;
-import database.*;
+/**
+ Represents the MovieScreening object which is a session of a Movie
+ @author Oliver Low
+ @version 1.0
+ @since 2022-11-7
+*/
 
-public class MovieScreeningController{
+public class MovieScreening implements Serializable{
+    /** 
+     * movie object that the screening has
+     *
+     */
+    private Movie movieObj;
+    /** 
+     * cinema object that the screening has
+     *
+     */
+    private Cinema movieScreeningLocation;
+    /** 
+     * datetime that the screening has
+     *
+     */
+    private LocalDateTime mydate;
+    /** 
+     * integer array to denote seat availability so it will be an array of 1s and 0s depending on availability
+     *
+     */
+    private int[] seatArr;
+    /** 
+     * boolean to see if it is a public holiday
+     *
+     */
+    private boolean isPublicHoliday;
+    /** 
+     * integer to see the numOfOccupiedSeats
+     *
+     */
 
+    private int numOfOccupiedSeats;
+
+    /** 
+     * boolean to see if the screening has been completed
+     *
+     */
+    private boolean hasCompleted;
+
+
+    public MovieScreening(Movie movieObj,Cinema movieScreeningLocation, LocalDateTime mydate,int[] seatArr,boolean isPublicHoliday,int numOfOccupiedSeats, boolean hasCompleted){
+        this.movieObj = movieObj;
+        this.mydate = mydate;
+        this.movieScreeningLocation = movieScreeningLocation;
+        this.isPublicHoliday = isPublicHoliday;
+        this.seatArr = seatArr;
+        this.numOfOccupiedSeats = numOfOccupiedSeats;
+        this.hasCompleted = hasCompleted;
+
+    }   
+
+    public MovieScreening(){
+
+    }
+
+    
+    /** 
+     * getter method for hasCompleted
+     * 
+     * @return boolean for whether the movie has been completed or not
+     * 
+     * 
+     */
+    public boolean hasCompleted(){
+        return this.hasCompleted;
+    }
+
+    
+    /** 
+     * setter method for hasCompleted
+     * @param hasCompleted Is the boolean that will be changed to
+     */
+    public void setHasCompleted(boolean hasCompleted){
+        this.hasCompleted = hasCompleted;
+    }
+
+    
+    /** 
+     * getter method for the movie
+     * 
+     * @return Movie which is the movie object that this movie screening object has
+     */
+    public Movie getMovieObj() {
+        return movieObj;
+    }
+
+    
+    /** 
+     * setter method for the Movie
+     * 
+     * @param movieObj Which is the movie object to set the attribute to
+     */
+    public void setMovieObj(Movie movieObj) {
+        this.movieObj = movieObj;
+    }
+
+    
+    /** 
+     * getter method for Cinema
+     * 
+     * @return Cinema which is the Cinema that this movie screening object has as attribute
+     */
+    public Cinema getMovieScreeningLocation() {
+        return movieScreeningLocation;
+    }
+
+    
+    /** 
+     * setter method for Cinema
+     * 
+     * @param movieScreeningLocation which is the Cinema object
+     */
+    public void setMovieScreeningLocation(Cinema movieScreeningLocation) {
+        this.movieScreeningLocation = movieScreeningLocation;
+    }
+
+    
+    /** 
+     * getter method for datetime
+     * 
+     * @return LocalDateTime which is the date time for when this moviescreening will occur
+     */
+    public LocalDateTime getMydate() {
+        return mydate;
+    }
+
+    
+    /** 
+     * setter method for datetime
+     * @param mydate which is the datetime to set to
+     */
+    public void setMydate(LocalDateTime mydate) {
+        this.mydate = mydate;
+    }
+
+    
+    /** 
+     * getter method for integer array for the seats
+     * @return int[] Which is the integer array for the seats
+     */
+    public int[] getSeatArr() {
+        return seatArr;
+    }
+
+    
+    /** 
+     * setter method for the integer array representing the seats
+     * 
+     * @param seatArr Which is the integer array representing the seats
+     */
+    public void setSeatArr(int[] seatArr) {
+        this.seatArr = seatArr;
+    }
+
+    
+    /** 
+     * getter method for public holiday
+     * 
+     * @return boolean Which is whether it is a public holiday or not
+     */
+    public boolean isPublicHoliday() {
+        return isPublicHoliday;
+    }
+
+    
+    /** 
+     * setter method for public holiday that sets the public holiday
+     * 
+     * @param publicHoliday Which is whether it is a public holiday or not
+     */
+    public void setPublicHoliday(boolean publicHoliday) {
+        isPublicHoliday = publicHoliday;
+    }
+
+    
+    /** 
+     * getter method for the number of occupied seats
+     * 
+     * @return int for the number of occupied seats
+     */
+    public int getNumOfOccupiedSeats() {
+        return numOfOccupiedSeats;
+    }
+
+    
+    /** 
+     * setter method for the number of occupied seats
+     * 
+     * @param numOfOccupiedSeats which takes in the number of occupied seats
+     */
+    public void setNumOfOccupiedSeats(int numOfOccupiedSeats) {
+        this.numOfOccupiedSeats = numOfOccupiedSeats;
+    }
+
+
+
+
+    
+    /** 
+     * setter method that will take in a integer that represents the seat of choice and set it as occupied
+     * 
+     * @param seatId is the seat number that we will set the index on the int[] to be 1 indicating the occupancy of the seat
+     */
+    public void setSeatOccupied(int seatId){
+        seatArr[seatId] = 1;
+        this.numOfOccupiedSeats++;
+    }
+
+
+    /** 
+     * to display the seat layout and also indicating which seats has been taken
+     * 
+     * @param seatId is the seat number that we will set the index on the int[] to be 1 indicating the occupancy of the seat
+     */
+    public void displayLayout(){
+        for (int i = 0; i < 11; i++) {
+            if (i == 5) System.out.print("       <ENT>");
+            else System.out.print("     ");
+        }
+        System.out.println();
+        for (int i = 0; i < 10; i++) {
+            if (i == 0) System.out.print("     ");
+            System.out.print("<_" + i + "> ");
+            if (i == 1 || i == 7) System.out.print("    ");
+        }
+        System.out.println();
+        for(int i=0;i<10;i++){
+            for(int j=0;j<10;j++){
+                if (j == 0) System.out.print("<" + i + "_> ");
+                if(this.seatArr[i*10 + j]==1){
+                    System.out.print("[" + " x" + "] ");
+                }else{
+                    if (i == 0) System.out.print("[0"+ (i*10 + j) + "] ");
+                    else System.out.print("[" + (i*10 + j) + "] ");
+                }
+                if (j == 1 || j == 7) System.out.print("    ");
+            }
+            System.out.println();
+    
+        }
+        System.out.println("<EXIT>                         SCREEN");
+    }
+
+    
+
+
+
+    
+    /** 
+     * takes in seatNumber and we'll check whether the seat is available
+     * 
+     * @param seatNumber which is the seat that the user has opted for
+     * @return boolean that represents whether that seat has been occupied or not
+     */
+    public boolean getAvailabilityOfSeats(int seatNumber){
+        if(this.seatArr[seatNumber]==0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    
+    /** 
+     * takes in user information and together with the MovieScreening attributes, we'll compute a price
+     * 
+     * @param user is the user object that contains information like age that will affect the ticket price
+     * @return double
+     * @throws Exception
+     */
+    public double calcPrice(User user) throws Exception{
+
+        FileInOut<Configurables> configinout = new FileInOut<Configurables>();
+        ArrayList<Configurables> configList = configinout.readData(new Configurables());
+        Configurables config = configList.get(0);
+
+        
+        double price = config.getBasePrice();
+        String day = this.mydate.getDayOfWeek().toString();
+        if(day=="SATURDAY" || day=="SUNDAY"){
+            System.out.println("WEEKEND");
+
+            price+=2;
+        }
+
+
+        if(this.movieScreeningLocation.isPlatinumSuite()){
+            price += 10;
+        }
+
+        if(this.getMovieObj().getBlockbuster()){
+            
+            System.out.println("BLOCKBUSTER");
+            price+=2;
+        }
+
+        if(config.holidayMatch(mydate)){
+            System.out.println("HOLIDAY");
+            price+=2;
+        }
+
+        if(user.getAge()<12){
+            System.out.println("STUDENT PRICING");
+            price = price * 0.75;
+        } else if(user.getAge()>55){
+            System.out.println("SENIOR CITIZEN PRICE");
+            price = price * 0.75;
+        }
+
+
+        
+        return price;
+    }
+
+    
     /** 
      * when there is a change in the movie object, since this moviescreening object has-a movie, we'll have to change all movie screenings with this movie object to ensure data integrity
      * 
@@ -22,7 +343,7 @@ public class MovieScreeningController{
         for(int i=0;i<listOfMovieScreening.size();i++){
             if(listOfMovieScreening.get(i).getMovieObj().getMovieTitle().equalsIgnoreCase(movieToBeChanged.getMovieTitle())){
                 listOfMovieScreening.get(i).setMovieObj(movieToBeChanged);
-                MovieTicketController.updateMovieTicketWithMovieScreening(listOfMovieScreening.get(i));
+                MovieTicket.updateMovieTicketWithMovieScreening(listOfMovieScreening.get(i));
             }
         }
         screeninginout.writeData(listOfMovieScreening, new MovieScreening());
@@ -46,7 +367,7 @@ public class MovieScreeningController{
                 // listOfMovieScreening.remove(i);
                 listOfMovieScreening.get(i).setMovieObj(movieToRemove);
                 listOfMovieScreening.get(i).setHasCompleted(true);
-                MovieTicketController.updateMovieTicketWithMovieScreening(listOfMovieScreening.get(i));
+                MovieTicket.updateMovieTicketWithMovieScreening(listOfMovieScreening.get(i));
 
 
             }
@@ -272,7 +593,7 @@ public class MovieScreeningController{
         screeningToBeRemoved.setHasCompleted(true);
 
         System.out.println("Movie Screening Successfully deleted");
-        MovieTicketController.updateMovieTicketWithMovieScreening(screeningToBeRemoved);
+        MovieTicket.updateMovieTicketWithMovieScreening(screeningToBeRemoved);
         movieScreeninginout.writeData(myMovieScreeningList, new MovieScreening());
         
     }
@@ -361,4 +682,159 @@ public class MovieScreeningController{
         return toRetur;
     }
 
+    
+
+
 }
+
+//===============================================================================
+//    private ArrayList<MovieTicket> ticketsSold; NOT SURE IF WANT THIS?
+//===============================================================================
+
+//    public MovieTicket createMovieTicket(){
+//        MovieTicket movTix = new MovieTicket();
+//        ticketsSold.add(movTix);
+//        return movTix;
+//    }
+
+//===============================================================================
+
+    // public static MovieScreening fetchDetails(String keyID) throws FileNotFoundException, IOException{
+    //     // read from staff.txt
+    //     InputStreamReader MovieScreening = new FileReader(System.getProperty("user.dir") + "\\src\\main\\java\\com\\mycompany\\moblima\\staff.txt");
+    //     CharBuffer rawtxt = CharBuffer.allocate(10000);
+    //     int buffersize = MovieScreening.read(rawtxt); // read the file into the CharBuffer, return size of buffer
+    //     MovieScreening.close();
+    //     rawtxt.rewind();
+
+    //     // search for the matching Key id
+    //     CharBuffer inputbuf = CharBuffer.allocate(1000);
+    //     //Strings to store after we cast buffer into Strings
+    //     String movieTitleStr = null; //initialize attribute variables other than email
+    //     String cinemaNameStr = null;
+    //     String dateTimeStr = null;
+    //     String seatArrStr = null;
+    //     String isPublicHolidayStr = null;
+    //     String numOfOccupiedSeatstr = null;
+
+
+
+    //     //buffer to take in the characters
+
+    //     CharBuffer movieTitleToFetch = CharBuffer.allocate(1000); //initialize corresponding CharBuffer attribute
+    //     CharBuffer cinemaNameToFetch = CharBuffer.allocate(1000);
+    //     CharBuffer dateTimeToFetch = CharBuffer.allocate(1000);
+    //     CharBuffer seatArrToFetch = CharBuffer.allocate(1000);
+    //     CharBuffer isPublicHolidayToFetch = CharBuffer.allocate(1000);
+    //     CharBuffer numOfOccupiedSeatsToFetch = CharBuffer.allocate(1000);
+
+
+    //     while(rawtxt.position() < buffersize){
+    //         // convert inputted KeyID into CharBuffer for comparison
+    //         inputbuf.clear();
+    //         inputbuf.put(keyID);
+
+    //         // compare the emails and obtain the match results
+    //         BufferMatchReturn result = MOBLIMA.charBufferMatch(rawtxt, inputbuf);
+    //         rawtxt = result.getBuffer();
+    //         if(result.getMatch()){
+    //             // MovieScreening Keyid matched. read ALL corresponding records
+
+    //             // reading Movie Title
+    //             char c = rawtxt.get();
+    //             do{
+    //                 movieTitleToFetch.append(c); //append individual characters into comparison buffer
+    //                 c = rawtxt.get();
+    //             }while(c != ','); //until reached the end of the password element
+    //             c = rawtxt.get(); //move to the next attribute
+
+    //             // reading Cinema Name
+    //             c = rawtxt.get();
+    //             do{
+    //                 cinemaNameToFetch.append(c); //append individual characters into comparison buffer
+    //                 c = rawtxt.get();
+    //             }while(c != ','); //until reached the end of the name element
+    //             c = rawtxt.get(); //move to the next attribute
+
+    //             // reading date
+    //             c = rawtxt.get();
+    //             do{
+    //                 dateTimeToFetch.append(c); //append individual characters into comparison buffer
+    //                 c = rawtxt.get();
+    //             }while(c != ','); //until reached the end of the name element
+    //             c = rawtxt.get(); //move to the next attribute
+
+    //             // reading seat array
+    //             c = rawtxt.get();
+    //             do{
+    //                 seatArrToFetch.append(c); //append individual characters into comparison buffer
+    //                 c = rawtxt.get();
+    //             }while(c != ','); //until reached the end of the name element
+    //             c = rawtxt.get(); //move to the next attribute
+
+    //             // reading publicHoliday
+    //             c = rawtxt.get();
+    //             do{
+    //                 isPublicHolidayToFetch.append(c); //append individual characters into comparison buffer
+    //                 c = rawtxt.get();
+    //             }while(c != ','); //until reached the end of the name element
+    //             c = rawtxt.get(); //move to the next attribute
+
+
+    //             // reading numOfOccupiedSeats
+    //             c = rawtxt.get();
+    //             do{
+    //                 numOfOccupiedSeatsToFetch.append(c); //append individual characters into comparison buffer
+    //                 c = rawtxt.get();
+    //             }while(c != ','); //until reached the end of the name element
+    //             c = rawtxt.get(); //move to the next attribute
+
+    //         } else {
+    //             // move cursor until start of next user entry
+    //             char c;
+    //             do{
+    //                 c = rawtxt.get();
+    //             }while(c != '\n');
+    //         }
+    //     }
+    //     //convert movieTitle buffer to string and fetchDetail to get the movie object
+    //     movieTitleStr = movieTitleToFetch.toString();
+    //     Movie movieObj = Movie.fetchDetails(movieTitleStr);
+        
+    //     //convert Cinema name buffer to string and fetchDetail to get the cinema object
+
+    //     cinemaNameStr = cinemaNameToFetch.toString();
+    //     Cinema cinemaObj = Cinema.fetchDetails(cinemaNameStr);
+
+    //     //convert dateTime buffer to string and call parse to get the Datetime object
+
+    //     dateTimeStr = dateTimeToFetch.toString();
+    //     LocalDateTime myDateTime = LocalDateTime.parse(dateTimeStr);
+
+
+    //     // convert the string to a string array and convert string array to int array
+    //     seatArrStr = seatArrToFetch.toString();
+    //     seatArrStr = seatArrStr.substring(1, seatArrStr.length() - 1);
+    //     String[] strSeatArr = seatArrStr.split(",");
+    //     int[] mySeatArr = new int[strSeatArr.length];
+
+    //     for (int i = 0; i < strSeatArr.length; i++) {
+    //         mySeatArr[i] = Integer.valueOf(strSeatArr[i]);
+    //     }
+
+
+
+    //     isPublicHolidayStr = isPublicHolidayToFetch.toString();
+    //     boolean myisPublicHoliday = (isPublicHolidayStr=="true") ? true:false;
+
+    //     numOfOccupiedSeatstr = numOfOccupiedSeatsToFetch.toString();
+    //     int numOfOccupiedSeatsInte = Integer.parseInt(numOfOccupiedSeatstr);
+
+
+
+        
+
+        
+
+    //     return new MovieScreening(movieObj,cinemaObj,myDateTime,mySeatArr,myisPublicHoliday, numOfOccupiedSeatsInte);
+    // }

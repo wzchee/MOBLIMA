@@ -1,12 +1,20 @@
-package controller;
+package models;
 import java.util.Scanner;
+
+import database.FileInOut;
+
 import java.util.ArrayList;
 import java.time.LocalDateTime;
 import java.io.Serializable;
-import database.*;
-import models.*;
 
-public class UserController {
+/**
+ * Java class representing a movie-goer in MOBLIMA
+ * @author  Chee Wen Zhan
+ * @version 1.0
+ * @since   2022-7-11
+ */
+public class User implements Serializable{
+   
     /**
      * User Interface after a movie-goer logged into MOBLIMA
      * <p>
@@ -30,7 +38,7 @@ public class UserController {
         Scanner input = new Scanner(System.in);
         int choice = 0;
         while(choice != 7){
-            System.out.println("\nWelcome USER " + sessionUser.getName() + " !");
+            System.out.println("\nWelcome USER " + sessionUser.name + " !");
             System.out.println("What would you like to do today?");
             System.out.println("1. Search for movie and view movie details");
             System.out.println("2. Check seat availability");
@@ -52,7 +60,7 @@ public class UserController {
             switch(choice){
                 case 1:
                     System.out.println("Here are the full list of movies.");
-                    ArrayList<Movie> movieList = MovieController.showMovieList();
+                    ArrayList<Movie> movieList = Movie.showMovieList();
                     System.out.print("Enter the number corresponding to the movie here: ");
                     int movienum = 0;
                     try{
@@ -68,7 +76,7 @@ public class UserController {
                         break;
                     }
                     String movieSearch = movieList.get(movienum-1).getMovieTitle();
-                    MovieController.showMovieDetail(movieSearch);
+                    Movie.showMovieDetail(movieSearch);
                     break;
                 case 2:
                     showLayoutOnly();
@@ -77,13 +85,13 @@ public class UserController {
                     usercreateBooking(sessionUser);
                     break;
                 case 4:
-                    MovieTicketController.displayBookings(sessionUser);
+                    MovieTicket.displayBookings(sessionUser);
                     break;
                 case 5:
-                    ReviewController.writeReview(sessionUser);
+                    Review.writeReview(sessionUser);
                     break;
                 case 6:
-                    MovieController.sortMovie();
+                    Movie.sortMovie();
                     break;
                 case 7:
                     System.out.println("Logging out as user...");
@@ -95,6 +103,119 @@ public class UserController {
             }
         }
     }
+
+    /**
+     * Constructor to create a {@code User} instance with all of the attributes instantiated
+     * @param email         Email address of movie-goer, uniquely identifies the user
+     * @param password      Password used by movie-goer to log into the system
+     * @param age           Age of movie-goer, used to calculate ticket pricing
+     * @param name          Name of movie-goer, displayed in the movie ticket
+     * @param mobileNumber  Mobile number of movie-goer, displayed in the movie ticket
+     */
+    public User(String email, String password, int age, String name, String mobileNumber){
+        // constructor
+        this.email = email;
+        this.password = password;
+        this.age = age;
+        this.name = name;
+        this.mobileNumber = mobileNumber;
+    }
+
+    public User(){
+        
+    }
+
+    /**
+     * Email address of the movie-goer
+     */
+    private String email;
+    /**
+     * Retrieve the email address of the movie-goer (current {@code User})
+     * @return  Email address of the movie-goer
+     */
+    public String getEmail(){
+        return email;
+    }
+    /**
+     * Set the new email address of the movie-goer (current {@code User})
+     * @param email New email address to replace the current email attribute
+     */
+    public void setEmail(String email){
+        this.email = email;
+    }
+
+    /**
+     * Password of movie-goer used to log into the system
+     */
+    private String password;
+    /**
+     * Retrieve the password of the movie-goer (current {@code User})
+     * @return  Password of the movie-goer
+     */
+    public String getPassword(){
+        return password;
+    }
+    /**
+     * Set the new password of the movie-goer (current {@code User})
+     * @param password New password of movie-goer used for this system
+     */
+    public void setPassword(String password){
+        this.password = password;
+    }
+
+    /**
+     * Age of the movie-goer
+     */
+    private int age;
+    /**
+     * Retrieve the age of the movie-goer (current {@code User})
+     * @return  Age of the movie-goer
+     */
+    public int getAge(){
+        return age;
+    }
+    /**
+     * Set the new age of the movie-goer (current {@code User})
+     * @param age New age of movie-goer
+     */
+    public void setAge(int age){
+        this.age = age;
+    }
+
+    /**
+     * Name of movie-goer
+     */
+    private String name;
+    /**
+     * Retrieve the name of the movie-goer (current {@code User})
+     * @return Name of movie-goer
+     */
+    public String getName(){
+        return name;
+    }
+    /**
+     * Set the new name of the movie-goer (current {@code User})
+     * @param name New name of movie-goer
+     */
+    public void setName(String name){this.name = name;}
+
+    /**
+     * Mobile number of movie-goer
+     */
+    private String mobileNumber;
+    /**
+     * Retrieve the mobile number of the movie-goer (current {@code User})
+     * @return Mobile number of movie-goer
+     */
+    public String getMobileNumber(){
+        return mobileNumber;
+    }
+    /**
+     * Set the new mobile number of the movie-goer (current {@code User})
+     * @param mobileNumber New mobile number of movie-goer
+     */
+    public void setMobileNumber(String mobileNumber){this.mobileNumber = mobileNumber;}
+
     /**
      * Returns the current {@code User} instance
      * <p>
@@ -152,7 +273,7 @@ public class UserController {
         // show list of movies
         FileInOut<Movie> movieio = new FileInOut<Movie>();
         ArrayList<Movie> allMovieList = movieio.readData(new Movie());
-        ArrayList<Movie> movieList = MovieController.getAvailableMovieList(allMovieList);
+        ArrayList<Movie> movieList = Movie.getAvailableMovieList(allMovieList);
         if(movieList.isEmpty()){
             System.out.println("Sorry, there are no movies available right now. Please come back again later!");
             System.out.println("Returning to user menu...\n");
@@ -176,7 +297,7 @@ public class UserController {
         String movie = movieObjChosen.getMovieTitle();
 
         // show all available screentimes
-        ArrayList<MovieScreening> screeningList = MovieScreeningController.giveScreenTimes(movie, cineplexchosen);
+        ArrayList<MovieScreening> screeningList = MovieScreening.giveScreenTimes(movie, cineplexchosen);
         if(screeningList.isEmpty()){
             System.out.println("Sorry, no showtime is available for this movie at the cineplex you have chosen.");
             System.out.println("Returning to user menu...\n");
@@ -256,7 +377,7 @@ public class UserController {
         // show all movies
         FileInOut<Movie> movieio = new FileInOut<Movie>();
         ArrayList<Movie> allMovieList = movieio.readData(new Movie());
-        ArrayList<Movie> movieList = MovieController.getAvailableMovieList(allMovieList);
+        ArrayList<Movie> movieList = Movie.getAvailableMovieList(allMovieList);
         if(movieList.isEmpty()){
             System.out.println("Sorry, there are no movies available right now. Please come back again later!");
             System.out.println("Returning to user menu...\n");
@@ -285,7 +406,7 @@ public class UserController {
         Movie movieObjChosen = movieList.get(myindexArray.get(movienum-1));
         String movie = movieObjChosen.getMovieTitle();
         // display list of showtimes
-        ArrayList<MovieScreening> screeningList = MovieScreeningController.giveScreenTimes(movie, cineplexchosen);
+        ArrayList<MovieScreening> screeningList = MovieScreening.giveScreenTimes(movie, cineplexchosen);
         if(screeningList.isEmpty()){
             System.out.println("Sorry, no showtime is available for this movie at the cineplex you have chosen.");
             System.out.println("Returning to user menu...\n");
@@ -367,7 +488,7 @@ public class UserController {
         // register the sale on the movie side
         movieObjChosen.incrementSaleVolume();
         //after movie object incremented we will bubble up to change the classes that use the object
-        MovieScreeningController.updateMovieScreeningWithMovie(movieObjChosen);
+        MovieScreening.updateMovieScreeningWithMovie(movieObjChosen);
         FileInOut<MovieScreening> screeningio = new FileInOut<MovieScreening>();
         ArrayList<MovieScreening> allScreeningList = screeningio.readData(new MovieScreening());
         for (int i = 0; i < allScreeningList.size(); i++) {
@@ -380,12 +501,78 @@ public class UserController {
         movieio.writeData(movieList, new Movie());
         screeningio.writeData(allScreeningList, new MovieScreening());
 
-        MovieTicketController.createBooking(screeningchosen, seatId, sessionUser, computedPrice,nowDate,TID);
+        MovieTicket.createBooking(screeningchosen, seatId, sessionUser, computedPrice,nowDate,TID);
 
 
         // send user back to user menu
         System.out.println("Thank you for using our booking services!");
         System.out.println("Returning to user menu...\n");
     }
-    
+
+
 }
+
+
+
+    // public static void userCreateReview(User sessionUser){
+    //     Scanner in = new Scanner(System.in);
+        
+    //     ArrayList<MovieTicket> movieTicketList = fileio.readMovieTicketData();
+    //     ArrayList<MovieTicket> movieTicketOfUser = new ArrayList<MovieTicket>();
+    //     for(int i =0;i<movieTicketList.size()){
+    //         if(movieTicketList.get(i).getUser().equals(sessionUser) && movieTicketList.get(i).getMovieScreening().hasCompleted()){
+    //             movieTicketOfUser.add(movieTicketList.get(i));
+    //         }
+    //     }
+
+    //     List<String> movieNames = new ArrayList<String>();
+    //     String movieNameTraverser = null;
+    //     for(int i =0;i<movieTicketOfUser.size();i++){
+    //         movieNameTraverser = movieTicketOfUser.get(i).getMovieScreening().getMovieObj().getMovieTitle();
+    //         if(!movieNames.contains(movieNameTraverser)){
+    //             movieNames.add(movieNameTraverser);
+    //         }
+            
+    //     }
+
+    //     ArrayList<Review> arrOfReviews = new ArrayList<Review>();
+
+    //     // display the list of movies and whether the user reviewed them or not
+    //     if(movieNames.isEmpty()){
+    //         System.out.println("Based on our records, you have not watched any reviewable movies");
+    //         System.out.println("Returning to user menu...\n");
+    //         return;
+    //     }else{
+    //         for(int i=0;i<movieNames.size();i++){
+    //             System.out.println((i+1) + movieNames.get(i));
+    //         }
+    //         System.out.println("Please enter a choice of movie to review");
+    //         String choice = null;
+    //         choice = in.nextLine();
+
+            
+
+    //         System.out.print("Please give a rating out of 10: ");
+    //         int movieRating = input.nextInt();
+
+    //         System.out.println("Please type in your review in full below:");
+    //         String movieReview = input.nextLine();
+
+    //         ArrayList<Review> reviewList = fileio.readReviewData();
+    //         Review reviewObjToAdd = new Review(movieRating,movieReview, sessionUser);
+    //         reviewList.add(null);
+    //         fileio.writeReviewData(reviewList);
+            
+    //         Movie movieToChange = null;
+    //         ArrayList<Movie> movieList = fileio.readMovieData();
+    //         for(int i = 0;i<movieList.size();i++){
+    //             if(movieList.get(i).equals(movieNames.get(Integer.parseInt(choice)-1))){
+    //                 movieToChange = movieList.get(i);
+    //             }
+    //         }
+
+    //         movieToChange.addReview(reviewObjToAdd);
+    //         MovieScreening.updateMovieScreeningWithMovie(movieToChange);
+    //         fileio.writeMovieData(movieList);
+
+    //     }
