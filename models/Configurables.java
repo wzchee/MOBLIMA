@@ -1,7 +1,12 @@
+package models;
 import java.util.ArrayList;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Scanner;
+
+import database.Developer;
+import database.FileInOut;
+
 import java.util.InputMismatchException;
 
 

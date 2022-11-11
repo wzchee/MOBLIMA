@@ -1,4 +1,7 @@
+package models;
 import java.io.Serializable;
+
+import database.FileInOut;
 
 /**
  * Java class that contains basic information on what a cinema holds. Cinema Object

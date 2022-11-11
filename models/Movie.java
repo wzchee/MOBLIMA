@@ -1,6 +1,10 @@
+package models;
 import java.util.*;
 import java.io.Serializable;
 import java.util.Comparator;
+
+import database.FileInOut;
+
 import java.util.ArrayList;
 /**
  * Java class representing a movie in MOBLIMA
@@ -11,47 +15,6 @@ import java.util.ArrayList;
  * @see     MovieScreening
  */
 
-/**
- * Movie status to be assigned
- * @see #Coming_Soon
- * @see #Preview
- * @see #Now_Showing
- * @see #End_Of_Showing
- */
-enum status{
-  /**
-   * Coming soon
-   */
-   Coming_Soon,
-  /**
-   * Preview
-   */
-   Preview,
-  /**
-   * Now Showing 
-   */
-   Now_Showing,
-  /**
-   * End of Showing
-   */
-   End_Of_Showing
-  }
-
-/**
- * Dimensions of the movie
- * @see #TwoD
- * @see #ThreeD
- */
-enum dimension{
-  /**
-   * 2D
-   */
-  TwoD,
-  /** 
-   * 3D
-   */
-  ThreeD
-}
 
 public class Movie implements Serializable{
   /**
@@ -107,6 +70,49 @@ public class Movie implements Serializable{
    * Average rating of the movie
    */
   private double averageRating;
+
+  /**
+   * Movie status to be assigned
+   * @see #Coming_Soon
+   * @see #Preview
+   * @see #Now_Showing
+   * @see #End_Of_Showing
+   */
+  public enum status{
+    /**
+     * Coming soon
+     */
+    Coming_Soon,
+    /**
+     * Preview
+     */
+    Preview,
+    /**
+     * Now Showing 
+     */
+    Now_Showing,
+    /**
+     * End of Showing
+     */
+    End_Of_Showing
+    }
+
+  /**
+   * Dimensions of the movie
+   * @see #TwoD
+   * @see #ThreeD
+   */
+  public enum dimension{
+    /**
+     * 2D
+     */
+    TwoD,
+    /** 
+     * 3D
+     */
+    ThreeD
+  }
+
 
   /**
    * Constructor to create a {@code Movie} object with its attributes initialized
@@ -764,7 +770,7 @@ public static ArrayList<Movie> showMovieList() throws Exception{
       else{
         System.out.println("Ratings: "+     movieList.get(index).getMovieAverageRating(movieList.get(index).getMovieRating()) +"\n");
       }
-      System.out.println();
+      //System.out.println();
     }
 
   movieio.writeData(allMovieList, new Movie());

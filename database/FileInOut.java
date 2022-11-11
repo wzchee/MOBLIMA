@@ -1,3 +1,4 @@
+package database;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -43,8 +44,10 @@ public class FileInOut<o>{
             for(int i =0;i<myArr.length;i++){
                 toReturn+= (myArr[i] + "\\\\");
             }
+            toReturn += "database\\\\";
         } else if (myOs.indexOf("mac") >= 0) {
             toReturn = currentDirectory + "/";
+            toReturn += "database/";
         } 
 
         
@@ -66,7 +69,8 @@ public class FileInOut<o>{
      * @throws  Exception
      */
     public ArrayList<o> readData(o obj) throws Exception{   //change function name and return type generics
-        String txtdir = getDir(obj.getClass().getName() + "Data.txt");   //call the right Dir() method
+        String classname = obj.getClass().getName().split("\\.")[1]; //remove the package name
+        String txtdir = getDir(classname + "Data.txt");   //call the right Dir() method
         ArrayList<o> mylist;
     
         try
@@ -85,7 +89,7 @@ public class FileInOut<o>{
             FileInputStream fileIn = new FileInputStream(txtdir);// Read serial file.
 
             // write an empty ArrayList into the file first so that ObjectInputStream reads something
-            FileOutputStream fileOut = new FileOutputStream(obj.getClass().getSimpleName() + "Data.txt"); 
+            FileOutputStream fileOut = new FileOutputStream(txtdir); 
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
             out.writeObject(new ArrayList<o>());
             out.close();
@@ -112,10 +116,12 @@ public class FileInOut<o>{
      * @throws Exception
      */
     public void writeData(ArrayList<o> mylist, o obj) throws Exception{              //Change function name and parameter generics
-       FileOutputStream fileOut = new FileOutputStream(obj.getClass().getSimpleName() + "Data.txt");         // Change txt file name
-       ObjectOutputStream out = new ObjectOutputStream(fileOut);
-       out.writeObject(mylist);
-       out.close();
-       fileOut.close();
+        String classname = obj.getClass().getName().split("\\.")[1]; //remove the package name
+        String txtdir = getDir(classname + "Data.txt");   //call the right Dir() method
+        FileOutputStream fileOut = new FileOutputStream(txtdir);         // Change txt file name
+        ObjectOutputStream out = new ObjectOutputStream(fileOut);
+        out.writeObject(mylist);
+        out.close();
+        fileOut.close();
     }
 }
