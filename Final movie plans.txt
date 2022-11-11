@@ -19,12 +19,7 @@ B) Movie-goer module
 5. View booking history
 6. List Top 5 ranking by ticket sales OR by overall ratings
 
-C) Specific test cases
-1. Configuring a holiday and ticket price is shown correctly when booking is done on that date
-2. Booking on different day of week 
-3. Booking is done on different types of cinemas
-4. Configuring 'End of Showing' and movie to not be listed
-5. Booking only allowed for 'Preview' and 'Now Showing'
+C) Explain all java files
 
 # Scenes
 
@@ -46,6 +41,25 @@ c) Check for seats
 d) Make the purchase
 e) Check their booking history
 
+
+4. Post watching movie
+a) User make a review
+b) User checks movie details to see if his review registered
+c) Staff checks list rankings by sale volume or by ratings
+d) Staff removes the showtime because it has passed
+e) Staff removes the movie because all of the showtimes ended
+f) User checks again to see if the movie is listed - it shouldn't appear anymore
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+C) Specific test cases
+1. Configuring a holiday and ticket price is shown correctly when booking is done on that date
+2. Booking on different day of week 
+3. Booking is done on different types of cinemas
+4. Configuring 'End of Showing' and movie to not be listed
+5. Booking only allowed for 'Preview' and 'Now Showing'
+
 3. Situations
 a) User (adult) checks the price of a ticket weekday non-holiday
 b) User (adult) checks the price of a ticket weekend non-holiday
@@ -56,11 +70,3 @@ f) Users of different ages tries to purchase movie
 g) User (student) tries to purchase ticket weekday non-holiday
 h) Staff changes base price
 i) User (adult) checks the price of a ticket weekday non-holiday
-
-4. Post watching movie
-a) User make a review
-b) User checks movie details to see if his review registered
-c) Staff checks list rankings by sale volume or by ratings
-d) Staff removes the showtime because it has passed
-e) Staff removes the movie because all of the showtimes ended
-f) User checks again to see if the movie is listed - it shouldn't appear anymore
