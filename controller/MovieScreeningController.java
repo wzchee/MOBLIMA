@@ -203,7 +203,7 @@ public class MovieScreeningController{
         ArrayList<Integer> indexList2 = new ArrayList<Integer>();
         int indexCount =0;
         for(int i =0;i<myMovieScreeningList.size();i++){
-            if(myMovieScreeningList.get(i).getMovieObj().getMovieTitle().equals(movieToFetch.getMovieTitle())){
+            if(myMovieScreeningList.get(i).getMovieObj().getMovieTitle().equals(movieToFetch.getMovieTitle()) && !myMovieScreeningList.get(i).hasCompleted()){
                 indexList2.add(i);
                 System.out.print(++indexCount);
                 System.out.print(".\t");
