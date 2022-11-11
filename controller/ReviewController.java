@@ -32,11 +32,20 @@ public class ReviewController {
         System.out.println("Please choose from the movie listings to review");
         for(int i=0;i<movieList.size();i++){
             System.out.println((i+1) + ". " + movieList.get(i).getMovieTitle());
+            System.out.println("Movie status: "+ movieList.get(i).getMovieStatus());
+            System.out.println();
         }
+        
         System.out.println("Enter you choice of movie: ");
         choice = in.nextLine();
 
         Movie movieToBeReviewed = movieList.get(Integer.parseInt(choice)-1);
+        if(movieToBeReviewed.getMovieStatus().equalsIgnoreCase("Coming_Soon")){
+            System.out.println("Sorry! This movie hasn't been released!");
+            System.out.println("You can't review it!");
+            System.out.println("Returning you back to main page");
+            return;
+        }
 
         Review reviewToBeChanged = null;
         for(int i=0;i<reviewList.size();i++){
