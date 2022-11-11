@@ -292,38 +292,40 @@ public class MovieScreening implements Serializable{
 
         
         double price = config.getBasePrice();
+        System.out.println("\nBase price of a movie ticket: SGD" + String.format("%.2f", price));
+
         String day = this.mydate.getDayOfWeek().toString();
         if(day=="SATURDAY" || day=="SUNDAY"){
-            System.out.println("WEEKEND");
+            System.out.println("Weekend Pricing: +SGD 2.00");
 
             price+=2;
         }
 
 
         if(this.movieScreeningLocation.isPlatinumSuite()){
+            System.out.println("Platinum Suite Pricing: +SGD 10.00");
             price += 10;
         }
 
         if(this.getMovieObj().getBlockbuster()){
-            
-            System.out.println("BLOCKBUSTER");
+            System.out.println("Blockbuster Pricing: +SGD 2.00");
             price+=2;
         }
 
         if(config.holidayMatch(mydate)){
-            System.out.println("HOLIDAY");
-            price+=2;
+            System.out.println("Holiday Pricing: +SGD 3.00");
+            price+=3;
         }
 
         if(user.getAge()<12){
-            System.out.println("STUDENT PRICING");
+            System.out.println("Student Pricing (25% discount): -SGD" + String.format("%.2f", price * 0.25));
             price = price * 0.75;
         } else if(user.getAge()>55){
-            System.out.println("SENIOR CITIZEN PRICE");
+            System.out.println("Senior Citizen Pricing (25% discount): -SGD" + String.format("%.2f", price * 0.25));
             price = price * 0.75;
         }
 
-
+        System.out.println("======================================");
         
         return price;
     }

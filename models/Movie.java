@@ -770,7 +770,7 @@ public static ArrayList<Movie> showMovieList() throws Exception{
       else{
         System.out.println("Ratings: "+     movieList.get(index).getMovieAverageRating(movieList.get(index).getMovieRating()) +"\n");
       }
-      System.out.println();
+      //System.out.println();
     }
 
   movieio.writeData(allMovieList, new Movie());

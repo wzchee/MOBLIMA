@@ -1,9 +1,8 @@
+package models;
 import java.util.Scanner;
 
 import database.Developer;
 import database.FileInOut;
-import models.Staff;
-import models.User;
 
 import java.util.ArrayList;
 

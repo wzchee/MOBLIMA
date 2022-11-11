@@ -172,9 +172,11 @@ public class MovieTicket implements Serializable{
  */
 //Use getArrListOfBookings to print out the toString
     public static void displayBookings(User sessionUser)throws Exception{
+        System.out.println("\nHere are your tickets: \n");
+
         ArrayList<MovieTicket> movieTicketsHistory = getArrListOfBookings(sessionUser);
         for(int i=0;i<movieTicketsHistory.size();i++){
-            System.out.println(movieTicketsHistory.get(i).toString());
+            System.out.println(i+1 + ". " + movieTicketsHistory.get(i).toString());
             
         }
 
