@@ -2,7 +2,6 @@ package controller;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
-import java.io.Serializable;
 import database.*;
 import models.*;
 
@@ -51,7 +50,7 @@ public class UserController {
 
             switch(choice){
                 case 1:
-                    System.out.println("Here are the full list of movies.");
+                    System.out.println("\nHere are the full list of movies.");
                     ArrayList<Movie> movieList = MovieController.showMovieList();
                     System.out.print("Enter the number corresponding to the movie here: ");
                     int movienum = 0;
@@ -95,6 +94,7 @@ public class UserController {
             }
         }
     }
+
     /**
      * Returns the current {@code User} instance
      * <p>
@@ -341,7 +341,8 @@ public class UserController {
         // price calculation
         Double computedPrice = screeningchosen.calcPrice(sessionUser);
         System.out.println("Your seat is secured!");
-        System.out.println("Ticket price = SGD" + computedPrice + "(Excl of GST)");
+        System.out.println("Ticket price = SGD" + String.format("%.2f",computedPrice) + "(Excl of GST)");
+        System.out.println("Goods and Service Tax: +SGD" + String.format("%.2f",computedPrice * 0.07));
         System.out.println("Ticket price = SGD" + String.format("%.2f",computedPrice * 1.07) + "(Incl of GST)");
         System.out.print("Proceed (Y/N) ?");
         String option = input.nextLine();

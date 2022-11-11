@@ -1,4 +1,5 @@
 package models;
+import controller.*;
 import java.util.Scanner;
 
 import database.Developer;
@@ -56,6 +57,7 @@ public class MOBLIMA {
             System.out.println("4. Quit MOBLIMA");
             System.out.print("Please enter your choice here: ");
             
+            choice = 0;
             try{
                 choice = Integer.parseInt(input.nextLine());
             } catch(NumberFormatException e){
@@ -83,7 +85,7 @@ public class MOBLIMA {
                                 // if email screening successful, screen password
                                 if(password.equals(userList.get(i).getPassword())){
                                     // if password screening successful, proceed into login UI
-                                    User.loggedin(email);
+                                    UserController.loggedin(email);
                                     break;
                                 }else{
                                     // password screening failed
@@ -107,7 +109,7 @@ public class MOBLIMA {
                                 // if email screening successful, screen password
                                 if(password.equals(staffList.get(i).getPassword())){
                                     // if password screening successful, proceed into login UI
-                                    Staff.loggedin(email);
+                                    StaffController.loggedin(email);
                                     break;
                                 }else{
                                     // password screening failed
@@ -186,7 +188,7 @@ public class MOBLIMA {
                     System.out.println("Thank you for using MOBLIMA!");
                     break;
                 default:
-                    System.out.println("Wrong input. Try again");
+                    System.out.println("Wrong input. Try again\n");
                     break;
             }
         }

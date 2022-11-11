@@ -20,7 +20,9 @@ public class MovieTicketController {
             
         }
 
-
+        if(movieTicketsHistory.isEmpty()){
+            System.out.println("You did not purchase any tickets.");
+        }
     }
 
 

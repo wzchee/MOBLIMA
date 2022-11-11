@@ -29,16 +29,29 @@ C) Explain all java files
 
 1. Creating and updating movie and movie screentime
 a) Explain staff login functions
+--- Go into Staff.java and explain all attributes
+--- Explain Staff.loggedin()
 b) Create a movie with 'Preview' and another movie with 'Coming Soon'
+--- Go into Movie.java and explain all attributes
+--- Explain createMovie()
 c) Update an existing movie - Change 'Coming Soon' to 'Now Showing'
+--- Explain updateMovie()
 d) Create a screening
+--- Go into MovieScreening.java and explain all attributes
+--- Also go into Cinema.java and Cineplex.java to explain the attributes
 e) Update a screening - Change timing in case of typo
+--- Explain updateMovieScreening()
 
 2. Make a booking
 a) Explain user login functions
+--- Go into User.java and explain all attributes
+--- Explain User.loggedin()
 b) Search through movies - Show that the 'Preview' movie is not there
+--- Explain showMovieList() and showMovieDetails()
 c) Check for seats
+--- Explain showLayoutOnly()
 d) Make the purchase
+--- Explain userCreateBooking()
 e) Check their booking history
 
 

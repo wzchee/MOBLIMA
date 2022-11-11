@@ -11,6 +11,28 @@ import database.*;
 
 
 public class ConfigurablesController {
+    
+    /**
+     * Change the values of system-wide variables not associated 
+     * to an instance of any object
+     * <p>
+     * Contains a User Interface that asks for whether the base price
+     * should be changed, or whether a public holiday will be declared
+     * by the system
+     * <p>
+     * The system-wide variables are the base price of movie and
+     * list of public holidays. Both attributes are used to calculate
+     * ticket price, but the values are changed for the entire system 
+     * instead of for the individual tickets themselves
+     * <p>
+     * As all {@code MovieTicket} objects stored in the system are 
+     * already completed transactions, the values changed via this method 
+     * will only affect subsequent tickets issued. No option to remove
+     * public holidays is provided because this will lead to unfairness
+     * in consideration of the tickets already issued using public
+     * holiday pricing.
+     * @throws Exception
+     */
     public static void configure() throws Exception{
         Scanner input = new Scanner(System.in);
 

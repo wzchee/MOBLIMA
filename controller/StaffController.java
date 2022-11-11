@@ -1,7 +1,6 @@
 package controller;
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.io.Serializable;
 import database.*;
 import models.*;
 
