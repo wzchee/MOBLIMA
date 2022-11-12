@@ -1,9 +1,4 @@
 package models;
-import java.util.Scanner;
-
-import database.FileInOut;
-
-import java.util.ArrayList;
 import java.io.Serializable;
 
 /**

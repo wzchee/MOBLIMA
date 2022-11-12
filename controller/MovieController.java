@@ -1,6 +1,5 @@
 package controller;
 import java.util.*;
-import java.io.Serializable;
 import java.util.Comparator;
 
 //import MOBLIMA.FileInOut.*;
@@ -494,11 +493,7 @@ public class MovieController{
           return;
       }
     }
-    if(choice<1 || choice >2){
-      System.out.println("Please input a valid number!");
-      System.out.println("Returning to staff menu...\n");
-      return;
-    }
+    while(choice<1 || choice >2);
   
     if (choice == 1){
       Collections.sort(movieList, MovieController.movieRatingComparator);

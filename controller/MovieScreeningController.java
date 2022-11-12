@@ -1,6 +1,5 @@
 package controller;
 import java.util.ArrayList;
-import java.io.Serializable;
 import java.util.Scanner;
 import java.time.LocalDateTime;
 import models.*;
