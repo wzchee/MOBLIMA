@@ -370,7 +370,7 @@ public class MovieController{
           System.out.println("Ratings: NA");
         }
         else{
-          System.out.println("Ratings: "+     movieList.get(index).getMovieAverageRating(movieList.get(index).getMovieRating()) +"\n");
+          System.out.println("Ratings: "+  String.format("%.2f", movieList.get(index).getMovieAverageRating(movieList.get(index).getMovieRating()))+"\n" );
         }
         System.out.println();
       }
@@ -432,7 +432,7 @@ public class MovieController{
       System.out.println("Ratings: NA");
     }
     else{
-      System.out.println("Ratings: "+ movieList.get(choice).getMovieAverageRating(movieList.get(choice).getMovieRating()) +"\n");
+      System.out.println("Ratings: "+ String.format("%.2f",movieList.get(choice).getMovieAverageRating(movieList.get(choice).getMovieRating())) +"\n");
     }
   
     if(movieList.get(choice).getPastReviews().size() == 0){
