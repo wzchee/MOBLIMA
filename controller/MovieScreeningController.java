@@ -91,6 +91,10 @@ public class MovieScreeningController{
             System.out.println("Please input a valid number!");
             System.out.println("Returning to staff menu...\n");
             return;
+        } catch(IndexOutOfBoundsException i){
+            System.out.println("Your choice is not a valid number!");
+            System.out.println("Returning to staff menu...\n");
+            return;
         }
         
         Movie movieToFetch = myMovieList.get(movienum-1);
@@ -107,6 +111,10 @@ public class MovieScreeningController{
             cineplexnum = Integer.parseInt(input.nextLine());
         } catch(NumberFormatException e){
             System.out.println("Please input a valid number!");
+            System.out.println("Returning to staff menu...\n");
+            return;
+        } catch(IndexOutOfBoundsException i){
+            System.out.println("Your choice is not a valid number!");
             System.out.println("Returning to staff menu...\n");
             return;
         }
@@ -131,6 +139,10 @@ public class MovieScreeningController{
             cinemanum = Integer.parseInt(input.nextLine());
         } catch(NumberFormatException e){
             System.out.println("Please input a valid number!");
+            System.out.println("Returning to staff menu...\n");
+            return;
+        } catch(IndexOutOfBoundsException i){
+            System.out.println("Your choice is not a valid number!");
             System.out.println("Returning to staff menu...\n");
             return;
         }
@@ -194,6 +206,10 @@ public class MovieScreeningController{
         } catch(NumberFormatException e){
             System.out.println("Please input a valid number!");
             return null;
+        } catch(IndexOutOfBoundsException i){
+            System.out.println("Your choice is not a valid number!");
+            System.out.println("Returning to staff menu...\n");
+            return null;
         }
         Movie movieToFetch = myMovieList.get(indexList.get(movienum-1));
 
@@ -230,6 +246,10 @@ public class MovieScreeningController{
             System.out.println("Please input a valid number!");
             System.out.println("Returning to staff menu...\n");
             return null;
+        } catch(IndexOutOfBoundsException i){
+            System.out.println("Your choice is not a valid number!");
+            System.out.println("Returning to staff menu...\n");
+            return null;
         }
         MovieScreening movieScreeningToChange = myMovieScreeningList.get(indexList2.get(choice-1));
         return movieScreeningToChange;
@@ -252,7 +272,7 @@ public class MovieScreeningController{
 
         MovieScreening retrievedScreening = movieScreeningToChange();
         if(retrievedScreening == null){
-            System.out.println("No screenings to remove");
+            System.out.println("Either there is no screenings to remove, or your input is invalid.");
             System.out.println("Returning to staff menu...\n");
             return;
         }
@@ -289,7 +309,7 @@ public class MovieScreeningController{
         ArrayList<MovieScreening> myMovieScreeningList = movieScreeninginout.readData(new MovieScreening());
         MovieScreening retrievedScreening = movieScreeningToChange();
         if(retrievedScreening==null){
-            System.out.println("No screenings to update");
+            System.out.println("Either there is no screenings to update, or your input is invalid.");
             System.out.println("Returning to staff menu...\n");
             return;
         }

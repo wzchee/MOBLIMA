@@ -46,7 +46,7 @@ public class UserController {
                 System.out.println("Please input a valid number!");
                 System.out.println("Returning to staff menu...\n");
                 return;
-            }
+            } 
 
             switch(choice){
                 case 1:
@@ -60,10 +60,13 @@ public class UserController {
                             System.out.println("Please input a valid option!");
                             movienum = Integer.parseInt(input.nextLine());
                         }
-                        
                     } catch(NumberFormatException e){
                         System.out.println("PLease input a valid number!");
                         System.out.println("Returning to user menu...\n");
+                        break;
+                    } catch(IndexOutOfBoundsException i){
+                        System.out.println("Your choice is not a valid number!");
+                        System.out.println("Returning to staff menu...\n");
                         break;
                     }
                     String movieSearch = movieList.get(movienum-1).getMovieTitle();
@@ -146,6 +149,10 @@ public class UserController {
             System.out.println("Please input a valid number!");
             System.out.println("Returning to staff menu...\n");
             return;
+        } catch(IndexOutOfBoundsException i){
+            System.out.println("Your choice is not a valid number!");
+            System.out.println("Returning to staff menu...\n");
+            return;
         }
         Cineplex cineplexchosen = cineplexList.get(cineplexnum-1);
 
@@ -169,6 +176,10 @@ public class UserController {
             movienum = Integer.parseInt(input.nextLine());
         } catch(NumberFormatException e){
             System.out.println("Please input a valid number!");
+            System.out.println("Returning to staff menu...\n");
+            return;
+        } catch(IndexOutOfBoundsException i){
+            System.out.println("Your choice is not a valid number!");
             System.out.println("Returning to staff menu...\n");
             return;
         }
@@ -202,6 +213,10 @@ public class UserController {
             screeningnum = Integer.parseInt(input.nextLine());
         } catch(NumberFormatException e){
             System.out.println("Please input a valid number!");
+            System.out.println("Returning to staff menu...\n");
+            return;
+        } catch(IndexOutOfBoundsException i){
+            System.out.println("Your choice is not a valid number!");
             System.out.println("Returning to staff menu...\n");
             return;
         }
@@ -250,6 +265,10 @@ public class UserController {
             System.out.println("Please input a valid number!");
             System.out.println("Returning to staff menu...\n");
             return;
+        } catch(IndexOutOfBoundsException i){
+            System.out.println("Your choice is not a valid number!");
+            System.out.println("Returning to staff menu...\n");
+            return;
         }
         Cineplex cineplexchosen = cineplexList.get(cineplexnum-1);
 
@@ -279,6 +298,10 @@ public class UserController {
             movienum = Integer.parseInt(input.nextLine());
         } catch(NumberFormatException e){
             System.out.println("Please input a valid number!");
+            System.out.println("Returning to staff menu...\n");
+            return;
+        } catch(IndexOutOfBoundsException i){
+            System.out.println("Your choice is not a valid number!");
             System.out.println("Returning to staff menu...\n");
             return;
         }
@@ -314,6 +337,10 @@ public class UserController {
             System.out.println("Please input a valid number!");
             System.out.println("Returning to staff menu...\n");
             return;
+        } catch(IndexOutOfBoundsException i){
+            System.out.println("Your choice is not a valid number!");
+            System.out.println("Returning to staff menu...\n");
+            return;
         }
         MovieScreening screeningchosen = screeningList.get(screeningnum-1);
 
@@ -327,6 +354,10 @@ public class UserController {
             seatId = Integer.parseInt(input.nextLine());
         } catch(NumberFormatException e){
             System.out.println("Please input a valid number!");
+            System.out.println("Returning to staff menu...\n");
+            return;
+        } catch(IndexOutOfBoundsException i){
+            System.out.println("Your choice is not a valid number!");
             System.out.println("Returning to staff menu...\n");
             return;
         }

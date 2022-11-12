@@ -114,6 +114,10 @@ public class ConfigurablesController {
                 // overwrite existing file
                 configList.set(0, config);
                 configinout.writeData(configList, new Configurables());
+            default:
+                System.out.println("Please input a valid number!");
+                System.out.println("Returning to staff menu...\n");
+                return;
         }
     }
 }

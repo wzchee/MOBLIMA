@@ -73,6 +73,10 @@ public class StaffController{
                         System.out.println("Please input a valid number!");
                         System.out.println("Returning to staff menu...\n");
                         break;
+                    } catch(IndexOutOfBoundsException i){
+                        System.out.println("Your choice is not a valid number!");
+                        System.out.println("Returning to staff menu...\n");
+                        break;
                     }
                     String movieTitle = movieList.get(movienum-1).getMovieTitle();
                     MovieController.removeMovie(movieTitle);
