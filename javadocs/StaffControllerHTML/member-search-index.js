@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"controller","c":"StaffController","l":"fetchDetails(String)","u":"fetchDetails(java.lang.String)"},{"p":"controller","c":"StaffController","l":"loggedin(String)","u":"loggedin(java.lang.String)"},{"p":"controller","c":"StaffController","l":"StaffController()","u":"%3Cinit%3E()"}];updateSearchResults();

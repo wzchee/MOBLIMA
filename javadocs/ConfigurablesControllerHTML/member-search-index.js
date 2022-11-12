@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"controller","c":"ConfigurablesController","l":"ConfigurablesController()","u":"%3Cinit%3E()"},{"p":"controller","c":"ConfigurablesController","l":"configure()"}];updateSearchResults();
