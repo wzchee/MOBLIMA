@@ -353,8 +353,8 @@ public class UserController {
         try{
             seatId = Integer.parseInt(input.nextLine());
         } catch(NumberFormatException e){
-            System.out.println("Please input a valid number!");
-            System.out.println("Returning to staff menu...\n");
+            System.out.println("Invalid input!");
+            System.out.println("Returning to user menu...\n");
             return;
         } catch(IndexOutOfBoundsException i){
             System.out.println("Your choice is not a valid number!");

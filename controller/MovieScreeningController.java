@@ -191,9 +191,10 @@ public class MovieScreeningController{
         ArrayList<Movie> myMovieList = movieinout.readData(new Movie());
         ArrayList<Integer> indexList = new ArrayList<Integer>();
         System.out.println("Here is the full list of movies");
+        int count = 0;
         for(int i=0; i<myMovieList.size(); i++){
             if(!myMovieList.get(i).getMovieStatus().equals("End_Of_Showing")){
-                System.out.println(i+1 + ". " + myMovieList.get(i).getMovieTitle());
+                System.out.println(++count + ". " + myMovieList.get(i).getMovieTitle());
                 indexList.add(i);
             }      
         }
